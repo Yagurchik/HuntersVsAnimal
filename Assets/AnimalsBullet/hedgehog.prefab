@@ -8,6 +8,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1382752002501188310, guid: f06378108faeb174992bb8167bfe1dff, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1382752002501188310, guid: f06378108faeb174992bb8167bfe1dff, type: 3}
+      propertyPath: m_Color.b
+      value: 0.7341866
+      objectReference: {fileID: 0}
+    - target: {fileID: 1382752002501188310, guid: f06378108faeb174992bb8167bfe1dff, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7830189
+      objectReference: {fileID: 0}
+    - target: {fileID: 1382752002501188310, guid: f06378108faeb174992bb8167bfe1dff, type: 3}
+      propertyPath: m_Color.r
+      value: 0.04801533
+      objectReference: {fileID: 0}
     - target: {fileID: 5747140210554134700, guid: f06378108faeb174992bb8167bfe1dff, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.05
@@ -50,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6828916170621314043, guid: f06378108faeb174992bb8167bfe1dff, type: 3}
       propertyPath: m_Name
-      value: BaseBullet Variant
+      value: Hedgehog
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

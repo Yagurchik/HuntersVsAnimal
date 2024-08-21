@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public List<Animal> animals;
     public bool stepPlayer = false;
     public bool stepGame = false;
+    public bool isPaused = false;
 
     private LevelTransition levelTransition;
 

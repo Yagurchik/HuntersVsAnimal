@@ -17,12 +17,27 @@ public class Player : MonoBehaviour
     private static bool shootingPlayer = true;
 
     [SerializeField] private BallSpawner ballSpawner;
+
+    [SerializeField] private float minY = -5f;
+    [SerializeField] private float maxY = 5f;
+    //private LineRenderer lineRenderer;
     public void Awake()
     {
         magazine = new Magazine(magazineBullet);
+        //lineRenderer = gameObject.AddComponent<LineRenderer>();
+        //lineRenderer.positionCount = 5;
+        //lineRenderer.loop = true;
+        //lineRenderer.startWidth = 0.1f;
+        //lineRenderer.endWidth = 0.1f;
+        //lineRenderer.useWorldSpace = true;
+        //DrawBoundary();
     }
     void Update()
     {
+        if (GameManager.Instance.isPaused)
+        {
+            return; 
+        }
         if (GameManager.Instance.stepPlayer == true)
         {
             magazine.Reload();
@@ -31,29 +46,29 @@ public class Player : MonoBehaviour
             GameManager.Instance.stepPlayer = false;
             Debug.Log("Ход игрока");
         }
-        //if (bullet != null && shootingPlayer == true)
-        //{
-        //    if (Input.GetMouseButtonDown(0) && Input.mousePosition.y > transform.position.y)
-        //    {
-        //        shootingPlayer = false;
-        //        Shoot();
-        //    }
-        //}
         if (bullet != null && shootingPlayer == true)
         {
-                if (Input.touchCount > 0)
+            if (Input.touchCount > 0)
+            {
+
+                Touch touch = Input.GetTouch(0);
+                Vector3 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
+                touchPos.z = 0;
+                if (touchPos.y >= minY && touchPos.y <= maxY)
                 {
                     ballSpawner.useDots = true;
-                    Touch touch = Input.GetTouch(0);
-
+                    if (touchPos.y < minY && touchPos.y > maxY)
+                    {
+                        ballSpawner.useDots = false;
+                    }
                     if (touch.phase == TouchPhase.Ended)
                     {
-                    ballSpawner.useDots = false;
-                    Vector3 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
-                        touchPos.z = 0;
+                        ballSpawner.useDots = false;
                         Shoot(touch);
                     }
                 }
+            }
+
         }
     }
     private void Shoot(Touch touch)
@@ -68,21 +83,6 @@ public class Player : MonoBehaviour
         }
         OnShootEvent?.Invoke();
     }
-    //private IEnumerator ShootCoroutine()
-    //{
-    //    while (magazine.HasAmmo())
-    //    {
-    //        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    //        mousePos.z = 0;
-    //        Vector3 direction = (mousePos - transform.position).normalized;
-    //        GameObject projectile = Instantiate(bullet, transform.position, Quaternion.identity);
-    //        Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-    //        rb.velocity = direction * projectileForce; 
-    //        magazine.UseAmmo();
-    //        yield return new WaitForSeconds(0.1f);
-    //    }
-    //    StopCoroutine(coroutine);
-    //}
     private IEnumerator ShootCoroutine(Touch touch)
     {
         while (magazine.HasAmmo())
@@ -98,4 +98,22 @@ public class Player : MonoBehaviour
         }
         StopCoroutine(coroutine);
     }
+    public void DropDownBalls()
+    {
+        for(int i = 0; i < animalsCollect.Count; i++)
+        {
+            animalsCollect[i].DropDown();
+        }
+    }
+    //private void DrawBoundary()
+    //{
+    //    Vector3[] boundaryPoints = new Vector3[5];
+    //    boundaryPoints[0] = new Vector3(0, minY, 0);
+    //    boundaryPoints[1] = new Vector3(0, minY, 0);
+    //    boundaryPoints[2] = new Vector3(0, maxY, 0);
+    //    boundaryPoints[3] = new Vector3(0, maxY, 0);
+    //    boundaryPoints[4] = new Vector3(0, minY, 0);
+
+    //    lineRenderer.SetPositions(boundaryPoints);
+    //}
 }
