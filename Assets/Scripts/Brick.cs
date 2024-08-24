@@ -42,9 +42,6 @@ public class Brick : MonoBehaviour
             {
                 GameManager.Instance.LoseGame();
             }
-
-
-
     }
     private void OnDisable()
     {

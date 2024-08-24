@@ -30,7 +30,6 @@ public class LevelGenerator : MonoBehaviour
     }
     void OnEnable()
     {
-        Debug.Log("OnEnable called");
         if (GameManager.Instance.stage != 1)
         {
             GameManager.Instance.rooms.Add(this);
@@ -50,16 +49,16 @@ public class LevelGenerator : MonoBehaviour
         {
             List<LevelGenerator> roomsCopy = new List<LevelGenerator>(GameManager.Instance.rooms);
             foreach (LevelGenerator item in roomsCopy)
-                {
-                    Debug.Log("Ход врага");
-                    item.StepEnemy();
-                    if (m_Settings._enemyAddWaves > 0)
+            {
+                Debug.Log(this);
+                item.StepEnemy();
+                    if (item.m_Settings._enemyAddWaves > 0)
                     {
-                        m_Settings._enemyAddWaves--;
-                        CreateCell();
+                        item.m_Settings._enemyAddWaves--;
+                        item.CreateCell();
                     }
-                }
-                GameManager.Instance.stepGame = false;
+            }
+            GameManager.Instance.stepGame = false;
         }
     }
     private void CreateCell()
@@ -130,7 +129,7 @@ public class LevelGenerator : MonoBehaviour
                 GameManager.Instance.stepPlayer = true;
             }
         }
-        else if( m_Settings._enemyAddWaves !=0)
+        else if(m_Settings._enemyAddWaves !=0)
         {
             if (GameManager.Instance.stepPlayer == false)
             {

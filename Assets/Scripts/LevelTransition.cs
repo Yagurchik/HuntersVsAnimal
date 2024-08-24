@@ -8,7 +8,6 @@ public class LevelTransition : MonoBehaviour
     public GameObject PausePanel, LosePanel, WinPanel;
     public int level;
     private Player player;
-    
     public void PauseButtonPressed()
     {
         PausePanel.SetActive(true);
