@@ -27,7 +27,6 @@ public class Brick : MonoBehaviour
             {
                 hp -= animal.dmg;
                 UpdateHealthUI();
-                
             }
             if (hp <= 0)
             {
@@ -38,10 +37,13 @@ public class Brick : MonoBehaviour
     public void Step()
     {
         transform.position += Vector3.down;
-        if (transform.position.y <= levelGenerator.losePos)
-        {
-             GameManager.Instance.LoseGame();
-        }
+
+            if (transform.position.y <= GameManager.Instance.losePos)
+            {
+                GameManager.Instance.LoseGame();
+            }
+
+
 
     }
     private void OnDisable()

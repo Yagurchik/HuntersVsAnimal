@@ -5,39 +5,61 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
-    public Vector2Int size;
+    [SerializeField] private Vector2Int size;
     public GameObject brickPrefab;
     [SerializeField] private Settings m_Settings;
     [SerializeField] public List<GameObject> EnemyCollection = new List<GameObject>();
     [SerializeField] private List<Brick> BrickCollection = new List<Brick>();
     private List<Vector3> transformsSize = new List<Vector3>();
     private List<int> _posTransform = new List<int>();
-    public float losePos;
-    public bool lose;
 
-    void Awake()
+    private void Start()
     {
-        for (int i = 0; i < 11; i++)
+        if (GameManager.Instance.stage == 1)
         {
-            for (int j = 0; j < 5; j++)
+            GameManager.Instance.rooms.Add(this);
+            for (int i = 0; i < 11; i++)
             {
-                transformsSize.Add(new Vector3(i, -j, 0));
+                for (int j = 0; j < size.y; j++)
+                {
+                    transformsSize.Add(new Vector3(i, -j, 0));
+                }
             }
+            CreateCell();
         }
-        CreateCell();
+    }
+    void OnEnable()
+    {
+        Debug.Log("OnEnable called");
+        if (GameManager.Instance.stage != 1)
+        {
+            GameManager.Instance.rooms.Add(this);
+            for (int i = 0; i < 11; i++)
+            {
+                for (int j = 0; j < size.y; j++)
+                {
+                    transformsSize.Add(new Vector3(i, -j, 0));
+                }
+            }
+            CreateCell();
+        }
     }
     private void Update()
     {
         if (GameManager.Instance.stepGame == true)
         {
-            GameManager.Instance.stepGame = false;
-            Debug.Log("Ход врага");
-            StepEnemy();
-            if (m_Settings._enemyAddWaves > 0)
-            {
-                m_Settings._enemyAddWaves--;
-                CreateCell();
-            }
+            List<LevelGenerator> roomsCopy = new List<LevelGenerator>(GameManager.Instance.rooms);
+            foreach (LevelGenerator item in roomsCopy)
+                {
+                    Debug.Log("Ход врага");
+                    item.StepEnemy();
+                    if (m_Settings._enemyAddWaves > 0)
+                    {
+                        m_Settings._enemyAddWaves--;
+                        CreateCell();
+                    }
+                }
+                GameManager.Instance.stepGame = false;
         }
     }
     private void CreateCell()
@@ -46,7 +68,6 @@ public class LevelGenerator : MonoBehaviour
         for (int y = 0; y < transformsSize.Count; y++)
         {
             _posTransform.Add(y);
-            Debug.Log(y);
         }
         Vector3 _pos = transform.position;
         float enemySet = m_Settings._enemySet * EnemyHard();
@@ -55,7 +76,6 @@ public class LevelGenerator : MonoBehaviour
             if (_posTransform.Count > 0)
             {
                 int x = GetRandomElement(_posTransform);
-                Debug.Log(x);
                 Vector3 newPosition = _pos + transformsSize[x];
                 _posTransform.Remove(x);
 
@@ -109,15 +129,27 @@ public class LevelGenerator : MonoBehaviour
             {
                 GameManager.Instance.stepPlayer = true;
             }
-            else
+        }
+        else if( m_Settings._enemyAddWaves !=0)
+        {
+            if (GameManager.Instance.stepPlayer == false)
             {
-                Debug.Log("YOU LOSE");
+                GameManager.Instance.stepPlayer = true;
+                return;
             }
         }
         else
         {
-            Debug.Log("Win");
-            GameManager.Instance.WinGame();
+            if (GameManager.Instance.stage < GameManager.Instance.maxStage)
+            {
+                GameManager.Instance.NextStage();
+            }
+            else if(GameManager.Instance.rooms.Count == 1)
+            {
+                GameManager.Instance.WinGame();
+            }
+            Destroy(this);
+
         }
     }
     public void DestroyEnemy(GameObject enemy)
@@ -152,5 +184,9 @@ public class LevelGenerator : MonoBehaviour
     {
         int randomIndex = Random.Range(0, _posTransform.Count);
         return _posTransform[randomIndex];
+    }
+    private void OnDestroy()
+    {
+        GameManager.Instance.rooms.Remove(this);
     }
 }

@@ -16,6 +16,7 @@ public class Animal : MonoBehaviour
     private static bool speedIncreased = false;
     private static bool onColEnter = false;
     private float timer = 0f;
+    private float globalTimer = 0f;
 
     private Collider2D objectCollider;
     private Rigidbody2D _rb;
@@ -57,7 +58,8 @@ public class Animal : MonoBehaviour
         if (onColEnter)
         {
             timer += Time.deltaTime;
-            if (timer >= 3f)
+            globalTimer += Time.deltaTime;
+            if (timer >= 3f || globalTimer >= 7f)
             {
                 Time.timeScale = 3.0f;
                 onColEnter = false;

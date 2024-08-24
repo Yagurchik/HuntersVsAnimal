@@ -11,6 +11,12 @@ public class GameManager : MonoBehaviour
     public bool stepPlayer = false;
     public bool stepGame = false;
     public bool isPaused = false;
+    public int stage = 1;
+    public int maxStage;
+    [SerializeField] private GameObject secondStage;
+    [SerializeField] private GameObject secondStageButton;
+    public float losePos = -4;
+    public List<LevelGenerator> rooms = new List<LevelGenerator>();
 
     private LevelTransition levelTransition;
 
@@ -43,5 +49,11 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1.0f;
         stepPlayer = true;
+    }
+    public void NextStage()
+    {
+        stage ++;
+        secondStage.SetActive(true);
+        secondStageButton.SetActive(true);
     }
 }

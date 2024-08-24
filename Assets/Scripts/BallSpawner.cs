@@ -14,10 +14,23 @@ public class BallSpawner : MonoBehaviour
     [SerializeField] public bool useDots;
 
     [SerializeField] LineRenderer line;
+    [SerializeField] Stage stage;
 
     void Update()
     {
+        if (stage.orientation == Orientation.up)
+        {
             ray = Physics2D.Raycast(transform.position, transform.up, 20f, layerMask);
+        }
+        else if (stage.orientation == Orientation.right)
+        {
+            ray = Physics2D.Raycast(transform.position, transform.right, 20f, layerMask);
+        }
+        else if (stage.orientation == Orientation.left)
+        {
+            ray = Physics2D.Raycast(transform.position, -transform.right, 20f, layerMask);
+        }
+
             //Debug.DrawRay(transform.position, ray.point, Color.yellow);
 
             Vector2 reflactPos = Vector2.Reflect(new Vector3(ray.point.x, ray.point.y) - transform.position, ray.normal);
@@ -45,6 +58,7 @@ public class BallSpawner : MonoBehaviour
                     Dots.instance.DrawDottedLine(ray.point, ray.point + reflactPos.normalized * 2f);
                 }
             }
+            
             transform.rotation = Quaternion.AngleAxis(angle, transform.forward);
     }
 }
