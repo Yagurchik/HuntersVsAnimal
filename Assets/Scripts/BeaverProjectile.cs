@@ -47,7 +47,10 @@ public sealed class BeaverProjectile : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         flight = GetComponent<ProjectilePhysics2D>();
         SpriteRenderer renderer = GetComponent<SpriteRenderer>();
-        if (renderer != null) renderer.sortingOrder = visualSortingOrder;
+        if (renderer != null)
+        {
+            renderer.sortingOrder = visualSortingOrder;
+        }
     }
 
     public void ConfigureRunUpgrades(int defenseHealthUpgradeLevel, float bonusDamage, bool ultimate)
@@ -55,7 +58,10 @@ public sealed class BeaverProjectile : MonoBehaviour
         remainingPumpkinBounces = ultimate ? 1 : 0;
         damConversion = (1 + Mathf.Clamp(defenseHealthUpgradeLevel, 0, 3)) * 0.01f
            ;
-        if (animal != null) animal.SetRuntimeDamage(animal.dmg + Mathf.Max(0f, bonusDamage));
+        if (animal != null)
+        {
+            animal.SetRuntimeDamage(animal.dmg + Mathf.Max(0f, bonusDamage));
+        }
     }
 
     public void Launch(Vector2 direction, float launchSpeed)
@@ -76,9 +82,17 @@ public sealed class BeaverProjectile : MonoBehaviour
         firstEnemy = null;
         encounteredFirstEnemy = passedFirstEnemy = requestedFastForward = false;
         timeInside.Clear();
-        if (room != null && room.DefenseLine > 1) EnsureDam();
+        if (room != null && room.DefenseLine > 1)
+        {
+            EnsureDam();
+        }
+
         flight?.StopFlight();
-        if (flight != null) flight.enabled = false;
+        if (flight != null)
+        {
+            flight.enabled = false;
+        }
+
         if (body != null)
         {
             body.velocity = Vector2.zero;
@@ -90,15 +104,30 @@ public sealed class BeaverProjectile : MonoBehaviour
 
     public void PrepareForRecall()
     {
-        if (!launched) return;
+        if (!launched)
+        {
+            return;
+        }
+
         launched = false;
-        if (flight != null) flight.enabled = true;
-        if (body != null) body.simulated = true;
+        if (flight != null)
+        {
+            flight.enabled = true;
+        }
+
+        if (body != null)
+        {
+            body.simulated = true;
+        }
     }
 
     private void FixedUpdate()
     {
-        if (!launched || animal == null || animal.IsReturning) return;
+        if (!launched || animal == null || animal.IsReturning)
+        {
+            return;
+        }
+
         flightTime += Time.fixedDeltaTime;
         if (flightTime >= maximumFlightSeconds || room == null)
         {
@@ -125,16 +154,7 @@ public sealed class BeaverProjectile : MonoBehaviour
         // a thin collider before the fivefold slowdown takes effect.
         if (beforeCount == 0)
         {
-            Vector2 start = transform.position;
-            float distance = Vector2.Distance(start, next);
-            int steps = Mathf.Max(1, Mathf.CeilToInt(distance / (sweepRadius * 1.5f)));
-            for (int step = 1; step <= steps; step++)
-            {
-                Vector2 sample = Vector2.Lerp(start, next, (float)step / steps);
-                if (FindTouching(sample) <= 0) continue;
-                next = sample;
-                break;
-            }
+            next = StopAtFirstEnemyOnPath(transform.position, next);
         }
         // Sweeping can stop this step inside an enemy before the predicted wall.
         // Reflect and request acceleration only when the actual position reaches it.
@@ -176,18 +196,42 @@ public sealed class BeaverProjectile : MonoBehaviour
         }
     }
 
+    private Vector2 StopAtFirstEnemyOnPath(Vector2 start, Vector2 end)
+    {
+        float distance = Vector2.Distance(start, end);
+        int steps = Mathf.Max(1, Mathf.CeilToInt(distance / (sweepRadius * 1.5f)));
+        for (int step = 1; step <= steps; step++)
+        {
+            Vector2 sample = Vector2.Lerp(start, end, (float)step / steps);
+            if (FindTouching(sample) > 0)
+            {
+                return sample;
+            }
+        }
+
+        return end;
+    }
+
     private void UpdateFirstEnemyPassage()
     {
-        if (!encounteredFirstEnemy || passedFirstEnemy) return;
+        if (!encounteredFirstEnemy || passedFirstEnemy)
+        {
+            return;
+        }
+
         if (firstEnemy == null || firstEnemy.IsDefeated || !touching.Contains(firstEnemy))
+        {
             passedFirstEnemy = true;
+        }
     }
 
     private void FaceFlightDirection()
     {
         if (heading.sqrMagnitude > 0.001f)
+        {
             transform.rotation = Quaternion.FromToRotation(Vector3.up, heading)
                 * Quaternion.Euler(0f, 0f, visualAngleOffset);
+        }
     }
 
     private int FindTouching(Vector2 position)
@@ -200,7 +244,9 @@ public sealed class BeaverProjectile : MonoBehaviour
             Brick enemy = collider != null ? collider.GetComponentInParent<Brick>() : null;
             if (enemy != null && !enemy.IsDefeated && enemy.levelGenerator != null
                 && enemy.levelGenerator.GetComponentInParent<Stage>() == room)
+            {
                 touching.Add(enemy);
+            }
         }
         return touching.Count;
     }
@@ -209,12 +255,24 @@ public sealed class BeaverProjectile : MonoBehaviour
     {
         stale.Clear();
         foreach (KeyValuePair<Brick, float> pair in timeInside)
-            if (pair.Key == null || !touching.Contains(pair.Key)) stale.Add(pair.Key);
-        foreach (Brick enemy in stale) timeInside.Remove(enemy);
+        {
+            if (pair.Key == null || !touching.Contains(pair.Key))
+            {
+                stale.Add(pair.Key);
+            }
+        }
+
+        foreach (Brick enemy in stale)
+        {
+            timeInside.Remove(enemy);
+        }
 
         foreach (Brick enemy in touching)
         {
-            if (enemy == null || enemy.IsDefeated) continue;
+            if (enemy == null || enemy.IsDefeated)
+            {
+                continue;
+            }
             // First bite is immediate; further bites occur every 0.05 seconds
             // while this same enemy still encloses the projectile.
             if (!timeInside.TryGetValue(enemy, out float elapsed))
@@ -228,13 +286,20 @@ public sealed class BeaverProjectile : MonoBehaviour
                 elapsed -= damageInterval;
                 Bite(enemy);
             }
-            if (enemy != null) timeInside[enemy] = elapsed;
+            if (enemy != null)
+            {
+                timeInside[enemy] = elapsed;
+            }
         }
     }
 
     private void Bite(Brick enemy)
     {
-        if (enemy == null || enemy.IsDefeated) return;
+        if (enemy == null || enemy.IsDefeated)
+        {
+            return;
+        }
+
         if (!encounteredFirstEnemy)
         {
             encounteredFirstEnemy = true;
@@ -245,25 +310,41 @@ public sealed class BeaverProjectile : MonoBehaviour
         enemy.ApplyProjectileHit(animal, point, -heading);
         EmitSawdust(point, heading);
         float actualDamage = Mathf.Max(0f, previousHealth - enemy.hp);
-        if (actualDamage <= 0f) return;
+        if (actualDamage <= 0f)
+        {
+            return;
+        }
+
         damageDealt += actualDamage;
         float reinforcement = actualDamage * damConversion;
         if (room != null && room.DefenseLine == 1)
         {
             MainRoomBarricade barricade = room.GetComponent<MainRoomBarricade>();
-            if (barricade == null) barricade = GameManager.Instance?.Front?.Barricade;
+            if (barricade == null)
+            {
+                barricade = GameManager.Instance?.Front?.Barricade;
+            }
+
             barricade?.AddBeaverHealth(reinforcement);
         }
         else
         {
-            if (dam == null) EnsureDam();
+            if (dam == null)
+            {
+                EnsureDam();
+            }
+
             dam?.AddHealth(reinforcement, room);
         }
     }
 
     private void EmitSawdust(Vector2 point, Vector2 direction)
     {
-        if (sawdustPrefab == null) return;
+        if (sawdustPrefab == null)
+        {
+            return;
+        }
+
         Vector2 side = new Vector2(-direction.y, direction.x).normalized;
         for (int i = 0; i < 2; i++)
         {
@@ -276,16 +357,28 @@ public sealed class BeaverProjectile : MonoBehaviour
 
     private void Finish()
     {
-        if (!launched) return;
+        if (!launched)
+        {
+            return;
+        }
+
         launched = false;
         animal.CompleteAtBottom();
     }
 
     private void EnsureDam()
     {
-        if (room == null || room.DefenseLine == 1 || damPrefab == null) return;
+        if (room == null || room.DefenseLine == 1 || damPrefab == null)
+        {
+            return;
+        }
+
         dam = room.GetComponentInChildren<BeaverDam>(true);
-        if (dam == null) dam = Instantiate(damPrefab, room.transform);
+        if (dam == null)
+        {
+            dam = Instantiate(damPrefab, room.transform);
+        }
+
         dam.AddHealth(0f, room);
     }
 }

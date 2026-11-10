@@ -50,9 +50,15 @@ public sealed class FireflyBonfire : MonoBehaviour
         int ownerIndex = AnimalProjectileQueue.FireflyIndex)
     {
         if (targetRoom == null || targetRoom.IsLost || damage <= 0f || durationTurns <= 0)
+        {
             return null;
+        }
 
-        if (prefab == null) prefab = Resources.Load<FireflyBonfire>("Effects/Firefly/Bonfire");
+        if (prefab == null)
+        {
+            prefab = Resources.Load<FireflyBonfire>("Effects/Firefly/Bonfire");
+        }
+
         if (prefab == null)
         {
             Debug.LogError("The authored Effects/Firefly/Bonfire prefab is missing.");
@@ -72,7 +78,11 @@ public sealed class FireflyBonfire : MonoBehaviour
         int initialCount = All.Count;
         for (int i = initialCount - 1; i >= 0; i--)
         {
-            if (i >= All.Count) continue;
+            if (i >= All.Count)
+            {
+                continue;
+            }
+
             FireflyBonfire bonfire = All[i];
             if (bonfire == null)
             {
@@ -101,7 +111,10 @@ public sealed class FireflyBonfire : MonoBehaviour
             flameProperties = new MaterialPropertyBlock();
             if (flameRenderer != null && flameRenderer.sharedMaterial != null
                 && flameRenderer.sharedMaterial.HasProperty(TintProperty))
+            {
                 flameTint = flameRenderer.sharedMaterial.GetColor(TintProperty);
+            }
+
             flames.Play(true);
         }
         illumination.Illuminate(Mathf.Max(0.1f, lightRadius));
@@ -110,7 +123,11 @@ public sealed class FireflyBonfire : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (!initialized || flameRenderer == null) return;
+        if (!initialized || flameRenderer == null)
+        {
+            return;
+        }
+
         float targetOpacity = HasEnemyOnFire() ? occupiedOpacity : 1f;
         visualOpacity = Mathf.MoveTowards(visualOpacity, targetOpacity,
             Time.deltaTime / Mathf.Max(0.01f, opacityTransitionDuration));
@@ -125,26 +142,40 @@ public sealed class FireflyBonfire : MonoBehaviour
 
     private bool HasEnemyOnFire()
     {
-        if (room == null) return false;
+        if (room == null)
+        {
+            return false;
+        }
+
         Vector3 firePosition = transform.position;
         foreach (GameObject enemyObject in room.EnemyCollection)
         {
             if (enemyObject == null || !enemyObject.activeInHierarchy
-                || !enemyObject.TryGetComponent(out Brick enemy) || !enemy.OccupiesGrid) continue;
+                || !enemyObject.TryGetComponent(out Brick enemy) || !enemy.OccupiesGrid)
+            {
+                continue;
+            }
+
             Vector2Int size = enemy.Footprint;
             Vector3 center = enemy.transform.position;
             int x = Mathf.FloorToInt(firePosition.x - center.x + size.x * 0.5f);
             int y = Mathf.FloorToInt(center.y - firePosition.y + size.y * 0.5f);
             if (x >= 0 && y >= 0 && x < size.x && y < size.y
                 && (enemy.UsesBossHealth || enemy.OccupiesFootprintOffset(new Vector2Int(x, y))))
+            {
                 return true;
+            }
         }
         return false;
     }
 
     private int ProcessAfterEnemyTurn(int turnNumber)
     {
-        if (!initialized || fading || turnNumber <= lastProcessedTurn) return 0;
+        if (!initialized || fading || turnNumber <= lastProcessedTurn)
+        {
+            return 0;
+        }
+
         lastProcessedTurn = turnNumber;
         if (room == null || room.IsLost)
         {
@@ -159,37 +190,66 @@ public sealed class FireflyBonfire : MonoBehaviour
         {
             GameObject enemyObject = room.EnemyCollection[i];
             if (enemyObject == null || !enemyObject.TryGetComponent(out Brick enemy)
-                || enemy.IsDefeated) continue;
+                || enemy.IsDefeated)
+            {
+                continue;
+            }
+
             if (((Vector2)enemy.transform.position - (Vector2)transform.position).sqrMagnitude
-                > radiusSquared + 0.0001f) continue;
+                > radiusSquared + 0.0001f)
+            {
+                continue;
+            }
+
             enemy.TakeAfterTurnDamage(damagePerTurn, CombatDamageSource.Fire, damageOwner);
             hits++;
         }
 
         remainingTurns--;
         name = "Firefly Bonfire (" + Mathf.Max(0, remainingTurns) + " turns)";
-        if (remainingTurns <= 0) Expire();
+        if (remainingTurns <= 0)
+        {
+            Expire();
+        }
+
         return hits;
     }
 
     private void OnEnable()
     {
-        if (!fading && !All.Contains(this)) All.Add(this);
-        if (initialized && !fading && flames != null) flames.Play(true);
+        if (!fading && !All.Contains(this))
+        {
+            All.Add(this);
+        }
+
+        if (initialized && !fading && flames != null)
+        {
+            flames.Play(true);
+        }
     }
 
     private void OnDisable()
     {
         All.Remove(this);
-        if (flames != null) flames.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        if (flames != null)
+        {
+            flames.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
         // Leaving a room can stop its coroutines. Spent visual embers must not
         // remain as an abandoned effect when that room is activated again.
-        if (fading && Application.isPlaying) Destroy(gameObject);
+        if (fading && Application.isPlaying)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Expire()
     {
-        if (fading) return;
+        if (fading)
+        {
+            return;
+        }
+
         fading = true;
         remainingTurns = 0;
         All.Remove(this);
@@ -205,7 +265,11 @@ public sealed class FireflyBonfire : MonoBehaviour
         float initialRate = flames != null ? flames.emission.rateOverTime.constant : 0f;
         for (float elapsed = 0f; elapsed < fadeDuration; elapsed += Time.deltaTime)
         {
-            if (room == null || room.IsLost) break;
+            if (room == null || room.IsLost)
+            {
+                break;
+            }
+
             if (flames != null)
             {
                 var emission = flames.emission;
@@ -220,7 +284,10 @@ public sealed class FireflyBonfire : MonoBehaviour
     private void OnDestroy()
     {
         All.Remove(this);
-        if (LastSpawned == this) LastSpawned = null;
+        if (LastSpawned == this)
+        {
+            LastSpawned = null;
+        }
     }
 }
 
@@ -245,12 +312,18 @@ public static class FireflyFlameArt
 
     public static bool Apply(ParticleSystem particles, ParticleSystemRenderer renderer)
     {
-        if (particles == null || renderer == null || !EnsureLoaded()) return false;
+        if (particles == null || renderer == null || !EnsureLoaded())
+        {
+            return false;
+        }
 
         ParticleSystem.TextureSheetAnimationModule animation = particles.textureSheetAnimation;
         animation.enabled = true;
         animation.mode = ParticleSystemAnimationMode.Sprites;
-        for (int i = 0; i < figures.Length; i++) animation.AddSprite(figures[i]);
+        for (int i = 0; i < figures.Length; i++)
+        {
+            animation.AddSprite(figures[i]);
+        }
         // Every emitted particle keeps one randomly selected figure. Its existing
         // movement, size, noise and fade modules continue to animate the fire.
         animation.frameOverTime = new ParticleSystem.MinMaxCurve(0f);
@@ -264,9 +337,16 @@ public static class FireflyFlameArt
 
     private static bool EnsureLoaded()
     {
-        if (figures != null && figures.Length == FigureCount && material != null) return true;
+        if (figures != null && figures.Length == FigureCount && material != null)
+        {
+            return true;
+        }
+
         atlas = Resources.Load<Texture2D>(ResourcePath);
-        if (atlas == null) return false;
+        if (atlas == null)
+        {
+            return false;
+        }
 
         figures = new Sprite[FigureCount];
         int index = 0;
@@ -293,8 +373,16 @@ public static class FireflyFlameArt
         }
 
         Shader shader = Shader.Find("Sprites/Default");
-        if (shader == null) shader = Shader.Find("UI/Default");
-        if (shader == null) return false;
+        if (shader == null)
+        {
+            shader = Shader.Find("UI/Default");
+        }
+
+        if (shader == null)
+        {
+            return false;
+        }
+
         material = new Material(shader)
         {
             name = "Runtime Firefly Flame Figures",

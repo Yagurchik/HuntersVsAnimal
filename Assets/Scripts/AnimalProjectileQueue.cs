@@ -166,7 +166,11 @@ public class AnimalProjectileQueue : MonoBehaviour
         public Sprite GetIcon()
         {
             Sprite skin = ProjectileSkins.EquippedArtwork(prefab);
-            if (skin != null) return skin;
+            if (skin != null)
+            {
+                return skin;
+            }
+
             if (icon != null)
             {
                 return icon;
@@ -181,7 +185,10 @@ public class AnimalProjectileQueue : MonoBehaviour
 
         public Color GetIconColor()
         {
-            if (ProjectileSkins.EquippedArtwork(prefab) != null) return Color.white;
+            if (ProjectileSkins.EquippedArtwork(prefab) != null)
+            {
+                return Color.white;
+            }
             // Dedicated HUD artwork already contains the intended palette. Prefab
             // tinting is only useful for the fallback combat sprite.
             if (icon != null)
@@ -271,9 +278,16 @@ public class AnimalProjectileQueue : MonoBehaviour
         public bool UpgradeAmmo(int maximumLevel)
         {
             EnsureRuntimeInitialized();
-            if (!IsConfigured || ammoUpgradeLevel >= maximumLevel) return false;
+            if (!IsConfigured || ammoUpgradeLevel >= maximumLevel)
+            {
+                return false;
+            }
 
-            if (!unlocked) unlocked = true;
+            if (!unlocked)
+            {
+                unlocked = true;
+            }
+
             ammoUpgradeLevel = Mathf.Max(1, ammoUpgradeLevel + 1);
             upgradeLevel++;
             return true;
@@ -282,7 +296,11 @@ public class AnimalProjectileQueue : MonoBehaviour
         public bool UpgradeRepeatFire(int maximumLevel)
         {
             EnsureRuntimeInitialized();
-            if (!IsAvailable || repeatFireUpgradeLevel >= maximumLevel) return false;
+            if (!IsAvailable || repeatFireUpgradeLevel >= maximumLevel)
+            {
+                return false;
+            }
+
             repeatFireUpgradeLevel++;
             upgradeLevel++;
             return true;
@@ -291,7 +309,11 @@ public class AnimalProjectileQueue : MonoBehaviour
         public bool UpgradeBurn(int maximumLevel)
         {
             EnsureRuntimeInitialized();
-            if (!IsAvailable || burnUpgradeLevel >= maximumLevel) return false;
+            if (!IsAvailable || burnUpgradeLevel >= maximumLevel)
+            {
+                return false;
+            }
+
             burnUpgradeLevel++;
             upgradeLevel++;
             return true;
@@ -300,7 +322,11 @@ public class AnimalProjectileQueue : MonoBehaviour
         public bool UpgradeFireflyUltimate()
         {
             EnsureRuntimeInitialized();
-            if (!IsAvailable || fireflyUltimate) return false;
+            if (!IsAvailable || fireflyUltimate)
+            {
+                return false;
+            }
+
             fireflyUltimate = true;
             upgradeLevel++;
             return true;
@@ -309,7 +335,11 @@ public class AnimalProjectileQueue : MonoBehaviour
         public bool UpgradeRabbitPackStrength(int maximumLevel)
         {
             EnsureRuntimeInitialized();
-            if (!IsAvailable || rabbitPackStrengthUpgradeLevel >= maximumLevel) return false;
+            if (!IsAvailable || rabbitPackStrengthUpgradeLevel >= maximumLevel)
+            {
+                return false;
+            }
+
             rabbitPackStrengthUpgradeLevel++;
             upgradeLevel++;
             return true;
@@ -318,7 +348,11 @@ public class AnimalProjectileQueue : MonoBehaviour
         public bool UpgradeRabbitBreeding(int maximumLevel)
         {
             EnsureRuntimeInitialized();
-            if (!IsAvailable || rabbitBreedingUpgradeLevel >= maximumLevel) return false;
+            if (!IsAvailable || rabbitBreedingUpgradeLevel >= maximumLevel)
+            {
+                return false;
+            }
+
             rabbitBreedingUpgradeLevel++;
             upgradeLevel++;
             return true;
@@ -327,7 +361,11 @@ public class AnimalProjectileQueue : MonoBehaviour
         public bool UpgradeRabbitFirstBreeding(int maximumLevel)
         {
             EnsureRuntimeInitialized();
-            if (!IsAvailable || rabbitFirstBreedingUpgradeLevel >= maximumLevel) return false;
+            if (!IsAvailable || rabbitFirstBreedingUpgradeLevel >= maximumLevel)
+            {
+                return false;
+            }
+
             rabbitFirstBreedingUpgradeLevel++;
             upgradeLevel++;
             return true;
@@ -336,7 +374,11 @@ public class AnimalProjectileQueue : MonoBehaviour
         public bool UpgradeRabbitUltimate()
         {
             EnsureRuntimeInitialized();
-            if (!IsAvailable || rabbitUltimate) return false;
+            if (!IsAvailable || rabbitUltimate)
+            {
+                return false;
+            }
+
             rabbitUltimate = true;
             upgradeLevel++;
             return true;
@@ -345,7 +387,11 @@ public class AnimalProjectileQueue : MonoBehaviour
         public bool UpgradeHoneyBadgerRadius(int maximumLevel)
         {
             EnsureRuntimeInitialized();
-            if (!IsAvailable || honeyBadgerRadiusUpgradeLevel >= maximumLevel) return false;
+            if (!IsAvailable || honeyBadgerRadiusUpgradeLevel >= maximumLevel)
+            {
+                return false;
+            }
+
             honeyBadgerRadiusUpgradeLevel++;
             upgradeLevel++;
             return true;
@@ -354,7 +400,11 @@ public class AnimalProjectileQueue : MonoBehaviour
         public bool UpgradeHedgehogRadius(int maximumLevel)
         {
             EnsureRuntimeInitialized();
-            if (!IsAvailable || hedgehogRadiusUpgradeLevel >= maximumLevel) return false;
+            if (!IsAvailable || hedgehogRadiusUpgradeLevel >= maximumLevel)
+            {
+                return false;
+            }
+
             hedgehogRadiusUpgradeLevel++;
             upgradeLevel++;
             return true;
@@ -363,7 +413,11 @@ public class AnimalProjectileQueue : MonoBehaviour
         public bool UpgradeHedgehogQuillDamage(int maximumLevel)
         {
             EnsureRuntimeInitialized();
-            if (!IsAvailable || hedgehogQuillDamageUpgradeLevel >= maximumLevel) return false;
+            if (!IsAvailable || hedgehogQuillDamageUpgradeLevel >= maximumLevel)
+            {
+                return false;
+            }
+
             hedgehogQuillDamageUpgradeLevel++;
             upgradeLevel++;
             return true;
@@ -372,7 +426,11 @@ public class AnimalProjectileQueue : MonoBehaviour
         public bool UpgradeHedgehogUltimate()
         {
             EnsureRuntimeInitialized();
-            if (!IsAvailable || hedgehogUltimate) return false;
+            if (!IsAvailable || hedgehogUltimate)
+            {
+                return false;
+            }
+
             hedgehogUltimate = true;
             upgradeLevel++;
             return true;
@@ -381,7 +439,11 @@ public class AnimalProjectileQueue : MonoBehaviour
         public bool UpgradeHoneyBadgerChain(int maximumLevel)
         {
             EnsureRuntimeInitialized();
-            if (!IsAvailable || honeyBadgerChainUpgradeLevel >= maximumLevel) return false;
+            if (!IsAvailable || honeyBadgerChainUpgradeLevel >= maximumLevel)
+            {
+                return false;
+            }
+
             honeyBadgerChainUpgradeLevel++;
             upgradeLevel++;
             return true;
@@ -390,7 +452,11 @@ public class AnimalProjectileQueue : MonoBehaviour
         public bool UpgradeHoneyBadgerUltimate()
         {
             EnsureRuntimeInitialized();
-            if (!IsAvailable || honeyBadgerUltimate) return false;
+            if (!IsAvailable || honeyBadgerUltimate)
+            {
+                return false;
+            }
+
             honeyBadgerUltimate = true;
             upgradeLevel++;
             return true;
@@ -399,7 +465,11 @@ public class AnimalProjectileQueue : MonoBehaviour
         public bool UpgradeBoarBounces(int maximumLevel)
         {
             EnsureRuntimeInitialized();
-            if (!IsAvailable || boarBouncesUpgradeLevel >= maximumLevel) return false;
+            if (!IsAvailable || boarBouncesUpgradeLevel >= maximumLevel)
+            {
+                return false;
+            }
+
             boarBouncesUpgradeLevel++;
             upgradeLevel++;
             return true;
@@ -408,7 +478,11 @@ public class AnimalProjectileQueue : MonoBehaviour
         public bool UpgradeBoarFirstHit(int maximumLevel)
         {
             EnsureRuntimeInitialized();
-            if (!IsAvailable || boarFirstHitUpgradeLevel >= maximumLevel) return false;
+            if (!IsAvailable || boarFirstHitUpgradeLevel >= maximumLevel)
+            {
+                return false;
+            }
+
             boarFirstHitUpgradeLevel++;
             upgradeLevel++;
             return true;
@@ -417,7 +491,11 @@ public class AnimalProjectileQueue : MonoBehaviour
         public bool UpgradeBoarUltimate()
         {
             EnsureRuntimeInitialized();
-            if (!IsAvailable || boarUltimate) return false;
+            if (!IsAvailable || boarUltimate)
+            {
+                return false;
+            }
+
             boarUltimate = true;
             upgradeLevel++;
             return true;
@@ -426,7 +504,11 @@ public class AnimalProjectileQueue : MonoBehaviour
         public bool UpgradeBeaverDefenseHealth(int maximumLevel)
         {
             EnsureRuntimeInitialized();
-            if (!IsAvailable || beaverDefenseHealthUpgradeLevel >= maximumLevel) return false;
+            if (!IsAvailable || beaverDefenseHealthUpgradeLevel >= maximumLevel)
+            {
+                return false;
+            }
+
             beaverDefenseHealthUpgradeLevel++;
             upgradeLevel++;
             return true;
@@ -435,7 +517,11 @@ public class AnimalProjectileQueue : MonoBehaviour
         public bool UpgradeBeaverDamage(int maximumLevel)
         {
             EnsureRuntimeInitialized();
-            if (!IsAvailable || beaverDamageUpgradeLevel >= maximumLevel) return false;
+            if (!IsAvailable || beaverDamageUpgradeLevel >= maximumLevel)
+            {
+                return false;
+            }
+
             beaverDamageUpgradeLevel++;
             upgradeLevel++;
             return true;
@@ -444,7 +530,11 @@ public class AnimalProjectileQueue : MonoBehaviour
         public bool UpgradeBeaverUltimate()
         {
             EnsureRuntimeInitialized();
-            if (!IsAvailable || beaverUltimate) return false;
+            if (!IsAvailable || beaverUltimate)
+            {
+                return false;
+            }
+
             beaverUltimate = true;
             upgradeLevel++;
             return true;
@@ -453,48 +543,76 @@ public class AnimalProjectileQueue : MonoBehaviour
         public bool UpgradeFrogRadius(int maximumLevel)
         {
             EnsureRuntimeInitialized();
-            if (!IsAvailable || frogRadiusUpgradeLevel >= maximumLevel) return false;
+            if (!IsAvailable || frogRadiusUpgradeLevel >= maximumLevel)
+            {
+                return false;
+            }
+
             frogRadiusUpgradeLevel++; upgradeLevel++; return true;
         }
 
         public bool UpgradeFrogChorus(int maximumLevel)
         {
             EnsureRuntimeInitialized();
-            if (!IsAvailable || frogChorusUpgradeLevel >= maximumLevel) return false;
+            if (!IsAvailable || frogChorusUpgradeLevel >= maximumLevel)
+            {
+                return false;
+            }
+
             frogChorusUpgradeLevel++; upgradeLevel++; return true;
         }
 
         public bool UpgradeFrogUltimate()
         {
             EnsureRuntimeInitialized();
-            if (!IsAvailable || frogUltimate) return false;
+            if (!IsAvailable || frogUltimate)
+            {
+                return false;
+            }
+
             frogUltimate = true; upgradeLevel++; return true;
         }
 
         public bool UpgradeSquirrelDetonation(int maximumLevel)
         {
             EnsureRuntimeInitialized();
-            if (!IsAvailable || squirrelDetonationUpgradeLevel >= maximumLevel) return false;
+            if (!IsAvailable || squirrelDetonationUpgradeLevel >= maximumLevel)
+            {
+                return false;
+            }
+
             squirrelDetonationUpgradeLevel++; upgradeLevel++; return true;
         }
 
         public bool UpgradeSquirrelBinding(int maximumLevel)
         {
             EnsureRuntimeInitialized();
-            if (!IsAvailable || squirrelBindingUpgradeLevel >= maximumLevel) return false;
+            if (!IsAvailable || squirrelBindingUpgradeLevel >= maximumLevel)
+            {
+                return false;
+            }
+
             squirrelBindingUpgradeLevel++; upgradeLevel++; return true;
         }
 
         public bool UpgradeSquirrelUltimate()
         {
             EnsureRuntimeInitialized();
-            if (!IsAvailable || squirrelUltimate) return false;
+            if (!IsAvailable || squirrelUltimate)
+            {
+                return false;
+            }
+
             squirrelUltimate = true; upgradeLevel++; return true;
         }
 
         private void EnsureRuntimeInitialized()
         {
-            if (runtimeInitialized) return;
+            if (runtimeInitialized)
+            {
+                return;
+            }
+
             runtimeInitialized = true;
             ammoUpgradeLevel = unlocked ? 1 : 0;
             repeatFireUpgradeLevel = 0;
@@ -592,7 +710,10 @@ public class AnimalProjectileQueue : MonoBehaviour
             int total = 0;
             for (int i = 0; i < animals.Count; i++)
             {
-                if (IsAnimalAllowedForRun(i)) total += animals[i].RemainingAmmo;
+                if (IsAnimalAllowedForRun(i))
+                {
+                    total += animals[i].RemainingAmmo;
+                }
             }
 
             return total;
@@ -625,7 +746,11 @@ public class AnimalProjectileQueue : MonoBehaviour
             if (Array.IndexOf(preparedRunLoadout, starter) < 0)
             {
                 int replace = Array.IndexOf(preparedRunLoadout, preparedStartingAnimal);
-                if (replace < 0 || preparedRunLoadout[replace] == FireflyIndex) replace = preparedRunLoadout.Length - 1;
+                if (replace < 0 || preparedRunLoadout[replace] == FireflyIndex)
+                {
+                    replace = preparedRunLoadout.Length - 1;
+                }
+
                 preparedRunLoadout[replace] = starter;
             }
             preparedStartingAnimal = starter;
@@ -659,25 +784,45 @@ public class AnimalProjectileQueue : MonoBehaviour
 
     public static int StartingAmmoForAnimal(int animalIndex)
     {
-        if (animalIndex == FireflyIndex) return 5;
-        if (animalIndex == RabbitIndex) return 2;
+        if (animalIndex == FireflyIndex)
+        {
+            return 5;
+        }
+
+        if (animalIndex == RabbitIndex)
+        {
+            return 2;
+        }
+
         return MaximumBranchLevel;
     }
 
     public static bool PrepareRunLoadout(IReadOnlyList<int> selected, int locationIndex = 0)
     {
-        if (selected == null || selected.Count != 5) return false;
+        if (selected == null || selected.Count != 5)
+        {
+            return false;
+        }
+
         bool[] chosen = new bool[AnimalTypeCount];
         int[] prepared = new int[selected.Count];
         for (int i = 0; i < selected.Count; i++)
         {
             int index = selected[i];
-            if (index < 0 || index >= chosen.Length || chosen[index]) return false;
+            if (index < 0 || index >= chosen.Length || chosen[index])
+            {
+                return false;
+            }
+
             chosen[index] = true;
             prepared[i] = index;
         }
         int starter = StartingAnimalForLocation(locationIndex > 0 ? locationIndex : LevelProgression.SelectedMenuLocation);
-        if (!chosen[FireflyIndex] || !chosen[starter]) return false;
+        if (!chosen[FireflyIndex] || !chosen[starter])
+        {
+            return false;
+        }
+
         preparedRunLoadout = prepared;
         preparedStartingAnimal = starter;
         return true;
@@ -768,7 +913,11 @@ public class AnimalProjectileQueue : MonoBehaviour
 
     public void SetAllVolleyMode(bool enabled)
     {
-        if (allVolleyEnabled == enabled) return;
+        if (allVolleyEnabled == enabled)
+        {
+            return;
+        }
+
         allVolleyEnabled = enabled;
         AllVolleyModeChanged?.Invoke(allVolleyEnabled);
     }
@@ -822,18 +971,30 @@ public class AnimalProjectileQueue : MonoBehaviour
 
     public bool ConfigureRunLoadout(IReadOnlyList<int> selected, int locationIndex = 0)
     {
-        if (selected == null || selected.Count != 5 || animals.Count <= FireflyIndex) return false;
+        if (selected == null || selected.Count != 5 || animals.Count <= FireflyIndex)
+        {
+            return false;
+        }
+
         bool[] chosen = new bool[animals.Count];
         for (int i = 0; i < selected.Count; i++)
         {
             int index = selected[i];
             if (index < 0 || index >= animals.Count || chosen[index]
-                || !animals[index].IsConfigured) return false;
+                || !animals[index].IsConfigured)
+            {
+                return false;
+            }
+
             chosen[index] = true;
         }
         int location = locationIndex > 0 ? locationIndex : CurrentStartingLocation;
         int starter = StartingAnimalForLocation(location);
-        if (starter >= chosen.Length || !chosen[FireflyIndex] || !chosen[starter]) return false;
+        if (starter >= chosen.Length || !chosen[FireflyIndex] || !chosen[starter])
+        {
+            return false;
+        }
+
         selectedForRun = chosen;
         ConfigureStartingProjectiles(location);
         selectedIndex = FireflyIndex;
@@ -856,14 +1017,23 @@ public class AnimalProjectileQueue : MonoBehaviour
             {
                 animals[i].Unlock();
                 if (i != FireflyIndex && i != RabbitIndex)
+                {
                     while (animals[i].AmmoUpgradeLevel < MaximumBranchLevel)
-                        if (!animals[i].UpgradeAmmo(MaximumBranchLevel)) break;
+                    {
+                        if (!animals[i].UpgradeAmmo(MaximumBranchLevel))
+                        {
+                            break;
+                        }
+                    }
+                }
             }
         }
         if (StartingAnimalIndex == RabbitIndex)
         {
             for (int rank = 0; rank < MaximumBranchLevel; rank++)
+            {
                 animals[RabbitIndex].UpgradeRabbitBreeding(MaximumBranchLevel);
+            }
         }
         selectedIndex = FireflyIndex;
     }
@@ -871,11 +1041,25 @@ public class AnimalProjectileQueue : MonoBehaviour
     public void SetMaximumAllowedAnimalIndex(int maximumIndex)
     {
         int normalized = animals.Count == 0 ? -1 : Mathf.Clamp(maximumIndex, -1, animals.Count - 1);
-        if (maximumAllowedAnimalIndex == normalized) return;
+        if (maximumAllowedAnimalIndex == normalized)
+        {
+            return;
+        }
+
         maximumAllowedAnimalIndex = normalized;
         for (int i = 0; i < animals.Count; i++)
-            if (!IsAnimalAllowedForRun(i)) animals[i].ClearAllAmmo();
-        if (!HasAmmo(selectedIndex)) selectedIndex = FindFirstWithAmmo();
+        {
+            if (!IsAnimalAllowedForRun(i))
+            {
+                animals[i].ClearAllAmmo();
+            }
+        }
+
+        if (!HasAmmo(selectedIndex))
+        {
+            selectedIndex = FindFirstWithAmmo();
+        }
+
         SelectionChanged?.Invoke(selectedIndex);
         AmmoChanged?.Invoke();
         UpgradesChanged?.Invoke();
@@ -884,7 +1068,10 @@ public class AnimalProjectileQueue : MonoBehaviour
     public bool ForceNextUpgradeOption(int animalIndex, UpgradeKind kind)
     {
         if (!IsAnimalAllowedForRun(animalIndex) || !animals[animalIndex].IsConfigured)
+        {
             return false;
+        }
+
         hasForcedUpgradeOption = true;
         forcedUpgradeAnimalIndex = animalIndex;
         forcedUpgradeKind = kind;
@@ -894,7 +1081,11 @@ public class AnimalProjectileQueue : MonoBehaviour
 
     public void ClearForcedUpgradeOption()
     {
-        if (!hasForcedUpgradeOption) return;
+        if (!hasForcedUpgradeOption)
+        {
+            return;
+        }
+
         hasForcedUpgradeOption = false;
         forcedUpgradeAnimalIndex = -1;
         UpgradesChanged?.Invoke();
@@ -902,7 +1093,11 @@ public class AnimalProjectileQueue : MonoBehaviour
 
     public bool CanChooseUpgrade(int index)
     {
-        if (index < 0 || index >= animals.Count || !animals[index].IsConfigured) return false;
+        if (index < 0 || index >= animals.Count || !animals[index].IsConfigured)
+        {
+            return false;
+        }
+
         List<UpgradeOption> options = GetAvailableUpgradeOptions();
         return options.Exists(option => option.AnimalIndex == index);
     }
@@ -956,7 +1151,11 @@ public class AnimalProjectileQueue : MonoBehaviour
 
     public float GetRabbitPackDamagePerRabbit(int index)
     {
-        if (index != RabbitIndex || index < 0 || index >= animals.Count) return 0f;
+        if (index != RabbitIndex || index < 0 || index >= animals.Count)
+        {
+            return 0f;
+        }
+
         return Mathf.Clamp(animals[index].RabbitPackStrengthUpgradeLevel, 0,
             MaximumBranchLevel);
     }
@@ -980,7 +1179,11 @@ public class AnimalProjectileQueue : MonoBehaviour
 
     public int GetRabbitInitialReplicationHits(int index)
     {
-        if (index != RabbitIndex || index < 0 || index >= animals.Count) return 5;
+        if (index != RabbitIndex || index < 0 || index >= animals.Count)
+        {
+            return 5;
+        }
+
         int reduction = Mathf.Clamp(GetRabbitFirstBreedingUpgradeLevel(index), 0, MaximumBranchLevel);
         return Mathf.Clamp(animals[index].EnemyHitsToReplicate - reduction, 1,
             GetRabbitMaximumReplicationHits(index));
@@ -1035,14 +1238,22 @@ public class AnimalProjectileQueue : MonoBehaviour
 
     public float GetHoneyBadgerAttackRadius(int index)
     {
-        if (index != HoneyBadgerIndex || index < 0 || index >= animals.Count) return 1.2f;
+        if (index != HoneyBadgerIndex || index < 0 || index >= animals.Count)
+        {
+            return 1.2f;
+        }
+
         int rank = animals[index].HoneyBadgerRadiusUpgradeLevel;
         return 2f + rank;
     }
 
     public int GetHoneyBadgerMaximumAttacks(int index)
     {
-        if (index != HoneyBadgerIndex || index < 0 || index >= animals.Count) return 5;
+        if (index != HoneyBadgerIndex || index < 0 || index >= animals.Count)
+        {
+            return 5;
+        }
+
         switch (animals[index].HoneyBadgerChainUpgradeLevel)
         {
             case 1: return 7;
@@ -1054,7 +1265,11 @@ public class AnimalProjectileQueue : MonoBehaviour
 
     public int GetHoneyBadgerConsecutiveAttacks(int index)
     {
-        if (index != HoneyBadgerIndex || index < 0 || index >= animals.Count) return 1;
+        if (index != HoneyBadgerIndex || index < 0 || index >= animals.Count)
+        {
+            return 1;
+        }
+
         return Mathf.Clamp(animals[index].HoneyBadgerChainUpgradeLevel + 1, 1, 4);
     }
 
@@ -1072,7 +1287,11 @@ public class AnimalProjectileQueue : MonoBehaviour
 
     public int GetBoarMaximumBounces(int index)
     {
-        if (index != BoarIndex || index < 0 || index >= animals.Count) return 7;
+        if (index != BoarIndex || index < 0 || index >= animals.Count)
+        {
+            return 7;
+        }
+
         switch (animals[index].BoarBouncesUpgradeLevel)
         {
             case 1: return 10;
@@ -1084,7 +1303,11 @@ public class AnimalProjectileQueue : MonoBehaviour
 
     public float GetBoarFirstHitDamageMultiplier(int index)
     {
-        if (index != BoarIndex || index < 0 || index >= animals.Count) return 1f;
+        if (index != BoarIndex || index < 0 || index >= animals.Count)
+        {
+            return 1f;
+        }
+
         return Mathf.Clamp(animals[index].BoarFirstHitUpgradeLevel + 1, 1, 4);
     }
 
@@ -1134,7 +1357,11 @@ public class AnimalProjectileQueue : MonoBehaviour
 
     public int GetManualVolleyCount(int index)
     {
-        if (index != FireflyIndex || index < 0 || index >= animals.Count) return 1;
+        if (index != FireflyIndex || index < 0 || index >= animals.Count)
+        {
+            return 1;
+        }
+
         switch (animals[index].RepeatFireUpgradeLevel)
         {
             case 1: return fireflyManualVolleysLevel1;
@@ -1146,7 +1373,11 @@ public class AnimalProjectileQueue : MonoBehaviour
 
     public float GetManualVolleyDamageMultiplier(int index)
     {
-        if (index != FireflyIndex || index < 0 || index >= animals.Count) return 1f;
+        if (index != FireflyIndex || index < 0 || index >= animals.Count)
+        {
+            return 1f;
+        }
+
         switch (animals[index].RepeatFireUpgradeLevel)
         {
             case 1: return fireflyRepeatDamageLevel1;
@@ -1158,15 +1389,27 @@ public class AnimalProjectileQueue : MonoBehaviour
 
     public float GetBurnDamageMultiplier(int index)
     {
-        if (index != FireflyIndex || index < 0 || index >= animals.Count) return 1f;
+        if (index != FireflyIndex || index < 0 || index >= animals.Count)
+        {
+            return 1f;
+        }
+
         float baseDamage = GetFireflyBaseBurnDamage(index);
-        if (baseDamage <= 0f) return 1f;
+        if (baseDamage <= 0f)
+        {
+            return 1f;
+        }
+
         return GetBurnDamage(index) / baseDamage;
     }
 
     public float GetBurnDamage(int index)
     {
-        if (index != FireflyIndex || index < 0 || index >= animals.Count) return 25f;
+        if (index != FireflyIndex || index < 0 || index >= animals.Count)
+        {
+            return 25f;
+        }
+
         return (GetFireflyBaseBurnDamage(index) + animals[index].BurnUpgradeLevel * fireflyBurnDamagePerUpgrade)
             * MetaProgression.FireflyBurnDamageMultiplier;
     }
@@ -1178,9 +1421,16 @@ public class AnimalProjectileQueue : MonoBehaviour
 
     public float GetExplosionRadius(int index)
     {
-        if (index < 0 || index >= animals.Count) return 0f;
+        if (index < 0 || index >= animals.Count)
+        {
+            return 0f;
+        }
+
         if (index == HedgehogIndex && animals[index].HedgehogRadiusUpgradeLevel > 0)
+        {
             return animals[index].HedgehogRadiusUpgradeLevel + 1f;
+        }
+
         return animals[index].ExplosionRadius;
     }
 
@@ -1211,16 +1461,27 @@ public class AnimalProjectileQueue : MonoBehaviour
         List<UpgradeOption> options = GetAvailableUpgradeOptions();
         UpgradeOption option = options.Find(candidate => candidate.AnimalIndex == index);
         // Compatibility for scripted/editor callers that used the old animal-only API.
-        if (option == null && options.Count > 0) option = options[0];
+        if (option == null && options.Count > 0)
+        {
+            option = options[0];
+        }
+
         return option != null && Upgrade(option.AnimalIndex, option.Kind);
     }
 
     public bool Upgrade(int index, UpgradeKind kind)
     {
         List<UpgradeOption> options = GetAvailableUpgradeOptions();
-        if (!options.Exists(option => option.AnimalIndex == index && option.Kind == kind)) return false;
+        if (!options.Exists(option => option.AnimalIndex == index && option.Kind == kind))
+        {
+            return false;
+        }
 
-        if (index < 0 || index >= animals.Count) return false;
+        if (index < 0 || index >= animals.Count)
+        {
+            return false;
+        }
+
         AnimalProjectileEntry entry = animals[index];
         bool wasUnlocked = entry.IsUnlocked;
         bool changed;
@@ -1308,12 +1569,21 @@ public class AnimalProjectileQueue : MonoBehaviour
                 changed = false;
                 break;
         }
-        if (!changed) return false;
+        if (!changed)
+        {
+            return false;
+        }
+
         selectedUpgradeCount++;
         if (index == FrogIndex)
+        {
             FrogRider.UpgradeAll(GetFrogJumpRadius(index), GetFrogChorusRank(index), HasFrogUltimate(index));
+        }
+
         if (index == SquirrelIndex)
+        {
             SquirrelAcorn.UpgradeAll(GetSquirrelEarlyExplosionChance(index), GetSquirrelBindingRank(index), HasSquirrelUltimate(index));
+        }
 
         if (hasForcedUpgradeOption
             && forcedUpgradeAnimalIndex == index
@@ -1333,7 +1603,11 @@ public class AnimalProjectileQueue : MonoBehaviour
             }
         }
 
-        if (kind == UpgradeKind.Ammo) AmmoChanged?.Invoke();
+        if (kind == UpgradeKind.Ammo)
+        {
+            AmmoChanged?.Invoke();
+        }
+
         UpgradesChanged?.Invoke();
         return true;
     }
@@ -1343,9 +1617,16 @@ public class AnimalProjectileQueue : MonoBehaviour
         List<UpgradeOption> options = new List<UpgradeOption>();
         for (int i = 0; i < animals.Count; i++)
         {
-            if (!IsAnimalAllowedForRun(i)) continue;
+            if (!IsAnimalAllowedForRun(i))
+            {
+                continue;
+            }
+
             AnimalProjectileEntry entry = animals[i];
-            if (!entry.IsConfigured) continue;
+            if (!entry.IsConfigured)
+            {
+                continue;
+            }
 
             // Firefly has a fixed volley; rabbit can be unlocked here but has no quantity branch.
             if (i != FireflyIndex && entry.AmmoUpgradeLevel < MaximumBranchLevel
@@ -1507,74 +1788,102 @@ public class AnimalProjectileQueue : MonoBehaviour
             {
                 int defenseRank = entry.BeaverDefenseHealthUpgradeLevel;
                 if (defenseRank < MaximumBranchLevel)
+                {
                     options.Add(CreateOption(i, UpgradeKind.BeaverDefenseHealth,
                         entry.DisplayName + ": крепкая плотина",
                         "Здоровье плотины/баррикады от нанесённого урона: "
                         + (defenseRank + 1) + "% -> " + (defenseRank + 2) + "%"
                         + "\nПредел плотины: 25% макс. HP баррикады"
                         + "\nУровень " + defenseRank + "/" + MaximumBranchLevel));
+                }
+
                 int damageRank = entry.BeaverDamageUpgradeLevel;
                 if (damageRank < MaximumBranchLevel)
+                {
                     options.Add(CreateOption(i, UpgradeKind.BeaverDamage,
                         entry.DisplayName + ": крепкие зубы",
                         "Урон за укус: +" + (damageRank * 5) + " -> +"
                         + ((damageRank + 1) * 5) + "\nУровень "
                         + damageRank + "/" + MaximumBranchLevel));
+                }
+
                 if (entry.AmmoUpgradeLevel >= MaximumBranchLevel
                     && defenseRank >= MaximumBranchLevel
                     && damageRank >= MaximumBranchLevel
                     && !entry.HasBeaverUltimate)
+                {
                     options.Add(CreateOption(i, UpgradeKind.BeaverUltimate,
                         entry.DisplayName + ": отскок от тыквы",
                         "УЛЬТА: +1 отскок от поля тыквы"));
+                }
             }
 
             if (i == FrogIndex && entry.IsUnlocked)
             {
                 int radiusRank = entry.FrogRadiusUpgradeLevel;
                 if (radiusRank < MaximumBranchLevel)
+                {
                     options.Add(CreateOption(i, UpgradeKind.FrogRadius,
                         entry.DisplayName + ": дальний прыжок",
                         "Радиус прыжка: " + GetFrogJumpRadius(i).ToString("0.#")
                         + " -> " + (radiusRank + 3) + " клетки\nУровень "
                         + radiusRank + "/" + MaximumBranchLevel));
+                }
+
                 int chorusRank = entry.FrogChorusUpgradeLevel;
                 if (chorusRank < MaximumBranchLevel)
+                {
                     options.Add(CreateOption(i, UpgradeKind.FrogChorus,
                         entry.DisplayName + ": лягушачий хор",
                         "Урон в комнате за каждую лягушку: +" + chorusRank + "% -> +"
                         + (chorusRank + 1) + "%\nУровень " + chorusRank + "/" + MaximumBranchLevel));
+                }
+
                 if (entry.AmmoUpgradeLevel >= MaximumBranchLevel
                     && radiusRank >= MaximumBranchLevel && chorusRank >= MaximumBranchLevel
                     && !entry.HasFrogUltimate)
+                {
                     options.Add(CreateOption(i, UpgradeKind.FrogUltimate,
                         entry.DisplayName + ": КВА",
                         "УЛЬТА: весь урон лягушки действует на цель и врагов в радиусе 1 клетки"));
+                }
             }
 
             if (i == SquirrelIndex && entry.IsUnlocked)
             {
                 int detonationRank = entry.SquirrelDetonationUpgradeLevel;
                 if (detonationRank < MaximumBranchLevel)
+                {
                     options.Add(CreateOption(i, UpgradeKind.SquirrelDetonation, entry.DisplayName + ": ранний взрыв",
                         "Шанс взрыва при повторном попадании белочки: "
                         + (detonationRank + 1) * 5 + "% -> " + (detonationRank + 2) * 5 + "%"
                         + "\nПри смерти врага жёлудь взрывается всегда"));
+                }
+
                 int vinesRank = entry.SquirrelBindingUpgradeLevel;
                 if (vinesRank < MaximumBranchLevel)
+                {
                     options.Add(CreateOption(i, UpgradeKind.SquirrelBinding, entry.DisplayName + ": лесные путы",
                         "Шанс оцепенения при взрыве: " + vinesRank * 3 + "% -> " + (vinesRank + 1) * 3
                         + "% для каждого врага\nЛозы удерживают врага 1 ход"));
+                }
+
                 if (entry.AmmoUpgradeLevel >= MaximumBranchLevel
                     && detonationRank >= MaximumBranchLevel && vinesRank >= MaximumBranchLevel
                     && !entry.HasSquirrelUltimate)
+                {
                     options.Add(CreateOption(i, UpgradeKind.SquirrelUltimate,
                         entry.DisplayName + ": цепная реакция",
                         "УЛЬТА: взрыв жёлудя подрывает соседние жёлуди\n"
                         + "Цепь продолжается, пока рядом есть жёлуди"));
+                }
             }
 
-            if (i != HoneyBadgerIndex || !entry.IsUnlocked) continue;
+            if (i != HoneyBadgerIndex || !entry.IsUnlocked)
+            {
+                continue;
+            }
+
             if (entry.HoneyBadgerRadiusUpgradeLevel < MaximumBranchLevel)
             {
                 int currentRank = entry.HoneyBadgerRadiusUpgradeLevel;
@@ -1613,7 +1922,10 @@ public class AnimalProjectileQueue : MonoBehaviour
             UpgradeOption forced = options.Find(option =>
                 option.AnimalIndex == forcedUpgradeAnimalIndex
                 && option.Kind == forcedUpgradeKind);
-            if (forced != null) return new List<UpgradeOption> { forced };
+            if (forced != null)
+            {
+                return new List<UpgradeOption> { forced };
+            }
         }
 
         return options;
@@ -1635,7 +1947,11 @@ public class AnimalProjectileQueue : MonoBehaviour
 
     private float GetFireflyBaseBurnDamage(int index)
     {
-        if (index < 0 || index >= animals.Count) return 25f;
+        if (index < 0 || index >= animals.Count)
+        {
+            return 25f;
+        }
+
         return GetFireflyBaseBurnDamage(animals[index]);
     }
 
@@ -1646,7 +1962,11 @@ public class AnimalProjectileQueue : MonoBehaviour
 
     private string RepeatFireDescription(int rank)
     {
-        if (rank <= 0) return "1 выстрел со 100%";
+        if (rank <= 0)
+        {
+            return "1 выстрел со 100%";
+        }
+
         int shots = rank == 1 ? fireflyManualVolleysLevel1
             : rank == 2 ? fireflyManualVolleysLevel2 : fireflyManualVolleysLevel3;
         float damage = rank == 1 ? fireflyRepeatDamageLevel1
@@ -1711,8 +2031,14 @@ public class AnimalProjectileQueue : MonoBehaviour
     {
         for (int i = 0; i < animals.Count; i++)
         {
-            if (IsAnimalAllowedForRun(i)) animals[i].Reload(GetManualVolleyCount(i));
-            else animals[i].ClearAllAmmo();
+            if (IsAnimalAllowedForRun(i))
+            {
+                animals[i].Reload(GetManualVolleyCount(i));
+            }
+            else
+            {
+                animals[i].ClearAllAmmo();
+            }
         }
 
         if (!HasAmmo(selectedIndex))
@@ -1726,15 +2052,27 @@ public class AnimalProjectileQueue : MonoBehaviour
 
     public void ClearAmmo(int index)
     {
-        if (index < 0 || index >= animals.Count) return;
+        if (index < 0 || index >= animals.Count)
+        {
+            return;
+        }
+
         animals[index].ClearCurrentVolleyAmmo();
-        if (index == selectedIndex) SelectNextWithAmmo();
+        if (index == selectedIndex)
+        {
+            SelectNextWithAmmo();
+        }
+
         AmmoChanged?.Invoke();
     }
 
     public bool CompleteVolley(int index)
     {
-        if (index < 0 || index >= animals.Count) return false;
+        if (index < 0 || index >= animals.Count)
+        {
+            return false;
+        }
+
         bool reloaded = animals[index].CompleteVolley();
         if (!HasAmmo(selectedIndex) && HasAmmo(index))
         {

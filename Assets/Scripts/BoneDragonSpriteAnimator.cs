@@ -24,25 +24,40 @@ public sealed class BoneDragonSpriteAnimator : MonoBehaviour
 
     private void Awake()
     {
-        if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>(true);
-        if (hitReaction == null) hitReaction = GetComponent<EnemyHitReaction>();
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>(true);
+        }
+
+        if (hitReaction == null)
+        {
+            hitReaction = GetComponent<EnemyHitReaction>();
+        }
 
         idleFrames = CreateIdleFrames();
 
         if (hitReaction != null && hitReaction.DamageSprite == null)
+        {
             hitReaction.SetDamageSprite(Resources.Load<Sprite>(damageResourcePath));
+        }
     }
 
     private void OnEnable()
     {
         elapsed = 0f;
         if (spriteRenderer != null && idleFrames != null && idleFrames.Length > 0)
+        {
             spriteRenderer.sprite = idleFrames[0];
+        }
     }
 
     private void Update()
     {
-        if (spriteRenderer == null || idleFrames == null || idleFrames.Length == 0) return;
+        if (spriteRenderer == null || idleFrames == null || idleFrames.Length == 0)
+        {
+            return;
+        }
+
         elapsed += Time.deltaTime;
         int frame = Mathf.FloorToInt(elapsed * FramesPerSecond) % idleFrames.Length;
         spriteRenderer.sprite = idleFrames[frame];
@@ -53,7 +68,10 @@ public sealed class BoneDragonSpriteAnimator : MonoBehaviour
         int safeFrameCount = Mathf.Max(2, uniqueIdleFrameCount);
         string cacheKey = idleFramesResourcePath + "|" + safeFrameCount + "|"
             + (pingPong ? "1" : "0") + "|" + Mathf.RoundToInt(frameWorldSize * 10000f);
-        if (IdleCache.TryGetValue(cacheKey, out Sprite[] cached)) return cached;
+        if (IdleCache.TryGetValue(cacheKey, out Sprite[] cached))
+        {
+            return cached;
+        }
 
         Sprite[] uniqueFrames = new Sprite[safeFrameCount];
         for (int frameIndex = 0; frameIndex < safeFrameCount; frameIndex++)
@@ -85,9 +103,14 @@ public sealed class BoneDragonSpriteAnimator : MonoBehaviour
 
         Sprite[] frames = new Sprite[safeFrameCount * 2 - 2];
         for (int i = 0; i < safeFrameCount; i++)
+        {
             frames[i] = uniqueFrames[i];
+        }
+
         for (int i = safeFrameCount - 2; i > 0; i--)
+        {
             frames[safeFrameCount + safeFrameCount - 2 - i] = uniqueFrames[i];
+        }
 
         IdleCache.Add(cacheKey, frames);
         return frames;

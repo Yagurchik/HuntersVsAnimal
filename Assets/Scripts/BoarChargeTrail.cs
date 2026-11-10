@@ -22,9 +22,17 @@ public sealed class BoarChargeTrail : MonoBehaviour
     private void Awake()
     {
         TrailRenderer obsoleteTrail = GetComponent<TrailRenderer>();
-        if (obsoleteTrail != null) obsoleteTrail.enabled = false;
+        if (obsoleteTrail != null)
+        {
+            obsoleteTrail.enabled = false;
+        }
+
         LineRenderer obsoleteLine = GetComponent<LineRenderer>();
-        if (obsoleteLine != null) obsoleteLine.enabled = false;
+        if (obsoleteLine != null)
+        {
+            obsoleteLine.enabled = false;
+        }
+
         BeginSegment(transform.position);
     }
 
@@ -36,9 +44,17 @@ public sealed class BoarChargeTrail : MonoBehaviour
 
     public void CompleteSegment(Vector3 end)
     {
-        if (!hasActiveSegment) return;
+        if (!hasActiveSegment)
+        {
+            return;
+        }
+
         hasActiveSegment = false;
-        if (dustSprite == null || Vector3.Distance(segmentStart, end) < 0.01f) return;
+        if (dustSprite == null || Vector3.Distance(segmentStart, end) < 0.01f)
+        {
+            return;
+        }
+
         BoarDustTrailSegment.Create(dustSprite, segmentStart, end,
             Mathf.Max(0.05f, puffSpacing), Mathf.Max(0.01f, trailWidth),
             Mathf.Max(0.05f, puffWorldSize), Mathf.Max(0.05f, fadeDuration), dustColor);
@@ -72,7 +88,10 @@ public sealed class BoarDustTrailSegment : MonoBehaviour
     {
         Vector2 travel = end - start;
         float distance = travel.magnitude;
-        if (sprite == null || distance < 0.01f) return;
+        if (sprite == null || distance < 0.01f)
+        {
+            return;
+        }
 
         GameObject root = new GameObject("Boar Dust Trail Segment");
         BoarDustTrailSegment segment = root.AddComponent<BoarDustTrailSegment>();
@@ -121,13 +140,20 @@ public sealed class BoarDustTrailSegment : MonoBehaviour
         for (int i = 0; i < puffs.Length; i++)
         {
             SpriteRenderer puff = puffs[i];
-            if (puff == null) continue;
+            if (puff == null)
+            {
+                continue;
+            }
+
             Color color = colors[i];
             color.a *= alpha;
             puff.color = color;
             puff.transform.localScale = initialScales[i] * Mathf.Lerp(0.82f, 1.12f, t);
             puff.transform.position += driftDirections[i] * Time.deltaTime;
         }
-        if (elapsed >= duration) Destroy(gameObject);
+        if (elapsed >= duration)
+        {
+            Destroy(gameObject);
+        }
     }
 }

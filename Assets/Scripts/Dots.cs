@@ -99,8 +99,14 @@ public class Dots : MonoBehaviour
         }
         if (impactMaterial != null)
         {
-            if (Application.isPlaying) Destroy(impactMaterial);
-            else DestroyImmediate(impactMaterial);
+            if (Application.isPlaying)
+            {
+                Destroy(impactMaterial);
+            }
+            else
+            {
+                DestroyImmediate(impactMaterial);
+            }
         }
     }
 
@@ -157,7 +163,9 @@ public class Dots : MonoBehaviour
             TrajectoryPath path = paths[i];
             totalLength += Vector2.Distance(path.Start, path.HitPoint);
             if (path.IncludeReflection)
+            {
                 totalLength += Vector2.Distance(path.HitPoint, path.ReflectionEnd);
+            }
         }
         int distanceSlots = Mathf.Max(1, maxDots - paths.Count);
         float spacing = Mathf.Max(0.05f, delta, totalLength / distanceSlots);
@@ -165,7 +173,9 @@ public class Dots : MonoBehaviour
         usedDotCount = 0;
         EnsurePool(maxDots);
         for (int i = 0; i < paths.Count && usedDotCount < maxDots; i++)
+        {
             WritePathDots(paths[i], spacing);
+        }
     }
 
     private void WritePathDots(TrajectoryPath path, float spacing)
@@ -269,7 +279,11 @@ public class Dots : MonoBehaviour
         EnsureImpactMarker();
         bool showImpact = impactRequested && visibility > 0.001f;
         impactMarker.enabled = showImpact;
-        if (!showImpact) return;
+        if (!showImpact)
+        {
+            return;
+        }
+
         impactMarker.transform.position = impactPosition;
         impactMarker.transform.rotation = Quaternion.AngleAxis(
             impactRotationSpeed * Time.unscaledTime, Vector3.forward);
@@ -282,7 +296,11 @@ public class Dots : MonoBehaviour
 
     private void EnsureImpactMarker()
     {
-        if (impactMarker != null) return;
+        if (impactMarker != null)
+        {
+            return;
+        }
+
         GameObject marker = new GameObject("Aim Impact Hexagon");
         marker.transform.SetParent(transform, false);
         impactMarker = marker.AddComponent<LineRenderer>();

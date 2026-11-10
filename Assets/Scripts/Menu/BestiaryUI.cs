@@ -22,7 +22,11 @@ public sealed class BestiaryUI : MonoBehaviour
 
     public static BestiaryUI Ensure(MenuHubController owner)
     {
-        if (owner.tabs == null || owner.tabs.Length < 3 || owner.tabs[2].page == null) return null;
+        if (owner.tabs == null || owner.tabs.Length < 3 || owner.tabs[2].page == null)
+        {
+            return null;
+        }
+
         Transform page = owner.tabs[2].page.transform;
         BestiaryUI view = page.Find("Bestiary Menu")?.GetComponent<BestiaryUI>();
         Transform open = page.Find("Forest Village Runtime/Viewport/Content/Village Field/Open Bestiary");
@@ -50,7 +54,11 @@ public sealed class BestiaryUI : MonoBehaviour
             panel.Find("Entry Lists/Projectiles").gameObject
         };
         listScrolls = new ScrollRect[lists.Length];
-        for (int i = 0; i < lists.Length; i++) listScrolls[i] = lists[i].GetComponent<ScrollRect>();
+        for (int i = 0; i < lists.Length; i++)
+        {
+            listScrolls[i] = lists[i].GetComponent<ScrollRect>();
+        }
+
         Transform detail = panel.Find("Detail");
         portrait = detail.Find("Portrait").GetComponent<Image>();
         title = detail.Find("Title").GetComponent<Text>();
@@ -58,7 +66,11 @@ public sealed class BestiaryUI : MonoBehaviour
         bodyScroll = detail.Find("Body Scroll").GetComponent<ScrollRect>();
         body = bodyScroll.content.GetComponent<Text>();
         entries = GetComponentsInChildren<BestiaryEntryView>(true);
-        foreach (BestiaryEntryView entry in entries) entry.Bind(SelectEntry);
+        foreach (BestiaryEntryView entry in entries)
+        {
+            entry.Bind(SelectEntry);
+        }
+
         open.onClick.RemoveAllListeners();
         open.onClick.AddListener(Show);
         Button close = panel.Find("Close").GetComponent<Button>();
@@ -88,7 +100,11 @@ public sealed class BestiaryUI : MonoBehaviour
 
     private void SelectSection(int index)
     {
-        if (selected != null) selected.SetSelected(false);
+        if (selected != null)
+        {
+            selected.SetSelected(false);
+        }
+
         selected = null;
         activeSection = Mathf.Clamp(index, 0, lists.Length - 1);
         for (int i = 0; i < lists.Length; i++)
@@ -97,20 +113,33 @@ public sealed class BestiaryUI : MonoBehaviour
             tabs[i].image.color = i == activeSection ? VillageUIStyle.Gold : VillageUIStyle.Green;
             tabs[i].GetComponentInChildren<Text>().color = i == activeSection
                 ? VillageUIStyle.Background : VillageUIStyle.Cream;
-            if (i == activeSection) listScrolls[i].verticalNormalizedPosition = 1f;
+            if (i == activeSection)
+            {
+                listScrolls[i].verticalNormalizedPosition = 1f;
+            }
         }
         foreach (BestiaryEntryView entry in entries)
+        {
             if ((int)entry.Category == activeSection)
             {
                 SelectEntry(entry);
                 break;
             }
+        }
     }
 
     private void SelectEntry(BestiaryEntryView entry)
     {
-        if (entry == null) return;
-        if (selected != null) selected.SetSelected(false);
+        if (entry == null)
+        {
+            return;
+        }
+
+        if (selected != null)
+        {
+            selected.SetSelected(false);
+        }
+
         selected = entry;
         selected.SetSelected(true);
         portrait.sprite = entry.Portrait;

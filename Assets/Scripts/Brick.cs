@@ -113,7 +113,11 @@ public class Brick : MonoBehaviour
     // health and is tinted so it stands out from ordinary enemies.
     public void ApplyClockEventVariant(float healthMultiplier, Color tint)
     {
-        if (defeated) return;
+        if (defeated)
+        {
+            return;
+        }
+
         float multiplier = Mathf.Max(1f, healthMultiplier);
         hp *= multiplier;
         maxHp *= multiplier;
@@ -148,10 +152,20 @@ public class Brick : MonoBehaviour
     {
         get
         {
-            if (!HasCustomFootprint) return Footprint.x * Footprint.y;
+            if (!HasCustomFootprint)
+            {
+                return Footprint.x * Footprint.y;
+            }
+
             int count = 0;
             for (int i = 0; i < occupiedCellOffsets.Count; i++)
-                if (IsOffsetInsideFootprint(occupiedCellOffsets[i])) count++;
+            {
+                if (IsOffsetInsideFootprint(occupiedCellOffsets[i]))
+                {
+                    count++;
+                }
+            }
+
             return Mathf.Max(1, count);
         }
     }
@@ -159,11 +173,20 @@ public class Brick : MonoBehaviour
     {
         get
         {
-            if (!HasCustomFootprint) return Footprint.y - 1;
+            if (!HasCustomFootprint)
+            {
+                return Footprint.y - 1;
+            }
+
             int lowest = 0;
             for (int i = 0; i < occupiedCellOffsets.Count; i++)
+            {
                 if (IsOffsetInsideFootprint(occupiedCellOffsets[i]))
+                {
                     lowest = Mathf.Max(lowest, occupiedCellOffsets[i].y);
+                }
+            }
+
             return lowest;
         }
     }
@@ -180,7 +203,11 @@ public class Brick : MonoBehaviour
     public void ConfigureSummonedVariant(int reward, Color tintMultiplier)
     {
         experienceReward = Mathf.Max(0, reward);
-        if (summonedVariant) return;
+        if (summonedVariant)
+        {
+            return;
+        }
+
         summonedVariant = true;
 
         Color tint = new Color(Mathf.Clamp01(tintMultiplier.r), Mathf.Clamp01(tintMultiplier.g),
@@ -197,14 +224,22 @@ public class Brick : MonoBehaviour
 
     public void SetSummonedHealth(float health)
     {
-        if (defeated || !summonedVariant) return;
+        if (defeated || !summonedVariant)
+        {
+            return;
+        }
+
         hp = maxHp = Mathf.Max(1f, health);
         UpdateHealthUI();
     }
 
     public void InheritBossHealth(Brick parent)
     {
-        if (!bossHealth || defeated || parent == null) return;
+        if (!bossHealth || defeated || parent == null)
+        {
+            return;
+        }
+
         hp = maxHp = Mathf.Max(1f, parent.MaxHp * BossHealthFraction);
         UpdateHealthUI();
     }
@@ -213,10 +248,18 @@ public class Brick : MonoBehaviour
     // death bonfire, or ordinary defeat effects are triggered.
     public float VanishForBossAbsorption()
     {
-        if (!OccupiesGrid) return 0f;
+        if (!OccupiesGrid)
+        {
+            return 0f;
+        }
+
         float stolenHealth = Mathf.Max(0f, hp);
         defeated = true;
-        if (stepAnimation != null) StopCoroutine(stepAnimation);
+        if (stepAnimation != null)
+        {
+            StopCoroutine(stepAnimation);
+        }
+
         stepAnimation = null;
         IsStepping = false;
         LevelGenerator room = levelGenerator;
@@ -230,7 +273,11 @@ public class Brick : MonoBehaviour
 
     public void AbsorbHealth(float amount)
     {
-        if (defeated || amount <= 0f) return;
+        if (defeated || amount <= 0f)
+        {
+            return;
+        }
+
         maxHp = Mathf.Min(float.MaxValue, maxHp + amount);
         hp = Mathf.Min(maxHp, hp + amount);
         UpdateHealthUI();
@@ -238,7 +285,11 @@ public class Brick : MonoBehaviour
 
     public void Heal(float amount)
     {
-        if (defeated || amount <= 0f) return;
+        if (defeated || amount <= 0f)
+        {
+            return;
+        }
+
         hp = Mathf.Min(maxHp, hp + amount);
         UpdateHealthUI();
     }
@@ -246,27 +297,52 @@ public class Brick : MonoBehaviour
     private void Awake()
     {
         restingLocalScale = transform.localScale;
-        if (spriteAnimator == null) spriteAnimator = GetComponentInChildren<Animator>();
+        if (spriteAnimator == null)
+        {
+            spriteAnimator = GetComponentInChildren<Animator>();
+        }
+
         hitReaction = GetComponent<EnemyHitReaction>();
         zombieResurrection = GetComponent<ZombieResurrection>();
         bossTurnController = GetComponent<BossEnemyTurnController>();
-        if (hitReaction == null) hitReaction = gameObject.AddComponent<EnemyHitReaction>();
-        if (GetComponent<EnemyBurnTint>() == null) gameObject.AddComponent<EnemyBurnTint>();
+        if (hitReaction == null)
+        {
+            hitReaction = gameObject.AddComponent<EnemyHitReaction>();
+        }
+
+        if (GetComponent<EnemyBurnTint>() == null)
+        {
+            gameObject.AddComponent<EnemyBurnTint>();
+        }
         // Also cover older scene instances/prefabs that predate the visual component.
         if (GetComponent<EnemyDarknessVisibility>() == null)
+        {
             gameObject.AddComponent<EnemyDarknessVisibility>();
+        }
+
         if (GetComponent<EnemyIllumination>() == null)
+        {
             gameObject.AddComponent<EnemyIllumination>();
+        }
+
         if (GetComponent<EnemyStatusEffects>() == null)
+        {
             gameObject.AddComponent<EnemyStatusEffects>();
+        }
+
         LevelGenerator spawnRoom = GetComponentInParent<LevelGenerator>();
         if (spawnRoom != null)
         {
-            if (!bossHealth) hp = spawnRoom.OrdinaryEnemyBaseHealth * HealthCoefficient;
+            if (!bossHealth)
+            {
+                hp = spawnRoom.OrdinaryEnemyBaseHealth * HealthCoefficient;
+            }
             else if (LevelProgression.Instance != null)
+            {
                 hp = spawnRoom.OrdinaryEnemyBaseHealth
                     * LevelProgression.Instance.GetBossHealthMultiplier(ClockSiegeDirector.BossHealthLineFor(spawnRoom.DefenseLine))
                     * BossHealthFraction;
+            }
         }
         if (LevelProgression.Instance != null)
         {
@@ -286,7 +362,9 @@ public class Brick : MonoBehaviour
         {
             Canvas oldBar = hpbar.GetComponentInParent<Canvas>();
             if (oldBar != null && oldBar.transform.IsChildOf(transform))
+            {
                 oldBar.gameObject.SetActive(false);
+            }
         }
         combatText = EnemyCombatTextUI.Ensure();
         combatText.Register(this, hp);
@@ -309,13 +387,19 @@ public class Brick : MonoBehaviour
         authoredSpriteOrderOffsets = new int[orderedSprites.Length];
         int currentColumnOrder = appliedColumnOrder == int.MinValue ? 0 : appliedColumnOrder;
         for (int i = 0; i < orderedSprites.Length; i++)
+        {
             authoredSpriteOrderOffsets[i] = orderedSprites[i].sortingOrder - currentColumnOrder;
+        }
+
         appliedColumnOrder = int.MinValue;
     }
 
     private void LateUpdate()
     {
-        if (orderedSprites == null) CacheSpriteOrderOffsets();
+        if (orderedSprites == null)
+        {
+            CacheSpriteOrderOffsets();
+        }
         // Grid columns have unit spacing. Give the right-hand head the higher
         // sprite order without changing the collider, occupied cells or HUD.
         LevelGenerator room = levelGenerator != null
@@ -323,10 +407,19 @@ public class Brick : MonoBehaviour
         float column = transform.position.x - (room != null ? room.transform.position.x : 0f);
         int columnOrder = Mathf.Clamp(Mathf.RoundToInt(column * 2f), 0,
             LevelGenerator.MaxColumns * 2);
-        if (columnOrder == appliedColumnOrder) return;
+        if (columnOrder == appliedColumnOrder)
+        {
+            return;
+        }
+
         for (int i = 0; i < orderedSprites.Length; i++)
+        {
             if (orderedSprites[i] != null)
+            {
                 orderedSprites[i].sortingOrder = columnOrder + authoredSpriteOrderOffsets[i];
+            }
+        }
+
         appliedColumnOrder = columnOrder;
     }
 
@@ -340,7 +433,11 @@ public class Brick : MonoBehaviour
 
     public void ApplySurvivalGrowth(float healthFactor, float damageFactor)
     {
-        if (defeated) return;
+        if (defeated)
+        {
+            return;
+        }
+
         float safeHealthFactor = Mathf.Max(1f, healthFactor);
         float safeDamageFactor = Mathf.Max(1f, damageFactor);
         hp *= safeHealthFactor;
@@ -351,7 +448,11 @@ public class Brick : MonoBehaviour
 
     public void ApplyCampaignWaveHealth(float waveMultiplier)
     {
-        if (defeated || GameManager.Instance == null || GameManager.Instance.IsSurvivalMode) return;
+        if (defeated || GameManager.Instance == null || GameManager.Instance.IsSurvivalMode)
+        {
+            return;
+        }
+
         float safeMultiplier = Mathf.Max(1f, waveMultiplier);
         hp *= safeMultiplier;
         maxHp *= safeMultiplier;
@@ -365,9 +466,17 @@ public class Brick : MonoBehaviour
             if (animal != null)
             {
                 GhostPhasing ghost = GetComponent<GhostPhasing>();
-                if (ghost != null && ghost.TryPassThrough(animal)) return;
+                if (ghost != null && ghost.TryPassThrough(animal))
+                {
+                    return;
+                }
+
                 BoarProjectile boar = animal.GetComponent<BoarProjectile>();
-                if (boar != null && boar.PassesThroughEnemies) return;
+                if (boar != null && boar.PassesThroughEnemies)
+                {
+                    return;
+                }
+
                 ContactPoint2D contact = collision.contactCount > 0
                     ? collision.GetContact(0) : default;
                 Vector2 impactPoint = collision.contactCount > 0
@@ -381,9 +490,17 @@ public class Brick : MonoBehaviour
 
     public bool ApplyProjectileHit(Animal animal, Vector2 impactPoint, Vector2 impactNormal)
     {
-        if (animal == null || IsDefeated) return false;
+        if (animal == null || IsDefeated)
+        {
+            return false;
+        }
+
         GhostPhasing ghost = GetComponent<GhostPhasing>();
-        if (ghost != null && ghost.TryPassThrough(animal)) return false;
+        if (ghost != null && ghost.TryPassThrough(animal))
+        {
+            return false;
+        }
+
         UniversalBossAbility universalBoss = GetComponent<UniversalBossAbility>();
         if (universalBoss != null && universalBoss.TryConsumeProjectile(animal))
         {
@@ -392,24 +509,45 @@ public class Brick : MonoBehaviour
         }
         // Beaver bites supply their own authored sawdust on every damage tick.
         if (animal.GetComponent<BeaverProjectile>() == null)
+        {
             PlayProjectileImpact(impactPoint, impactNormal);
+        }
+
         projectileEffects.Clear();
         animal.GetComponents(projectileEffects);
         if (zombieResurrection == null || !zombieResurrection.IsAwaitingResurrection)
+        {
             for (int i = 0; i < projectileEffects.Count; i++)
-                if (projectileEffects[i] != null) projectileEffects[i].ApplyTo(this);
+            {
+                if (projectileEffects[i] != null)
+                {
+                    projectileEffects[i].ApplyTo(this);
+                }
+            }
+        }
+
         float directDamage = animal.dmg;
         projectileDamageModifiers.Clear();
         animal.GetComponents(projectileDamageModifiers);
         for (int i = 0; i < projectileDamageModifiers.Count; i++)
+        {
             if (projectileDamageModifiers[i] != null)
+            {
                 directDamage = projectileDamageModifiers[i].ModifyDamage(this, directDamage);
+            }
+        }
+
         enemyProjectileDamageModifiers.Clear();
         GetComponents(enemyProjectileDamageModifiers);
         for (int i = 0; i < enemyProjectileDamageModifiers.Count; i++)
+        {
             if (enemyProjectileDamageModifiers[i] != null)
+            {
                 directDamage = enemyProjectileDamageModifiers[i]
                     .ModifyDamage(this, animal, impactPoint, directDamage);
+            }
+        }
+
         EnemySpecialistBuffs specialistBuffs = GetComponent<EnemySpecialistBuffs>();
         specialistBuffs?.OnProjectileHit(animal);
         TakeProjectileDamage(directDamage, animal.ComboVolleyId,
@@ -418,8 +556,13 @@ public class Brick : MonoBehaviour
         projectileHitObservers.Clear();
         animal.GetComponents(projectileHitObservers);
         for (int i = 0; i < projectileHitObservers.Count; i++)
+        {
             if (projectileHitObservers[i] is IProjectileHitResolved observer)
+            {
                 observer.OnProjectileHitResolved(this, impactPoint, impactNormal);
+            }
+        }
+
         return true;
     }
 
@@ -446,8 +589,11 @@ public class Brick : MonoBehaviour
                 Quaternion.AngleAxis(angle, Vector3.forward));
             effect.transform.localScale *= Mathf.Max(0.1f, impactEffectScale);
             foreach (Renderer effectRenderer in effect.GetComponentsInChildren<Renderer>(true))
+            {
                 effectRenderer.sortingOrder = Mathf.Max(effectRenderer.sortingOrder,
                     RoomDarkness.WorldOverlayOrder + 20);
+            }
+
             foreach (Canvas effectCanvas in effect.GetComponentsInChildren<Canvas>(true))
             {
                 effectCanvas.overrideSorting = true;
@@ -455,17 +601,24 @@ public class Brick : MonoBehaviour
                     RoomDarkness.WorldOverlayOrder + 20);
             }
             foreach (ParticleSystem particleSystem in effect.GetComponentsInChildren<ParticleSystem>(true))
+            {
                 particleSystem.Play(true);
+            }
+
             Destroy(effect, Mathf.Max(0.1f, impactEffectLifetime));
             return;
         }
 
         if (impactEffectStyle == ImpactEffectStyle.WhiteDust)
+        {
             EnemyImpactEffectPool.PlayWhiteDust(point, normal, impactEffectColor,
                 impactParticleCount, impactEffectScale);
+        }
         else if (impactEffectStyle == ImpactEffectStyle.BogSplash)
+        {
             EnemyImpactEffectPool.PlayBogSplash(point, normal,
                 impactParticleCount, impactEffectScale);
+        }
     }
 
     private void OnValidate()
@@ -484,18 +637,28 @@ public class Brick : MonoBehaviour
         stepStretch = Mathf.Clamp(stepStretch, 0f, 0.3f);
         landingSquash = Mathf.Clamp(landingSquash, 0f, 0.3f);
         footprint = Footprint;
-        if (occupiedCellOffsets == null) occupiedCellOffsets = new List<Vector2Int>();
+        if (occupiedCellOffsets == null)
+        {
+            occupiedCellOffsets = new List<Vector2Int>();
+        }
+
         for (int i = occupiedCellOffsets.Count - 1; i >= 0; i--)
         {
             if (!IsOffsetInsideFootprint(occupiedCellOffsets[i])
                 || occupiedCellOffsets.IndexOf(occupiedCellOffsets[i]) != i)
+            {
                 occupiedCellOffsets.RemoveAt(i);
+            }
         }
     }
     public void TakeProjectileDamage(float damage, int comboVolleyId,
         CombatDamageSource source = CombatDamageSource.Other, int damageOwner = -1, bool directHit = true)
     {
-        if (IsDefeated || damage <= 0f) return;
+        if (IsDefeated || damage <= 0f)
+        {
+            return;
+        }
+
         ProjectileComboUI.Instance?.RegisterHit(comboVolleyId);
         ApplyDamage(damage, source, false, damageOwner, directHit, false,
             comboVolleyId > 0 ? comboVolleyId : Player.CurrentVolleyId);
@@ -519,7 +682,10 @@ public class Brick : MonoBehaviour
     public void TakeFrogDamage(float damage, int comboVolleyId, bool periodic, bool directHit = true)
     {
         if (!periodic && !IsDefeated && damage > 0f)
+        {
             ProjectileComboUI.Instance?.RegisterHit(comboVolleyId);
+        }
+
         ApplyDamage(damage, CombatDamageSource.Frog, periodic, -1, !periodic && directHit, false, comboVolleyId);
     }
 
@@ -543,19 +709,41 @@ public class Brick : MonoBehaviour
         }
 
         int artifactOwner = damageOwner >= 0 ? damageOwner : ProjectileDamageStats.IndexFor(source);
-        if (!afterTurnEffect && directHit) ArtifactCombatEffects.BeforeDirectHit(this, source, artifactOwner);
-        if (!alreadyModified) damage = ArtifactCombatEffects.ModifyDamage(damage, source, artifactOwner, afterTurnEffect || !directHit);
+        if (!afterTurnEffect && directHit)
+        {
+            ArtifactCombatEffects.BeforeDirectHit(this, source, artifactOwner);
+        }
+
+        if (!alreadyModified)
+        {
+            damage = ArtifactCombatEffects.ModifyDamage(damage, source, artifactOwner, afterTurnEffect || !directHit);
+        }
+
         if (directHit)
         {
             EnemySpecialistBuffs buffs = GetComponent<EnemySpecialistBuffs>();
-            if (buffs != null) damage = buffs.AbsorbDirectDamage(damage, source);
+            if (buffs != null)
+            {
+                damage = buffs.AbsorbDirectDamage(damage, source);
+            }
         }
-        if (damage <= 0f) return;
+        if (damage <= 0f)
+        {
+            return;
+        }
+
         EnemySpecialistTrait specialist = GetComponent<EnemySpecialistTrait>();
         if (specialist != null)
+        {
             damage = specialist.ModifyIncomingDamage(damage, source, directHit);
+        }
+
         if (source == CombatDamageSource.Poison
-            && EnemySpecialistTrait.HasNearbyTinnik(this)) damage *= 0.5f;
+            && EnemySpecialistTrait.HasNearbyTinnik(this))
+        {
+            damage *= 0.5f;
+        }
+
         float unboostedDamage = damage;
         float frogMultiplier = FrogRider.DamageMultiplier(levelGenerator);
         damage *= frogMultiplier;
@@ -563,18 +751,30 @@ public class Brick : MonoBehaviour
         hp = Mathf.Max(0f, hp - damage);
         float healthLost = healthBeforeHit - hp;
         if (healthLost > 0f && (source == CombatDamageSource.Fire || source == CombatDamageSource.Firefly))
+        {
             GetComponent<WinterEnemyForm>()?.OnFireDamage();
+        }
         // Credit only extra HP actually removed by the chorus, including a
         // partial bonus on lethal hits. Excess damage beyond remaining HP is ignored.
         float frogSupportDamage = frogMultiplier > 1f ? Mathf.Max(0f, healthLost - unboostedDamage) : 0f;
         ProjectileDamageStats.Record(healthLost, source, damageOwner, frogSupportDamage);
         combatText = combatText != null ? combatText : EnemyCombatTextUI.Ensure();
-        if (afterTurnEffect) combatText.QueueAfterTurnDamage(this, damage, source);
-        else combatText.ShowDamage(this, damage, source);
+        if (afterTurnEffect)
+        {
+            combatText.QueueAfterTurnDamage(this, damage, source);
+        }
+        else
+        {
+            combatText.ShowDamage(this, damage, source);
+        }
+
         UpdateHealthUI();
         ArtifactCombatEffects.OnDamage(this, healthLost, source, artifactOwner, afterTurnEffect || !directHit);
         // A repeat hit may have already completed defeat during the artifact callback.
-        if (IsDefeated || (zombieResurrection != null && zombieResurrection.IsAwaitingResurrection && hp > 0f)) return;
+        if (IsDefeated || (zombieResurrection != null && zombieResurrection.IsAwaitingResurrection && hp > 0f))
+        {
+            return;
+        }
         // Release every rider before defeat handlers remove the enemy's room
         // reference or turn its artwork into a grave/split form.
         if (hp <= 0f)
@@ -593,7 +793,10 @@ public class Brick : MonoBehaviour
             return;
         }
         if (hp > 0f && source != CombatDamageSource.Frog && source != CombatDamageSource.Fire && source != CombatDamageSource.Poison)
+        {
             FrogRider.NotifyEnemyDamaged(this, afterTurnEffect ? 0 : comboVolleyId);
+        }
+
         hitReaction?.Play();
         if (hp > 0f)
         {
@@ -616,8 +819,15 @@ public class Brick : MonoBehaviour
     {
         EnemySpecialistTrait.NotifyEnemyDefeated(this);
         GameManager.Instance?.RegisterEnemyDefeated(this, experienceReward);
-        if (levelGenerator != null) levelGenerator.DestroyEnemy(gameObject, true);
-        else GameManager.Instance?.Front?.RemoveTravellingEnemy(this);
+        if (levelGenerator != null)
+        {
+            levelGenerator.DestroyEnemy(gameObject, true);
+        }
+        else
+        {
+            GameManager.Instance?.Front?.RemoveTravellingEnemy(this);
+        }
+
         levelGenerator = null;
         Destroy(gameObject);
     }
@@ -627,27 +837,47 @@ public class Brick : MonoBehaviour
         defeatBehaviours.Clear();
         GetComponents(defeatBehaviours);
         for (int i = 0; i < defeatBehaviours.Count; i++)
+        {
             if (defeatBehaviours[i] is IEnemyDefeatHandler handler && handler.TryHandleDefeat(this))
+            {
                 return true;
+            }
+        }
+
         return false;
     }
 
     private void PrepareTemporaryDefeat()
     {
-        if (stepAnimation != null) StopCoroutine(stepAnimation);
+        if (stepAnimation != null)
+        {
+            StopCoroutine(stepAnimation);
+        }
+
         stepAnimation = null;
         IsStepping = false;
-        if (restingLocalScale.sqrMagnitude > 0f) transform.localScale = restingLocalScale;
+        if (restingLocalScale.sqrMagnitude > 0f)
+        {
+            transform.localScale = restingLocalScale;
+        }
+
         if (zombieResurrection != null && zombieResurrection.IsAwaitingResurrection)
         {
             combatText?.Register(this, hp);
-            if (hpbar != null) hpbar.gameObject.SetActive(true);
+            if (hpbar != null)
+            {
+                hpbar.gameObject.SetActive(true);
+            }
+
             UpdateHealthUI();
         }
         else
         {
             combatText?.Unregister(this);
-            if (hpbar != null) hpbar.gameObject.SetActive(false);
+            if (hpbar != null)
+            {
+                hpbar.gameObject.SetActive(false);
+            }
         }
         GetComponent<EnemyStatusEffects>()?.ClearAll();
         GetComponent<EnemyIllumination>()?.Extinguish();
@@ -656,10 +886,18 @@ public class Brick : MonoBehaviour
 
     public bool Revive(float healthFraction)
     {
-        if (!defeated || levelGenerator == null || levelGenerator.IsLost) return false;
+        if (!defeated || levelGenerator == null || levelGenerator.IsLost)
+        {
+            return false;
+        }
+
         defeated = false;
         hp = Mathf.Max(1f, maxHp * Mathf.Clamp(healthFraction, 0.05f, 1f));
-        if (hpbar != null) hpbar.gameObject.SetActive(true);
+        if (hpbar != null)
+        {
+            hpbar.gameObject.SetActive(true);
+        }
+
         combatText = combatText != null ? combatText : EnemyCombatTextUI.Ensure();
         combatText.Register(this, hp);
         UpdateHealthUI();
@@ -669,8 +907,16 @@ public class Brick : MonoBehaviour
 
     public bool OccupiesFootprintOffset(Vector2Int offset)
     {
-        if (!IsOffsetInsideFootprint(offset)) return false;
-        if (!HasCustomFootprint) return true;
+        if (!IsOffsetInsideFootprint(offset))
+        {
+            return false;
+        }
+
+        if (!HasCustomFootprint)
+        {
+            return true;
+        }
+
         return occupiedCellOffsets.Contains(offset);
     }
 
@@ -683,11 +929,18 @@ public class Brick : MonoBehaviour
     private void TrySpawnFireflyBonfire(CombatDamageSource lethalSource)
     {
         if (!leaveFireflyBonfire || levelGenerator == null || levelGenerator.IsLost
-            || !gameObject.activeInHierarchy) return;
+            || !gameObject.activeInHierarchy)
+        {
+            return;
+        }
+
         EnemyStatusEffects statuses = GetComponent<EnemyStatusEffects>();
         int stacks = statuses != null
             ? statuses.GetStackCount(FireflyImpactEffect.BurnEffectId) : 0;
-        if (stacks <= 0 && lethalSource != CombatDamageSource.Firefly) return;
+        if (stacks <= 0 && lethalSource != CombatDamageSource.Firefly)
+        {
+            return;
+        }
 
         EnemyIllumination light = GetComponent<EnemyIllumination>();
         float inheritedRadius = light != null && light.IsIlluminated
@@ -697,18 +950,27 @@ public class Brick : MonoBehaviour
         Vector3 topLeft = transform.position
             + new Vector3(-(size.x - 1) * 0.5f, (size.y - 1) * 0.5f, 0f);
         for (int y = 0; y < size.y; y++)
-        for (int x = 0; x < size.x; x++)
+        {
+            for (int x = 0; x < size.x; x++)
         {
             // Bosses reserve their whole rectangle, matching EnemyRoomGrid.
-            if (!UsesBossHealth && !OccupiesFootprintOffset(new Vector2Int(x, y))) continue;
-            FireflyBonfire.Spawn(levelGenerator, topLeft + new Vector3(x, -y, 0f),
+            if (!UsesBossHealth && !OccupiesFootprintOffset(new Vector2Int(x, y)))
+                {
+                    continue;
+                }
+
+                FireflyBonfire.Spawn(levelGenerator, topLeft + new Vector3(x, -y, 0f),
                 Mathf.Max(0.1f, fireflyBonfireDamage * bonfireDamageMultiplier),
                 radius, radius, Mathf.Max(1, bonfireDurationTurns));
+        }
         }
     }
     public void Step()
     {
-        if (defeated || IsStepping || levelGenerator == null || levelGenerator.IsLost || IsStationary) return;
+        if (defeated || IsStepping || levelGenerator == null || levelGenerator.IsLost || IsStationary)
+        {
+            return;
+        }
         // Also resolve enemies already on the breach row (for example after loading a save).
         if (LowestCellY <= levelGenerator.DefenseBoundaryY + 0.0001f)
         {
@@ -718,8 +980,16 @@ public class Brick : MonoBehaviour
         EnemySpecialistBuffs movementBuffs = GetComponent<EnemySpecialistBuffs>();
         int extraSteps = movementBuffs != null ? movementBuffs.ConsumeExtraStep() : 0;
         EnemyTurnStun stun = GetComponent<EnemyTurnStun>();
-        if (stun != null && stun.TryConsumeEnemyTurn()) return;
-        if (bossTurnController == null) bossTurnController = GetComponent<BossEnemyTurnController>();
+        if (stun != null && stun.TryConsumeEnemyTurn())
+        {
+            return;
+        }
+
+        if (bossTurnController == null)
+        {
+            bossTurnController = GetComponent<BossEnemyTurnController>();
+        }
+
         int requestedSteps = bossTurnController != null
             ? bossTurnController.MovementCellsPerTurn : 1;
         requestedSteps += extraSteps;
@@ -730,7 +1000,11 @@ public class Brick : MonoBehaviour
         {
             Vector3 next = transform.position + Vector3.down * step;
             float nextLowestCellY = LowestCellY - step;
-            if (nextLowestCellY < lastCellY - 0.0001f) break;
+            if (nextLowestCellY < lastCellY - 0.0001f)
+            {
+                break;
+            }
+
             if (levelGenerator.IsMovementBlockedByEnemy(this, next,
                     bossTurnController != null))
             {
@@ -745,8 +1019,15 @@ public class Brick : MonoBehaviour
             && LowestCellY - allowedSteps <= levelGenerator.DefenseBoundaryY + 0.0001f;
         if (bossTurnController != null && allowedSteps < requestedSteps
             && !reachesBoundary && !blockedByEnemy)
+        {
             allowedSteps = 0;
-        if (allowedSteps <= 0) return;
+        }
+
+        if (allowedSteps <= 0)
+        {
+            return;
+        }
+
         Vector3 destination = transform.position + Vector3.down * allowedSteps;
         if (!Application.isPlaying || stepDuration <= 0f || IsInUnwatchedRoom)
         {
@@ -772,10 +1053,18 @@ public class Brick : MonoBehaviour
 
     public void PlayArrivalAnimation()
     {
-        if (!Application.isPlaying || defeated) return;
+        if (!Application.isPlaying || defeated)
+        {
+            return;
+        }
+
         if (arrivalDuration <= 0f || IsInUnwatchedRoom)
         {
-            if (visualTransition != null) StopCoroutine(visualTransition);
+            if (visualTransition != null)
+            {
+                StopCoroutine(visualTransition);
+            }
+
             visualTransition = null;
             RestoreVisualTransition();
             return;
@@ -785,27 +1074,46 @@ public class Brick : MonoBehaviour
 
     public void PlayBreachAnimation(bool isAttacker)
     {
-        if (!Application.isPlaying || defeated || breachDuration <= 0f || IsInUnwatchedRoom) return;
+        if (!Application.isPlaying || defeated || breachDuration <= 0f || IsInUnwatchedRoom)
+        {
+            return;
+        }
+
         StartVisualTransition(true, isAttacker, breachDuration);
     }
 
     public void CancelBreachAnimation()
     {
-        if (visualTransition != null) StopCoroutine(visualTransition);
+        if (visualTransition != null)
+        {
+            StopCoroutine(visualTransition);
+        }
+
         visualTransition = null;
         RestoreVisualTransition();
     }
 
     private void StartVisualTransition(bool breaching, bool isAttacker, float duration)
     {
-        if (visualTransition != null) StopCoroutine(visualTransition);
+        if (visualTransition != null)
+        {
+            StopCoroutine(visualTransition);
+        }
+
         RestoreVisualTransition();
         transitionVisual = transform.Find("Visual");
-        if (transitionVisual != null) transitionRestScale = transitionVisual.localScale;
+        if (transitionVisual != null)
+        {
+            transitionRestScale = transitionVisual.localScale;
+        }
+
         transitionSprites = GetComponentsInChildren<SpriteRenderer>(true);
         transitionBaseAlphas = new float[transitionSprites.Length];
         for (int i = 0; i < transitionSprites.Length; i++)
+        {
             transitionBaseAlphas[i] = transitionSprites[i].color.a;
+        }
+
         visualTransition = StartCoroutine(AnimateVisualTransition(breaching, isAttacker, duration));
     }
 
@@ -838,18 +1146,33 @@ public class Brick : MonoBehaviour
             // The visual arrival must finish even if a discovery card pauses the game.
             elapsed += breaching ? Time.deltaTime : Time.unscaledDeltaTime;
         }
-        if (breaching && !defeated) ApplyVisualTransition(0.45f, 0f);
-        else RestoreVisualTransition();
+        if (breaching && !defeated)
+        {
+            ApplyVisualTransition(0.45f, 0f);
+        }
+        else
+        {
+            RestoreVisualTransition();
+        }
+
         visualTransition = null;
     }
 
     private void ApplyVisualTransition(float scale, float alpha)
     {
-        if (transitionVisual != null) transitionVisual.localScale = transitionRestScale * scale;
+        if (transitionVisual != null)
+        {
+            transitionVisual.localScale = transitionRestScale * scale;
+        }
+
         for (int i = 0; i < transitionSprites.Length; i++)
         {
             SpriteRenderer sprite = transitionSprites[i];
-            if (sprite == null) continue;
+            if (sprite == null)
+            {
+                continue;
+            }
+
             Color color = sprite.color;
             color.a = transitionBaseAlphas[i] * alpha;
             sprite.color = color;
@@ -858,16 +1181,27 @@ public class Brick : MonoBehaviour
 
     private void RestoreVisualTransition()
     {
-        if (transitionVisual != null) transitionVisual.localScale = transitionRestScale;
+        if (transitionVisual != null)
+        {
+            transitionVisual.localScale = transitionRestScale;
+        }
+
         if (transitionSprites != null && transitionBaseAlphas != null)
+        {
             for (int i = 0; i < transitionSprites.Length; i++)
             {
                 SpriteRenderer sprite = transitionSprites[i];
-                if (sprite == null) continue;
+                if (sprite == null)
+                {
+                    continue;
+                }
+
                 Color color = sprite.color;
                 color.a = transitionBaseAlphas[i];
                 sprite.color = color;
             }
+        }
+
         transitionVisual = null;
         transitionSprites = null;
         transitionBaseAlphas = null;
@@ -921,20 +1255,38 @@ public class Brick : MonoBehaviour
     private void CompleteStep()
     {
         levelGenerator?.InvalidateEnemyQueries();
-        if (defeated || levelGenerator == null || levelGenerator.IsLost) return;
+        if (defeated || levelGenerator == null || levelGenerator.IsLost)
+        {
+            return;
+        }
+
         float defenseBoundary = levelGenerator.DefenseBoundaryY;
         if (LowestCellY <= defenseBoundary + 0.0001f)
+        {
             levelGenerator.RequestBreach(this);
+        }
     }
 
     public float StrikeBarricadeAndReturn(Vector3 destination)
     {
-        if (defeated) return 0f;
+        if (defeated)
+        {
+            return 0f;
+        }
+
         float contactDamage = DefenseLineRuntime.BarricadeDamageOf(this);
-        if (stepAnimation != null) StopCoroutine(stepAnimation);
+        if (stepAnimation != null)
+        {
+            StopCoroutine(stepAnimation);
+        }
+
         stepAnimation = null;
         IsStepping = false;
-        if (restingLocalScale.sqrMagnitude > 0f) transform.localScale = restingLocalScale;
+        if (restingLocalScale.sqrMagnitude > 0f)
+        {
+            transform.localScale = restingLocalScale;
+        }
+
         transform.position = destination;
         PlayArrivalAnimation();
         levelGenerator?.NotifyEnemyStateChanged();
@@ -944,25 +1296,45 @@ public class Brick : MonoBehaviour
     private void SetAnimatorTrigger(string triggerName)
     {
         if (spriteAnimator == null || spriteAnimator.runtimeAnimatorController == null
-            || string.IsNullOrWhiteSpace(triggerName)) return;
+            || string.IsNullOrWhiteSpace(triggerName))
+        {
+            return;
+        }
+
         int triggerHash = Animator.StringToHash(triggerName);
         foreach (AnimatorControllerParameter parameter in spriteAnimator.parameters)
         {
             if (parameter.type != AnimatorControllerParameterType.Trigger
-                || parameter.nameHash != triggerHash) continue;
+                || parameter.nameHash != triggerHash)
+            {
+                continue;
+            }
+
             spriteAnimator.SetTrigger(triggerHash);
             return;
         }
     }
     private void OnDisable()
     {
-        if (visualTransition != null) StopCoroutine(visualTransition);
+        if (visualTransition != null)
+        {
+            StopCoroutine(visualTransition);
+        }
+
         visualTransition = null;
         RestoreVisualTransition();
-        if (stepAnimation != null) StopCoroutine(stepAnimation);
+        if (stepAnimation != null)
+        {
+            StopCoroutine(stepAnimation);
+        }
+
         stepAnimation = null;
         IsStepping = false;
-        if (restingLocalScale.sqrMagnitude > 0f) transform.localScale = restingLocalScale;
+        if (restingLocalScale.sqrMagnitude > 0f)
+        {
+            transform.localScale = restingLocalScale;
+        }
+
         if (levelGenerator != null)
         {
             levelGenerator.DestroyEnemy(gameObject, defeated);
@@ -970,12 +1342,19 @@ public class Brick : MonoBehaviour
     }
     private void UpdateHealthUI()
     {
-        if (hpbar != null) hpbar.fillAmount = maxHp > 0f ? Mathf.Clamp01(hp / maxHp) : 0f;
+        if (hpbar != null)
+        {
+            hpbar.fillAmount = maxHp > 0f ? Mathf.Clamp01(hp / maxHp) : 0f;
+        }
+
         combatText?.SetHealth(this, hp);
     }
 
     private void OnDestroy()
     {
-        if (combatText != null) combatText.Unregister(this);
+        if (combatText != null)
+        {
+            combatText.Unregister(this);
+        }
     }
 }

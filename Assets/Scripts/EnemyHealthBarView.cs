@@ -32,7 +32,10 @@ public sealed class EnemyHealthBarView : MonoBehaviour
         trailVelocity = 0f;
         trailDelay = 0f;
         hitPulse = 0f;
-        if (number != null) number.rectTransform.localScale = Vector3.one;
+        if (number != null)
+        {
+            number.rectTransform.localScale = Vector3.one;
+        }
     }
 
     public void SetValue(string value, float fraction)
@@ -61,13 +64,21 @@ public sealed class EnemyHealthBarView : MonoBehaviour
             trailVelocity = 0f;
             fillVelocity = 0f;
         }
-        if (nextFraction != targetFraction) animating = true;
+        if (nextFraction != targetFraction)
+        {
+            animating = true;
+        }
+
         targetFraction = nextFraction;
     }
 
     private void Update()
     {
-        if (!initialized || !animating) return;
+        if (!initialized || !animating)
+        {
+            return;
+        }
+
         float delta = Time.unscaledDeltaTime;
         displayedFraction = Mathf.SmoothDamp(displayedFraction, targetFraction,
             ref fillVelocity, 0.13f, Mathf.Infinity, delta);
@@ -77,9 +88,16 @@ public sealed class EnemyHealthBarView : MonoBehaviour
             fillVelocity = 0f;
         }
 
-        if (trailDelay > 0f) trailDelay -= delta;
-        else trailFraction = Mathf.SmoothDamp(trailFraction, displayedFraction,
+        if (trailDelay > 0f)
+        {
+            trailDelay -= delta;
+        }
+        else
+        {
+            trailFraction = Mathf.SmoothDamp(trailFraction, displayedFraction,
             ref trailVelocity, 0.24f, Mathf.Infinity, delta);
+        }
+
         trailFraction = Mathf.Max(trailFraction, displayedFraction);
         if (Mathf.Abs(trailFraction - displayedFraction) < 0.001f)
         {
@@ -89,7 +107,10 @@ public sealed class EnemyHealthBarView : MonoBehaviour
 
         hitPulse = Mathf.MoveTowards(hitPulse, 0f, delta / 0.26f);
         if (number != null)
+        {
             number.rectTransform.localScale = Vector3.one * (1f + 0.07f * hitPulse * hitPulse);
+        }
+
         UpdateFillGeometry();
         animating = displayedFraction != targetFraction || trailFraction != displayedFraction || trailDelay > 0f || hitPulse > 0f;
     }
@@ -98,13 +119,33 @@ public sealed class EnemyHealthBarView : MonoBehaviour
     {
         RectTransform root = RectTransform;
         Vector2 size = new Vector2(Mathf.Max(24f, width), Mathf.Max(28f, height));
-        if ((root.sizeDelta - size).sqrMagnitude < 0.01f) return;
+        if ((root.sizeDelta - size).sqrMagnitude < 0.01f)
+        {
+            return;
+        }
+
         root.sizeDelta = size;
-        if (frameRect == null) frameRect = transform.Find("Generated Frame") as RectTransform;
-        if (frameRect != null) frameRect.sizeDelta = size;
-        if (missing == null) missing = transform.Find("Dark Track")?.GetComponent<Image>();
+        if (frameRect == null)
+        {
+            frameRect = transform.Find("Generated Frame") as RectTransform;
+        }
+
+        if (frameRect != null)
+        {
+            frameRect.sizeDelta = size;
+        }
+
+        if (missing == null)
+        {
+            missing = transform.Find("Dark Track")?.GetComponent<Image>();
+        }
+
         Vector2 trackSize = new Vector2(size.x * 0.82f, size.y * 0.62f);
-        if (missing != null) missing.rectTransform.sizeDelta = trackSize;
+        if (missing != null)
+        {
+            missing.rectTransform.sizeDelta = trackSize;
+        }
+
         UpdateFillGeometry();
         if (number != null)
         {
@@ -115,14 +156,20 @@ public sealed class EnemyHealthBarView : MonoBehaviour
 
     private void UpdateFillGeometry()
     {
-        if (fill == null) return;
+        if (fill == null)
+        {
+            return;
+        }
+
         Vector2 size = RectTransform.sizeDelta;
         float trackWidth = size.x * 0.82f;
         // Sprite-less UI Images ignore fillAmount. Animate the two authored
         // rectangles from the same left edge so the red track stays visible.
         SetSegmentWidth(fill.rectTransform, displayedFraction, trackWidth, size.y * 0.62f);
         if (damageTrail != null)
+        {
             SetSegmentWidth(damageTrail.rectTransform, trailFraction, trackWidth, size.y * 0.62f);
+        }
     }
 
     private static void SetSegmentWidth(RectTransform rect, float fraction, float width, float height)

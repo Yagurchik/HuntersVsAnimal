@@ -46,16 +46,56 @@ public static class CombatDamagePalette
 
     public static CombatDamageSource FromProjectile(Animal projectile)
     {
-        if (projectile == null) return CombatDamageSource.Other;
-        if (projectile.CombatSource != CombatDamageSource.Other) return projectile.CombatSource;
-        if (projectile.GetComponent<FireflyImpactEffect>() != null) return CombatDamageSource.Firefly;
-        if (projectile.GetComponent<RabbitReplication>() != null) return CombatDamageSource.Rabbit;
-        if (projectile.GetComponent<HedgehogExplosion>() != null) return CombatDamageSource.Hedgehog;
-        if (projectile.GetComponent<HoneyBadgerProjectile>() != null) return CombatDamageSource.HoneyBadger;
-        if (projectile.GetComponent<BoarProjectile>() != null) return CombatDamageSource.Boar;
-        if (projectile.GetComponent<BeaverProjectile>() != null) return CombatDamageSource.Beaver;
-        if (projectile.GetComponent<FrogProjectile>() != null) return CombatDamageSource.Frog;
-        if (projectile.GetComponent<SquirrelProjectile>() != null) return CombatDamageSource.Squirrel;
+        if (projectile == null)
+        {
+            return CombatDamageSource.Other;
+        }
+
+        if (projectile.CombatSource != CombatDamageSource.Other)
+        {
+            return projectile.CombatSource;
+        }
+
+        if (projectile.GetComponent<FireflyImpactEffect>() != null)
+        {
+            return CombatDamageSource.Firefly;
+        }
+
+        if (projectile.GetComponent<RabbitReplication>() != null)
+        {
+            return CombatDamageSource.Rabbit;
+        }
+
+        if (projectile.GetComponent<HedgehogExplosion>() != null)
+        {
+            return CombatDamageSource.Hedgehog;
+        }
+
+        if (projectile.GetComponent<HoneyBadgerProjectile>() != null)
+        {
+            return CombatDamageSource.HoneyBadger;
+        }
+
+        if (projectile.GetComponent<BoarProjectile>() != null)
+        {
+            return CombatDamageSource.Boar;
+        }
+
+        if (projectile.GetComponent<BeaverProjectile>() != null)
+        {
+            return CombatDamageSource.Beaver;
+        }
+
+        if (projectile.GetComponent<FrogProjectile>() != null)
+        {
+            return CombatDamageSource.Frog;
+        }
+
+        if (projectile.GetComponent<SquirrelProjectile>() != null)
+        {
+            return CombatDamageSource.Squirrel;
+        }
+
         return CombatDamageSource.Other;
     }
 
@@ -164,11 +204,19 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
 
     public void PreviewAt(Vector3 worldPosition, bool visible)
     {
-        if (Application.isPlaying) return;
+        if (Application.isPlaying)
+        {
+            return;
+        }
+
         ConfigureCanvas();
         Canvas.ForceUpdateCanvases();
         Camera camera = ResolveCamera();
-        if (camera == null) return;
+        if (camera == null)
+        {
+            return;
+        }
+
         RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect,
             camera.WorldToScreenPoint(worldPosition), null, out Vector2 position);
         PreviewHealthBar(position + Vector2.up * healthOffset, visible);
@@ -180,13 +228,25 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
     {
         const string name = "HP Preview (editor)";
         Transform existing = transform.Find(name);
-        if (existing == null && !visible) return;
+        if (existing == null && !visible)
+        {
+            return;
+        }
+
         EnemyHealthBarView view = existing != null ? existing.GetComponent<EnemyHealthBarView>() : null;
         if (view == null)
         {
-            if (existing != null) DestroyImmediate(existing.gameObject);
+            if (existing != null)
+            {
+                DestroyImmediate(existing.gameObject);
+            }
+
             EnemyHealthBarView prefab = Resources.Load<EnemyHealthBarView>("UI/EnemyHealthBars/RegularEnemyHealthBar");
-            if (prefab == null) return;
+            if (prefab == null)
+            {
+                return;
+            }
+
             view = Instantiate(prefab, transform, false);
             view.name = name;
             view.gameObject.hideFlags = HideFlags.DontSaveInEditor | HideFlags.DontSaveInBuild;
@@ -199,7 +259,11 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
     private void PreviewLabel(string name, string value, Vector2 position, float size, Color color, bool visible)
     {
         Transform existing = transform.Find(name);
-        if (existing == null && !visible) return;
+        if (existing == null && !visible)
+        {
+            return;
+        }
+
         TextMeshProUGUI label = existing != null ? existing.GetComponent<TextMeshProUGUI>() : CreateLabel(name, size, color);
         GameTypography.Apply(label);
         label.gameObject.hideFlags = HideFlags.DontSaveInEditor | HideFlags.DontSaveInBuild;
@@ -218,7 +282,11 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
 
     public static EnemyCombatTextUI Ensure()
     {
-        if (Instance != null) return Instance;
+        if (Instance != null)
+        {
+            return Instance;
+        }
+
         EnemyCombatTextUI ui = FindObjectOfType<EnemyCombatTextUI>(true);
         if (ui == null)
         {
@@ -245,7 +313,10 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
         foreach (string previewName in new[] { "HP Preview (editor)", "Damage Preview (editor)" })
         {
             Transform preview = transform.Find(previewName);
-            if (preview != null) preview.gameObject.SetActive(false);
+            if (preview != null)
+            {
+                preview.gameObject.SetActive(false);
+            }
         }
         ConfigureCanvas();
         PreparePools();
@@ -255,7 +326,10 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
     {
         canvas = GetComponent<Canvas>();
         canvasRect = transform as RectTransform;
-        if (canvas == null || canvasRect == null) return;
+        if (canvas == null || canvasRect == null)
+        {
+            return;
+        }
         // A Canvas created and saved before its first layout pass can retain zero scale.
         // Normalize it here so active TMP labels are actually rendered.
         canvasRect.localScale = Vector3.one;
@@ -263,7 +337,11 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.sortingOrder = 210;
         CanvasScaler scaler = GetComponent<CanvasScaler>();
-        if (scaler == null) scaler = gameObject.AddComponent<CanvasScaler>();
+        if (scaler == null)
+        {
+            scaler = gameObject.AddComponent<CanvasScaler>();
+        }
+
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         scaler.referenceResolution = new Vector2(1080f, 1920f);
         scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
@@ -272,46 +350,77 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
 
     private void PreparePools()
     {
-        if (poolsPrepared || !Application.isPlaying) return;
+        if (poolsPrepared || !Application.isPlaying)
+        {
+            return;
+        }
+
         poolsPrepared = true;
         regularHealthPrefab = Resources.Load<EnemyHealthBarView>("UI/EnemyHealthBars/RegularEnemyHealthBar");
         bossHealthPrefab = Resources.Load<EnemyHealthBarView>("UI/EnemyHealthBars/BossEnemyHealthBar");
         defenseHealthPrefab = Resources.Load<EnemyHealthBarView>("UI/EnemyHealthBars/DefenseShieldHealthBar");
         if (regularHealthPrefab == null || bossHealthPrefab == null)
+        {
             Debug.LogError("Enemy health bar prefabs are missing from Resources/UI/EnemyHealthBars.", this);
+        }
+
         if (defenseHealthPrefab == null)
+        {
             Debug.LogError("Defense shield health bar prefab is missing from Resources/UI/EnemyHealthBars.", this);
+        }
+
         for (int i = 0; i < prewarmHealthLabels; i++)
         {
             EnemyHealthBarView bar = CreateHealthBar(false);
-            if (bar != null) regularHealthPool.Enqueue(bar);
+            if (bar != null)
+            {
+                regularHealthPool.Enqueue(bar);
+            }
         }
         for (int i = 0; i < prewarmDamageLabels; i++)
+        {
             damagePool.Enqueue(CreateLabel("Pooled Damage Number", damageFontSize, damageColor));
+        }
     }
 
     public void Register(Brick enemy, float health)
     {
-        if (enemy == null) return;
+        if (enemy == null)
+        {
+            return;
+        }
+
         healthValues[enemy] = new HealthState { Health = health, Text = FormatPositive(health) };
     }
 
     public void RegisterDefense(MonoBehaviour target)
     {
-        if (target == null || !(target is IDefenseHealthTarget) || defenseTargets.Contains(target)) return;
+        if (target == null || !(target is IDefenseHealthTarget) || defenseTargets.Contains(target))
+        {
+            return;
+        }
+
         defenseTargets.Add(target);
     }
 
     public void UnregisterDefense(MonoBehaviour target)
     {
-        if (ReferenceEquals(target, null)) return;
+        if (ReferenceEquals(target, null))
+        {
+            return;
+        }
+
         defenseTargets.Remove(target);
         ReleaseDefenseLabel(target);
     }
 
     public void SetHealth(Brick enemy, float health)
     {
-        if (enemy == null) return;
+        if (enemy == null)
+        {
+            return;
+        }
+
         if (!healthValues.TryGetValue(enemy, out HealthState state))
         {
             Register(enemy, health);
@@ -320,7 +429,9 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
         state.Health = health;
         state.Text = FormatPositive(health);
         if (visibleHealth.TryGetValue(enemy, out EnemyHealthBarView bar))
+        {
             bar.SetValue(state.Text, enemy.MaxHp > 0f ? health / enemy.MaxHp : 0f);
+        }
     }
 
     public string GetHealthText(Brick enemy)
@@ -341,7 +452,11 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
 
     public void BeginAfterTurnBatch()
     {
-        if (afterTurnBatchActive) FinishAfterTurnBatch();
+        if (afterTurnBatchActive)
+        {
+            FinishAfterTurnBatch();
+        }
+
         afterTurnBatchActive = true;
         pendingAfterTurn.Clear();
         pendingOrder.Clear();
@@ -349,7 +464,11 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
 
     public void QueueAfterTurnDamage(Brick enemy, float damage, CombatDamageSource source)
     {
-        if (enemy == null || damage <= 0f) return;
+        if (enemy == null || damage <= 0f)
+        {
+            return;
+        }
+
         if (!afterTurnBatchActive)
         {
             ShowDamage(enemy, damage, source);
@@ -363,7 +482,11 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
         }
         Camera camera = ResolveCamera();
         if (camera == null || !TryGetCanvasPosition(enemy, camera, healthOffset + 24f,
-            out Vector2 start, false)) return;
+            out Vector2 start, false))
+        {
+            return;
+        }
+
         pending = new PendingDamage {
             Total = damage,
             Start = start,
@@ -377,7 +500,11 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
 
     public void FinishAfterTurnBatch()
     {
-        if (!afterTurnBatchActive) return;
+        if (!afterTurnBatchActive)
+        {
+            return;
+        }
+
         afterTurnBatchActive = false;
         for (int i = 0; i < pendingOrder.Count; i++)
         {
@@ -392,11 +519,18 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
 
     public void ShowDamage(Brick enemy, float damage, Color color, string prefix, CombatDamageSource source = CombatDamageSource.Other)
     {
-        if (enemy == null || damage <= 0f) return;
+        if (enemy == null || damage <= 0f)
+        {
+            return;
+        }
+
         Camera camera = ResolveCamera();
         // Damage is combat feedback, not enemy information: it stays visible in darkness.
         if (camera == null || !TryGetCanvasPosition(enemy, camera, healthOffset + 24f,
-            out Vector2 start, false)) return;
+            out Vector2 start, false))
+        {
+            return;
+        }
 
         long key = ((long)enemy.GetInstanceID() << 32) | (uint)source;
         // A fixed short window avoids a permanent label during sustained bites.
@@ -418,7 +552,11 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
     private DamageEntry SpawnDamageLabel(float damage, Vector2 start, Vector3 worldPosition,
         RoomDarkness darkness, Color color, string prefix)
     {
-        if (damageEntries.Count >= Mathf.Max(8, maximumDamageLabels)) ReleaseDamageAt(0);
+        if (damageEntries.Count >= Mathf.Max(8, maximumDamageLabels))
+        {
+            ReleaseDamageAt(0);
+        }
+
         TextMeshProUGUI label = damagePool.Count > 0
             ? damagePool.Dequeue()
             : CreateLabel("Damage Number", damageFontSize, damageColor);
@@ -440,7 +578,11 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
 
     public void Unregister(Brick enemy)
     {
-        if (ReferenceEquals(enemy, null)) return;
+        if (ReferenceEquals(enemy, null))
+        {
+            return;
+        }
+
         healthValues.Remove(enemy);
         ReleaseHealthLabel(enemy);
     }
@@ -464,7 +606,11 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
                 {
                     Queue<EnemyHealthBarView> pool = enemy.UsesBossHealth ? bossHealthPool : regularHealthPool;
                     bar = pool.Count > 0 ? pool.Dequeue() : CreateHealthBar(enemy.UsesBossHealth);
-                    if (bar == null) continue;
+                    if (bar == null)
+                    {
+                        continue;
+                    }
+
                     bar.gameObject.SetActive(true);
                     visibleHealth.Add(enemy, bar);
                 }
@@ -472,11 +618,20 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
                 bar.SetValue(state.Text, enemy.MaxHp > 0f ? enemy.hp / enemy.MaxHp : 0f);
                 bar.SetDimensions(width, enemy.UsesBossHealth ? 42f : 34f);
                 if ((bar.RectTransform.anchoredPosition - position).sqrMagnitude > 0.01f)
+                {
                     bar.RectTransform.anchoredPosition = position;
+                }
             }
-            else ReleaseHealthLabel(enemy);
+            else
+            {
+                ReleaseHealthLabel(enemy);
+            }
         }
-        for (int i = 0; i < cleanup.Count; i++) Unregister(cleanup[i]);
+        for (int i = 0; i < cleanup.Count; i++)
+        {
+            Unregister(cleanup[i]);
+        }
+
         UpdateDefenseHealth(camera);
         AnimateDamageNumbers();
     }
@@ -507,7 +662,11 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
             if (!visibleDefense.TryGetValue(owner, out EnemyHealthBarView bar))
             {
                 bar = defenseHealthPool.Count > 0 ? defenseHealthPool.Dequeue() : CreateDefenseHealthBar();
-                if (bar == null) continue;
+                if (bar == null)
+                {
+                    continue;
+                }
+
                 bar.gameObject.SetActive(true);
                 visibleDefense.Add(owner, bar);
             }
@@ -524,8 +683,15 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
     private EnemyHealthBarView CreateDefenseHealthBar()
     {
         if (defenseHealthPrefab == null)
+        {
             defenseHealthPrefab = Resources.Load<EnemyHealthBarView>("UI/EnemyHealthBars/DefenseShieldHealthBar");
-        if (defenseHealthPrefab == null) return null;
+        }
+
+        if (defenseHealthPrefab == null)
+        {
+            return null;
+        }
+
         EnemyHealthBarView bar = Instantiate(defenseHealthPrefab, transform, false);
         bar.name = "Defense Shield Health Bar";
         bar.gameObject.SetActive(false);
@@ -534,16 +700,28 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
 
     private void ReleaseDefenseLabel(MonoBehaviour owner)
     {
-        if (!visibleDefense.TryGetValue(owner, out EnemyHealthBarView bar)) return;
+        if (!visibleDefense.TryGetValue(owner, out EnemyHealthBarView bar))
+        {
+            return;
+        }
+
         visibleDefense.Remove(owner);
-        if (bar == null) return;
+        if (bar == null)
+        {
+            return;
+        }
+
         bar.gameObject.SetActive(false);
         defenseHealthPool.Enqueue(bar);
     }
 
     private static string FormatDefenseHealth(float value)
     {
-        if (value >= 1000f) return CompactNumberFormatter.Format(value);
+        if (value >= 1000f)
+        {
+            return CompactNumberFormatter.Format(value);
+        }
+
         return value.ToString(value < 10f ? "0.##" : "0.#",
             System.Globalization.CultureInfo.InvariantCulture);
     }
@@ -568,7 +746,10 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
             float scale = Mathf.Lerp(0.82f, 1.08f, Mathf.Sin(Mathf.Min(1f, progress * 2f) * Mathf.PI * 0.5f));
             entry.Label.rectTransform.localScale = Vector3.one * scale;
             entry.Label.alpha = 1f - Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(0.42f, 1f, progress));
-            if (progress >= 1f) ReleaseDamageAt(i);
+            if (progress >= 1f)
+            {
+                ReleaseDamageAt(i);
+            }
         }
     }
 
@@ -597,7 +778,11 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
     private EnemyHealthBarView CreateHealthBar(bool boss)
     {
         EnemyHealthBarView prefab = boss ? bossHealthPrefab : regularHealthPrefab;
-        if (prefab == null) return null;
+        if (prefab == null)
+        {
+            return null;
+        }
+
         EnemyHealthBarView bar = Instantiate(prefab, transform, false);
         bar.name = boss ? "Boss Health Bar" : "Enemy Health Bar";
         bar.gameObject.SetActive(false);
@@ -606,9 +791,17 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
 
     private Camera ResolveCamera()
     {
-        if (gameplayCamera != null && gameplayCamera.isActiveAndEnabled) return gameplayCamera;
+        if (gameplayCamera != null && gameplayCamera.isActiveAndEnabled)
+        {
+            return gameplayCamera;
+        }
+
         gameplayCamera = Camera.main;
-        if (gameplayCamera == null) gameplayCamera = FindObjectOfType<Camera>();
+        if (gameplayCamera == null)
+        {
+            gameplayCamera = FindObjectOfType<Camera>();
+        }
+
         return gameplayCamera;
     }
 
@@ -616,14 +809,30 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
         out Vector2 position, bool requireEnemyVisibility = true)
     {
         position = Vector2.zero;
-        if (canvasRect == null || enemy == null || !enemy.gameObject.activeInHierarchy) return false;
+        if (canvasRect == null || enemy == null || !enemy.gameObject.activeInHierarchy)
+        {
+            return false;
+        }
+
         RoomDarkness darkness = enemy.levelGenerator != null ? enemy.levelGenerator.Darkness : null;
-        if (requireEnemyVisibility && darkness != null && !darkness.IsVisible(enemy.transform.position)) return false;
+        if (requireEnemyVisibility && darkness != null && !darkness.IsVisible(enemy.transform.position))
+        {
+            return false;
+        }
+
         Vector3 viewport = camera.WorldToViewportPoint(enemy.CombatTextAnchor);
         if (viewport.z <= 0f || viewport.x < -0.02f || viewport.x > 1.02f
-            || viewport.y < -0.02f || viewport.y > 1.02f) return false;
+            || viewport.y < -0.02f || viewport.y > 1.02f)
+        {
+            return false;
+        }
+
         Vector3 screen = camera.WorldToScreenPoint(enemy.CombatTextAnchor);
-        if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screen, null, out position)) return false;
+        if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screen, null, out position))
+        {
+            return false;
+        }
+
         position.y += verticalOffset;
         return true;
     }
@@ -633,22 +842,46 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
     {
         position = Vector2.zero;
         width = 0f;
-        if (canvasRect == null || enemy == null || !enemy.gameObject.activeInHierarchy) return false;
+        if (canvasRect == null || enemy == null || !enemy.gameObject.activeInHierarchy)
+        {
+            return false;
+        }
+
         RoomDarkness darkness = enemy.levelGenerator != null ? enemy.levelGenerator.Darkness : null;
-        if (darkness != null && !darkness.IsVisible(enemy.transform.position)) return false;
+        if (darkness != null && !darkness.IsVisible(enemy.transform.position))
+        {
+            return false;
+        }
+
         Vector3 world = new Vector3(enemy.transform.position.x,
             enemy.LowestCellY - 0.5f, enemy.transform.position.z);
         Vector3 viewport = camera.WorldToViewportPoint(world);
         if (viewport.z <= 0f || viewport.x < -0.02f || viewport.x > 1.02f
-            || viewport.y < -0.02f || viewport.y > 1.02f) return false;
+            || viewport.y < -0.02f || viewport.y > 1.02f)
+        {
+            return false;
+        }
+
         Vector3 left = world + Vector3.left * (enemy.Footprint.x * 0.4f);
         Vector3 right = world + Vector3.right * (enemy.Footprint.x * 0.4f);
         if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect,
-            camera.WorldToScreenPoint(world), null, out position)) return false;
+            camera.WorldToScreenPoint(world), null, out position))
+        {
+            return false;
+        }
+
         if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect,
-            camera.WorldToScreenPoint(left), null, out Vector2 leftLocal)) return false;
+            camera.WorldToScreenPoint(left), null, out Vector2 leftLocal))
+        {
+            return false;
+        }
+
         if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect,
-            camera.WorldToScreenPoint(right), null, out Vector2 rightLocal)) return false;
+            camera.WorldToScreenPoint(right), null, out Vector2 rightLocal))
+        {
+            return false;
+        }
+
         width = Mathf.Abs(rightLocal.x - leftLocal.x);
         // Keep the whole bar below the occupied cell so it reads as a strip
         // between enemy rows instead of blending into the bottom of the head.
@@ -658,9 +891,17 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
 
     private void ReleaseHealthLabel(Brick enemy)
     {
-        if (ReferenceEquals(enemy, null) || !visibleHealth.TryGetValue(enemy, out EnemyHealthBarView bar)) return;
+        if (ReferenceEquals(enemy, null) || !visibleHealth.TryGetValue(enemy, out EnemyHealthBarView bar))
+        {
+            return;
+        }
+
         visibleHealth.Remove(enemy);
-        if (bar == null) return;
+        if (bar == null)
+        {
+            return;
+        }
+
         bar.gameObject.SetActive(false);
         (enemy.UsesBossHealth ? bossHealthPool : regularHealthPool).Enqueue(bar);
     }
@@ -670,12 +911,19 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
         DamageEntry entry = damageEntries[index];
         damageEntries.RemoveAt(index);
         if (entry.GroupKey != 0 && recentDamage.TryGetValue(entry.GroupKey, out var recent)
-            && ReferenceEquals(recent, entry)) recentDamage.Remove(entry.GroupKey);
+            && ReferenceEquals(recent, entry))
+        {
+            recentDamage.Remove(entry.GroupKey);
+        }
+
         entry.Label.gameObject.SetActive(false);
         damagePool.Enqueue(entry.Label);
         entry.Label = null;
         entry.RoomDarkness = null;
-        if (entryPool.Count < maximumDamageLabels) entryPool.Push(entry);
+        if (entryPool.Count < maximumDamageLabels)
+        {
+            entryPool.Push(entry);
+        }
     }
 
     private static string FormatPositive(float value)
@@ -685,7 +933,11 @@ public sealed class EnemyCombatTextUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (Instance == this) Instance = null;
+        if (Instance == this)
+        {
+            Instance = null;
+        }
+
         healthValues.Clear();
         visibleHealth.Clear();
         regularHealthPool.Clear();

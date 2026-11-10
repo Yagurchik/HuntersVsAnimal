@@ -30,7 +30,11 @@ public sealed class LocationBackdropGraphic : MaskableGraphic
     public void ShowLocation(int index)
     {
         int next = Mathf.Clamp(index, 1, 6);
-        if (activeLocation == next) return;
+        if (activeLocation == next)
+        {
+            return;
+        }
+
         activeLocation = next;
         SetMaterialDirty();
         SetVerticesDirty();
@@ -40,7 +44,11 @@ public sealed class LocationBackdropGraphic : MaskableGraphic
     public void SetBoardWindow(Vector2 min, Vector2 max)
     {
         if ((windowMin - min).sqrMagnitude < 0.0000001f
-            && (windowMax - max).sqrMagnitude < 0.0000001f) return;
+            && (windowMax - max).sqrMagnitude < 0.0000001f)
+        {
+            return;
+        }
+
         windowMin = min;
         windowMax = max;
         SetVerticesDirty();
@@ -50,7 +58,11 @@ public sealed class LocationBackdropGraphic : MaskableGraphic
     {
         vh.Clear();
         Rect rect = rectTransform.rect;
-        if (rect.width <= 0f || rect.height <= 0f) return;
+        if (rect.width <= 0f || rect.height <= 0f)
+        {
+            return;
+        }
+
         float left = Mathf.Lerp(rect.xMin, rect.xMax, windowMin.x);
         float right = Mathf.Lerp(rect.xMin, rect.xMax, windowMax.x);
         float bottom = Mathf.Lerp(rect.yMin, rect.yMax, windowMin.y);
@@ -69,7 +81,11 @@ public sealed class LocationBackdropGraphic : MaskableGraphic
     private static void AddPanel(VertexHelper vh, Rect canvas,
         Rect panel, Color tint)
     {
-        if (panel.width <= 0f || panel.height <= 0f) return;
+        if (panel.width <= 0f || panel.height <= 0f)
+        {
+            return;
+        }
+
         int first = vh.currentVertCount;
         AddVertex(vh, canvas, new Vector2(panel.xMin, panel.yMin), tint);
         AddVertex(vh, canvas, new Vector2(panel.xMin, panel.yMax), tint);

@@ -21,7 +21,11 @@ public sealed class BeaverDam : MonoBehaviour, IDefenseHealthTarget
 
     public void AddHealth(float amount, Stage room)
     {
-        if (amount < 0f || room == null) return;
+        if (amount < 0f || room == null)
+        {
+            return;
+        }
+
         ownerRoom = room;
         maximumHealth = ResolveHealthLimit(room);
         health = Mathf.Min(maximumHealth, health + amount);
@@ -33,7 +37,11 @@ public sealed class BeaverDam : MonoBehaviour, IDefenseHealthTarget
         transform.SetParent(room.transform, false);
         transform.position = new Vector3(room.transform.position.x,
             room.DefenseBoundaryY + 0.25f, fieldDepth);
-        if (artwork == null) artwork = GetComponent<SpriteRenderer>();
+        if (artwork == null)
+        {
+            artwork = GetComponent<SpriteRenderer>();
+        }
+
         if (artwork != null && artwork.sprite != null)
         {
             artwork.sortingOrder = BattlefieldForestStyle.DefenseStructureSortingOrder;
@@ -52,7 +60,11 @@ public sealed class BeaverDam : MonoBehaviour, IDefenseHealthTarget
     private static float ResolveHealthLimit(Stage room)
     {
         DefenseLineRuntime front = GameManager.Instance?.Front;
-        if (front == null) front = room.GetComponentInParent<DefenseLineRuntime>();
+        if (front == null)
+        {
+            front = room.GetComponentInParent<DefenseLineRuntime>();
+        }
+
         MainRoomBarricade barricade = room.GetComponent<MainRoomBarricade>();
         float barricadeMaximum = front != null ? front.BarricadeMaxHealth
             : barricade != null ? barricade.MaxHealth
@@ -68,14 +80,26 @@ public sealed class BeaverDam : MonoBehaviour, IDefenseHealthTarget
         float absorbed = Mathf.Min(health, incoming * mitigation);
         health -= absorbed;
         RefreshVisual();
-        if (health <= 0f) Destroy(gameObject);
+        if (health <= 0f)
+        {
+            Destroy(gameObject);
+        }
+
         return Mathf.Max(0f, incoming - absorbed / mitigation);
     }
 
     private void RefreshVisual()
     {
-        if (artwork == null) artwork = GetComponent<SpriteRenderer>();
-        if (artwork == null) return;
+        if (artwork == null)
+        {
+            artwork = GetComponent<SpriteRenderer>();
+        }
+
+        if (artwork == null)
+        {
+            return;
+        }
+
         float ratio = maximumHealth > 0f ? health / maximumHealth : 0f;
         artwork.color = Color.Lerp(new Color(0.75f, 0.62f, 0.48f, 0.95f),
             Color.white, Mathf.Clamp01(ratio));
@@ -84,6 +108,8 @@ public sealed class BeaverDam : MonoBehaviour, IDefenseHealthTarget
     private void OnDestroy()
     {
         if (healthBarRegistered && EnemyCombatTextUI.Instance != null)
+        {
             EnemyCombatTextUI.Instance.UnregisterDefense(this);
+        }
     }
 }

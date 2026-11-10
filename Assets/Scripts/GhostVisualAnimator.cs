@@ -20,7 +20,11 @@ public sealed class GhostVisualAnimator : MonoBehaviour
 
     private void Awake()
     {
-        if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
         restPosition = transform.localPosition;
         restRotation = transform.localRotation;
         restAlpha = spriteRenderer != null ? spriteRenderer.color.a : 1f;
@@ -35,7 +39,11 @@ public sealed class GhostVisualAnimator : MonoBehaviour
         transform.localPosition = restPosition + Vector3.up * (Mathf.Sin(phase) * floatHeight);
         transform.localRotation = restRotation *
             Quaternion.Euler(0f, 0f, Mathf.Sin(phase * 0.6f) * swayDegrees);
-        if (spriteRenderer == null) return;
+        if (spriteRenderer == null)
+        {
+            return;
+        }
+
         phaseRemaining = Mathf.Max(0f, phaseRemaining - Time.deltaTime);
         float shimmer = 1f - shimmerStrength * (0.5f + 0.5f * Mathf.Sin(phase * 1.35f));
         float fade = phaseRemaining > 0f ? 0.3f : 1f;
@@ -48,7 +56,11 @@ public sealed class GhostVisualAnimator : MonoBehaviour
     {
         transform.localPosition = restPosition;
         transform.localRotation = restRotation;
-        if (spriteRenderer == null) return;
+        if (spriteRenderer == null)
+        {
+            return;
+        }
+
         Color color = spriteRenderer.color;
         color.a = restAlpha;
         spriteRenderer.color = color;

@@ -19,20 +19,35 @@ public sealed class PumpkinEyeFire : MonoBehaviour
 
     private void Awake()
     {
-        if (leftEye != null) leftBaseScale = leftEye.transform.localScale;
-        if (rightEye != null) rightBaseScale = rightEye.transform.localScale;
+        if (leftEye != null)
+        {
+            leftBaseScale = leftEye.transform.localScale;
+        }
+
+        if (rightEye != null)
+        {
+            rightBaseScale = rightEye.transform.localScale;
+        }
     }
 
     public void MatchSorting(SpriteRenderer character)
     {
-        if (character == null) return;
+        if (character == null)
+        {
+            return;
+        }
+
         SetSorting(leftEye, character);
         SetSorting(rightEye, character);
     }
 
     private static void SetSorting(SpriteRenderer eye, SpriteRenderer character)
     {
-        if (eye == null) return;
+        if (eye == null)
+        {
+            return;
+        }
+
         eye.sortingLayerID = character.sortingLayerID;
         eye.sortingOrder = character.sortingOrder + 1;
     }
@@ -50,7 +65,11 @@ public sealed class PumpkinEyeFire : MonoBehaviour
     private void Flicker(SpriteRenderer eye, Vector3 baseScale,
         float sharedFlame, float fineFlicker)
     {
-        if (eye == null) return;
+        if (eye == null)
+        {
+            return;
+        }
+
         float brightness = Mathf.Clamp01(sharedFlame * 0.66f + fineFlicker * 0.34f);
         Color color = Color.Lerp(emberColor, flameColor, brightness);
         color.a = Mathf.Lerp(minimumAlpha, maximumAlpha, brightness);

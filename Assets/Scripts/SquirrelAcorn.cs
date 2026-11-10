@@ -59,7 +59,11 @@ public sealed class SquirrelAcorn : MonoBehaviour
     public static SquirrelAcorn Plant(Brick enemy, SquirrelAcorn prefab, float detonationChance,
         int vinesRank, bool ultimate, int comboId, int owner = AnimalProjectileQueue.SquirrelIndex, bool fromArtifact = false)
     {
-        if (enemy == null || enemy.IsDefeated || prefab == null || enemy.levelGenerator == null) return null;
+        if (enemy == null || enemy.IsDefeated || prefab == null || enemy.levelGenerator == null)
+        {
+            return null;
+        }
+
         SquirrelAcorn seed = FindOn(enemy);
         if (seed == null)
         {
@@ -75,7 +79,11 @@ public sealed class SquirrelAcorn : MonoBehaviour
             seed.plantedAt = Time.time;
             Planted[enemy] = seed;
         }
-        if (seed.isArtifactSeed && !fromArtifact) return seed;
+        if (seed.isArtifactSeed && !fromArtifact)
+        {
+            return seed;
+        }
+
         seed.room = enemy.levelGenerator;
         seed.earlyExplosionChance = Mathf.Clamp(detonationChance, 0f, 0.2f);
         seed.bindingRank = Mathf.Clamp(vinesRank, 0, 3);
@@ -88,7 +96,11 @@ public sealed class SquirrelAcorn : MonoBehaviour
     {
         foreach (SquirrelAcorn seed in Planted.Values)
         {
-            if (seed == null || seed.isArtifactSeed) continue;
+            if (seed == null || seed.isArtifactSeed)
+            {
+                continue;
+            }
+
             seed.earlyExplosionChance = Mathf.Clamp(detonationChance, 0f, 0.2f);
             seed.bindingRank = Mathf.Clamp(vinesRank, 0, 3);
             seed.chainReaction = ultimate;
@@ -98,27 +110,48 @@ public sealed class SquirrelAcorn : MonoBehaviour
     public static void NotifyEnemyDefeated(Brick enemy)
     {
         SquirrelAcorn seed = FindOn(enemy);
-        if (seed != null) seed.Detonate();
+        if (seed != null)
+        {
+            seed.Detonate();
+        }
     }
 
     public bool TryDetonateEarly(float chanceOverride = -1f)
     {
-        if (detonated || host == null || host.IsDefeated) return false;
+        if (detonated || host == null || host.IsDefeated)
+        {
+            return false;
+        }
+
         float chance = chanceOverride >= 0f ? Mathf.Clamp(chanceOverride, 0f, 0.5f) : earlyExplosionChance;
-        if (chance <= 0f || Random.value >= chance) return false;
+        if (chance <= 0f || Random.value >= chance)
+        {
+            return false;
+        }
+
         Detonate();
         return detonated;
     }
 
     private void Awake()
     {
-        if (blastArtwork != null) blastArtwork.enabled = false;
-        if (blastRing != null) blastRing.enabled = false;
+        if (blastArtwork != null)
+        {
+            blastArtwork.enabled = false;
+        }
+
+        if (blastRing != null)
+        {
+            blastRing.enabled = false;
+        }
+
         if (fireBurst != null)
         {
             fireBurst.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             if (Application.isPlaying)
+            {
                 FireflyFlameArt.Apply(fireBurst, fireBurst.GetComponent<ParticleSystemRenderer>());
+            }
         }
     }
 
@@ -126,17 +159,32 @@ public sealed class SquirrelAcorn : MonoBehaviour
     {
         // Capture the room before normal defeat handlers remove or transfer
         // the host. The authored effect belongs to the room, so it survives death.
-        if (host != null && host.levelGenerator != null) room = host.levelGenerator;
-        if (detonated || room == null || room.IsLost) return;
+        if (host != null && host.levelGenerator != null)
+        {
+            room = host.levelGenerator;
+        }
+
+        if (detonated || room == null || room.IsLost)
+        {
+            return;
+        }
+
         detonated = true;
         activeBlasts++;
         if (!object.ReferenceEquals(host, null) && Planted.TryGetValue(host, out SquirrelAcorn current) && current == this)
+        {
             Planted.Remove(host);
+        }
+
         Vector3 center = host != null ? host.transform.position : transform.position;
         transform.SetParent(room.transform, true);
         transform.position = center;
         transform.rotation = Quaternion.identity;
-        if (artwork != null) artwork.enabled = false;
+        if (artwork != null)
+        {
+            artwork.enabled = false;
+        }
+
         StartCoroutine(ExplodeAfterHit(center));
     }
 
@@ -150,7 +198,11 @@ public sealed class SquirrelAcorn : MonoBehaviour
         foreach (GameObject candidate in room.EnemyCollection)
         {
             if (candidate == null || !candidate.TryGetComponent(out Brick enemy) || enemy.IsDefeated
-                || Vector2.SqrMagnitude((Vector2)(enemy.transform.position - center)) > radius * radius + 0.0001f) continue;
+                || Vector2.SqrMagnitude((Vector2)(enemy.transform.position - center)) > radius * radius + 0.0001f)
+            {
+                continue;
+            }
+
             blastTargets.Add(enemy);
         }
         FireflyBonfire.Spawn(room, center, BonfireDamage * ArtifactEquipmentBonuses.Multiplier(ArtifactStat.SeedDamagePct), radius, radius, BonfireTurns,
@@ -163,14 +215,22 @@ public sealed class SquirrelAcorn : MonoBehaviour
             blastArtwork.color = Color.white;
             blastArtwork.enabled = true;
         }
-        if (fireBurst != null) fireBurst.Play(true);
+        if (fireBurst != null)
+        {
+            fireBurst.Play(true);
+        }
+
         float totalDamage = BlastDamage * ArtifactEquipmentBonuses.Multiplier(ArtifactStat.SeedDamagePct);
         float ordinaryHit = Mathf.Floor(totalDamage / BlastHitCount);
         try
         {
             for (int hit = 0; hit < BlastHitCount; hit++)
             {
-                if (hit > 0) yield return new WaitForSeconds(BlastHitInterval);
+                if (hit > 0)
+                {
+                    yield return new WaitForSeconds(BlastHitInterval);
+                }
+
                 if (room == null || room.IsLost) { Destroy(gameObject); yield break; }
                 float damage = hit == BlastHitCount - 1 ? totalDamage - ordinaryHit * (BlastHitCount - 1) : ordinaryHit;
                 var neighbours = CombatSnapshotPool<SquirrelAcorn>.Rent();
@@ -178,11 +238,18 @@ public sealed class SquirrelAcorn : MonoBehaviour
                 {
                     foreach (Brick enemy in blastTargets)
                     {
-                        if (enemy == null || enemy.IsDefeated || enemy.levelGenerator != room) continue;
+                        if (enemy == null || enemy.IsDefeated || enemy.levelGenerator != room)
+                        {
+                            continue;
+                        }
+
                         if (hit == 0 && chainReaction)
                         {
                             SquirrelAcorn neighbour = FindOn(enemy);
-                            if (neighbour != null && neighbour != this) neighbours.Add(neighbour);
+                            if (neighbour != null && neighbour != this)
+                            {
+                                neighbours.Add(neighbour);
+                            }
                         }
                         // Each real hit restarts the enemy's normal shake. Vines roll once per explosion.
                         bool bind = hit == 0 && BindingChance > 0f && Random.value < BindingChance;
@@ -194,12 +261,24 @@ public sealed class SquirrelAcorn : MonoBehaviour
                         }
                     }
                     foreach (SquirrelAcorn neighbour in neighbours)
-                        if (neighbour != null) neighbour.Detonate();
+                    {
+                        if (neighbour != null)
+                        {
+                            neighbour.Detonate();
+                        }
+                    }
                 }
                 finally { CombatSnapshotPool<SquirrelAcorn>.Return(neighbours); }
                 blastUntil = Time.time + BlastHitInterval;
-                if (blastRing != null) blastRing.enabled = true;
-                if (hit > 0 && fireBurst != null) fireBurst.Emit(4);
+                if (blastRing != null)
+                {
+                    blastRing.enabled = true;
+                }
+
+                if (hit > 0 && fireBurst != null)
+                {
+                    fireBurst.Emit(4);
+                }
             }
         }
         finally { ReturnBlastTargets(); }
@@ -211,62 +290,100 @@ public sealed class SquirrelAcorn : MonoBehaviour
     {
         if (detonated)
         {
-            if (blastArtwork != null && blastArtwork.enabled && blastFrames != null && blastFrames.Length > 0)
-            {
-                float progress = Mathf.Clamp01((Time.time - blastStartedAt) / blastDuration);
-                int frame = Mathf.Min(blastFrames.Length - 1, Mathf.FloorToInt(progress * blastFrames.Length));
-                blastArtwork.sprite = blastFrames[frame];
-                // The generated final embers disappear smoothly before cleanup.
-                blastArtwork.color = new Color(1, 1, 1, 1f - Mathf.InverseLerp(0.82f, 1f, progress));
-            }
-            if (blastRing != null && blastRing.enabled)
-            {
-                float t = Mathf.Clamp01(1f - (blastUntil - Time.time) / BlastHitInterval);
-                blastRing.transform.localScale = Vector3.one * Mathf.Lerp(0.15f, BlastRadius, t);
-                blastRing.startColor = blastRing.endColor = new Color(1f, 0.55f, 0.12f, 0.9f * (1f - t));
-            }
+            UpdateBlastVisuals();
             return;
         }
+
         if (host == null || host.levelGenerator == null || host.levelGenerator.IsLost)
-        { Destroy(gameObject); return; }
-        if (host.IsDefeated || host.hp <= 0f) { Detonate(); return; }
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        if (host.IsDefeated || host.hp <= 0f)
+        {
+            Detonate();
+            return;
+        }
+
         room = host.levelGenerator;
-        if (transform.parent != room.transform) transform.SetParent(room.transform, true);
+        if (transform.parent != room.transform)
+        {
+            transform.SetParent(room.transform, true);
+        }
+
         Transform follow = anchor != null ? anchor : host.transform;
         transform.position = follow.position + Vector3.back * 0.025f;
         transform.rotation = follow.rotation;
-        if (artwork != null && artwork.sprite != null)
+        UpdateSeedPulse(follow);
+    }
+
+    private void UpdateBlastVisuals()
+    {
+        if (blastArtwork != null && blastArtwork.enabled && blastFrames != null && blastFrames.Length > 0)
         {
-            float pulse = 0.5f + 0.5f * Mathf.Sin((Time.time - plantedAt) * pulseFrequency * Mathf.PI * 2f);
-            Vector3 enemySize = enemyArtwork != null && enemyArtwork.sprite != null
-                ? Vector3.Scale(enemyArtwork.sprite.bounds.size, follow.lossyScale)
-                : (Vector3)(Vector2)host.Footprint;
-            Vector3 spriteSize = artwork.sprite.bounds.size;
-            float scale = relativeSize * Mathf.Lerp(0.94f, 1.06f, pulse)
-                * Mathf.Min(Mathf.Abs(enemySize.x) / Mathf.Max(0.01f, spriteSize.x),
-                    Mathf.Abs(enemySize.y) / Mathf.Max(0.01f, spriteSize.y));
-            Vector3 parentScale = artwork.transform.parent.lossyScale;
-            artwork.transform.localScale = new Vector3(scale / Mathf.Max(0.001f, Mathf.Abs(parentScale.x)),
-                scale / Mathf.Max(0.001f, Mathf.Abs(parentScale.y)), 1f);
-            Color tint = Color.Lerp(Color.white, pulseColor, Mathf.Lerp(0.2f, 0.75f, pulse));
-            tint.a = Mathf.Lerp(0.35f, 0.75f, pulse);
-            artwork.color = tint;
-            artwork.enabled = room.Darkness == null || room.Darkness.IsVisible(transform.position);
+            float progress = Mathf.Clamp01((Time.time - blastStartedAt) / blastDuration);
+            int frame = Mathf.Min(blastFrames.Length - 1, Mathf.FloorToInt(progress * blastFrames.Length));
+            blastArtwork.sprite = blastFrames[frame];
+            // The generated final embers disappear smoothly before cleanup.
+            blastArtwork.color = new Color(1, 1, 1, 1f - Mathf.InverseLerp(0.82f, 1f, progress));
         }
+
+        if (blastRing != null && blastRing.enabled)
+        {
+            float t = Mathf.Clamp01(1f - (blastUntil - Time.time) / BlastHitInterval);
+            blastRing.transform.localScale = Vector3.one * Mathf.Lerp(0.15f, BlastRadius, t);
+            blastRing.startColor = blastRing.endColor = new Color(1f, 0.55f, 0.12f, 0.9f * (1f - t));
+        }
+    }
+
+    private void UpdateSeedPulse(Transform follow)
+    {
+        if (artwork == null || artwork.sprite == null)
+        {
+            return;
+        }
+
+        float pulse = 0.5f + 0.5f * Mathf.Sin((Time.time - plantedAt) * pulseFrequency * Mathf.PI * 2f);
+        Vector3 enemySize = enemyArtwork != null && enemyArtwork.sprite != null
+            ? Vector3.Scale(enemyArtwork.sprite.bounds.size, follow.lossyScale)
+            : (Vector3)(Vector2)host.Footprint;
+        Vector3 spriteSize = artwork.sprite.bounds.size;
+        float scale = relativeSize * Mathf.Lerp(0.94f, 1.06f, pulse)
+            * Mathf.Min(Mathf.Abs(enemySize.x) / Mathf.Max(0.01f, spriteSize.x),
+                Mathf.Abs(enemySize.y) / Mathf.Max(0.01f, spriteSize.y));
+        Vector3 parentScale = artwork.transform.parent.lossyScale;
+        artwork.transform.localScale = new Vector3(scale / Mathf.Max(0.001f, Mathf.Abs(parentScale.x)),
+            scale / Mathf.Max(0.001f, Mathf.Abs(parentScale.y)), 1f);
+        Color tint = Color.Lerp(Color.white, pulseColor, Mathf.Lerp(0.2f, 0.75f, pulse));
+        tint.a = Mathf.Lerp(0.35f, 0.75f, pulse);
+        artwork.color = tint;
+        artwork.enabled = room.Darkness == null || room.Darkness.IsVisible(transform.position);
     }
 
     private void ReturnBlastTargets()
     {
-        if (blastTargets == null) return;
+        if (blastTargets == null)
+        {
+            return;
+        }
+
         CombatSnapshotPool<Brick>.Return(blastTargets); blastTargets = null;
     }
 
     private void OnDestroy()
     {
         ReturnBlastTargets();
-        if (detonated) activeBlasts = Mathf.Max(0, activeBlasts - 1);
+        if (detonated)
+        {
+            activeBlasts = Mathf.Max(0, activeBlasts - 1);
+        }
+
         if (!object.ReferenceEquals(host, null) && Planted.TryGetValue(host, out SquirrelAcorn current) && current == this)
+        {
             Planted.Remove(host);
+        }
+
         if (detonated && Application.isPlaying)
         {
             GameManager.Instance?.NotifyProjectileCollectionChanged();

@@ -93,7 +93,10 @@ public sealed class DrownedBogVisuals : MonoBehaviour
                 : gehennaTilemap ? gehenna : gloomyTilemap ? gloomy
                 : bogTilemap ? swamp : !bay && !snow && !gehenna && !gloomy && !swamp;
             tiles.gameObject.SetActive(visible);
-            if (visible) visibleFloor = tiles;
+            if (visible)
+            {
+                visibleFloor = tiles;
+            }
         }
         frame?.RefreshLowerField(GetComponent<Stage>(), visibleFloor);
     }

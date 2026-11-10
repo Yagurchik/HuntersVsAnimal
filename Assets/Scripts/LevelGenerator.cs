@@ -7,7 +7,11 @@ public class LevelGenerator : MonoBehaviour
     public void InvalidateEnemyQueries() => enemyIndex?.Invalidate();
     public void CollectNearbyEnemies(Vector2 center, float radius, bool square, Brick excluded, List<Brick> result)
     {
-        if (enemyIndex == null) enemyIndex = new RoomEnemyIndex(this);
+        if (enemyIndex == null)
+        {
+            enemyIndex = new RoomEnemyIndex(this);
+        }
+
         enemyIndex.Collect(center, radius, square, excluded, result);
     }
     public const int MaxColumns = 8;
@@ -80,7 +84,9 @@ public class LevelGenerator : MonoBehaviour
             {
                 GameObject enemy = EnemyCollection[i];
                 if (enemy != null && enemy.TryGetComponent(out Brick brick) && !brick.IsDefeated)
+                {
                     return true;
+                }
             }
             return false;
         }
@@ -91,8 +97,14 @@ public class LevelGenerator : MonoBehaviour
         {
             int count = 0;
             foreach (GameObject enemy in EnemyCollection)
+            {
                 if (enemy != null && enemy.TryGetComponent(out Brick brick)
-                    && !brick.IsDefeated && brick.levelGenerator == this) count++;
+                    && !brick.IsDefeated && brick.levelGenerator == this)
+                {
+                    count++;
+                }
+            }
+
             return count;
         }
     }
@@ -117,7 +129,11 @@ public class LevelGenerator : MonoBehaviour
     {
         get
         {
-            if (IsEndlessSurvivalSource) return 1;
+            if (IsEndlessSurvivalSource)
+            {
+                return 1;
+            }
+
             return m_Settings != null ? Mathf.Max(0, m_Settings._enemyAddWaves) : 0;
         }
     }
@@ -139,7 +155,11 @@ public class LevelGenerator : MonoBehaviour
             {
                 GameObject enemy = EnemyCollection[i];
                 if (enemy == null || !enemy.TryGetComponent(out Brick brick)
-                    || !brick.OccupiesGrid) continue;
+                    || !brick.OccupiesGrid)
+                {
+                    continue;
+                }
+
                 occupied += brick.OccupiedCellCount;
             }
             return occupied;
@@ -150,7 +170,11 @@ public class LevelGenerator : MonoBehaviour
     {
         get
         {
-            if (!initialized || IsLost) return int.MaxValue;
+            if (!initialized || IsLost)
+            {
+                return int.MaxValue;
+            }
+
             int closest = int.MaxValue;
             foreach (GameObject enemy in EnemyCollection)
             {
@@ -158,7 +182,11 @@ public class LevelGenerator : MonoBehaviour
                     || brick.IsDefeated
                     || (brick.TryGetComponent(out ZombieResurrection grave)
                         && grave.IsAwaitingResurrection)
-                    || brick.levelGenerator != this || brick.IsStationary) continue;
+                    || brick.levelGenerator != this || brick.IsStationary)
+                {
+                    continue;
+                }
+
                 int cells = GetTurnsUntilBreach(brick);
                 int steps = brick.TryGetComponent(out BossEnemyTurnController controller)
                     ? controller.MovementCellsPerTurn : 1;
@@ -188,10 +216,22 @@ public class LevelGenerator : MonoBehaviour
     // Activation and turns belong to GameManager, not OnEnable/Update on each room.
     public void InitializeRoom()
     {
-        if (initialized) return;
+        if (initialized)
+        {
+            return;
+        }
+
         initialized = true;
-        if (m_Settings == null) m_Settings = GetComponent<Settings>();
-        if (m_Settings == null) m_Settings = gameObject.AddComponent<Settings>();
+        if (m_Settings == null)
+        {
+            m_Settings = GetComponent<Settings>();
+        }
+
+        if (m_Settings == null)
+        {
+            m_Settings = gameObject.AddComponent<Settings>();
+        }
+
         ClockSiegeDirector clock = ClockDirector;
         if (clock != null)
         {
@@ -208,7 +248,10 @@ public class LevelGenerator : MonoBehaviour
                     : LevelProgression.CampaignWavesPerRoom - 1);
         }
         if (GameManager.Instance != null && !GameManager.Instance.rooms.Contains(this))
+        {
             GameManager.Instance.rooms.Add(this);
+        }
+
         bool preLiberatedSurvivalRoom = GameManager.Instance != null
             && GameManager.Instance.IsSurvivalMode
             && (clock != null ? defenseLine == 1 || !clock.IsFrontSpawning(RoomId) : defenseLine < 4);
@@ -220,8 +263,14 @@ public class LevelGenerator : MonoBehaviour
                 ? BossPressureStartingEnemies : GetEnemyCountForWave(1);
             bool bossReplacedFirstWave = SpawnStartingBoss();
             if (bossReplacedFirstWave && campaignBossPressure)
+            {
                 CreateCell(firstWaveCount - 1, 1, true);
-            else if (!bossReplacedFirstWave) CreateCell(firstWaveCount, 1);
+            }
+            else if (!bossReplacedFirstWave)
+            {
+                CreateCell(firstWaveCount, 1);
+            }
+
             spawnedWaveCount = 1;
         }
     }
@@ -229,8 +278,16 @@ public class LevelGenerator : MonoBehaviour
     private bool SpawnStartingBoss()
     {
         // Clock bosses arrive only through the boss raid event.
-        if (ClockDirector != null) return false;
-        if (!LevelProgression.IsBossRoomPosition(defenseLine, roomIndex)) return false;
+        if (ClockDirector != null)
+        {
+            return false;
+        }
+
+        if (!LevelProgression.IsBossRoomPosition(defenseLine, roomIndex))
+        {
+            return false;
+        }
+
         LevelProgression progression = LevelProgression.Instance;
         bool survival = GameManager.Instance != null && GameManager.Instance.IsSurvivalMode;
         LevelProgression.BossKind kind = progression != null
@@ -243,9 +300,17 @@ public class LevelGenerator : MonoBehaviour
     // a campaign boss. Escorts follow the common boss escort rule.
     public Brick SpawnRaidBoss(LevelProgression.BossKind kind)
     {
-        if (!initialized || IsLost) return null;
+        if (!initialized || IsLost)
+        {
+            return null;
+        }
+
         int before = EnemyCollection.Count;
-        if (!SpawnBoss(ResolveBossPrefab(kind), false) || EnemyCollection.Count <= before) return null;
+        if (!SpawnBoss(ResolveBossPrefab(kind), false) || EnemyCollection.Count <= before)
+        {
+            return null;
+        }
+
         GameObject spawned = EnemyCollection[EnemyCollection.Count - 1];
         GameManager.Instance?.Front?.RefreshRoom(this);
         return spawned != null ? spawned.GetComponent<Brick>() : null;
@@ -255,14 +320,30 @@ public class LevelGenerator : MonoBehaviour
     // health and a tint. A stationary target never walks toward the breach.
     public Brick SpawnEventEnemy(float healthMultiplier, Color tint, bool stationary)
     {
-        if (!initialized || IsLost) return null;
+        if (!initialized || IsLost)
+        {
+            return null;
+        }
+
         GameObject prefab = ResolveOrdinaryEnemyPrefab();
-        if (prefab == null) return null;
+        if (prefab == null)
+        {
+            return null;
+        }
+
         FindFreeEntryCells();
-        if (freeCells.Count == 0) return null;
+        if (freeCells.Count == 0)
+        {
+            return null;
+        }
+
         Brick enemy = SpawnEnemy(prefab, freeCells[Random.Range(0, freeCells.Count)],
             Mathf.Max(1, spawnedWaveCount));
-        if (enemy == null) return null;
+        if (enemy == null)
+        {
+            return null;
+        }
+
         enemy.ApplyClockEventVariant(healthMultiplier, tint);
         enemy.IsStationary = stationary;
         GameManager.Instance?.Front?.RefreshRoom(this);
@@ -272,9 +353,17 @@ public class LevelGenerator : MonoBehaviour
     // Clock siege: a front that starts attacking sends its first wave at once.
     public bool SpawnClockWave()
     {
-        if (!initialized || IsLost) return false;
+        if (!initialized || IsLost)
+        {
+            return false;
+        }
+
         int waveNumber = spawnedWaveCount + 1;
-        if (!CreateCell(GetEnemyCountForWave(waveNumber), waveNumber)) return false;
+        if (!CreateCell(GetEnemyCountForWave(waveNumber), waveNumber))
+        {
+            return false;
+        }
+
         spawnedWaveCount++;
         GameManager.Instance?.Front?.RefreshRoom(this);
         return true;
@@ -286,10 +375,18 @@ public class LevelGenerator : MonoBehaviour
         int summonedCount = 0;
         for (int i = 0; i < count; i++)
         {
-            if (!TrySummonNear(center, prefab, out Brick guard) || guard == null) break;
+            if (!TrySummonNear(center, prefab, out Brick guard) || guard == null)
+            {
+                break;
+            }
+
             summonedCount++;
         }
-        if (summonedCount > 0) GameManager.Instance?.Front?.RefreshRoom(this);
+        if (summonedCount > 0)
+        {
+            GameManager.Instance?.Front?.RefreshRoom(this);
+        }
+
         return summonedCount;
     }
 
@@ -353,14 +450,28 @@ public class LevelGenerator : MonoBehaviour
 
     private bool SpawnBoss(GameObject prefab, bool trackCampaignBoss)
     {
-        if (prefab == null || !prefab.TryGetComponent(out Brick boss)) return false;
+        if (prefab == null || !prefab.TryGetComponent(out Brick boss))
+        {
+            return false;
+        }
+
         var grid = new EnemyRoomGrid(this, Mathf.Max(2, SpawnRows));
         List<Vector2Int> cells = grid.FreeAnchors(boss);
-        if (cells.Count == 0) return false;
+        if (cells.Count == 0)
+        {
+            return false;
+        }
+
         Vector2Int chosen = cells[0];
         float center = (Columns - boss.Footprint.x) * 0.5f;
         for (int i = 1; i < cells.Count; i++)
-            if (Mathf.Abs(cells[i].x - center) < Mathf.Abs(chosen.x - center)) chosen = cells[i];
+        {
+            if (Mathf.Abs(cells[i].x - center) < Mathf.Abs(chosen.x - center))
+            {
+                chosen = cells[i];
+            }
+        }
+
         Brick spawnedBoss = SpawnEnemy(prefab, grid.Center(chosen, boss.Footprint));
         if (trackCampaignBoss)
         {
@@ -392,10 +503,18 @@ public class LevelGenerator : MonoBehaviour
     public int SpawnDrownedHeirs(Brick king, GameObject heirPrefab)
     {
         if (!initialized || IsLost || king == null || king.levelGenerator != this
-            || heirPrefab == null || !heirPrefab.TryGetComponent(out Brick heir)) return 0;
+            || heirPrefab == null || !heirPrefab.TryGetComponent(out Brick heir))
+        {
+            return 0;
+        }
+
         int heirCount = defenseLine >= 2
             ? Mathf.Min(3, BossPressureEnemyLimit - LivingEnemyCount) : 3;
-        if (heirCount <= 0) return 0;
+        if (heirCount <= 0)
+        {
+            return 0;
+        }
+
         var grid = new EnemyRoomGrid(this, SafeReceivingRows);
         List<Vector2Int> candidates = grid.FreeAnchors(heir);
         Vector2Int kingAnchor = grid.Anchor(king.transform.position, king.Footprint);
@@ -405,7 +524,11 @@ public class LevelGenerator : MonoBehaviour
             float leftDistance = ((Vector2)left + (Vector2)heir.Footprint * 0.5f - kingCenter).sqrMagnitude;
             float rightDistance = ((Vector2)right + (Vector2)heir.Footprint * 0.5f - kingCenter).sqrMagnitude;
             int distance = leftDistance.CompareTo(rightDistance);
-            if (distance != 0) return distance;
+            if (distance != 0)
+            {
+                return distance;
+            }
+
             int row = left.y.CompareTo(right.y);
             return row != 0 ? row : left.x.CompareTo(right.x);
         });
@@ -416,7 +539,10 @@ public class LevelGenerator : MonoBehaviour
             return 0;
         }
         foreach (Vector2Int cell in chosen)
+        {
             SpawnEnemy(heirPrefab, grid.Center(cell, heir.Footprint)).InheritBossHealth(king);
+        }
+
         GameManager.Instance?.Front?.RefreshRoom(this);
         return chosen.Count;
     }
@@ -424,14 +550,26 @@ public class LevelGenerator : MonoBehaviour
     private static bool TryPlanDrownedHeirs(EnemyRoomGrid grid, Brick heir,
         List<Vector2Int> candidates, int first, int targetCount, List<Vector2Int> chosen)
     {
-        if (chosen.Count == targetCount) return true;
+        if (chosen.Count == targetCount)
+        {
+            return true;
+        }
+
         for (int i = first; i < candidates.Count; i++)
         {
             Vector2Int cell = candidates[i];
-            if (!grid.CanPlace(cell, heir)) continue;
+            if (!grid.CanPlace(cell, heir))
+            {
+                continue;
+            }
+
             grid.Reserve(cell, heir);
             chosen.Add(cell);
-            if (TryPlanDrownedHeirs(grid, heir, candidates, i + 1, targetCount, chosen)) return true;
+            if (TryPlanDrownedHeirs(grid, heir, candidates, i + 1, targetCount, chosen))
+            {
+                return true;
+            }
+
             chosen.RemoveAt(chosen.Count - 1);
             grid.Reserve(cell, heir, false);
         }
@@ -441,7 +579,11 @@ public class LevelGenerator : MonoBehaviour
     public int SpawnTutorialCluster(int requestedCount = 6)
     {
         GameObject ordinaryPrefab = ResolveOrdinaryEnemyPrefab();
-        if (!initialized || IsLost || ordinaryPrefab == null || requestedCount <= 0) return 0;
+        if (!initialized || IsLost || ordinaryPrefab == null || requestedCount <= 0)
+        {
+            return 0;
+        }
+
         int placementRows = Mathf.Clamp(Mathf.Max(3, SpawnRows), 1, Rows);
         var grid = new EnemyRoomGrid(this, placementRows);
         List<Vector2Int> candidates = grid.FreeAnchors(Vector2Int.one);
@@ -454,56 +596,83 @@ public class LevelGenerator : MonoBehaviour
             float leftDistance = ((Vector2)left - target).sqrMagnitude;
             float rightDistance = ((Vector2)right - target).sqrMagnitude;
             int distanceOrder = leftDistance.CompareTo(rightDistance);
-            if (distanceOrder != 0) return distanceOrder;
+            if (distanceOrder != 0)
+            {
+                return distanceOrder;
+            }
+
             int rowOrder = left.y.CompareTo(right.y);
             return rowOrder != 0 ? rowOrder : left.x.CompareTo(right.x);
         });
 
         int count = Mathf.Min(requestedCount, candidates.Count);
         for (int i = 0; i < count; i++)
+        {
             SpawnEnemy(ordinaryPrefab, grid.Center(candidates[i], Vector2Int.one),
                 Mathf.Max(1, spawnedWaveCount));
+        }
+
         GameManager.Instance?.Front?.RefreshRoom(this);
         return count;
     }
 
     private GameObject ResolveZombiePrefab()
     {
-        if (zombiePrefab == null) zombiePrefab = Resources.Load<GameObject>("Enemies/Zombie");
+        if (zombiePrefab == null)
+        {
+            zombiePrefab = Resources.Load<GameObject>("Enemies/Zombie");
+        }
+
         return zombiePrefab;
     }
 
     private GameObject ResolveRegularLichPrefab()
     {
         if (regularLichPrefab == null)
+        {
             regularLichPrefab = Resources.Load<GameObject>("Enemies/LichRegular");
+        }
+
         return regularLichPrefab;
     }
 
     private GameObject ResolveArmoredSkeletonPrefab()
     {
         if (armoredSkeletonPrefab == null)
+        {
             armoredSkeletonPrefab = Resources.Load<GameObject>("Enemies/ArmoredSkeleton");
+        }
+
         return armoredSkeletonPrefab;
     }
 
     private GameObject ResolveGhostPrefab()
     {
-        if (ghostPrefab == null) ghostPrefab = Resources.Load<GameObject>("Enemies/Ghost");
+        if (ghostPrefab == null)
+        {
+            ghostPrefab = Resources.Load<GameObject>("Enemies/Ghost");
+        }
+
         return ghostPrefab;
     }
 
     private GameObject ResolveSwampDemonPrefab()
     {
         if (swampDemonPrefab == null)
+        {
             swampDemonPrefab = Resources.Load<GameObject>("Enemies/SwampDemon");
+        }
+
         return swampDemonPrefab;
     }
 
     private GameObject ResolveBogPustulantPrefab()
     {
         if (bogPustulantPrefab == null)
+        {
             bogPustulantPrefab = Resources.Load<GameObject>("Enemies/BogPustulant");
+        }
+
         return bogPustulantPrefab;
     }
 
@@ -511,8 +680,16 @@ public class LevelGenerator : MonoBehaviour
     {
         int location = LevelProgression.Instance != null
             ? LevelProgression.Instance.CurrentLocationIndex : 1;
-        if (location == 1) return brickPrefab;
-        if (location == 3 && swampDemonPrefab != null) return swampDemonPrefab;
+        if (location == 1)
+        {
+            return brickPrefab;
+        }
+
+        if (location == 3 && swampDemonPrefab != null)
+        {
+            return swampDemonPrefab;
+        }
+
         GameObject ordinary = LoadLocationEnemy(location, 0);
         return ordinary != null ? ordinary : brickPrefab;
     }
@@ -527,20 +704,43 @@ public class LevelGenerator : MonoBehaviour
     public static string GetLocationEnemyResourceName(int location, int slot)
     {
         if (location < 1 || location > LocationEnemyPaths.GetLength(0)
-            || slot < 0 || slot >= LocationEnemyPaths.GetLength(1)) return null;
+            || slot < 0 || slot >= LocationEnemyPaths.GetLength(1))
+        {
+            return null;
+        }
+
         return LocationEnemyPaths[location - 1, slot];
     }
 
     private GameObject ResolveLocationSpecialist(int location, int slot)
     {
-        if (location == 1 && slot == 2) return ResolveZombiePrefab();
+        if (location == 1 && slot == 2)
+        {
+            return ResolveZombiePrefab();
+        }
+
         if (location == 2)
         {
-            if (slot == 1) return ResolveGhostPrefab();
-            if (slot == 2) return ResolveArmoredSkeletonPrefab();
-            if (slot == 3) return ResolveRegularLichPrefab();
+            if (slot == 1)
+            {
+                return ResolveGhostPrefab();
+            }
+
+            if (slot == 2)
+            {
+                return ResolveArmoredSkeletonPrefab();
+            }
+
+            if (slot == 3)
+            {
+                return ResolveRegularLichPrefab();
+            }
         }
-        if (location == 3 && slot == 1) return ResolveBogPustulantPrefab();
+        if (location == 3 && slot == 1)
+        {
+            return ResolveBogPustulantPrefab();
+        }
+
         return LoadLocationEnemy(location, slot);
     }
 
@@ -553,7 +753,11 @@ public class LevelGenerator : MonoBehaviour
 
     private int ZombieCountForWave(int totalEnemies)
     {
-        if (totalEnemies <= 0 || LevelProgression.Instance == null || ResolveZombiePrefab() == null) return 0;
+        if (totalEnemies <= 0 || LevelProgression.Instance == null || ResolveZombiePrefab() == null)
+        {
+            return 0;
+        }
+
         return Mathf.Clamp(LevelProgression.Instance.GetZombieCountPerWave(defenseLine, roomIndex),
             0, totalEnemies);
     }
@@ -561,7 +765,11 @@ public class LevelGenerator : MonoBehaviour
     private int ArmoredSkeletonCountForWave(int totalEnemies)
     {
         if (totalEnemies <= 0 || LevelProgression.Instance == null
-            || ResolveArmoredSkeletonPrefab() == null) return 0;
+            || ResolveArmoredSkeletonPrefab() == null)
+        {
+            return 0;
+        }
+
         return Mathf.Clamp(LevelProgression.Instance.GetArmoredSkeletonCountPerWave(
             defenseLine, roomIndex), 0, totalEnemies);
     }
@@ -569,18 +777,28 @@ public class LevelGenerator : MonoBehaviour
     public int MaximumEnemyTypesForWave(int waveNumber)
     {
         if (LevelProgression.Instance != null)
+        {
             return LevelProgression.Instance.GetMaximumEnemyTypesForWave(defenseLine, waveNumber);
+        }
+
         int safeWave = Mathf.Clamp(waveNumber, 1, LevelProgression.CampaignWavesPerRoom);
         return safeWave;
     }
 
     private int GetEnemyCountForWave(int waveNumber)
     {
-        if (ClockDirector != null) return ClockDirector.WaveEnemyCount;
+        if (ClockDirector != null)
+        {
+            return ClockDirector.WaveEnemyCount;
+        }
+
         if (GameManager.Instance != null && GameManager.Instance.IsSurvivalMode)
+        {
             return waveNumber <= 1
                 ? Mathf.Max(1, m_Settings._enemySet)
                 : GameManager.Instance.GetSurvivalWaveEnemyCount(m_Settings._enemySet);
+        }
+
         return LevelProgression.Instance != null
             ? LevelProgression.Instance.GetCampaignWaveEnemyCount(defenseLine, roomIndex,
                 Mathf.Clamp(waveNumber, 1, LevelProgression.CampaignWavesPerRoom))
@@ -591,7 +809,11 @@ public class LevelGenerator : MonoBehaviour
     {
         waveComposition.Clear();
         GameObject ordinaryPrefab = ResolveOrdinaryEnemyPrefab();
-        if (totalEnemies <= 0 || ordinaryPrefab == null) return;
+        if (totalEnemies <= 0 || ordinaryPrefab == null)
+        {
+            return;
+        }
+
         int location = LevelProgression.Instance != null
             ? LevelProgression.Instance.CurrentLocationIndex : 1;
         waveCandidates.Clear();
@@ -604,37 +826,56 @@ public class LevelGenerator : MonoBehaviour
             int rotation = (roomIndex + defenseLine + waveNumber - 4) % slots.Count;
             int typeLimit = totalEnemies == 1 ? 1 : MaximumEnemyTypesForWave(waveNumber) - 1;
             for (int i = 0; i < slots.Count && waveCandidates.Count < typeLimit; i++)
+            {
                 AddWaveCandidate(ResolveWaveSpecialist(location, slots[(rotation + i) % slots.Count]));
+            }
+
             int local = progression != null ? progression.CurrentLocalLevel : 1;
             float share = 0.2f + local * 0.05f + (waveNumber - 2) * 0.1f;
             int specialistCount = totalEnemies == 1 ? 1
                 : Mathf.Clamp(Mathf.RoundToInt(totalEnemies * share), 1, totalEnemies - 1);
             for (int i = 0; i < specialistCount && waveCandidates.Count > 0; i++)
+            {
                 waveComposition.Add(waveCandidates[i % waveCandidates.Count]);
+            }
         }
-        while (waveComposition.Count < totalEnemies) waveComposition.Add(ordinaryPrefab);
+        while (waveComposition.Count < totalEnemies)
+        {
+            waveComposition.Add(ordinaryPrefab);
+        }
     }
 
     private GameObject ResolveWaveSpecialist(int location, int slot)
     {
         GameObject specialist = ResolveLocationSpecialist(location, slot);
         if (specialist != null && specialist.GetComponent<LichSummoner>() != null)
+        {
             foreach (GameObject present in EnemyCollection)
+            {
                 if (present != null && present.TryGetComponent(out Brick existing)
                     && !existing.IsDefeated && present.GetComponent<LichSummoner>() != null)
                 {
                     specialist = null;
                     break;
                 }
+            }
+        }
+
         if (specialist != null && specialist.TryGetComponent(out Brick specialistBrick)
             && specialistBrick.Footprint == Vector2Int.one)
+        {
             return specialist;
+        }
+
         return null;
     }
 
     private void AddWaveCandidate(GameObject prefab)
     {
-        if (prefab != null && !waveCandidates.Contains(prefab)) waveCandidates.Add(prefab);
+        if (prefab != null && !waveCandidates.Contains(prefab))
+        {
+            waveCandidates.Add(prefab);
+        }
     }
 
     public bool TrySummonNear(Brick summoner, GameObject prefab)
@@ -648,11 +889,18 @@ public class LevelGenerator : MonoBehaviour
         if (!initialized || IsLost || summoner == null || summoner.levelGenerator != this
             || prefab == null || !prefab.TryGetComponent(out Brick template)
             || template.Footprint != Vector2Int.one
-            || (defenseLine >= 2 && LivingEnemyCount >= BossPressureEnemyLimit)) return false;
+            || (defenseLine >= 2 && LivingEnemyCount >= BossPressureEnemyLimit))
+        {
+            return false;
+        }
         // Never summon directly on or beyond the breach row.
         int safeRows = Mathf.Clamp(Mathf.CeilToInt(transform.position.y - DefenseBoundaryY), 1, Rows);
         var grid = new EnemyRoomGrid(this, safeRows);
-        if (!grid.TryFindNearest(summoner, out Vector3 position)) return false;
+        if (!grid.TryFindNearest(summoner, out Vector3 position))
+        {
+            return false;
+        }
+
         summoned = SpawnEnemy(prefab, position, Mathf.Max(1, spawnedWaveCount));
         return summoned != null;
     }
@@ -663,9 +911,17 @@ public class LevelGenerator : MonoBehaviour
     public int SummonBossEscort(Brick boss)
     {
         if (!initialized || IsLost || boss == null || boss.IsDefeated
-            || !boss.UsesBossHealth || boss.levelGenerator != this) return 0;
+            || !boss.UsesBossHealth || boss.levelGenerator != this)
+        {
+            return 0;
+        }
+
         GameObject prefab = ResolveOrdinaryEnemyPrefab();
-        if (prefab == null) return 0;
+        if (prefab == null)
+        {
+            return 0;
+        }
+
         LevelProgression progression = LevelProgression.Instance;
         int minimum = progression != null ? progression.BossEscortMinimum : LevelProgression.DefaultBossEscortMinimum;
         int maximum = progression != null ? progression.BossEscortMaximum : LevelProgression.DefaultBossEscortMaximum;
@@ -675,11 +931,19 @@ public class LevelGenerator : MonoBehaviour
         int summonedCount = 0;
         for (int i = 0; i < requested; i++)
         {
-            if (!TrySummonNear(boss, prefab, out Brick escort) || escort == null) break;
+            if (!TrySummonNear(boss, prefab, out Brick escort) || escort == null)
+            {
+                break;
+            }
+
             escort.ConfigureSummonedVariant(0, Color.white);
             summonedCount++;
         }
-        if (summonedCount > 0) GameManager.Instance?.Front?.RefreshRoom(this);
+        if (summonedCount > 0)
+        {
+            GameManager.Instance?.Front?.RefreshRoom(this);
+        }
+
         return summonedCount;
     }
 
@@ -688,7 +952,10 @@ public class LevelGenerator : MonoBehaviour
         if (!initialized || IsLost || summoner == null || summoner.levelGenerator != this
             || prefab == null || !prefab.TryGetComponent(out Brick template)
             || template.Footprint != Vector2Int.one
-            || (defenseLine >= 2 && LivingEnemyCount >= BossPressureEnemyLimit)) return 0;
+            || (defenseLine >= 2 && LivingEnemyCount >= BossPressureEnemyLimit))
+        {
+            return 0;
+        }
         // The breach row is never a spawn point. If the row ahead is already
         // outside the safe field, use the nearest free row beside/behind the boss.
         int safeRows = Mathf.Clamp(Mathf.CeilToInt(transform.position.y - DefenseBoundaryY), 1, Rows);
@@ -700,22 +967,45 @@ public class LevelGenerator : MonoBehaviour
         {
             for (int column = 0; column < Columns; column++)
             {
-                if (!grid.CanPlace(new Vector2Int(column, candidate), Vector2Int.one)) continue;
+                if (!grid.CanPlace(new Vector2Int(column, candidate), Vector2Int.one))
+                {
+                    continue;
+                }
+
                 row = candidate;
                 break;
             }
-            if (row >= 0) break;
+            if (row >= 0)
+            {
+                break;
+            }
         }
-        if (row < 0) return 0;
+        if (row < 0)
+        {
+            return 0;
+        }
+
         int count = 0;
         for (int column = 0; column < Columns; column++)
         {
-            if (defenseLine >= 2 && LivingEnemyCount >= BossPressureEnemyLimit) break;
+            if (defenseLine >= 2 && LivingEnemyCount >= BossPressureEnemyLimit)
+            {
+                break;
+            }
+
             Vector2Int cell = new Vector2Int(column, row);
-            if (!grid.CanPlace(cell, Vector2Int.one)) continue;
+            if (!grid.CanPlace(cell, Vector2Int.one))
+            {
+                continue;
+            }
+
             Brick summoned = SpawnEnemy(prefab, grid.Center(cell, Vector2Int.one),
                 Mathf.Max(1, spawnedWaveCount));
-            if (summoned == null) continue;
+            if (summoned == null)
+            {
+                continue;
+            }
+
             summoned.ConfigureSummonedVariant(0, tint);
             summoned.SetSummonedHealth(1f);
             grid.Reserve(cell, Vector2Int.one);
@@ -728,26 +1018,45 @@ public class LevelGenerator : MonoBehaviour
     private bool CreateCell(int requestedEnemyCount, int waveNumber, bool ordinaryEnemiesOnly = false)
     {
         GameObject ordinaryPrefab = ResolveOrdinaryEnemyPrefab();
-        if (ordinaryPrefab == null) return false;
+        if (ordinaryPrefab == null)
+        {
+            return false;
+        }
+
         FindFreeEntryCells();
         int safeRequestedCount = Mathf.Max(0, requestedEnemyCount);
-        if (freeCells.Count == 0 && safeRequestedCount > 0) return false;
+        if (freeCells.Count == 0 && safeRequestedCount > 0)
+        {
+            return false;
+        }
+
         bool survival = GameManager.Instance != null && GameManager.Instance.IsSurvivalMode;
         // Campaign budgets are exact. If the entry area is crowded, keep the
         // complete wave pending until every enemy in it can be placed.
-        if (!survival && freeCells.Count < safeRequestedCount) return false;
+        if (!survival && freeCells.Count < safeRequestedCount)
+        {
+            return false;
+        }
+
         bool clock = ClockDirector != null;
         // Clock waves already grow on their own schedule; only free cells limit them.
         float densityMultiplier = survival && !clock ? EnemyHard() : 1f;
         int count = Mathf.Min(freeCells.Count,
             Mathf.RoundToInt(safeRequestedCount * densityMultiplier));
-        if (safeRequestedCount > 0 && count == 0 && freeCells.Count > 0) count = 1;
+        if (safeRequestedCount > 0 && count == 0 && freeCells.Count > 0)
+        {
+            count = 1;
+        }
         // Endless clock waves keep cycling through the specialist mixes of
         // waves 2-5 instead of falling back to ordinary enemies only.
         int compositionWave = clock && waveNumber > LevelProgression.CampaignWavesPerRoom
             ? 2 + (waveNumber - 2) % (LevelProgression.CampaignWavesPerRoom - 1)
             : waveNumber;
-        if (!ordinaryEnemiesOnly) BuildWaveComposition(count, compositionWave);
+        if (!ordinaryEnemiesOnly)
+        {
+            BuildWaveComposition(count, compositionWave);
+        }
+
         for (int i = 0; i < count; i++)
         {
             int cell = Random.Range(0, freeCells.Count);
@@ -771,14 +1080,29 @@ public class LevelGenerator : MonoBehaviour
         // Travelling enemies enter after spawning. Leave capacity for their
         // existing cohort instead of refilling the room before it can arrive.
         if (GameManager.Instance?.Front?.HasPendingPressureForRoom(RoomId) == true)
+        {
             return false;
+        }
+
         int requested = GetBossPressureEnemyCount(LivingEnemyCount);
-        if (requested == 0) return false;
+        if (requested == 0)
+        {
+            return false;
+        }
+
         GameObject ordinaryPrefab = ResolveOrdinaryEnemyPrefab();
-        if (ordinaryPrefab == null) return false;
+        if (ordinaryPrefab == null)
+        {
+            return false;
+        }
+
         FindFreeEntryCells();
         int count = Mathf.Min(requested, freeCells.Count);
-        if (count == 0) return false;
+        if (count == 0)
+        {
+            return false;
+        }
+
         BuildWaveComposition(count, waveNumber);
         for (int i = 0; i < count; i++)
         {
@@ -792,37 +1116,73 @@ public class LevelGenerator : MonoBehaviour
 
     public void StepEnemy()
     {
-        if (!initialized || IsLost) return;
+        if (!initialized || IsLost)
+        {
+            return;
+        }
+
         stepSnapshot.Clear();
         stunnedThisTurn.Clear();
         foreach (GameObject enemy in EnemyCollection)
-            if (enemy != null && enemy.TryGetComponent(out Brick brick)) stepSnapshot.Add(brick);
+        {
+            if (enemy != null && enemy.TryGetComponent(out Brick brick))
+            {
+                stepSnapshot.Add(brick);
+            }
+        }
         // Resolve the front of every column first. A moving enemy then vacates its
         // old cell for the follower, while stunned or otherwise stationary enemies
         // continue to reserve their complete footprint.
         stepSnapshot.Sort((left, right) =>
         {
-            if (left == null) return right == null ? 0 : 1;
-            if (right == null) return -1;
+            if (left == null)
+            {
+                return right == null ? 0 : 1;
+            }
+
+            if (right == null)
+            {
+                return -1;
+            }
+
             int byFront = left.LowestCellY.CompareTo(right.LowestCellY);
             return byFront != 0 ? byFront : left.GetInstanceID().CompareTo(right.GetInstanceID());
         });
         foreach (Brick brick in stepSnapshot)
         {
-            if (IsLost || GameManager.Instance == null || GameManager.Instance.GameEnded) break;
-            if (brick == null) continue;
+            if (IsLost || GameManager.Instance == null || GameManager.Instance.GameEnded)
+            {
+                break;
+            }
+
+            if (brick == null)
+            {
+                continue;
+            }
+
             EnemyTurnStun stun = brick.GetComponent<EnemyTurnStun>();
-            if (stun != null && stun.IsStunned) stunnedThisTurn.Add(brick);
+            if (stun != null && stun.IsStunned)
+            {
+                stunnedThisTurn.Add(brick);
+            }
+
             brick.Step();
         }
     }
 
     public void SpawnNextWave()
     {
-        if (!initialized || (!IsEndlessSurvivalSource && RemainingWaves == 0)) return;
+        if (!initialized || (!IsEndlessSurvivalSource && RemainingWaves == 0))
+        {
+            return;
+        }
         // An open clock front sends a wave only on its own interval and not
         // during a calm.
-        if (ClockDirector != null && !ClockDirector.ShouldSpawnWave(RoomId)) return;
+        if (ClockDirector != null && !ClockDirector.ShouldSpawnWave(RoomId))
+        {
+            return;
+        }
+
         int waveNumber = spawnedWaveCount + 1;
         GameManager manager = GameManager.Instance;
         if (defenseLine >= 2 && !IsLost && manager != null
@@ -841,8 +1201,16 @@ public class LevelGenerator : MonoBehaviour
         {
             // Remaining waves from a lost direction also have to be defeated.
             GameObject ordinaryPrefab = ResolveOrdinaryEnemyPrefab();
-            if (ordinaryPrefab == null) return;
-            if (!ordinaryBossReinforcement) BuildWaveComposition(waveEnemyCount, waveNumber);
+            if (ordinaryPrefab == null)
+            {
+                return;
+            }
+
+            if (!ordinaryBossReinforcement)
+            {
+                BuildWaveComposition(waveEnemyCount, waveNumber);
+            }
+
             int cohort = GameManager.Instance.Front.CreatePressureCohort();
             for (int i = 0; i < waveEnemyCount; i++)
             {
@@ -853,12 +1221,18 @@ public class LevelGenerator : MonoBehaviour
                 GameManager.Instance.Front.SendToInnerRoom(this, brick, 0, cohort);
             }
             spawnedWaveCount++;
-            if (!IsEndlessSurvivalSource) m_Settings._enemyAddWaves--;
+            if (!IsEndlessSurvivalSource)
+            {
+                m_Settings._enemyAddWaves--;
+            }
         }
         else if (CreateCell(waveEnemyCount, waveNumber, ordinaryBossReinforcement))
         {
             spawnedWaveCount++;
-            if (!IsEndlessSurvivalSource) m_Settings._enemyAddWaves--;
+            if (!IsEndlessSurvivalSource)
+            {
+                m_Settings._enemyAddWaves--;
+            }
         }
     }
 
@@ -867,24 +1241,47 @@ public class LevelGenerator : MonoBehaviour
         // Use the pre-movement snapshot, including bosses that just transferred
         // to an inner room. New arrivals/summons do not take an additional turn.
         foreach (Brick brick in stepSnapshot)
+        {
             if (brick != null)
             {
                 if (brick.TryGetComponent(out WinterEnemyForm winter))
+                {
                     winter.CompleteEnemyTurn();
-                if (stunnedThisTurn.Contains(brick)) continue;
+                }
+
+                if (stunnedThisTurn.Contains(brick))
+                {
+                    continue;
+                }
+
                 if (brick.TryGetComponent(out LichSummoner summoner))
+                {
                     summoner.CompleteEnemyTurn(turnNumber);
+                }
+
                 if (brick.TryGetComponent(out BossEnemyTurnController boss))
+                {
                     boss.CompleteEnemyTurn(turnNumber);
+                }
+
                 if (brick.TryGetComponent(out EnemySpecialistTrait specialist))
+                {
                     specialist.CompleteEnemyTurn(turnNumber);
+                }
+
                 if (brick.TryGetComponent(out ForestMiniBossAbility forestMiniBoss))
+                {
                     forestMiniBoss.CompleteEnemyTurn(turnNumber);
+                }
                 // Every boss also calls ordinary escorts in whichever room it
                 // now stands, giving projectiles more targets to ricochet from.
                 if (brick.UsesBossHealth && !brick.IsDefeated && brick.levelGenerator != null)
+                {
                     brick.levelGenerator.SummonBossEscort(brick);
+                }
             }
+        }
+
         stepSnapshot.Clear();
         stunnedThisTurn.Clear();
     }
@@ -894,7 +1291,11 @@ public class LevelGenerator : MonoBehaviour
     public bool ReleaseBreachingEnemy(Brick brick)
     {
         if (brick == null || brick.IsDefeated || brick.levelGenerator != this
-            || !EnemyCollection.Remove(brick.gameObject)) return false;
+            || !EnemyCollection.Remove(brick.gameObject))
+        {
+            return false;
+        }
+
         breachAttackers.Remove(brick);
         InvalidateEnemyQueries(); FrogRider.InvalidateRoomBonuses();
         return true;
@@ -902,52 +1303,87 @@ public class LevelGenerator : MonoBehaviour
 
     public int GetTurnsUntilBreach(Brick brick)
     {
-        if (brick == null) return 0;
+        if (brick == null)
+        {
+            return 0;
+        }
+
         float cells = Mathf.Max(0f, brick.LowestCellY - DefenseBoundaryY);
         return Mathf.Max(0, Mathf.CeilToInt(cells - 0.001f));
     }
 
     public void RequestBreach(Brick attacker = null)
     {
-        if (!initialized || IsLost) return;
+        if (!initialized || IsLost)
+        {
+            return;
+        }
+
         breachRequested = true;
         if (attacker != null && attacker.levelGenerator == this
             && !breachAttackers.Contains(attacker))
+        {
             breachAttackers.Add(attacker);
+        }
     }
 
     public void AnimateRequestedBreach()
     {
-        if (!breachRequested || IsLost) return;
+        if (!breachRequested || IsLost)
+        {
+            return;
+        }
+
         for (int i = 0; i < EnemyCollection.Count; i++)
         {
             GameObject enemy = EnemyCollection[i];
             if (enemy == null || !enemy.TryGetComponent(out Brick brick)
-                || brick.IsDefeated || brick.levelGenerator != this) continue;
+                || brick.IsDefeated || brick.levelGenerator != this)
+            {
+                continue;
+            }
+
             bool isAttacker = breachAttackers.Contains(brick)
                 || brick.LowestCellY <= DefenseBoundaryY + 0.0001f;
             // Rooms are never abandoned, so only the attackers leave the board.
-            if (!isAttacker) continue;
+            if (!isAttacker)
+            {
+                continue;
+            }
+
             brick.PlayBreachAnimation(true);
         }
     }
 
     public void ResolveRequestedBreach()
     {
-        if (!breachRequested || IsLost) return;
+        if (!breachRequested || IsLost)
+        {
+            return;
+        }
+
         breachRequested = false;
         Brick[] attackers = breachAttackers.ToArray();
         breachAttackers.Clear();
         DefenseLineRuntime front = GameManager.Instance?.Front;
-        if (defenseLine == 1) front?.ResolveMainRoomBreach(this, attackers);
-        else front?.BreachRoom(this, attackers);
+        if (defenseLine == 1)
+        {
+            front?.ResolveMainRoomBreach(this, attackers);
+        }
+        else
+        {
+            front?.BreachRoom(this, attackers);
+        }
     }
 
     public bool TryReturnBreachingEnemy(Brick brick, out Vector3 destination)
     {
         destination = brick != null ? brick.transform.position : transform.position;
         if (!initialized || IsLost || brick == null || brick.IsDefeated
-            || brick.levelGenerator != this) return false;
+            || brick.levelGenerator != this)
+        {
+            return false;
+        }
 
         int returnRows = Mathf.Clamp(3, 1, Rows);
         var grid = new EnemyRoomGrid(this, returnRows);
@@ -966,11 +1402,17 @@ public class LevelGenerator : MonoBehaviour
             // upper three rows, then the rest of the safe field if necessary.
             if (!TryFindBossLanding(brick, returnRows, out destination, out List<Brick> victims)
                 && !TryFindBossLanding(brick, SafeReceivingRows, out destination, out victims))
+            {
                 return false;
+            }
+
             float stolen = AbsorbVictims(victims, out List<Vector3> soulOrigins);
             brick.AbsorbHealth(stolen);
             foreach (Vector3 source in soulOrigins)
+            {
                 SoulAbsorptionEffect.Play(source, brick.transform);
+            }
+
             return true;
         }
 
@@ -989,7 +1431,11 @@ public class LevelGenerator : MonoBehaviour
 
     public bool RestoreAfterLineClear()
     {
-        if (!initialized || !IsLost || HasEnemies || RemainingWaves > 0) return false;
+        if (!initialized || !IsLost || HasEnemies || RemainingWaves > 0)
+        {
+            return false;
+        }
+
         IsLost = false;
         breachAttackers.Clear();
         return true;
@@ -997,7 +1443,11 @@ public class LevelGenerator : MonoBehaviour
 
     public bool TryReceiveEnemy(Brick brick)
     {
-        if (brick == null) return false;
+        if (brick == null)
+        {
+            return false;
+        }
+
         return TryReceivePressureGroup(new[] { brick });
     }
 
@@ -1008,9 +1458,16 @@ public class LevelGenerator : MonoBehaviour
 
     public bool TryReceivePressureGroup(IReadOnlyList<Brick> enemies, bool useAllSafeRowsIfNeeded)
     {
-        if (!initialized || IsLost || enemies == null) return false;
-        if (defenseLine >= 2 && LivingEnemyCount + enemies.Count > BossPressureEnemyLimit)
+        if (!initialized || IsLost || enemies == null)
+        {
             return false;
+        }
+
+        if (defenseLine >= 2 && LivingEnemyCount + enemies.Count > BossPressureEnemyLimit)
+        {
+            return false;
+        }
+
         var grid = new EnemyRoomGrid(this, PressureRows);
         bool fits = grid.TryPlan(enemies, out Dictionary<Brick, Vector3> placements);
         if (useAllSafeRowsIfNeeded && !fits)
@@ -1020,7 +1477,10 @@ public class LevelGenerator : MonoBehaviour
             grid = new EnemyRoomGrid(this, SafeReceivingRows);
             fits = grid.TryPlan(enemies, out placements);
         }
-        if (!fits) return false;
+        if (!fits)
+        {
+            return false;
+        }
 
         foreach (KeyValuePair<Brick, Vector3> placement in placements)
         {
@@ -1028,7 +1488,11 @@ public class LevelGenerator : MonoBehaviour
             brick.transform.SetParent(transform, true);
             brick.transform.position = placement.Value;
             brick.levelGenerator = this;
-            if (!EnemyCollection.Contains(brick.gameObject)) EnemyCollection.Add(brick.gameObject);
+            if (!EnemyCollection.Contains(brick.gameObject))
+            {
+                EnemyCollection.Add(brick.gameObject);
+            }
+
             InvalidateEnemyQueries(); FrogRider.InvalidateRoomBonuses();
             brick.gameObject.SetActive(true);
             brick.PlayArrivalAnimation();
@@ -1042,23 +1506,41 @@ public class LevelGenerator : MonoBehaviour
     public bool TryReceiveBossByAbsorption(Brick boss)
     {
         if (!initialized || IsLost || boss == null || !boss.UsesBossHealth
-            || boss.levelGenerator != null) return false;
+            || boss.levelGenerator != null)
+        {
+            return false;
+        }
+
         if (!TryFindBossLanding(boss, SafeReceivingRows, out Vector3 bestPosition,
-            out List<Brick> bestVictims)) return false;
+            out List<Brick> bestVictims))
+        {
+            return false;
+        }
+
         if (defenseLine >= 2 && LivingEnemyCount - bestVictims.Count + 1
-            > BossPressureEnemyLimit) return false;
+            > BossPressureEnemyLimit)
+        {
+            return false;
+        }
 
         float stolenHealth = AbsorbVictims(bestVictims, out List<Vector3> soulOrigins);
         boss.transform.SetParent(transform, true);
         boss.transform.position = bestPosition;
         boss.levelGenerator = this;
-        if (!EnemyCollection.Contains(boss.gameObject)) EnemyCollection.Add(boss.gameObject);
+        if (!EnemyCollection.Contains(boss.gameObject))
+        {
+            EnemyCollection.Add(boss.gameObject);
+        }
+
         InvalidateEnemyQueries(); FrogRider.InvalidateRoomBonuses();
         boss.gameObject.SetActive(true);
         boss.PlayArrivalAnimation();
         boss.AbsorbHealth(stolenHealth);
         foreach (Vector3 source in soulOrigins)
+        {
             SoulAbsorptionEffect.Play(source, boss.transform);
+        }
+
         GameManager.Instance?.Front?.RefreshRoom(this);
         return true;
     }
@@ -1069,11 +1551,15 @@ public class LevelGenerator : MonoBehaviour
         position = default;
         bestVictims = null;
         if (boss == null || boss.Footprint.x > Columns || boss.Footprint.y > rowLimit)
+        {
             return false;
+        }
+
         var grid = new EnemyRoomGrid(this, rowLimit);
         int fewestVictims = int.MaxValue;
         for (int row = 0; row <= rowLimit - boss.Footprint.y; row++)
-        for (int column = 0; column <= Columns - boss.Footprint.x; column++)
+        {
+            for (int column = 0; column <= Columns - boss.Footprint.x; column++)
         {
             Vector2Int landing = new Vector2Int(column, row);
             var victims = new List<Brick>();
@@ -1081,17 +1567,31 @@ public class LevelGenerator : MonoBehaviour
             foreach (GameObject occupantObject in EnemyCollection)
             {
                 if (occupantObject == null || !occupantObject.TryGetComponent(out Brick occupant)
-                    || occupant == boss || !occupant.OccupiesGrid) continue;
-                Vector2Int occupied = grid.Anchor(occupant.transform.position, occupant.Footprint);
-                if (!RectanglesOverlap(landing, boss.Footprint, occupied, occupant.Footprint)) continue;
-                if (occupant.UsesBossHealth) { blockedByBoss = true; break; }
+                    || occupant == boss || !occupant.OccupiesGrid)
+                    {
+                        continue;
+                    }
+
+                    Vector2Int occupied = grid.Anchor(occupant.transform.position, occupant.Footprint);
+                if (!RectanglesOverlap(landing, boss.Footprint, occupied, occupant.Footprint))
+                    {
+                        continue;
+                    }
+
+                    if (occupant.UsesBossHealth) { blockedByBoss = true; break; }
                 victims.Add(occupant);
             }
-            if (blockedByBoss || victims.Count >= fewestVictims) continue;
-            bestVictims = victims;
+            if (blockedByBoss || victims.Count >= fewestVictims)
+                {
+                    continue;
+                }
+
+                bestVictims = victims;
             position = grid.Center(landing, boss.Footprint);
             fewestVictims = victims.Count;
         }
+        }
+
         return bestVictims != null;
     }
 
@@ -1117,12 +1617,18 @@ public class LevelGenerator : MonoBehaviour
         freeCells.Clear();
         var grid = new EnemyRoomGrid(this, rowCount);
         foreach (Vector2Int cell in grid.FreeAnchors(Vector2Int.one))
+        {
             freeCells.Add(grid.Center(cell, Vector2Int.one));
+        }
     }
 
     public void DestroyEnemy(GameObject enemy, bool defeated)
     {
-        if (!EnemyCollection.Remove(enemy)) return;
+        if (!EnemyCollection.Remove(enemy))
+        {
+            return;
+        }
+
         InvalidateEnemyQueries(); FrogRider.InvalidateRoomBonuses();
         if (defeated)
         {
@@ -1139,7 +1645,11 @@ public class LevelGenerator : MonoBehaviour
 
     public bool IsMovementBlockedByZombieGrave(Brick movingEnemy, Vector3 destination)
     {
-        if (movingEnemy == null) return false;
+        if (movingEnemy == null)
+        {
+            return false;
+        }
+
         Vector2Int movingSize = movingEnemy.Footprint;
         Vector2Int movingCell = CellAnchor(destination, movingSize);
         for (int i = 0; i < EnemyCollection.Count; i++)
@@ -1148,10 +1658,17 @@ public class LevelGenerator : MonoBehaviour
             if (candidate == null || candidate == movingEnemy.gameObject
                 || !candidate.TryGetComponent(out Brick graveEnemy)
                 || !graveEnemy.TryGetComponent(out ZombieResurrection zombie)
-                || !zombie.BlocksCell) continue;
+                || !zombie.BlocksCell)
+            {
+                continue;
+            }
+
             Vector2Int graveSize = graveEnemy.Footprint;
             Vector2Int graveCell = CellAnchor(graveEnemy.transform.position, graveSize);
-            if (RectanglesOverlap(movingCell, movingSize, graveCell, graveSize)) return true;
+            if (RectanglesOverlap(movingCell, movingSize, graveCell, graveSize))
+            {
+                return true;
+            }
         }
         return false;
     }
@@ -1159,7 +1676,11 @@ public class LevelGenerator : MonoBehaviour
     public bool IsMovementBlockedByEnemy(Brick movingEnemy, Vector3 destination,
         bool includeSteppingEnemies = false)
     {
-        if (movingEnemy == null) return false;
+        if (movingEnemy == null)
+        {
+            return false;
+        }
+
         Vector2Int movingCell = CellAnchor(destination, movingEnemy.Footprint);
         for (int i = 0; i < EnemyCollection.Count; i++)
         {
@@ -1167,17 +1688,31 @@ public class LevelGenerator : MonoBehaviour
             if (candidate == null || candidate == movingEnemy.gameObject
                 || !candidate.TryGetComponent(out Brick blocker)
                 || !blocker.OccupiesGrid
-                || (!includeSteppingEnemies && blocker.IsStepping)) continue;
+                || (!includeSteppingEnemies && blocker.IsStepping))
+            {
+                continue;
+            }
 
             // A two-cell boss cannot treat a moving enemy's still-occupied cell
             // as free just because that enemy began its animation earlier.
             Vector2Int blockerCell = CellAnchor(blocker.transform.position, blocker.Footprint);
-            if (FootprintsOverlap(movingEnemy, movingCell, blocker, blockerCell)) return true;
-            if (!includeSteppingEnemies || !blocker.IsStepping) continue;
+            if (FootprintsOverlap(movingEnemy, movingCell, blocker, blockerCell))
+            {
+                return true;
+            }
+
+            if (!includeSteppingEnemies || !blocker.IsStepping)
+            {
+                continue;
+            }
+
             Vector2Int startCell = CellAnchor(blocker.StepStartPosition, blocker.Footprint);
             Vector2Int targetCell = CellAnchor(blocker.StepTargetPosition, blocker.Footprint);
             if (FootprintsOverlap(movingEnemy, movingCell, blocker, startCell)
-                || FootprintsOverlap(movingEnemy, movingCell, blocker, targetCell)) return true;
+                || FootprintsOverlap(movingEnemy, movingCell, blocker, targetCell))
+            {
+                return true;
+            }
         }
         return false;
     }
@@ -1188,16 +1723,29 @@ public class LevelGenerator : MonoBehaviour
         // Boss silhouettes fill nearly the whole cell rectangle even when an
         // octagonal collider omits the tiny corners. Never stack two bosses.
         if (first.UsesBossHealth || second.UsesBossHealth)
+        {
             return RectanglesOverlap(firstCell, first.Footprint, secondCell, second.Footprint);
+        }
+
         Vector2Int firstSize = first.Footprint;
         for (int y = 0; y < firstSize.y; y++)
-        for (int x = 0; x < firstSize.x; x++)
+        {
+            for (int x = 0; x < firstSize.x; x++)
         {
             Vector2Int offset = new Vector2Int(x, y);
-            if (!first.OccupiesFootprintOffset(offset)) continue;
-            Vector2Int secondOffset = firstCell + offset - secondCell;
-            if (second.OccupiesFootprintOffset(secondOffset)) return true;
+            if (!first.OccupiesFootprintOffset(offset))
+                {
+                    continue;
+                }
+
+                Vector2Int secondOffset = firstCell + offset - secondCell;
+            if (second.OccupiesFootprintOffset(secondOffset))
+                {
+                    return true;
+                }
+            }
         }
+
         return false;
     }
 
@@ -1218,15 +1766,34 @@ public class LevelGenerator : MonoBehaviour
     public float EnemyHard()
     {
         float ratio = (float)EnemyCollection.Count / (Columns * SpawnRows);
-        if (ratio == 0) return 1f;
-        if (ratio < 0.3f) return 0.7f;
-        if (ratio < 0.6f) return 0.4f;
-        if (ratio < 0.9f) return 0.1f;
+        if (ratio == 0)
+        {
+            return 1f;
+        }
+
+        if (ratio < 0.3f)
+        {
+            return 0.7f;
+        }
+
+        if (ratio < 0.6f)
+        {
+            return 0.4f;
+        }
+
+        if (ratio < 0.9f)
+        {
+            return 0.1f;
+        }
+
         return 0f;
     }
 
     private void OnDestroy()
     {
-        if (GameManager.Instance != null) GameManager.Instance.rooms.Remove(this);
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.rooms.Remove(this);
+        }
     }
 }

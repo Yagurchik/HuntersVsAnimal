@@ -54,7 +54,11 @@ public sealed class EnemyFirstEncounterUI : MonoBehaviour
 
     public static EnemyFirstEncounterUI Ensure()
     {
-        if (instance != null) return instance;
+        if (instance != null)
+        {
+            return instance;
+        }
+
         instance = FindObjectOfType<EnemyFirstEncounterUI>(true);
         if (instance == null)
         {
@@ -67,14 +71,21 @@ public sealed class EnemyFirstEncounterUI : MonoBehaviour
         else
         {
             instance.ConfigureCanvas();
-            if (!instance.HasCompleteUI()) instance.BuildEditableUI();
+            if (!instance.HasCompleteUI())
+            {
+                instance.BuildEditableUI();
+            }
         }
         return instance;
     }
 
     public static void ReportSpawned(Brick enemy)
     {
-        if (!Application.isPlaying || enemy == null) return;
+        if (!Application.isPlaying || enemy == null)
+        {
+            return;
+        }
+
         Ensure().Register(enemy);
     }
 
@@ -87,7 +98,11 @@ public sealed class EnemyFirstEncounterUI : MonoBehaviour
         }
         instance = this;
         ConfigureCanvas();
-        if (!HasCompleteUI()) BuildEditableUI();
+        if (!HasCompleteUI())
+        {
+            BuildEditableUI();
+        }
+
         HideImmediately();
     }
 
@@ -95,11 +110,16 @@ public sealed class EnemyFirstEncounterUI : MonoBehaviour
     {
         Notice notice = CreateNotice(enemy);
         if (notice == null || string.IsNullOrWhiteSpace(notice.TypeId)
-            || !seenTypes.Add(notice.TypeId)) return;
+            || !seenTypes.Add(notice.TypeId))
+        {
+            return;
+        }
 
         pendingNotices.Enqueue(notice);
         if (queueRoutine == null && isActiveAndEnabled)
+        {
             queueRoutine = StartCoroutine(ShowQueue());
+        }
     }
 
     private Notice CreateNotice(Brick enemy)
@@ -200,10 +220,20 @@ public sealed class EnemyFirstEncounterUI : MonoBehaviour
         for (int i = 0; i < renderers.Length; i++)
         {
             SpriteRenderer renderer = renderers[i];
-            if (renderer == null || renderer.sprite == null) continue;
-            if (fallback == null) fallback = renderer.sprite;
+            if (renderer == null || renderer.sprite == null)
+            {
+                continue;
+            }
+
+            if (fallback == null)
+            {
+                fallback = renderer.sprite;
+            }
+
             if (renderer.enabled && renderer.gameObject.activeInHierarchy)
+            {
                 return renderer.sprite;
+            }
         }
         return fallback;
     }
@@ -217,8 +247,15 @@ public sealed class EnemyFirstEncounterUI : MonoBehaviour
 
         while (pendingNotices.Count > 0)
         {
-            while (ShouldWaitForTutorial()) yield return null;
-            if (GameManager.Instance != null && GameManager.Instance.GameEnded) break;
+            while (ShouldWaitForTutorial())
+            {
+                yield return null;
+            }
+
+            if (GameManager.Instance != null && GameManager.Instance.GameEnded)
+            {
+                break;
+            }
 
             Notice notice = pendingNotices.Dequeue();
             ApplyNotice(notice);
@@ -227,7 +264,11 @@ public sealed class EnemyFirstEncounterUI : MonoBehaviour
             float hold = Mathf.Max(0f, DisplayDuration - fadeIn - fadeOut);
             yield return AnimateCard(0f, 1f, shownPosition + Vector2.right * 42f,
                 shownPosition, fadeIn);
-            if (hold > 0f) yield return new WaitForSecondsRealtime(hold);
+            if (hold > 0f)
+            {
+                yield return new WaitForSecondsRealtime(hold);
+            }
+
             yield return AnimateCard(1f, 0f, shownPosition,
                 shownPosition + Vector2.right * 42f, fadeOut);
         }
@@ -283,8 +324,14 @@ public sealed class EnemyFirstEncounterUI : MonoBehaviour
         Transform oldCard = transform.Find("First Encounter Card");
         if (oldCard != null)
         {
-            if (Application.isPlaying) Destroy(oldCard.gameObject);
-            else DestroyImmediate(oldCard.gameObject);
+            if (Application.isPlaying)
+            {
+                Destroy(oldCard.gameObject);
+            }
+            else
+            {
+                DestroyImmediate(oldCard.gameObject);
+            }
         }
 
         card = CreateRect("First Encounter Card", transform);
@@ -353,7 +400,11 @@ public sealed class EnemyFirstEncounterUI : MonoBehaviour
 
     public void PreviewInEditor()
     {
-        if (Application.isPlaying || !HasCompleteUI()) return;
+        if (Application.isPlaying || !HasCompleteUI())
+        {
+            return;
+        }
+
         ConfigureCanvas();
         card.gameObject.SetActive(true);
         cardGroup.alpha = 1f;
@@ -369,7 +420,11 @@ public sealed class EnemyFirstEncounterUI : MonoBehaviour
     private void ConfigureCanvas()
     {
         encounterCanvas = encounterCanvas != null ? encounterCanvas : GetComponent<Canvas>();
-        if (encounterCanvas == null) return;
+        if (encounterCanvas == null)
+        {
+            return;
+        }
+
         encounterCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
         encounterCanvas.sortingOrder = 260;
         RectTransform root = transform as RectTransform;
@@ -379,7 +434,11 @@ public sealed class EnemyFirstEncounterUI : MonoBehaviour
             root.localRotation = Quaternion.identity;
         }
         CanvasScaler scaler = GetComponent<CanvasScaler>();
-        if (scaler == null) scaler = gameObject.AddComponent<CanvasScaler>();
+        if (scaler == null)
+        {
+            scaler = gameObject.AddComponent<CanvasScaler>();
+        }
+
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         scaler.referenceResolution = new Vector2(1080f, 1920f);
         scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
@@ -451,7 +510,11 @@ public sealed class EnemyFirstEncounterUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (instance == this) instance = null;
+        if (instance == this)
+        {
+            instance = null;
+        }
+
         seenTypes.Clear();
         pendingNotices.Clear();
     }

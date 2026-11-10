@@ -23,13 +23,25 @@ public sealed class BossEnemyTurnController : MonoBehaviour
 
     public void CompleteEnemyTurn(int turnNumber)
     {
-        if (enemy == null) enemy = GetComponent<Brick>();
+        if (enemy == null)
+        {
+            enemy = GetComponent<Brick>();
+        }
+
         if (lastProcessedTurn == turnNumber || enemy.IsDefeated || enemy.levelGenerator == null
-            || enemy.levelGenerator.IsLost) return;
+            || enemy.levelGenerator.IsLost)
+        {
+            return;
+        }
+
         lastProcessedTurn = turnNumber;
         LastSummonCount = 0;
         turnsSinceSummon++;
-        if (turnsSinceSummon < Mathf.Max(1, summonEveryTurns)) return;
+        if (turnsSinceSummon < Mathf.Max(1, summonEveryTurns))
+        {
+            return;
+        }
+
         turnsSinceSummon = 0;
 
         LevelGenerator room = enemy.levelGenerator;

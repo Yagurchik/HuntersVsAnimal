@@ -16,14 +16,20 @@ public sealed class ArmoredSkeletonArmor : EnemyProjectileDamageModifier
 
     private void Awake()
     {
-        if (armorCollider == null) armorCollider = GetComponent<Collider2D>();
+        if (armorCollider == null)
+        {
+            armorCollider = GetComponent<Collider2D>();
+        }
     }
 
     private void OnValidate()
     {
         topDamageMultiplier = Mathf.Clamp01(topDamageMultiplier);
         protectedZoneStart = Mathf.Clamp01(protectedZoneStart);
-        if (armorCollider == null) armorCollider = GetComponent<Collider2D>();
+        if (armorCollider == null)
+        {
+            armorCollider = GetComponent<Collider2D>();
+        }
     }
 
     public override float ModifyDamage(Brick enemy, Animal projectile,
@@ -37,8 +43,16 @@ public sealed class ArmoredSkeletonArmor : EnemyProjectileDamageModifier
 
     public bool IsProtectedPoint(Vector2 worldPoint)
     {
-        if (armorCollider == null) armorCollider = GetComponent<Collider2D>();
-        if (armorCollider == null) return worldPoint.y >= transform.position.y;
+        if (armorCollider == null)
+        {
+            armorCollider = GetComponent<Collider2D>();
+        }
+
+        if (armorCollider == null)
+        {
+            return worldPoint.y >= transform.position.y;
+        }
+
         Bounds bounds = armorCollider.bounds;
         float threshold = Mathf.Lerp(bounds.min.y, bounds.max.y, ProtectedZoneStart);
         return worldPoint.y >= threshold;

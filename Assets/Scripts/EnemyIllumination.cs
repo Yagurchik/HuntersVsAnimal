@@ -18,7 +18,11 @@ public sealed class EnemyIllumination : MonoBehaviour
 
     private void OnEnable()
     {
-        if (enemy == null) enemy = GetComponent<Brick>();
+        if (enemy == null)
+        {
+            enemy = GetComponent<Brick>();
+        }
+
         SyncRoom();
     }
 
@@ -35,9 +39,17 @@ public sealed class EnemyIllumination : MonoBehaviour
     private void LateUpdate()
     {
         SyncRoom();
-        if (registeredRoom == null) return;
+        if (registeredRoom == null)
+        {
+            return;
+        }
+
         Vector2Int position = LightPosition();
-        if (position == previousLightPosition && LightRadius == previousLightRadius) return;
+        if (position == previousLightPosition && LightRadius == previousLightRadius)
+        {
+            return;
+        }
+
         previousLightPosition = position;
         previousLightRadius = LightRadius;
         registeredRoom.NotifyLightChanged(this);
@@ -53,13 +65,21 @@ public sealed class EnemyIllumination : MonoBehaviour
         illuminated = true;
         lightRadius = nextRadius;
         SyncRoom();
-        if (changed) registeredRoom?.NotifyLightChanged(this);
+        if (changed)
+        {
+            registeredRoom?.NotifyLightChanged(this);
+        }
+
         GetComponent<EnemyDarknessVisibility>()?.RefreshVisibility();
     }
 
     public void Extinguish()
     {
-        if (!illuminated) return;
+        if (!illuminated)
+        {
+            return;
+        }
+
         illuminated = false;
         registeredRoom?.UnregisterLight(this);
         registeredRoom = null;
@@ -82,12 +102,20 @@ public sealed class EnemyIllumination : MonoBehaviour
         RoomDarkness current = null;
         if (illuminated && isActiveAndEnabled && gameObject.activeInHierarchy)
         {
-            if (enemy == null) enemy = GetComponent<Brick>();
+            if (enemy == null)
+            {
+                enemy = GetComponent<Brick>();
+            }
+
             current = enemy != null && enemy.levelGenerator != null
                 ? enemy.levelGenerator.Darkness
                 : GetComponentInParent<RoomDarkness>(true);
         }
-        if (current == registeredRoom) return;
+        if (current == registeredRoom)
+        {
+            return;
+        }
+
         registeredRoom?.UnregisterLight(this);
         registeredRoom = current;
         registeredRoom?.RegisterLight(this);

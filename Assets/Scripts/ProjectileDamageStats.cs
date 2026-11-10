@@ -29,14 +29,22 @@ public static class ProjectileDamageStats
     {
         int index = ownerIndex >= 0 ? ownerIndex : IndexFor(source);
         if (index < 0 || index >= Damage.Length || healthLost <= 0f
-            || float.IsNaN(healthLost) || float.IsInfinity(healthLost)) return;
+            || float.IsNaN(healthLost) || float.IsInfinity(healthLost))
+        {
+            return;
+        }
+
         if (index != AnimalProjectileQueue.FrogIndex && frogSupportDamage > 0f)
         {
             float bonus = Mathf.Min(healthLost, frogSupportDamage);
             Damage[index] += healthLost - bonus;
             Damage[AnimalProjectileQueue.FrogIndex] += bonus;
         }
-        else Damage[index] += healthLost;
+        else
+        {
+            Damage[index] += healthLost;
+        }
+
         TotalDamage += healthLost;
         Changed?.Invoke();
     }

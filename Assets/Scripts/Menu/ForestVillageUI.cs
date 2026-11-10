@@ -41,11 +41,21 @@ public sealed class ForestVillageUI
 
     public static ForestVillageUI Ensure(MenuHubController owner)
     {
-        if (owner.tabs == null || owner.tabs.Length < 3 || owner.tabs[2].page == null) return null;
+        if (owner.tabs == null || owner.tabs.Length < 3 || owner.tabs[2].page == null)
+        {
+            return null;
+        }
+
         var ui = new ForestVillageUI { hub = owner };
         Transform page = owner.tabs[2].page.transform;
-        if (page.Find("Forest Village Runtime") != null) ui.BindExisting(page);
-        else if (!Application.isPlaying) ui.Build(page);
+        if (page.Find("Forest Village Runtime") != null)
+        {
+            ui.BindExisting(page);
+        }
+        else if (!Application.isPlaying)
+        {
+            ui.Build(page);
+        }
         else
         {
             Debug.LogError("The editable village UI is missing from UIscene. "
@@ -53,10 +63,18 @@ public sealed class ForestVillageUI
             return null;
         }
         owner.tabs[2].title = "Деревня";
-        if (owner.tabs[2].buttonLabel != null) owner.tabs[2].buttonLabel.text = "ДЕРЕВНЯ";
+        if (owner.tabs[2].buttonLabel != null)
+        {
+            owner.tabs[2].buttonLabel.text = "ДЕРЕВНЯ";
+        }
+
         ui.artifactShop = page.GetComponentInChildren<ArtifactShopUI>(true);
         Transform catalogueButton = page.Find("Building Menu/Panel/Shop Offers/Open Catalog");
-        if (catalogueButton != null) Bind(catalogueButton.GetComponent<Button>(), ui.OpenCatalog);
+        if (catalogueButton != null)
+        {
+            Bind(catalogueButton.GetComponent<Button>(), ui.OpenCatalog);
+        }
+
         ui.Refresh();
         return ui;
     }
@@ -84,8 +102,11 @@ public sealed class ForestVillageUI
         upgradeLabel = upgrade.GetComponentInChildren<Text>();
         Transform collectTransform = dialogPanel.Find("Collect Income");
         if (collectTransform == null && !Application.isPlaying)
+        {
             collectTransform = Button("Collect Income", dialogPanel, "СОБРАТЬ", 32, 404, 916, 68,
                 Collect, 27).transform;
+        }
+
         if (collectTransform != null)
         {
             collect = collectTransform.GetComponent<Button>();
@@ -94,7 +115,11 @@ public sealed class ForestVillageUI
         }
         offers = dialogPanel.Find("Shop Offers").gameObject;
         Transform spinButton = offers.transform.Find("Spin Button");
-        if (spinButton == null && !Application.isPlaying) InstallRouletteView(offers.transform);
+        if (spinButton == null && !Application.isPlaying)
+        {
+            InstallRouletteView(offers.transform);
+        }
+
         spinButton = offers.transform.Find("Spin Button");
         if (spinButton != null)
         {
@@ -122,12 +147,19 @@ public sealed class ForestVillageUI
         for (int i = 0; i < MetaProgression.ArtifactCount; i++)
         {
             Transform card = inventory.Find("Offer " + MetaProgression.GetArtifactDefinition(i).Id);
-            if (card == null) continue;
+            if (card == null)
+            {
+                continue;
+            }
+
             Top((RectTransform)card, (i % 2) * 466, 396 + (i / 2) * 98, 450, 88);
             Top((RectTransform)card.Find("Name"), 16, 5, 418, 34);
             Top((RectTransform)card.Find("Effect"), 16, 41, 418, 44);
             Transform buy = card.Find("Buy");
-            if (buy != null) UnityEngine.Object.DestroyImmediate(buy.gameObject);
+            if (buy != null)
+            {
+                UnityEngine.Object.DestroyImmediate(buy.gameObject);
+            }
         }
     }
 
@@ -139,8 +171,16 @@ public sealed class ForestVillageUI
 
     public void Tick()
     {
-        if (!Application.isPlaying) return;
-        if (incomeStarted && Time.unscaledTime < nextCollection) return;
+        if (!Application.isPlaying)
+        {
+            return;
+        }
+
+        if (incomeStarted && Time.unscaledTime < nextCollection)
+        {
+            return;
+        }
+
         MetaProgression.AccruePassiveIncome();
         incomeStarted = true;
         nextCollection = Time.unscaledTime + 30f;
@@ -149,7 +189,10 @@ public sealed class ForestVillageUI
 
     public void SavePassiveIncome()
     {
-        if (Application.isPlaying) MetaProgression.AccruePassiveIncome();
+        if (Application.isPlaying)
+        {
+            MetaProgression.AccruePassiveIncome();
+        }
     }
 
     public void Refresh()
@@ -160,10 +203,26 @@ public sealed class ForestVillageUI
         PassiveIncomeResult pending = MetaProgression.PendingPassiveIncome;
         collection.text = "НАКОПЛЕНО: " + FormatAmount(pending.Acorns) + " ЖЕЛУДЕЙ  ·  "
             + FormatAmount(pending.Gold) + " ЗОЛОТА";
-        if (tree != null) tree.Refresh();
-        if (shop != null) shop.Refresh();
-        if (artifactShop != null && artifactShop.IsOpen) artifactShop.Refresh();
-        if (dialog == null || !dialog.activeSelf) return;
+        if (tree != null)
+        {
+            tree.Refresh();
+        }
+
+        if (shop != null)
+        {
+            shop.Refresh();
+        }
+
+        if (artifactShop != null && artifactShop.IsOpen)
+        {
+            artifactShop.Refresh();
+        }
+
+        if (dialog == null || !dialog.activeSelf)
+        {
+            return;
+        }
+
         bool isTree = selectedBuilding == VillageBuildingKind.GreatTree;
         int level = isTree ? MetaProgression.GreatTreeLevel : MetaProgression.ForestShopLevel;
         int cost = isTree ? MetaProgression.GetGreatTreeUpgradeCost() : MetaProgression.GetForestShopUpgradeCost();
@@ -200,7 +259,11 @@ public sealed class ForestVillageUI
         {
             MetaArtifactDefinition definition = MetaProgression.GetArtifactDefinition(i);
             Transform card = offers.transform.Find("Offer " + definition.Id);
-            if (card == null) continue;
+            if (card == null)
+            {
+                continue;
+            }
+
             bool owned = MetaProgression.IsArtifactOwned(i);
             card.Find("Name").GetComponent<Text>().text = definition.Name + (owned ? "  ✓" : "");
             card.Find("Effect").GetComponent<Text>().text = definition.Description;
@@ -210,8 +273,15 @@ public sealed class ForestVillageUI
 
     public void CloseDialog()
     {
-        if (dialog != null) dialog.SetActive(false);
-        if (artifactShop != null) artifactShop.Close();
+        if (dialog != null)
+        {
+            dialog.SetActive(false);
+        }
+
+        if (artifactShop != null)
+        {
+            artifactShop.Close();
+        }
     }
 
     private void OpenCatalog()
@@ -223,12 +293,20 @@ public sealed class ForestVillageUI
     public void OpenBuilding(VillageBuildingKind kind)
     {
         hub.CloseDialogs();
-        if (Application.isPlaying) MetaProgression.AccruePassiveIncome();
+        if (Application.isPlaying)
+        {
+            MetaProgression.AccruePassiveIncome();
+        }
+
         selectedBuilding = kind;
         bool isShop = kind == VillageBuildingKind.ForestShop;
         offers.SetActive(isShop);
         dialogPanel.sizeDelta = new Vector2(980, isShop ? 1100 : 600);
-        if (isShop && spinResult != null && !spinning) spinResult.text = "?";
+        if (isShop && spinResult != null && !spinning)
+        {
+            spinResult.text = "?";
+        }
+
         dialog.SetActive(true);
         dialog.transform.SetAsLastSibling();
         Refresh();
@@ -236,15 +314,30 @@ public sealed class ForestVillageUI
 
     private void Upgrade()
     {
-        if (!Application.isPlaying) return;
-        if (selectedBuilding == VillageBuildingKind.GreatTree) MetaProgression.TryUpgradeGreatTree();
-        else MetaProgression.TryUpgradeForestShop();
+        if (!Application.isPlaying)
+        {
+            return;
+        }
+
+        if (selectedBuilding == VillageBuildingKind.GreatTree)
+        {
+            MetaProgression.TryUpgradeGreatTree();
+        }
+        else
+        {
+            MetaProgression.TryUpgradeForestShop();
+        }
+
         Refresh();
     }
 
     private void Spin()
     {
-        if (!Application.isPlaying || spinning || !MetaProgression.TrySpinArtifact(out int index)) return;
+        if (!Application.isPlaying || spinning || !MetaProgression.TrySpinArtifact(out int index))
+        {
+            return;
+        }
+
         spinning = true;
         Refresh();
         hub.StartCoroutine(SpinAnimation(index));
@@ -266,9 +359,17 @@ public sealed class ForestVillageUI
 
     private void Collect()
     {
-        if (!Application.isPlaying || selectedBuilding != VillageBuildingKind.GreatTree) return;
+        if (!Application.isPlaying || selectedBuilding != VillageBuildingKind.GreatTree)
+        {
+            return;
+        }
+
         PassiveIncomeResult result = MetaProgression.CollectPassiveIncome();
-        if (!result.HasIncome) return;
+        if (!result.HasIncome)
+        {
+            return;
+        }
+
         Refresh();
         feedback.text = "Собрано: +" + FormatAmount(result.Acorns) + " желудей и +"
             + FormatAmount(result.Gold) + " золота.";

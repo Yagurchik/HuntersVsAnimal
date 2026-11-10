@@ -30,8 +30,16 @@ public sealed class UpgradeChoiceCardMotion : MonoBehaviour,
 
     private void OnEnable()
     {
-        if (rect == null) rect = (RectTransform)transform;
-        if (group == null) group = GetComponent<CanvasGroup>();
+        if (rect == null)
+        {
+            rect = (RectTransform)transform;
+        }
+
+        if (group == null)
+        {
+            group = GetComponent<CanvasGroup>();
+        }
+
         hovered = pressed = false;
         if (!Application.isPlaying)
         {
@@ -46,7 +54,11 @@ public sealed class UpgradeChoiceCardMotion : MonoBehaviour,
 
     private void Update()
     {
-        if (!Application.isPlaying) return;
+        if (!Application.isPlaying)
+        {
+            return;
+        }
+
         age += Time.unscaledDeltaTime;
         float reveal = Mathf.Clamp01(age / 0.2f);
         group.alpha = reveal;

@@ -22,13 +22,23 @@ public class RadialSegmentGraphic : MaskableGraphic
     {
         if (!base.Raycast(screenPoint, eventCamera)
             || !RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                rectTransform, screenPoint, eventCamera, out Vector2 localPoint)) return false;
+                rectTransform, screenPoint, eventCamera, out Vector2 localPoint))
+        {
+            return false;
+        }
 
         Rect rect = rectTransform.rect;
         float outer = Mathf.Min(rect.width, rect.height) * 0.5f;
         float distance = Vector2.Distance(localPoint, rect.center);
-        if (distance < outer * innerRadius || distance > outer) return false;
-        if (Mathf.Abs(endAngle - startAngle) >= 359.9f) return true;
+        if (distance < outer * innerRadius || distance > outer)
+        {
+            return false;
+        }
+
+        if (Mathf.Abs(endAngle - startAngle) >= 359.9f)
+        {
+            return true;
+        }
 
         float pointAngle = Mathf.Atan2(localPoint.y - rect.center.y,
             localPoint.x - rect.center.x) * Mathf.Rad2Deg;

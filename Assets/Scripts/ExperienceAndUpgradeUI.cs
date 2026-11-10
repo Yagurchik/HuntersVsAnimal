@@ -45,7 +45,11 @@ public class ExperienceAndUpgradeUI : MonoBehaviour
 
     public static ExperienceAndUpgradeUI Ensure(GameManager manager)
     {
-        if (instance == null) instance = FindObjectOfType<ExperienceAndUpgradeUI>(true);
+        if (instance == null)
+        {
+            instance = FindObjectOfType<ExperienceAndUpgradeUI>(true);
+        }
+
         if (instance != null)
         {
             instance.gameObject.SetActive(true);
@@ -81,15 +85,23 @@ public class ExperienceAndUpgradeUI : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        if (upgradeModal != null) upgradeModal.SetActive(false);
+        if (upgradeModal != null)
+        {
+            upgradeModal.SetActive(false);
+        }
     }
 
     public void BuildEditableInterface()
     {
         transform.localScale = Vector3.one;
-        if (levelText == null) BuildInterface(GetComponent<RectTransform>());
+        if (levelText == null)
+        {
+            BuildInterface(GetComponent<RectTransform>());
+        }
         else if (upgradeModal == null || upgradeInterfaceVersion < CurrentInterfaceVersion)
+        {
             RebuildUpgradeModal(animalPortraits);
+        }
     }
 
     public void RebuildUpgradeModal(Sprite[] portraits)
@@ -102,8 +114,14 @@ public class ExperienceAndUpgradeUI : MonoBehaviour
 
         if (upgradeModal != null)
         {
-            if (Application.isPlaying) Destroy(upgradeModal);
-            else DestroyImmediate(upgradeModal);
+            if (Application.isPlaying)
+            {
+                Destroy(upgradeModal);
+            }
+            else
+            {
+                DestroyImmediate(upgradeModal);
+            }
         }
         upgradeModal = null;
         choicesRoot = null;
@@ -114,7 +132,11 @@ public class ExperienceAndUpgradeUI : MonoBehaviour
 
     public void Preview(AnimalProjectileQueue queue, bool showChoices, int level = 1)
     {
-        if (Application.isPlaying) return;
+        if (Application.isPlaying)
+        {
+            return;
+        }
+
         BuildEditableInterface();
         levelText.text = LevelProgression.LocationNameForLevel(level) + " · уровень "
             + LevelProgression.LocalLevelFor(level) + " / " + LevelProgression.LevelsPerLocation;
@@ -152,7 +174,11 @@ public class ExperienceAndUpgradeUI : MonoBehaviour
             gameManager.ExperienceChanged += Refresh;
         }
 
-        if (Application.isPlaying && upgradeModal != null) upgradeModal.SetActive(false);
+        if (Application.isPlaying && upgradeModal != null)
+        {
+            upgradeModal.SetActive(false);
+        }
+
         BuildUpgradeButtons(AnimalProjectileQueue.Instance, false);
         Refresh();
     }
@@ -316,7 +342,11 @@ public class ExperienceAndUpgradeUI : MonoBehaviour
 
     private void SetExperienceFill(float value)
     {
-        if (experienceFill == null) return;
+        if (experienceFill == null)
+        {
+            return;
+        }
+
         value = Mathf.Clamp01(value);
         experienceFill.fillAmount = value;
         // Image ignores Filled mode without a sprite; plain-color bars use their rect width.
@@ -328,7 +358,13 @@ public class ExperienceAndUpgradeUI : MonoBehaviour
     private void BuildUpgradeButtons(AnimalProjectileQueue queue, bool randomize)
     {
         foreach (UpgradeCard card in upgradeCards)
-            if (card.button != null) card.button.gameObject.SetActive(false);
+        {
+            if (card.button != null)
+            {
+                card.button.gameObject.SetActive(false);
+            }
+        }
+
         if (queue == null)
         {
             return;
@@ -372,11 +408,20 @@ public class ExperienceAndUpgradeUI : MonoBehaviour
             {
                 AnimalProjectileQueue.UpgradeOption option = pool.Find(candidate =>
                     candidate.AnimalIndex == animalIndex);
-                if (option != null) preview.Add(option);
+                if (option != null)
+                {
+                    preview.Add(option);
+                }
             }
 
             for (int i = 0; i < pool.Count && preview.Count < MaximumOfferedUpgrades; i++)
-                if (!preview.Contains(pool[i])) preview.Add(pool[i]);
+            {
+                if (!preview.Contains(pool[i]))
+                {
+                    preview.Add(pool[i]);
+                }
+            }
+
             return preview;
         }
 
@@ -403,7 +448,10 @@ public class ExperienceAndUpgradeUI : MonoBehaviour
             }
         }
         if (pool.Count > MaximumOfferedUpgrades)
+        {
             pool.RemoveRange(MaximumOfferedUpgrades, pool.Count - MaximumOfferedUpgrades);
+        }
+
         return pool;
     }
 
@@ -570,7 +618,9 @@ public class ExperienceAndUpgradeUI : MonoBehaviour
         AnimalProjectileQueue.UpgradeKind kind = option.Kind;
         card.button.onClick.AddListener(() => {
             if (Application.isPlaying && gameManager != null)
+            {
                 gameManager.SelectProjectileUpgrade(index, kind);
+            }
         });
         if (card.icon != null)
         {
@@ -589,11 +639,31 @@ public class ExperienceAndUpgradeUI : MonoBehaviour
         Color frameColor = Color.Lerp(new Color(0.08f, 0.13f, 0.075f), accent,
             isUltimate ? 0.68f : 0.34f);
         Color glowColor = new Color(accent.r, accent.g, accent.b, isUltimate ? 0.48f : 0.18f);
-        if (card.frame != null) card.frame.color = frameColor;
-        if (card.accent != null) card.accent.color = accent;
-        if (card.portraitGlow != null) card.portraitGlow.color = glowColor;
-        if (card.kindPlate != null) card.kindPlate.color = Color.Lerp(new Color(0.12f, 0.16f, 0.1f), accent, 0.55f);
-        if (card.choosePlate != null) card.choosePlate.color = accent;
+        if (card.frame != null)
+        {
+            card.frame.color = frameColor;
+        }
+
+        if (card.accent != null)
+        {
+            card.accent.color = accent;
+        }
+
+        if (card.portraitGlow != null)
+        {
+            card.portraitGlow.color = glowColor;
+        }
+
+        if (card.kindPlate != null)
+        {
+            card.kindPlate.color = Color.Lerp(new Color(0.12f, 0.16f, 0.1f), accent, 0.55f);
+        }
+
+        if (card.choosePlate != null)
+        {
+            card.choosePlate.color = accent;
+        }
+
         if (card.chooseLabel != null)
         {
             card.chooseLabel.text = isUltimate ? "ПРИНЯТЬ УЛЬТУ" : "ВЫБРАТЬ";
@@ -601,8 +671,16 @@ public class ExperienceAndUpgradeUI : MonoBehaviour
                 ? new Color(0.18f, 0.045f, 0.01f, 1f)
                 : new Color(0.09f, 0.075f, 0.035f, 1f);
         }
-        if (card.kindLabel != null) card.kindLabel.text = GetKindLabel(option.Kind);
-        if (card.titleLabel != null) card.titleLabel.text = CleanTitle(option.Title);
+        if (card.kindLabel != null)
+        {
+            card.kindLabel.text = GetKindLabel(option.Kind);
+        }
+
+        if (card.titleLabel != null)
+        {
+            card.titleLabel.text = CleanTitle(option.Title);
+        }
+
         if (card.descriptionLabel != null)
         {
             card.descriptionLabel.text = option.Description.Replace(" -> ", "  →  ");
@@ -610,7 +688,11 @@ public class ExperienceAndUpgradeUI : MonoBehaviour
         int rank = GetCurrentRank(queue, option);
         for (int i = 0; i < card.rankPips.Count; i++)
         {
-            if (card.rankPips[i] == null) continue;
+            if (card.rankPips[i] == null)
+            {
+                continue;
+            }
+
             card.rankPips[i].color = i < rank ? accent
                 : i == rank ? new Color(accent.r, accent.g, accent.b, 0.42f)
                 : new Color(0.17f, 0.21f, 0.15f, 1f);
@@ -619,7 +701,10 @@ public class ExperienceAndUpgradeUI : MonoBehaviour
         UltimateUpgradeCardGlow ultimateGlow =
             card.button.GetComponent<UltimateUpgradeCardGlow>();
         if (ultimateGlow == null)
+        {
             ultimateGlow = card.button.gameObject.AddComponent<UltimateUpgradeCardGlow>();
+        }
+
         ultimateGlow.Configure(isUltimate, card.frame, card.portraitGlow,
             frameColor, glowColor, accent);
     }
@@ -640,24 +725,45 @@ public class ExperienceAndUpgradeUI : MonoBehaviour
         if (option.AnimalIndex >= 0 && animalPortraits != null
             && option.AnimalIndex < animalPortraits.Length
             && animalPortraits[option.AnimalIndex] != null)
+        {
             return animalPortraits[option.AnimalIndex];
+        }
+
         return option.Icon;
     }
 
     private static Color GetAccent(AnimalProjectileQueue.UpgradeOption option)
     {
         if (option.Kind == AnimalProjectileQueue.UpgradeKind.HoneyBadgerUltimate)
+        {
             return new Color(1f, 0.46f, 0.06f, 1f);
+        }
+
         if (option.Kind == AnimalProjectileQueue.UpgradeKind.HedgehogUltimate)
+        {
             return new Color(1f, 0.68f, 0.12f, 1f);
+        }
+
         if (option.Kind == AnimalProjectileQueue.UpgradeKind.BoarUltimate)
+        {
             return new Color(1f, 0.3f, 0.045f, 1f);
+        }
+
         if (option.Kind == AnimalProjectileQueue.UpgradeKind.FireflyUltimate)
+        {
             return new Color(1f, 0.58f, 0.035f, 1f);
+        }
+
         if (option.Kind == AnimalProjectileQueue.UpgradeKind.RabbitUltimate)
+        {
             return new Color(1f, 0.48f, 0.62f, 1f);
+        }
+
         if (option.Kind == AnimalProjectileQueue.UpgradeKind.SquirrelUltimate)
+        {
             return new Color(1f, 0.5f, 0.12f, 1f);
+        }
+
         switch (option.AnimalIndex)
         {
             case 0: return new Color(1f, 0.72f, 0.16f, 1f);
@@ -707,7 +813,11 @@ public class ExperienceAndUpgradeUI : MonoBehaviour
     private static int GetCurrentRank(AnimalProjectileQueue queue,
         AnimalProjectileQueue.UpgradeOption option)
     {
-        if (queue == null || option.AnimalIndex < 0) return 0;
+        if (queue == null || option.AnimalIndex < 0)
+        {
+            return 0;
+        }
+
         switch (option.Kind)
         {
             case AnimalProjectileQueue.UpgradeKind.Ammo:
@@ -781,9 +891,14 @@ public class ExperienceAndUpgradeUI : MonoBehaviour
             RectTransform line = CreateImage(side == 0 ? "Ornament Left" : "Ornament Right",
                 parent, new Color(0.58f, 0.42f, 0.18f, 0.9f));
             if (side == 0)
+            {
                 SetStretch(line, new Vector2(0.04f, 0.49f), new Vector2(0.25f, 0.51f), Vector2.zero, Vector2.zero);
+            }
             else
+            {
                 SetStretch(line, new Vector2(0.75f, 0.49f), new Vector2(0.96f, 0.51f), Vector2.zero, Vector2.zero);
+            }
+
             line.GetComponent<Image>().raycastTarget = false;
         }
         RectTransform diamond = CreateImage("Ornament Seed", parent,
@@ -796,7 +911,11 @@ public class ExperienceAndUpgradeUI : MonoBehaviour
 
     private static void StyleRounded(Image image)
     {
-        if (image == null) return;
+        if (image == null)
+        {
+            return;
+        }
+
         image.sprite = null;
         image.type = Image.Type.Simple;
     }

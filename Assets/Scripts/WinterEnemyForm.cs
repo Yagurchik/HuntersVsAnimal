@@ -16,7 +16,11 @@ public sealed class WinterEnemyForm : MonoBehaviour
 
     private void Awake()
     {
-        if (visual == null) visual = transform.Find("Visual")?.GetComponent<SpriteRenderer>();
+        if (visual == null)
+        {
+            visual = transform.Find("Visual")?.GetComponent<SpriteRenderer>();
+        }
+
         SetFrozen(true);
     }
 
@@ -32,7 +36,10 @@ public sealed class WinterEnemyForm : MonoBehaviour
         if (IsFrozen) { receivedFireSinceTurn = false; return; }
         if (receivedFireSinceTurn) { receivedFireSinceTurn = false; return; }
         quietTurns++;
-        if (quietTurns >= Mathf.Max(1, quietTurnsToRefreeze)) SetFrozen(true);
+        if (quietTurns >= Mathf.Max(1, quietTurnsToRefreeze))
+        {
+            SetFrozen(true);
+        }
     }
 
     private void SetFrozen(bool value)

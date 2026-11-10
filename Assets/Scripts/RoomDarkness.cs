@@ -70,13 +70,24 @@ public sealed class RoomDarkness : MonoBehaviour
 
     public bool IsVisible(Vector3 worldPosition)
     {
-        if (!isActiveAndEnabled) return true;
-        if (!HasDarkness) return true;
+        if (!isActiveAndEnabled)
+        {
+            return true;
+        }
+
+        if (!HasDarkness)
+        {
+            return true;
+        }
+
         for (int i = lightSources.Count - 1; i >= 0; i--)
         {
             EnemyIllumination source = lightSources[i];
             if (source == null) { lightSources.RemoveAt(i); continue; }
-            if (source.Illuminates(this, worldPosition)) return true;
+            if (source.Illuminates(this, worldPosition))
+            {
+                return true;
+            }
         }
         float boundary = transform.position.y
             + (LitFraction - 0.5f) * BoardSize.y;
@@ -86,28 +97,47 @@ public sealed class RoomDarkness : MonoBehaviour
     // The preview must not reveal collision positions or reflections behind the fog.
     public Vector2 ClipToVisibleArea(Vector2 start, Vector2 end)
     {
-        if (!HasDarkness || IsVisible(end)) return end;
-        if (start.y >= LightBoundaryY) return start;
+        if (!HasDarkness || IsVisible(end))
+        {
+            return end;
+        }
+
+        if (start.y >= LightBoundaryY)
+        {
+            return start;
+        }
+
         return Vector2.Lerp(start, end, (LightBoundaryY - start.y) / (end.y - start.y));
     }
 
     public void Refresh()
     {
         needsRefresh = false;
-        if (Room == null || !gameObject.scene.IsValid()) return;
+        if (Room == null || !gameObject.scene.IsValid())
+        {
+            return;
+        }
+
         previousSize = BoardSize;
         previousLighting = LitFraction;
         bool hasShadows = EnemySpecialistTrait.HasActiveShadow(this);
         if (!HasDarkness && !hasShadows)
         {
             previousShadowCount = 0;
-            if (graphic != null) graphic.gameObject.SetActive(false);
+            if (graphic != null)
+            {
+                graphic.gameObject.SetActive(false);
+            }
+
             return;
         }
         if (graphic == null)
         {
             Transform existing = transform.Find("Room Darkness (generated)");
-            if (existing != null) graphic = existing.GetComponent<RoomDarknessGraphic>();
+            if (existing != null)
+            {
+                graphic = existing.GetComponent<RoomDarknessGraphic>();
+            }
         }
         if (graphic == null)
         {
@@ -143,32 +173,55 @@ public sealed class RoomDarkness : MonoBehaviour
 
     public void RegisterLight(EnemyIllumination source)
     {
-        if (source == null || lightSources.Contains(source)) return;
+        if (source == null || lightSources.Contains(source))
+        {
+            return;
+        }
+
         lightSources.Add(source);
         needsRefresh = true;
     }
 
     public void UnregisterLight(EnemyIllumination source)
     {
-        if (source != null && lightSources.Remove(source)) needsRefresh = true;
+        if (source != null && lightSources.Remove(source))
+        {
+            needsRefresh = true;
+        }
     }
 
     public void NotifyLightChanged(EnemyIllumination source)
     {
-        if (source == null) return;
-        if (!lightSources.Contains(source)) lightSources.Add(source);
+        if (source == null)
+        {
+            return;
+        }
+
+        if (!lightSources.Contains(source))
+        {
+            lightSources.Add(source);
+        }
+
         needsRefresh = true;
     }
 
     private void CollectRenderLights()
     {
         renderLights.Clear();
-        if (graphic == null) return;
+        if (graphic == null)
+        {
+            return;
+        }
+
         for (int i = lightSources.Count - 1; i >= 0; i--)
         {
             EnemyIllumination source = lightSources[i];
             if (source == null) { lightSources.RemoveAt(i); continue; }
-            if (!source.Illuminates(this)) continue;
+            if (!source.Illuminates(this))
+            {
+                continue;
+            }
+
             Vector3 local = graphic.rectTransform.InverseTransformPoint(source.transform.position);
             renderLights.Add(new RoomDarknessGraphic.LightDisc(
                 new Vector2(local.x, local.y), source.LightRadius, localLightSoftness));
@@ -193,18 +246,34 @@ public sealed class RoomDarkness : MonoBehaviour
     private void LateUpdate()
     {
         if (needsRefresh || previousSize != BoardSize || !Mathf.Approximately(previousLighting, LitFraction)
-            || previousShadowCount > 0 || EnemySpecialistTrait.HasActiveShadow(this)) Refresh();
+            || previousShadowCount > 0 || EnemySpecialistTrait.HasActiveShadow(this))
+        {
+            Refresh();
+        }
     }
 
     private void OnDisable()
     {
-        if (graphic != null) graphic.gameObject.SetActive(false);
+        if (graphic != null)
+        {
+            graphic.gameObject.SetActive(false);
+        }
     }
 
     private void OnDestroy()
     {
-        if (graphic == null) return;
-        if (Application.isPlaying) Destroy(graphic.gameObject);
-        else DestroyImmediate(graphic.gameObject);
+        if (graphic == null)
+        {
+            return;
+        }
+
+        if (Application.isPlaying)
+        {
+            Destroy(graphic.gameObject);
+        }
+        else
+        {
+            DestroyImmediate(graphic.gameObject);
+        }
     }
 }

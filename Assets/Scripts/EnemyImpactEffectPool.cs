@@ -79,7 +79,10 @@ public sealed class EnemyImpactEffectPool : MonoBehaviour
         while (Pool.Count > 0)
         {
             EnemyImpactEffectPool pooled = Pool.Dequeue();
-            if (pooled != null) return pooled;
+            if (pooled != null)
+            {
+                return pooled;
+            }
         }
 
         GameObject effectObject = new GameObject("Enemy Impact (pooled)");
@@ -91,7 +94,11 @@ public sealed class EnemyImpactEffectPool : MonoBehaviour
 
     private static Transform GetPoolRoot()
     {
-        if (poolRoot != null) return poolRoot;
+        if (poolRoot != null)
+        {
+            return poolRoot;
+        }
+
         GameObject root = new GameObject("Enemy Impact Effects (runtime)");
         DontDestroyOnLoad(root);
         poolRoot = root.transform;
@@ -148,15 +155,30 @@ public sealed class EnemyImpactEffectPool : MonoBehaviour
         particleRenderer.renderMode = ParticleSystemRenderMode.Billboard;
         particleRenderer.sortingOrder = RoomDarkness.WorldOverlayOrder + 20;
         Material material = GetSharedMaterial();
-        if (material != null) particleRenderer.sharedMaterial = material;
+        if (material != null)
+        {
+            particleRenderer.sharedMaterial = material;
+        }
     }
 
     private static Material GetSharedMaterial()
     {
-        if (sharedMaterial != null) return sharedMaterial;
+        if (sharedMaterial != null)
+        {
+            return sharedMaterial;
+        }
+
         Shader shader = Shader.Find("Sprites/Default");
-        if (shader == null) shader = Shader.Find("UI/Default");
-        if (shader == null) return null;
+        if (shader == null)
+        {
+            shader = Shader.Find("UI/Default");
+        }
+
+        if (shader == null)
+        {
+            return null;
+        }
+
         sharedMaterial = new Material(shader) {
             name = "Runtime Enemy Impact Material",
             hideFlags = HideFlags.HideAndDontSave
@@ -167,7 +189,10 @@ public sealed class EnemyImpactEffectPool : MonoBehaviour
     private static Material GetBogFireMaterial()
     {
         if (bogFireMaterial == null)
+        {
             bogFireMaterial = Resources.Load<Material>("Effects/SoulGlow");
+        }
+
         return bogFireMaterial != null ? bogFireMaterial : GetSharedMaterial();
     }
 
@@ -232,7 +257,10 @@ public sealed class EnemyImpactEffectPool : MonoBehaviour
             float side = Random.Range(-1f, 1f);
             Vector2 direction = (normal * Random.Range(0.2f, 0.9f)
                 + tangent * side + Random.insideUnitCircle * 0.45f).normalized;
-            if (direction.sqrMagnitude < 0.0001f) direction = normal;
+            if (direction.sqrMagnitude < 0.0001f)
+            {
+                direction = normal;
+            }
 
             ParticleSystem.EmitParams particle = new ParticleSystem.EmitParams {
                 position = Random.insideUnitCircle * (0.08f * scale),
@@ -265,7 +293,10 @@ public sealed class EnemyImpactEffectPool : MonoBehaviour
             Vector2 direction = normal * Random.Range(0.5f, 1.1f)
                 + tangent * Random.Range(-0.9f, 0.9f)
                 + Vector2.up * Random.Range(0.15f, 0.5f);
-            if (direction.sqrMagnitude < 0.0001f) direction = Vector2.up;
+            if (direction.sqrMagnitude < 0.0001f)
+            {
+                direction = Vector2.up;
+            }
 
             EmitLiquidDrop(Random.insideUnitCircle * (0.035f * scale),
                 direction.normalized * Random.Range(0.9f, 1.8f) * scale,
@@ -306,9 +337,12 @@ public sealed class EnemyImpactEffectPool : MonoBehaviour
         ParticleSystem.SizeOverLifetimeModule size = particles.sizeOverLifetime;
         size.enabled = burning;
         if (burning)
+        {
             size.size = new ParticleSystem.MinMaxCurve(1f,
                 new AnimationCurve(new Keyframe(0f, 0.7f), new Keyframe(0.18f, 1.3f),
                     new Keyframe(1f, 0.35f)));
+        }
+
         ParticleSystem.ColorOverLifetimeModule colors = particles.colorOverLifetime;
         colors.color = LiquidFade();
         particleRenderer.renderMode = ParticleSystemRenderMode.Billboard;
@@ -365,7 +399,10 @@ public sealed class EnemyImpactEffectPool : MonoBehaviour
 
     private void Update()
     {
-        if (activeEffect && Time.time >= releaseAt) Release();
+        if (activeEffect && Time.time >= releaseAt)
+        {
+            Release();
+        }
     }
 
     private void BeginLiquidBurst(float gravity, float travelRadius)
@@ -377,12 +414,19 @@ public sealed class EnemyImpactEffectPool : MonoBehaviour
         liquidStartedAt = Time.time;
         liquidGravity = gravity;
         liquidTravelRadius = travelRadius;
-        if (bogDropSprite == null) bogDropSprite = Resources.Load<Sprite>("BogDrop");
+        if (bogDropSprite == null)
+        {
+            bogDropSprite = Resources.Load<Sprite>("BogDrop");
+        }
     }
 
     private void EmitLiquidDrop(Vector2 origin, Vector2 velocity, float lifetime, float diameter)
     {
-        if (bogDropSprite == null || liquidDropCount >= liquidDrops.Length) return;
+        if (bogDropSprite == null || liquidDropCount >= liquidDrops.Length)
+        {
+            return;
+        }
+
         int index = liquidDropCount++;
         LiquidDrop drop = liquidDrops[index];
         if (drop == null)
@@ -411,15 +455,22 @@ public sealed class EnemyImpactEffectPool : MonoBehaviour
     private void UpdateLiquidDrop(LiquidDrop drop, float age)
     {
         drop.Renderer.enabled = age < drop.Lifetime;
-        if (!drop.Renderer.enabled) return;
+        if (!drop.Renderer.enabled)
+        {
+            return;
+        }
+
         Vector2 position = drop.Origin + drop.Velocity * age
             + Vector2.up * (0.5f * liquidGravity * age * age);
         position = Vector2.ClampMagnitude(position, liquidTravelRadius);
         drop.Renderer.transform.localPosition = new Vector3(position.x, position.y, -0.01f);
         Vector2 velocity = drop.Velocity + Vector2.up * (liquidGravity * age);
         if (velocity.sqrMagnitude > 0.0001f)
+        {
             drop.Renderer.transform.localRotation = Quaternion.Euler(0f, 0f,
                 Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg - 225f);
+        }
+
         float fade = Mathf.InverseLerp(drop.Lifetime, drop.Lifetime * 0.65f, age);
         drop.Renderer.color = new Color(1f, 1f, 1f, fade);
     }
@@ -427,33 +478,63 @@ public sealed class EnemyImpactEffectPool : MonoBehaviour
     private void ClearLiquidDrops()
     {
         foreach (LiquidDrop drop in liquidDrops)
-            if (drop != null && drop.Renderer != null) drop.Renderer.enabled = false;
+        {
+            if (drop != null && drop.Renderer != null)
+            {
+                drop.Renderer.enabled = false;
+            }
+        }
+
         liquidDropCount = 0;
         liquidBurst = false;
     }
 
     private void LateUpdate()
     {
-        if (!activeEffect || !liquidBurst) return;
+        if (!activeEffect || !liquidBurst)
+        {
+            return;
+        }
+
         float age = Time.time - liquidStartedAt;
-        for (int i = 0; i < liquidDropCount; i++) UpdateLiquidDrop(liquidDrops[i], age);
+        for (int i = 0; i < liquidDropCount; i++)
+        {
+            UpdateLiquidDrop(liquidDrops[i], age);
+        }
     }
 
     private void Release()
     {
-        if (!activeEffect) return;
+        if (!activeEffect)
+        {
+            return;
+        }
+
         activeEffect = false;
         ActiveEffectCount = Mathf.Max(0, ActiveEffectCount - 1);
         particles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         ClearLiquidDrops();
         gameObject.SetActive(false);
-        if (Pool.Count < MaximumPoolSize) Pool.Enqueue(this);
-        else Destroy(gameObject);
+        if (Pool.Count < MaximumPoolSize)
+        {
+            Pool.Enqueue(this);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnDestroy()
     {
-        if (activeEffect) ActiveEffectCount = Mathf.Max(0, ActiveEffectCount - 1);
-        if (LastPlayed == this) LastPlayed = null;
+        if (activeEffect)
+        {
+            ActiveEffectCount = Mathf.Max(0, ActiveEffectCount - 1);
+        }
+
+        if (LastPlayed == this)
+        {
+            LastPlayed = null;
+        }
     }
 }

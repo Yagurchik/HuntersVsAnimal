@@ -22,7 +22,11 @@ public sealed class DestroyBallCollider : MonoBehaviour
     private void CompleteProjectile(Collider2D other)
     {
         Animal animal = other.GetComponentInParent<Animal>();
-        if (animal == null || animal.IsReturning) return;
+        if (animal == null || animal.IsReturning)
+        {
+            return;
+        }
+
         BoarProjectile boar = animal.GetComponent<BoarProjectile>();
         if (boar != null)
         {

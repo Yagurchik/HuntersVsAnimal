@@ -109,7 +109,11 @@ public sealed class BoarProjectile : ProjectileDamageModifier
     public void Launch(Vector2 direction, float speed)
     {
         EnsurePhysics();
-        if (trajectoryRoutine != null) StopCoroutine(trajectoryRoutine);
+        if (trajectoryRoutine != null)
+        {
+            StopCoroutine(trajectoryRoutine);
+        }
+
         hitEnemies.Clear();
         enemiesHitBefore.Clear();
         wallBounceCount = 0;
@@ -120,7 +124,11 @@ public sealed class BoarProjectile : ProjectileDamageModifier
         currentStage = animal != null && animal.ReturnPlayer != null
             ? animal.ReturnPlayer.GetComponentInParent<Stage>() : null;
         flight?.StopFlight();
-        if (flight != null) flight.enabled = false;
+        if (flight != null)
+        {
+            flight.enabled = false;
+        }
+
         if (body != null)
         {
             body.velocity = Vector2.zero;
@@ -144,7 +152,11 @@ public sealed class BoarProjectile : ProjectileDamageModifier
         waitingAfterBounce = false;
         chargeTrail?.CompleteSegment(transform.position);
         EnsurePhysics();
-        if (flight != null) flight.enabled = true;
+        if (flight != null)
+        {
+            flight.enabled = true;
+        }
+
         if (body != null)
         {
             body.position = transform.position;
@@ -178,12 +190,18 @@ public sealed class BoarProjectile : ProjectileDamageModifier
                     -currentDirection);
             UpdateFacing(currentDirection);
             SetPosition(ClampVisiblePosition(boundary.Point));
-            if (countsAsBounce) wallBounceCount++;
+            if (countsAsBounce)
+            {
+                wallBounceCount++;
+            }
+
             waitingAfterBounce = true;
             yield return ShakeAtWall();
             waitingAfterBounce = false;
-            if (wallBounceCount >= MaximumWallBounces) break;
-
+            if (wallBounceCount >= MaximumWallBounces)
+            {
+                break;
+            }
         }
 
         trajectoryRoutine = null;
@@ -200,7 +218,11 @@ public sealed class BoarProjectile : ProjectileDamageModifier
     private IEnumerator TravelAlongSegment(Vector2 start, Vector2 end)
     {
         float distance = Vector2.Distance(start, end);
-        if (distance <= 0.0001f) yield break;
+        if (distance <= 0.0001f)
+        {
+            yield break;
+        }
+
         float duration = distance / Mathf.Max(1f, trajectorySpeed);
         float elapsed = 0f;
         Vector2 visibleStart = ClampVisiblePosition(start);
@@ -259,7 +281,11 @@ public sealed class BoarProjectile : ProjectileDamageModifier
         {
             RaycastHit2D hit = hits[i];
             bool hitMirage = IsMirageBoundary(hit.collider);
-            if (!hitMirage && !IsBoundary(hit.collider)) continue;
+            if (!hitMirage && !IsBoundary(hit.collider))
+            {
+                continue;
+            }
+
             if (hit.distance < nearestDistance - CornerTolerance)
             {
                 nearestDistance = hit.distance;
@@ -274,7 +300,11 @@ public sealed class BoarProjectile : ProjectileDamageModifier
                 isMirage |= hitMirage;
             }
         }
-        if (!found) return false;
+        if (!found)
+        {
+            return false;
+        }
+
         boundary.Point = point;
         boundary.Normal = SafeDirection(combinedNormal, -direction);
         boundary.IsMirage = isMirage;
@@ -291,8 +321,16 @@ public sealed class BoarProjectile : ProjectileDamageModifier
 
     private bool IsBoundary(Collider2D candidate)
     {
-        if (candidate == null) return false;
-        if (wallsLayer >= 0 && candidate.gameObject.layer == wallsLayer) return true;
+        if (candidate == null)
+        {
+            return false;
+        }
+
+        if (wallsLayer >= 0 && candidate.gameObject.layer == wallsLayer)
+        {
+            return true;
+        }
+
         return candidate.GetComponentInParent<DestroyBallCollider>() != null;
     }
 
@@ -303,10 +341,17 @@ public sealed class BoarProjectile : ProjectileDamageModifier
         float sweepRadius = DamageSweepRadius;
         if (distance <= 0.000001f)
         {
-            if (sweepRadius <= 0f) return;
+            if (sweepRadius <= 0f)
+            {
+                return;
+            }
+
             Collider2D[] overlaps = Physics2D.OverlapCircleAll(start, sweepRadius);
             for (int i = 0; i < overlaps.Length; i++)
+            {
                 TryDamageEnemy(overlaps[i], start, Vector2.up);
+            }
+
             return;
         }
 
@@ -323,12 +368,26 @@ public sealed class BoarProjectile : ProjectileDamageModifier
     private void TryDamageEnemy(Collider2D collider, Vector2 impactPoint, Vector2 impactNormal)
     {
         Brick enemy = collider != null ? collider.GetComponentInParent<Brick>() : null;
-        if (enemy == null || enemy.IsDefeated || !hitEnemies.Add(enemy)) return;
-        if (!enemy.ApplyProjectileHit(animal, impactPoint, impactNormal)) return;
-        if (!animal.gameObject.activeInHierarchy) return;
+        if (enemy == null || enemy.IsDefeated || !hitEnemies.Add(enemy))
+        {
+            return;
+        }
+
+        if (!enemy.ApplyProjectileHit(animal, impactPoint, impactNormal))
+        {
+            return;
+        }
+
+        if (!animal.gameObject.activeInHierarchy)
+        {
+            return;
+        }
+
         float chance = IsBoss(enemy) ? BossStunChance : StunChance;
         if (!enemy.IsDefeated && Random.value < chance)
+        {
             EnemyTurnStun.Apply(enemy);
+        }
     }
 
     public override float ModifyDamage(Brick enemy, float baseDamage)
@@ -358,9 +417,17 @@ public sealed class BoarProjectile : ProjectileDamageModifier
 
     public void RescueAbove(float boundaryY)
     {
-        if (Time.time - lastExitBounceTime < 0.08f) return;
+        if (Time.time - lastExitBounceTime < 0.08f)
+        {
+            return;
+        }
+
         lastExitBounceTime = Time.time;
-        if (trajectoryRoutine != null) StopCoroutine(trajectoryRoutine);
+        if (trajectoryRoutine != null)
+        {
+            StopCoroutine(trajectoryRoutine);
+        }
+
         Vector2 position = new Vector2(transform.position.x, boundaryY + RayOriginInset);
         trajectoryPoint = position;
         SetPosition(ClampVisiblePosition(position));
@@ -385,7 +452,11 @@ public sealed class BoarProjectile : ProjectileDamageModifier
 
     private Vector2 ClampVisiblePosition(Vector2 desired)
     {
-        if (currentStage == null) return desired;
+        if (currentStage == null)
+        {
+            return desired;
+        }
+
         Vector2 halfField = (Vector2)currentStage.BattlefieldSize * 0.5f;
         float shakePadding = Mathf.Max(0.5f, wallDisplayScale) * (1f + wallShakeScale
             + Mathf.Sin(wallShakeAngle * Mathf.Deg2Rad));
@@ -402,11 +473,19 @@ public sealed class BoarProjectile : ProjectileDamageModifier
     private Vector2 GetVisibleWorldExtents()
     {
         Vector2 extents = Vector2.zero;
-        if (projectileRenderers == null || rendererVisibility == null) CacheRenderers();
+        if (projectileRenderers == null || rendererVisibility == null)
+        {
+            CacheRenderers();
+        }
+
         for (int i = 0; i < projectileRenderers.Length; i++)
         {
             SpriteRenderer renderer = projectileRenderers[i];
-            if (renderer == null || !rendererVisibility[i] || renderer.sprite == null) continue;
+            if (renderer == null || !rendererVisibility[i] || renderer.sprite == null)
+            {
+                continue;
+            }
+
             Vector2 local = renderer.sprite.bounds.extents;
             Vector3 scale = renderer.transform.lossyScale;
             float halfWidth = local.x * Mathf.Abs(scale.x);
@@ -423,15 +502,26 @@ public sealed class BoarProjectile : ProjectileDamageModifier
     private void SetPosition(Vector2 position)
     {
         transform.position = new Vector3(position.x, position.y, transform.position.z);
-        if (body != null) body.position = position;
+        if (body != null)
+        {
+            body.position = position;
+        }
     }
 
     private void SetProjectileColliders(bool enabled)
     {
         if (projectileColliders == null)
+        {
             projectileColliders = GetComponentsInChildren<Collider2D>(true);
+        }
+
         for (int i = 0; i < projectileColliders.Length; i++)
-            if (projectileColliders[i] != null) projectileColliders[i].enabled = enabled;
+        {
+            if (projectileColliders[i] != null)
+            {
+                projectileColliders[i].enabled = enabled;
+            }
+        }
     }
 
     private void CacheRenderers()
@@ -439,34 +529,59 @@ public sealed class BoarProjectile : ProjectileDamageModifier
         projectileRenderers = GetComponentsInChildren<SpriteRenderer>(true);
         rendererVisibility = new bool[projectileRenderers.Length];
         for (int i = 0; i < projectileRenderers.Length; i++)
+        {
             rendererVisibility[i] = projectileRenderers[i] != null
                 && projectileRenderers[i].enabled;
+        }
     }
 
     private void SetBoarVisible(bool visible)
     {
-        if (projectileRenderers == null || rendererVisibility == null) CacheRenderers();
+        if (projectileRenderers == null || rendererVisibility == null)
+        {
+            CacheRenderers();
+        }
+
         for (int i = 0; i < projectileRenderers.Length; i++)
+        {
             if (projectileRenderers[i] != null)
+            {
                 projectileRenderers[i].enabled = visible && rendererVisibility[i];
+            }
+        }
     }
 
     private void UpdateFacing(Vector2 direction)
     {
-        if (flightVisual == null) flightVisual = ProjectileFlightVisual.Ensure(gameObject, 0f);
+        if (flightVisual == null)
+        {
+            flightVisual = ProjectileFlightVisual.Ensure(gameObject, 0f);
+        }
+
         flightVisual.ConfigureSpin(0f);
         flightVisual.SetFacingDirection(direction);
     }
 
     private void EnsurePhysics()
     {
-        if (body == null) body = GetComponent<Rigidbody2D>();
-        if (flight == null) flight = GetComponent<ProjectilePhysics2D>();
+        if (body == null)
+        {
+            body = GetComponent<Rigidbody2D>();
+        }
+
+        if (flight == null)
+        {
+            flight = GetComponent<ProjectilePhysics2D>();
+        }
     }
 
     private static Vector2 SafeDirection(Vector2 direction, Vector2 fallback)
     {
-        if (direction.sqrMagnitude > 0.000001f) return direction.normalized;
+        if (direction.sqrMagnitude > 0.000001f)
+        {
+            return direction.normalized;
+        }
+
         return fallback.sqrMagnitude > 0.000001f ? fallback.normalized : Vector2.up;
     }
 

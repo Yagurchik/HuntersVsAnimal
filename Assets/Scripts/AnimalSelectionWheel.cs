@@ -84,7 +84,11 @@ public class AnimalSelectionWheel : MonoBehaviour, IPointerDownHandler, IPointer
 
     public void Preview(AnimalProjectileQueue projectileQueue, bool allAnimals)
     {
-        if (Application.isPlaying) return;
+        if (Application.isPlaying)
+        {
+            return;
+        }
+
         Bind(projectileQueue);
         previewAllAnimals = allAnimals;
         RefreshPositions();
@@ -136,7 +140,11 @@ public class AnimalSelectionWheel : MonoBehaviour, IPointerDownHandler, IPointer
         queue = projectileQueue;
         previewAllAnimals = false;
         Canvas hud = GetComponentInParent<Canvas>(true);
-        if (hud != null) hud.transform.localScale = Vector3.one;
+        if (hud != null)
+        {
+            hud.transform.localScale = Vector3.one;
+        }
+
         radius = queue.WheelRadius;
         angleStep = Mathf.Max(minimumAngleStep, queue.WheelAngleStep);
         centerY = queue.WheelVerticalOffset;
@@ -237,7 +245,10 @@ public class AnimalSelectionWheel : MonoBehaviour, IPointerDownHandler, IPointer
     public void OnEndDrag(PointerEventData eventData)
     {
         dragging = false;
-        if (dragDistance >= ClickDragThreshold) SnapToNearestAnimal();
+        if (dragDistance >= ClickDragThreshold)
+        {
+            SnapToNearestAnimal();
+        }
         else
         {
             visualAngle = 0f;
@@ -248,13 +259,23 @@ public class AnimalSelectionWheel : MonoBehaviour, IPointerDownHandler, IPointer
     public void OnPointerClick(PointerEventData eventData)
     {
         dragging = false;
-        if (queue == null || dragDistance >= ClickDragThreshold) return;
+        if (queue == null || dragDistance >= ClickDragThreshold)
+        {
+            return;
+        }
+
         if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                root, eventData.position, eventData.pressEventCamera, out Vector2 point)) return;
+                root, eventData.position, eventData.pressEventCamera, out Vector2 point))
+        {
+            return;
+        }
 
         Vector2 fromCenter = point - new Vector2(0f, centerY);
         float pointerAngle = Mathf.Atan2(fromCenter.y, fromCenter.x) * Mathf.Rad2Deg;
-        if (Mathf.Abs(pointerAngle) > VisibleAngle + 8f) return;
+        if (Mathf.Abs(pointerAngle) > VisibleAngle + 8f)
+        {
+            return;
+        }
 
         RebuildSelectableIndices();
         int bestIndex = -1;
@@ -270,7 +291,9 @@ public class AnimalSelectionWheel : MonoBehaviour, IPointerDownHandler, IPointer
             }
         }
         if (bestIndex >= 0 && bestDifference <= angleStep * 0.62f)
+        {
             SelectWithAnimation(bestIndex);
+        }
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -291,15 +314,33 @@ public class AnimalSelectionWheel : MonoBehaviour, IPointerDownHandler, IPointer
     private void BuildVisuals()
     {
         items.RemoveAll(item => item.rectTransform == null);
-        if (root.Find("Wheel") == null) CreateWheelRing();
+        if (root.Find("Wheel") == null)
+        {
+            CreateWheelRing();
+        }
+
         Transform obsoleteRim = root.Find("Wheel Rim");
-        if (obsoleteRim != null) obsoleteRim.gameObject.SetActive(false);
-        if (root.Find("Selected") == null) CreateSelectionMarker();
-        if (root.Find("Forest Wheel Artwork") == null) EnsureForestRims();
+        if (obsoleteRim != null)
+        {
+            obsoleteRim.gameObject.SetActive(false);
+        }
+
+        if (root.Find("Selected") == null)
+        {
+            CreateSelectionMarker();
+        }
+
+        if (root.Find("Forest Wheel Artwork") == null)
+        {
+            EnsureForestRims();
+        }
 
         for (int i = 0; i < queue.Animals.Count; i++)
         {
-            if (!items.Exists(item => item.index == i)) CreateItem(i, queue.Animals[i]);
+            if (!items.Exists(item => item.index == i))
+            {
+                CreateItem(i, queue.Animals[i]);
+            }
         }
         foreach (WheelItem item in items)
         {
@@ -348,27 +389,42 @@ public class AnimalSelectionWheel : MonoBehaviour, IPointerDownHandler, IPointer
         allVolleyToggle = existing.GetComponent<Button>();
         // Preserve the authored position when the button lives outside the wheel.
         if (existing.parent == root)
+        {
             allVolleyToggle.GetComponent<RectTransform>().anchoredPosition =
                 new Vector2(root.sizeDelta.x + 18f, 18f);
+        }
+
         allVolleyToggleBackground = allVolleyToggle.GetComponent<Image>();
         allVolleyToggleLabel = allVolleyToggle.transform.Find("Label").GetComponent<Text>();
         allVolleyToggle.targetGraphic = allVolleyToggleBackground;
         allVolleyToggle.navigation = new Navigation { mode = Navigation.Mode.None };
         allVolleyToggle.onClick.RemoveAllListeners();
         allVolleyToggle.onClick.AddListener(ToggleAllVolley);
-        if (existing.parent == root) existing.SetAsLastSibling();
+        if (existing.parent == root)
+        {
+            existing.SetAsLastSibling();
+        }
+
         RefreshAllVolleyToggle();
     }
 
     private void ToggleAllVolley()
     {
-        if (queue == null || Player.HasActiveProjectiles) return;
+        if (queue == null || Player.HasActiveProjectiles)
+        {
+            return;
+        }
+
         queue.ToggleAllVolleyMode();
     }
 
     private void RefreshAllVolleyToggle()
     {
-        if (allVolleyToggle == null || queue == null) return;
+        if (allVolleyToggle == null || queue == null)
+        {
+            return;
+        }
+
         bool enabled = queue.AllVolleyEnabled;
         bool tutorialLocked = Application.isPlaying && GameManager.Instance != null
             && GameManager.Instance.IsTutorialFlowActive;
@@ -544,9 +600,17 @@ public class AnimalSelectionWheel : MonoBehaviour, IPointerDownHandler, IPointer
 
     private void SelectWithAnimation(int index)
     {
-        if (queue == null || index == queue.SelectedIndex || !queue.HasAmmo(index)) return;
+        if (queue == null || index == queue.SelectedIndex || !queue.HasAmmo(index))
+        {
+            return;
+        }
+
         float previousAngle = GetDisplayAngle(index);
-        if (!queue.Select(index)) return;
+        if (!queue.Select(index))
+        {
+            return;
+        }
+
         visualAngle = previousAngle;
         angleVelocity = 0f;
         RefreshPositions();
@@ -560,14 +624,20 @@ public class AnimalSelectionWheel : MonoBehaviour, IPointerDownHandler, IPointer
             bool selectable = !Application.isPlaying
                 ? queue.IsAvailable(i) || previewAllAnimals
                 : queue.HasAmmo(i);
-            if (selectable) selectableIndices.Add(i);
+            if (selectable)
+            {
+                selectableIndices.Add(i);
+            }
         }
     }
 
     private int DisplaySelection()
     {
         if (!Application.isPlaying && previewAllAnimals && selectableIndices.Count > 0)
+        {
             return selectableIndices[selectableIndices.Count / 2];
+        }
+
         return queue.SelectedIndex;
     }
 
@@ -576,11 +646,23 @@ public class AnimalSelectionWheel : MonoBehaviour, IPointerDownHandler, IPointer
         RebuildSelectableIndices();
         int selectedRank = selectableIndices.IndexOf(DisplaySelection());
         int itemRank = selectableIndices.IndexOf(animalIndex);
-        if (selectedRank < 0 || itemRank < 0) return 180f;
+        if (selectedRank < 0 || itemRank < 0)
+        {
+            return 180f;
+        }
+
         int offset = itemRank - selectedRank;
         int count = selectableIndices.Count;
-        if (offset > count / 2) offset -= count;
-        if (offset < -count / 2) offset += count;
+        if (offset > count / 2)
+        {
+            offset -= count;
+        }
+
+        if (offset < -count / 2)
+        {
+            offset += count;
+        }
+
         return offset * angleStep + visualAngle;
     }
 
@@ -606,7 +688,10 @@ public class AnimalSelectionWheel : MonoBehaviour, IPointerDownHandler, IPointer
             artwork.anchoredPosition = new Vector2(0f, centerY);
             artwork.SetSiblingIndex(1);
             Image image = artwork.GetComponent<Image>();
-            if (image != null) image.raycastTarget = false;
+            if (image != null)
+            {
+                image.raycastTarget = false;
+            }
         }
         else
         {
@@ -634,7 +719,11 @@ public class AnimalSelectionWheel : MonoBehaviour, IPointerDownHandler, IPointer
 
     private void EnsureArc(string name)
     {
-        if (root.Find(name) != null) return;
+        if (root.Find(name) != null)
+        {
+            return;
+        }
+
         GameObject arc = new GameObject(name, typeof(RectTransform),
             typeof(CanvasRenderer), typeof(RadialSegmentGraphic));
         arc.transform.SetParent(root, false);
@@ -646,7 +735,11 @@ public class AnimalSelectionWheel : MonoBehaviour, IPointerDownHandler, IPointer
         Color tint, int siblingIndex)
     {
         RectTransform rim = root.Find(name) as RectTransform;
-        if (rim == null) return;
+        if (rim == null)
+        {
+            return;
+        }
+
         rim.anchorMin = rim.anchorMax = Vector2.zero;
         rim.pivot = new Vector2(0.5f, 0.5f);
         rim.sizeDelta = Vector2.one * diameter;
@@ -684,7 +777,11 @@ public class AnimalSelectionWheel : MonoBehaviour, IPointerDownHandler, IPointer
     {
         item.rectTransform.sizeDelta = Vector2.one * itemSize;
         Outline outline = item.rectTransform.GetComponent<Outline>();
-        if (outline == null) outline = item.rectTransform.gameObject.AddComponent<Outline>();
+        if (outline == null)
+        {
+            outline = item.rectTransform.gameObject.AddComponent<Outline>();
+        }
+
         outline.effectColor = new Color(0.015f, 0.025f, 0.018f, 0.95f);
         outline.effectDistance = new Vector2(2.5f, -2.5f);
         EnsureItemRim(item.rectTransform);
@@ -696,7 +793,10 @@ public class AnimalSelectionWheel : MonoBehaviour, IPointerDownHandler, IPointer
             carvedRim.sizeDelta = Vector2.one * (itemSize + 20f);
             carvedRim.SetSiblingIndex(1);
             Image carvedImage = carvedRim.GetComponent<Image>();
-            if (carvedImage != null) carvedImage.raycastTarget = false;
+            if (carvedImage != null)
+            {
+                carvedImage.raycastTarget = false;
+            }
         }
         Transform icon = item.rectTransform.Find("Icon");
         if (icon is RectTransform iconRect)
@@ -806,22 +906,49 @@ public class AnimalSelectionWheel : MonoBehaviour, IPointerDownHandler, IPointer
                 : normalItemColor;
             RadialSegmentGraphic rim = item.rectTransform.Find("Wood Rim")?
                 .GetComponent<RadialSegmentGraphic>();
-            if (rim != null) rim.color = selected
+            if (rim != null)
+            {
+                rim.color = selected
                 ? selectedMedallionRimColor : normalMedallionRimColor;
+            }
+
             Image carved = item.rectTransform.Find("Carved Rim")?.GetComponent<Image>();
-            if (carved != null) carved.color = selected
+            if (carved != null)
+            {
+                carved.color = selected
                 ? new Color(0.82f, 0.83f, 0.76f, 1f)
                 : new Color(0.61f, 0.67f, 0.61f, 0.94f);
+            }
         }
     }
 
     private static string LocalizedName(int index)
     {
-        if (index == 0) return "СВЕТЛЯЧОК";
-        if (index == 1) return "ЁЖ";
-        if (index == 2) return "КРОЛИК";
-        if (index == 3) return "МЕДОЕД";
-        if (index == 4) return "КАБАН";
+        if (index == 0)
+        {
+            return "СВЕТЛЯЧОК";
+        }
+
+        if (index == 1)
+        {
+            return "ЁЖ";
+        }
+
+        if (index == 2)
+        {
+            return "КРОЛИК";
+        }
+
+        if (index == 3)
+        {
+            return "МЕДОЕД";
+        }
+
+        if (index == 4)
+        {
+            return "КАБАН";
+        }
+
         return "СНАРЯД";
     }
 }

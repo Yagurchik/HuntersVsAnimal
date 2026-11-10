@@ -39,16 +39,28 @@ public sealed class UniversalBossAbility : EnemyProjectileDamageModifier
 
     private void LateUpdate()
     {
-        if (kind != AbilityKind.KnotBinder || linkLines == null) return;
+        if (kind != AbilityKind.KnotBinder || linkLines == null)
+        {
+            return;
+        }
+
         int links = FindLinks();
         for (int i = 0; i < linkLines.Length; i++)
         {
             LineRenderer line = linkLines[i];
-            if (line == null) continue;
+            if (line == null)
+            {
+                continue;
+            }
+
             bool visibleTarget = i < links && (enemy.levelGenerator.Darkness == null
                 || enemy.levelGenerator.Darkness.IsVisible(candidates[i].transform.position));
             line.enabled = visibleTarget;
-            if (!visibleTarget) continue;
+            if (!visibleTarget)
+            {
+                continue;
+            }
+
             line.SetPosition(0, enemy.transform.position + Vector3.forward * 0.02f);
             line.SetPosition(1, candidates[i].transform.position + Vector3.forward * 0.02f);
         }
@@ -58,7 +70,9 @@ public sealed class UniversalBossAbility : EnemyProjectileDamageModifier
         Vector2 impactPoint, float baseDamage)
     {
         if (target == null || target.IsDefeated || projectile == null || baseDamage <= 0f)
+        {
             return baseDamage;
+        }
 
         switch (kind)
         {
@@ -74,7 +88,10 @@ public sealed class UniversalBossAbility : EnemyProjectileDamageModifier
                     sealsRemaining--;
                     if (sealRenderers != null && sealsRemaining < sealRenderers.Length
                         && sealRenderers[sealsRemaining] != null)
+                    {
                         sealRenderers[sealsRemaining].enabled = false;
+                    }
+
                     return 0f;
                 }
                 return baseDamage * exposedIdolDamageMultiplier;
@@ -95,15 +112,33 @@ public sealed class UniversalBossAbility : EnemyProjectileDamageModifier
     public bool TryConsumeProjectile(Animal projectile)
     {
         if (kind != AbilityKind.VolleyEater || enemy == null || enemy.IsDefeated
-            || projectile == null) return false;
+            || projectile == null)
+        {
+            return false;
+        }
+
         int volley = projectile.ComboVolleyId > 0
             ? projectile.ComboVolleyId : Player.LastCombatVolleyId;
-        if (swallowedVolley == int.MinValue) swallowedVolley = volley;
-        if (volley != swallowedVolley) return false;
+        if (swallowedVolley == int.MinValue)
+        {
+            swallowedVolley = volley;
+        }
+
+        if (volley != swallowedVolley)
+        {
+            return false;
+        }
+
         if (swallowedProjectiles.Add(projectile))
+        {
             enemy.Heal(enemy.MaxHp * swallowedProjectileHealFraction);
+        }
+
         if (projectile.gameObject.activeSelf)
+        {
             projectile.gameObject.SetActive(false);
+        }
+
         Destroy(projectile.gameObject);
         return true;
     }
@@ -112,30 +147,50 @@ public sealed class UniversalBossAbility : EnemyProjectileDamageModifier
     {
         if (kind != AbilityKind.BellRinger || pendingBellVolley == int.MinValue
             || pendingBellVolley != completedVolleyId || enemy == null || enemy.IsDefeated
-            || enemy.levelGenerator == null) return false;
+            || enemy.levelGenerator == null)
+        {
+            return false;
+        }
+
         pendingBellVolley = int.MinValue;
         LevelGenerator room = enemy.levelGenerator;
         foreach (GameObject occupant in room.EnemyCollection)
+        {
             if (occupant != null && occupant.TryGetComponent(out Brick candidate)
                 && candidate != enemy && !candidate.IsDefeated && !candidate.UsesBossHealth
                 && candidate.levelGenerator == room)
+            {
                 targets.Add(candidate);
+            }
+        }
+
         return true;
     }
 
     private float RedirectToLinks(Animal projectile, float baseDamage)
     {
         int links = FindLinks();
-        if (links == 0) return baseDamage;
+        if (links == 0)
+        {
+            return baseDamage;
+        }
+
         float share = baseDamage * redirectedDamagePerLink;
         for (int i = 0; i < links; i++)
+        {
             candidates[i].TakeDamage(share, projectile.CombatSource);
+        }
+
         return baseDamage - share * links;
     }
 
     private int FindLinks()
     {
-        if (enemy == null || enemy.IsDefeated || enemy.levelGenerator == null) return 0;
+        if (enemy == null || enemy.IsDefeated || enemy.levelGenerator == null)
+        {
+            return 0;
+        }
+
         candidates.Clear();
         enemy.levelGenerator.CollectNearbyEnemies(enemy.transform.position, 4f,
             true, enemy, candidates);
@@ -153,14 +208,26 @@ public sealed class UniversalBossAbility : EnemyProjectileDamageModifier
         splitScheduled = false;
         if (enemy == null || enemy.IsDefeated || enemy.levelGenerator == null
             || splitDone || enemy.hp > enemy.MaxHp * 0.5f || decoyPrefab == null)
+        {
             yield break;
+        }
+
         LevelGenerator room = enemy.levelGenerator;
         for (int i = livingDecoys.Count - 1; i >= 0; i--)
+        {
             if (livingDecoys[i] == null || livingDecoys[i].IsDefeated)
+            {
                 livingDecoys.RemoveAt(i);
+            }
+        }
+
         for (int i = livingDecoys.Count; i < 2; i++)
         {
-            if (!room.TrySummonNear(enemy, decoyPrefab, out Brick decoy)) break;
+            if (!room.TrySummonNear(enemy, decoyPrefab, out Brick decoy))
+            {
+                break;
+            }
+
             decoy.ConfigureSummonedVariant(0, Color.white);
             decoy.SetSummonedHealth(1f);
             livingDecoys.Add(decoy);

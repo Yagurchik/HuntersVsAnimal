@@ -7,7 +7,7 @@ public class Animal : MonoBehaviour
     [SerializeField, Min(0.1f)] private float returnSpeed = 40f;
     public const float RecallTimeout = 2f;
     [SerializeField] public float dmg;
-    [SerializeField] float hp;
+    [SerializeField] private float hp;
     private GameObject player;
     private Player returnPlayer;
 
@@ -52,7 +52,11 @@ public class Animal : MonoBehaviour
 
     public bool TakeEnemyDamage(float damage)
     {
-        if (hp <= 0f) return true;
+        if (hp <= 0f)
+        {
+            return true;
+        }
+
         hp = Mathf.Max(0f, hp - Mathf.Max(0f, damage));
         return hp <= 0f;
     }
@@ -82,11 +86,23 @@ public class Animal : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             GhostPhasing ghost = collision.gameObject.GetComponentInParent<GhostPhasing>();
-            if (ghost != null && ghost.TryPassThrough(this)) return;
+            if (ghost != null && ghost.TryPassThrough(this))
+            {
+                return;
+            }
             // Special projectiles own their enemy-contact and lifetime rules.
-            if (rabbit == null) rabbit = GetComponent<RabbitReplication>();
+            // RabbitReplication may be added after Awake (Player, RabbitReplication), so it is resolved lazily.
+            if (rabbit == null)
+            {
+                rabbit = GetComponent<RabbitReplication>();
+            }
+
             if (honeyBadger != null || boar != null || beaver != null || rabbit != null
-                || GetComponent<FrogProjectile>() != null) return;
+                || GetComponent<FrogProjectile>() != null)
+            {
+                return;
+            }
+
             Brick brick = collision.gameObject.GetComponent<Brick>();
             if (hp > 0)
             {
@@ -98,7 +114,8 @@ public class Animal : MonoBehaviour
             }
         }
     }
-    void Update()
+
+    private void Update()
     {
         // Only recalled projectiles have a timeout; ordinary ricochets can continue.
         if (IsReturning && Time.time >= returnDeadline)
@@ -106,7 +123,10 @@ public class Animal : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        if (player == null || completedAtBottom || (beaver != null && beaver.IsFlying)) return;
+        if (player == null || completedAtBottom || (beaver != null && beaver.IsFlying))
+        {
+            return;
+        }
 
         if (transform.position.y < player.transform.position.y - 0.5)
         {
@@ -126,7 +146,11 @@ public class Animal : MonoBehaviour
 
     public void CompleteAtBottom()
     {
-        if (completedAtBottom || IsReturning) return;
+        if (completedAtBottom || IsReturning)
+        {
+            return;
+        }
+
         completedAtBottom = true;
         returnPlayer?.TryCommitProjectileLanding(transform.position.x);
         Destroy(gameObject);
@@ -163,25 +187,58 @@ public class Animal : MonoBehaviour
 
     public void DropDown(float deadline)
     {
-        if (honeyBadger == null) honeyBadger = GetComponent<HoneyBadgerProjectile>();
-        if (honeyBadger != null && honeyBadger.PreventsRecall) return;
-        if (boar == null) boar = GetComponent<BoarProjectile>();
-        if (boar != null && boar.PreventsRecall) return;
+        if (honeyBadger == null)
+        {
+            honeyBadger = GetComponent<HoneyBadgerProjectile>();
+        }
+
+        if (honeyBadger != null && honeyBadger.PreventsRecall)
+        {
+            return;
+        }
+
+        if (boar == null)
+        {
+            boar = GetComponent<BoarProjectile>();
+        }
+
+        if (boar != null && boar.PreventsRecall)
+        {
+            return;
+        }
+
         boar?.PrepareForRecall();
-        if (beaver == null) beaver = GetComponent<BeaverProjectile>();
+        if (beaver == null)
+        {
+            beaver = GetComponent<BeaverProjectile>();
+        }
+
         beaver?.PrepareForRecall();
         // The scene button has several listeners. Repeated calls must not extend the wait.
-        if (IsReturning) return;
+        if (IsReturning)
+        {
+            return;
+        }
+
         IsReturning = true;
         returnDeadline = deadline;
         returnPlayer?.CancelProjectileLandingForRecall();
         foreach (Collider2D objectCollider in objectColliders)
-            if (objectCollider != null) objectCollider.enabled = false;
+        {
+            if (objectCollider != null)
+            {
+                objectCollider.enabled = false;
+            }
+        }
 
         // Aim below the exit, not at the player's centre (which may be almost horizontal).
         Vector2 target = player != null ? (Vector2)player.transform.position : (Vector2)transform.position;
         target.y = Mathf.Min(target.y, transform.position.y) - 1f;
-        if (projectilePhysics == null) projectilePhysics = GetComponent<ProjectilePhysics2D>();
+        if (projectilePhysics == null)
+        {
+            projectilePhysics = GetComponent<ProjectilePhysics2D>();
+        }
+
         float speed = Mathf.Max(returnSpeed,
             projectilePhysics != null ? projectilePhysics.TargetSpeed * 2f : 0f);
         if (projectilePhysics != null)

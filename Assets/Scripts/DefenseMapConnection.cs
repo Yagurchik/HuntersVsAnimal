@@ -11,13 +11,20 @@ public class DefenseMapConnection : MonoBehaviour
     private void LateUpdate()
     {
         RectTransform parent = transform.parent as RectTransform;
-        if (parent != null && parent.rect.size != lastSize) Refresh();
+        if (parent != null && parent.rect.size != lastSize)
+        {
+            Refresh();
+        }
     }
     private void Refresh()
     {
         RectTransform rect = transform as RectTransform;
         RectTransform parent = transform.parent as RectTransform;
-        if (rect == null || parent == null) return;
+        if (rect == null || parent == null)
+        {
+            return;
+        }
+
         lastSize = parent.rect.size;
         Vector2 delta = Vector2.Scale(to - from, lastSize);
         rect.anchorMin = rect.anchorMax = (from + to) * 0.5f;

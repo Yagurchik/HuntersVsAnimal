@@ -44,7 +44,11 @@ public static class MetaProgression
     {
         get
         {
-            if (catalog == null) catalog = Resources.Load<MetaArtifactCatalog>("Artifacts/ArtifactCatalog");
+            if (catalog == null)
+            {
+                catalog = Resources.Load<MetaArtifactCatalog>("Artifacts/ArtifactCatalog");
+            }
+
             return catalog != null && catalog.Items != null ? catalog.Items : Array.Empty<MetaArtifactDefinition>();
         }
     }
@@ -112,29 +116,57 @@ public static class MetaProgression
         bool changed = false;
         for (int slot = EquipmentSlotCount; slot < 8; slot++)
         {
-            if (!PlayerPrefs.HasKey(EquipmentSlotKey + slot)) continue;
+            if (!PlayerPrefs.HasKey(EquipmentSlotKey + slot))
+            {
+                continue;
+            }
+
             PlayerPrefs.DeleteKey(EquipmentSlotKey + slot);
             changed = true;
         }
-        if (!changed) return;
+        if (!changed)
+        {
+            return;
+        }
+
         PlayerPrefs.Save();
         NotifyChanged();
     }
 
     public static int GetEquippedArtifact(int slot)
     {
-        if (slot < 0 || slot >= EquipmentSlotCount) return -1;
+        if (slot < 0 || slot >= EquipmentSlotCount)
+        {
+            return -1;
+        }
+
         string id = PlayerPrefs.GetString(EquipmentSlotKey + slot, string.Empty);
         for (int i = 0; i < ArtifactCount; i++)
-            if (ArtifactCatalog[i].Id == id && IsArtifactOwned(i)) return i;
+        {
+            if (ArtifactCatalog[i].Id == id && IsArtifactOwned(i))
+            {
+                return i;
+            }
+        }
+
         return -1;
     }
 
     public static int GetArtifactSlot(int index)
     {
-        if (index < 0 || index >= ArtifactCount) return -1;
+        if (index < 0 || index >= ArtifactCount)
+        {
+            return -1;
+        }
+
         for (int slot = 0; slot < EquipmentSlotCount; slot++)
-            if (GetEquippedArtifact(slot) == index) return slot;
+        {
+            if (GetEquippedArtifact(slot) == index)
+            {
+                return slot;
+            }
+        }
+
         return -1;
     }
 
@@ -143,19 +175,36 @@ public static class MetaProgression
     public static int GetFirstEmptyEquipmentSlot()
     {
         for (int slot = 0; slot < EquipmentSlotCount; slot++)
-            if (GetEquippedArtifact(slot) < 0) return slot;
+        {
+            if (GetEquippedArtifact(slot) < 0)
+            {
+                return slot;
+            }
+        }
+
         return -1;
     }
 
     public static bool TryEquipArtifact(int index, int slot)
     {
-        if (!IsArtifactOwned(index) || slot < 0 || slot >= EquipmentSlotCount) return false;
+        if (!IsArtifactOwned(index) || slot < 0 || slot >= EquipmentSlotCount)
+        {
+            return false;
+        }
+
         int oldSlot = GetArtifactSlot(index);
-        if (oldSlot == slot) return false;
+        if (oldSlot == slot)
+        {
+            return false;
+        }
         // Settle the old rates before changing an income artifact. Replaced
         // artifacts remain owned and immediately become available in the bag.
         AccruePassiveIncome();
-        if (oldSlot >= 0) PlayerPrefs.DeleteKey(EquipmentSlotKey + oldSlot);
+        if (oldSlot >= 0)
+        {
+            PlayerPrefs.DeleteKey(EquipmentSlotKey + oldSlot);
+        }
+
         PlayerPrefs.SetString(EquipmentSlotKey + slot, ArtifactCatalog[index].Id);
         PlayerPrefs.Save();
         NotifyChanged();
@@ -164,7 +213,11 @@ public static class MetaProgression
 
     public static bool TryUnequipArtifact(int slot)
     {
-        if (GetEquippedArtifact(slot) < 0) return false;
+        if (GetEquippedArtifact(slot) < 0)
+        {
+            return false;
+        }
+
         AccruePassiveIncome();
         PlayerPrefs.DeleteKey(EquipmentSlotKey + slot);
         PlayerPrefs.Save();
@@ -178,28 +231,50 @@ public static class MetaProgression
         {
             int count = 0;
             for (int i = 0; i < ArtifactCount; i++)
-                if (!IsArtifactOwned(i)) count++;
+            {
+                if (!IsArtifactOwned(i))
+                {
+                    count++;
+                }
+            }
+
             return count;
         }
     }
 
-    public static int UnownedOrdinaryArtifactCount { get { int count = 0; for (int i = 0; i < ArtifactCount; i++) if (!ArtifactCatalog[i].IsAssembled && !IsArtifactOwned(i)) count++; return count; } }
+    public static int UnownedOrdinaryArtifactCount { get { int count = 0; for (int i = 0; i < ArtifactCount; i++) { if (!ArtifactCatalog[i].IsAssembled && !IsArtifactOwned(i)) { count++; } } return count; } }
 
     public static bool CanSpinArtifact => Gold >= ArtifactSpinCost && UnownedOrdinaryArtifactCount > 0;
 
     public static bool TrySpinArtifact(out int artifactIndex)
     {
         artifactIndex = -1;
-        if (!CanSpinArtifact) return false;
+        if (!CanSpinArtifact)
+        {
+            return false;
+        }
+
         int pick = UnityEngine.Random.Range(0, UnownedOrdinaryArtifactCount);
         for (int i = 0; i < ArtifactCount; i++)
         {
-            if (ArtifactCatalog[i].IsAssembled || IsArtifactOwned(i)) continue;
-            if (pick-- != 0) continue;
+            if (ArtifactCatalog[i].IsAssembled || IsArtifactOwned(i))
+            {
+                continue;
+            }
+
+            if (pick-- != 0)
+            {
+                continue;
+            }
+
             artifactIndex = i;
             break;
         }
-        if (artifactIndex < 0) return false;
+        if (artifactIndex < 0)
+        {
+            return false;
+        }
+
         PlayerPrefs.SetInt(GoldKey, Gold - ArtifactSpinCost);
         PlayerPrefs.SetInt(ArtifactKeyPrefix + ArtifactCatalog[artifactIndex].Id, 1);
         PlayerPrefs.Save();
@@ -210,7 +285,14 @@ public static class MetaProgression
 
     public static int FindArtifact(string id)
     {
-        for (int i = 0; i < ArtifactCount; i++) if (ArtifactCatalog[i].Id == id) return i;
+        for (int i = 0; i < ArtifactCount; i++)
+        {
+            if (ArtifactCatalog[i].Id == id)
+            {
+                return i;
+            }
+        }
+
         return -1;
     }
     public static int OwnedArtifactAmount(int index)
@@ -235,12 +317,20 @@ public static class MetaProgression
             {
                 int component = FindArtifact(ingredient.Id);
                 if (component < 0 || ingredient.Amount <= 0) { reason = "Рецепт недоступен."; return false; }
-                if (!needed.ContainsKey(component)) needed[component] = 0;
+                if (!needed.ContainsKey(component))
+                {
+                    needed[component] = 0;
+                }
+
                 needed[component] += ingredient.Amount;
             }
             foreach (var component in needed)
             {
-                if (AvailableArtifactAmount(component.Key) >= component.Value) continue;
+                if (AvailableArtifactAmount(component.Key) >= component.Value)
+                {
+                    continue;
+                }
+
                 reason = IsArtifactEquipped(component.Key)
                     ? "Нужен компонент: " + GetArtifactDefinition(component.Key).Name + ". Сними его с героя или купи ещё один."
                     : "Не хватает компонента: " + GetArtifactDefinition(component.Key).Name + ".";
@@ -254,14 +344,21 @@ public static class MetaProgression
 
     public static bool TryAcquireArtifact(int index)
     {
-        if (!CanAcquireArtifact(index, out _)) return false;
+        if (!CanAcquireArtifact(index, out _))
+        {
+            return false;
+        }
+
         var definition = GetArtifactDefinition(index);
         if (definition.IsAssembled)
+        {
             foreach (var ingredient in definition.Ingredients)
             {
                 int component = FindArtifact(ingredient.Id);
                 PlayerPrefs.SetInt(ArtifactKeyPrefix + ingredient.Id, OwnedArtifactAmount(component) - ingredient.Amount);
             }
+        }
+
         PlayerPrefs.SetInt(GoldKey, Gold - definition.GoldCost);
         PlayerPrefs.SetInt(ArtifactKeyPrefix + definition.Id, OwnedArtifactAmount(index) + 1);
         PlayerPrefs.Save();
@@ -275,10 +372,17 @@ public static class MetaProgression
     private static int TotalCost(int index, System.Collections.Generic.HashSet<int> visited)
     {
         var definition = GetArtifactDefinition(index);
-        if (definition == null || !visited.Add(index)) return 0;
+        if (definition == null || !visited.Add(index))
+        {
+            return 0;
+        }
+
         int result = definition.GoldCost;
         foreach (var component in definition.Ingredients)
+        {
             result += Mathf.Max(0, component.Amount) * TotalCost(FindArtifact(component.Id), visited);
+        }
+
         visited.Remove(index);
         return result;
     }
@@ -296,7 +400,11 @@ public static class MetaProgression
     public static bool TryUpgradeGreatTree()
     {
         int cost = GetGreatTreeUpgradeCost();
-        if (cost <= 0 || Gold < cost) return false;
+        if (cost <= 0 || Gold < cost)
+        {
+            return false;
+        }
+
         AccruePassiveIncome();
         PlayerPrefs.SetInt(GoldKey, Gold - cost);
         PlayerPrefs.SetInt(GreatTreeLevelKey, GreatTreeLevel + 1);
@@ -308,7 +416,11 @@ public static class MetaProgression
     public static bool TryUpgradeForestShop()
     {
         int cost = GetForestShopUpgradeCost();
-        if (cost <= 0 || Acorns < cost) return false;
+        if (cost <= 0 || Acorns < cost)
+        {
+            return false;
+        }
+
         AccruePassiveIncome();
         PlayerPrefs.SetInt(AcornsKey, Acorns - cost);
         PlayerPrefs.SetInt(ForestShopLevelKey, ForestShopLevel + 1);
@@ -373,7 +485,11 @@ public static class MetaProgression
     {
         AccruePassiveIncomeAt(utcTicks);
         PassiveIncomeResult result = PendingPassiveIncome;
-        if (!result.HasIncome) return result;
+        if (!result.HasIncome)
+        {
+            return result;
+        }
+
         AddFractionalCurrency(AcornsKey, AcornFractionKey, result.Acorns);
         AddFractionalCurrency(GoldKey, GoldFractionKey, result.Gold);
         PlayerPrefs.DeleteKey(PassiveStoredMinutesKey);
@@ -386,7 +502,11 @@ public static class MetaProgression
 
     public static void AwardRoomGold(int amount)
     {
-        if (amount <= 0) return;
+        if (amount <= 0)
+        {
+            return;
+        }
+
         AddFractionalCurrency(GoldKey, GoldFractionKey, amount * RoomGoldMultiplier);
         PlayerPrefs.Save();
         NotifyChanged();
@@ -397,7 +517,11 @@ public static class MetaProgression
 
     public static bool TrySpendGold(int amount)
     {
-        if (amount <= 0 || Gold < amount) return false;
+        if (amount <= 0 || Gold < amount)
+        {
+            return false;
+        }
+
         PlayerPrefs.SetInt(GoldKey, Gold - amount);
         PlayerPrefs.Save();
         NotifyChanged();
@@ -406,7 +530,11 @@ public static class MetaProgression
 
     public static bool TrySpendDiamonds(int amount)
     {
-        if (amount <= 0 || Diamonds < amount) return false;
+        if (amount <= 0 || Diamonds < amount)
+        {
+            return false;
+        }
+
         PlayerPrefs.SetInt(DiamondsKey, Diamonds - amount);
         PlayerPrefs.Save();
         NotifyChanged();
@@ -417,7 +545,11 @@ public static class MetaProgression
     {
         if (definition == null || string.IsNullOrWhiteSpace(definition.saveId)
             || definition.requiredVictories < 1 || definition.acornReward < 1
-            || IsEventClaimed(definition.saveId) || TotalVictories < definition.requiredVictories) return false;
+            || IsEventClaimed(definition.saveId) || TotalVictories < definition.requiredVictories)
+        {
+            return false;
+        }
+
         PlayerPrefs.SetInt(EventClaimKey + definition.saveId, 1);
         AddWholeCurrency(AcornsKey, definition.acornReward);
         PlayerPrefs.Save();
@@ -444,7 +576,11 @@ public static class MetaProgression
 
     private static void AddFractionalCurrency(string wholeKey, string fractionKey, double amount)
     {
-        if (amount <= 0d) return;
+        if (amount <= 0d)
+        {
+            return;
+        }
+
         int current = Mathf.Max(0, PlayerPrefs.GetInt(wholeKey, 0));
         double totalFraction = ReadFraction(fractionKey) + amount;
         long wholeGain = (long)Math.Floor(totalFraction + 0.000000001d);
@@ -458,7 +594,11 @@ public static class MetaProgression
     {
         double value;
         if (!double.TryParse(PlayerPrefs.GetString(key, "0"), NumberStyles.Float,
-                CultureInfo.InvariantCulture, out value)) return 0d;
+                CultureInfo.InvariantCulture, out value))
+        {
+            return 0d;
+        }
+
         return Math.Max(0d, Math.Min(0.999999999d, value));
     }
 
@@ -477,7 +617,11 @@ public static class MetaProgression
     {
         double value;
         if (!double.TryParse(PlayerPrefs.GetString(key, "0"), NumberStyles.Float,
-                CultureInfo.InvariantCulture, out value) || double.IsNaN(value)) return 0d;
+                CultureInfo.InvariantCulture, out value) || double.IsNaN(value))
+        {
+            return 0d;
+        }
+
         return Math.Max(0d, Math.Min(maximum, value));
     }
 

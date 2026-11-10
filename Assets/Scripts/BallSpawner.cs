@@ -46,14 +46,22 @@ public class BallSpawner : MonoBehaviour
             return;
         }
 
-        if (owner == null) owner = GetComponentInParent<Player>();
+        if (owner == null)
+        {
+            owner = GetComponentInParent<Player>();
+        }
+
         aimDirection = owner != null
             ? owner.ConstrainLaunchDirection(aimDirection)
             : Player.ClampUpwardLaunchDirection(aimDirection, 30f);
         float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-        if (roomDarkness == null) roomDarkness = GetComponentInParent<RoomDarkness>(true);
+        if (roomDarkness == null)
+        {
+            roomDarkness = GetComponentInParent<RoomDarkness>(true);
+        }
+
         bool fireflyVision = owner != null && owner.IsAimingWithFirefly;
         LastAimEnteredDarkness = fireflyVision && roomDarkness != null && roomDarkness.HasDarkness;
         // Search across the whole room so locally illuminated targets can be found.
@@ -125,7 +133,10 @@ public class BallSpawner : MonoBehaviour
             || roomDarkness.IsVisible(physicalHitPoint));
         Vector2 hitPoint = physicalHitPoint;
         if (roomDarkness != null && !fireflyVision && !roomDarkness.IsVisible(hitPoint))
+        {
             hitPoint = roomDarkness.ClipToVisibleArea(origin, hitPoint);
+        }
+
         Vector2 reflectionEnd = hitPoint;
         if (hasImpact && impactVisible)
         {
@@ -142,8 +153,11 @@ public class BallSpawner : MonoBehaviour
             {
                 if (hitEnemy != null && !ProjectilePhysics2D
                     .IsOctagonalBossCollider(hitEnemy, hit.collider))
+                {
                     reflectionNormal = ProjectilePhysics2D
                         .StabilizeEnemyReflectionNormal(direction, hit.normal);
+                }
+
                 reflectedDirection = ProjectilePhysics2D
                     .ReflectDirection(direction, reflectionNormal);
             }
@@ -155,7 +169,9 @@ public class BallSpawner : MonoBehaviour
             }
             reflectionEnd = hitPoint + reflectedDirection * reflectionLength;
             if (roomDarkness != null && !fireflyVision)
+            {
                 reflectionEnd = roomDarkness.ClipToVisibleArea(hitPoint, reflectionEnd);
+            }
         }
         return new AimPath
         {
@@ -243,7 +259,10 @@ public class BallSpawner : MonoBehaviour
         if (room == null)
         {
             room = GetComponentInParent<Stage>();
-            if (room != null) roomGenerator = room.GetComponentInChildren<LevelGenerator>(true);
+            if (room != null)
+            {
+                roomGenerator = room.GetComponentInChildren<LevelGenerator>(true);
+            }
         }
 
         int enemyLayer = LayerMask.NameToLayer("enemy");
@@ -256,25 +275,50 @@ public class BallSpawner : MonoBehaviour
         for (int i = 0; i < hitCount; i++)
         {
             RaycastHit2D candidate = aimHits[i];
-            if (candidate.collider == null) continue;
+            if (candidate.collider == null)
+            {
+                continue;
+            }
+
             Brick candidateEnemy = candidate.collider.GetComponentInParent<Brick>();
             if (candidateEnemy != null)
             {
                 if (ignoreEnemies && candidateEnemy.GetComponent<MirageCornerMirror>() == null)
+                {
                     continue;
-                if (candidateEnemy.IsDefeated || candidateEnemy.levelGenerator != roomGenerator) continue;
+                }
+
+                if (candidateEnemy.IsDefeated || candidateEnemy.levelGenerator != roomGenerator)
+                {
+                    continue;
+                }
+
                 RoomDarkness enemyDarkness = candidateEnemy.levelGenerator.Darkness;
                 if (enemyDarkness != null
-                    && !enemyDarkness.IsVisible(candidateEnemy.transform.position)) continue;
+                    && !enemyDarkness.IsVisible(candidateEnemy.transform.position))
+                {
+                    continue;
+                }
             }
             else
             {
                 // Only accept the authored wall layers belonging to this room.
-                if ((layerMask.value & (1 << candidate.collider.gameObject.layer)) == 0) continue;
+                if ((layerMask.value & (1 << candidate.collider.gameObject.layer)) == 0)
+                {
+                    continue;
+                }
+
                 Stage candidateRoom = candidate.collider.GetComponentInParent<Stage>();
-                if (room != null && candidateRoom != room) continue;
+                if (room != null && candidateRoom != room)
+                {
+                    continue;
+                }
             }
-            if (candidate.distance >= closestDistance) continue;
+            if (candidate.distance >= closestDistance)
+            {
+                continue;
+            }
+
             closestDistance = candidate.distance;
             closest = candidate;
             hitEnemy = candidateEnemy;

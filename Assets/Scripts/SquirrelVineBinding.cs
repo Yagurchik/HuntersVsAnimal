@@ -14,9 +14,16 @@ public sealed class SquirrelVineBinding : MonoBehaviour
 
     public static SquirrelVineBinding Apply(Brick enemy, SquirrelVineBinding prefab)
     {
-        if (enemy == null || enemy.IsDefeated || prefab == null) return null;
+        if (enemy == null || enemy.IsDefeated || prefab == null)
+        {
+            return null;
+        }
+
         foreach (SquirrelVineBinding old in enemy.GetComponentsInChildren<SquirrelVineBinding>())
+        {
             if (old.host == enemy) { old.expiresAt = 0f; return old; }
+        }
+
         var binding = Instantiate(prefab, enemy.transform);
         binding.host = enemy;
         Transform visual = enemy.GetComponent<EnemyHitReaction>()?.VisualRoot;
@@ -35,7 +42,11 @@ public sealed class SquirrelVineBinding : MonoBehaviour
         EnemyTurnStun stun = host.GetComponent<EnemyTurnStun>();
         if (stun == null || !stun.IsStunned)
         {
-            if (expiresAt == 0f) expiresAt = Time.time + 0.15f;
+            if (expiresAt == 0f)
+            {
+                expiresAt = Time.time + 0.15f;
+            }
+
             artwork.color = new Color(1f, 1f, 1f, Mathf.Clamp01((expiresAt - Time.time) / 0.15f));
             if (Time.time >= expiresAt) { Destroy(gameObject); return; }
         }

@@ -30,8 +30,15 @@ public sealed class VillageBuildingView : MonoBehaviour
     public void Refresh()
     {
         bool tree = kind == VillageBuildingKind.GreatTree;
-        if (nameLabel != null) nameLabel.text = tree ? "ВЕЧНОЕ ДРЕВО" : "ЛЕСНАЯ ЛАВКА";
-        if (levelLabel != null) levelLabel.text = "УРОВЕНЬ "
+        if (nameLabel != null)
+        {
+            nameLabel.text = tree ? "ВЕЧНОЕ ДРЕВО" : "ЛЕСНАЯ ЛАВКА";
+        }
+
+        if (levelLabel != null)
+        {
+            levelLabel.text = "УРОВЕНЬ "
             + (tree ? MetaProgression.GreatTreeLevel : MetaProgression.ForestShopLevel) + "  ·  ОТКРЫТЬ";
+        }
     }
 }

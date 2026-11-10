@@ -19,13 +19,29 @@ public sealed class ArtifactLightningEffect : MonoBehaviour
     private void Awake() => authoredDuration = duration;
     public static void Flash(Vector3 from, Vector3 to, bool arc = false)
     {
-        if (prefab == null) prefab = Resources.Load<ArtifactLightningEffect>("Effects/Artifacts/Lightning");
-        if (prefab == null) return;
+        if (prefab == null)
+        {
+            prefab = Resources.Load<ArtifactLightningEffect>("Effects/Artifacts/Lightning");
+        }
+
+        if (prefab == null)
+        {
+            return;
+        }
+
         ArtifactLightningEffect effect = null;
-        while (Pool.Count > 0 && effect == null) effect = Pool.Pop();
+        while (Pool.Count > 0 && effect == null)
+        {
+            effect = Pool.Pop();
+        }
+
         if (effect == null)
         {
-            if (poolRoot == null) poolRoot = new GameObject("Artifact Lightning Pool").transform;
+            if (poolRoot == null)
+            {
+                poolRoot = new GameObject("Artifact Lightning Pool").transform;
+            }
+
             effect = Instantiate(prefab, poolRoot);
         }
         effect.returned = false; effect.elapsed = 0f;
@@ -43,11 +59,19 @@ public sealed class ArtifactLightningEffect : MonoBehaviour
     }
     private void Update()
     {
-        if (returned) return;
+        if (returned)
+        {
+            return;
+        }
+
         elapsed += Time.deltaTime;
         Color color = tint; color.a = Mathf.Clamp01(1f - elapsed / duration);
         beam.startColor = beam.endColor = color;
-        if (elapsed < duration) return;
+        if (elapsed < duration)
+        {
+            return;
+        }
+
         returned = true;
         if (Pool.Count >= MaximumCached) { Destroy(gameObject); return; }
         gameObject.SetActive(false); Pool.Push(this);

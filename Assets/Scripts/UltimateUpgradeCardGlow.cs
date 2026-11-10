@@ -21,15 +21,25 @@ public sealed class UltimateUpgradeCardGlow : MonoBehaviour
         accent = accentColor;
         active = shouldGlow;
         enabled = shouldGlow;
-        if (!shouldGlow) RestoreColors();
+        if (!shouldGlow)
+        {
+            RestoreColors();
+        }
     }
 
     private void Update()
     {
-        if (!active) return;
+        if (!active)
+        {
+            return;
+        }
+
         float wave = 0.5f + 0.5f * Mathf.Sin(Time.unscaledTime * 4.2f);
         if (frame != null)
+        {
             frame.color = Color.Lerp(baseFrameColor, accent, 0.12f + wave * 0.22f);
+        }
+
         if (portraitGlow != null)
         {
             Color color = baseGlowColor;
@@ -45,7 +55,14 @@ public sealed class UltimateUpgradeCardGlow : MonoBehaviour
 
     private void RestoreColors()
     {
-        if (frame != null) frame.color = baseFrameColor;
-        if (portraitGlow != null) portraitGlow.color = baseGlowColor;
+        if (frame != null)
+        {
+            frame.color = baseFrameColor;
+        }
+
+        if (portraitGlow != null)
+        {
+            portraitGlow.color = baseGlowColor;
+        }
     }
 }

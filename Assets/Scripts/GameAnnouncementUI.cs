@@ -18,11 +18,19 @@ public class GameAnnouncementUI : MonoBehaviour
 
     public static GameAnnouncementUI GetOrCreate()
     {
-        if (instance == null) instance = FindObjectOfType<GameAnnouncementUI>(true);
+        if (instance == null)
+        {
+            instance = FindObjectOfType<GameAnnouncementUI>(true);
+        }
+
         if (instance != null)
         {
             Canvas hud = instance.GetComponentInParent<Canvas>(true);
-            if (hud != null) hud.transform.localScale = Vector3.one;
+            if (hud != null)
+            {
+                hud.transform.localScale = Vector3.one;
+            }
+
             return instance;
         }
 
@@ -73,12 +81,19 @@ public class GameAnnouncementUI : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        if (canvasGroup != null) canvasGroup.alpha = 0f;
+        if (canvasGroup != null)
+        {
+            canvasGroup.alpha = 0f;
+        }
     }
 
     public void Preview(string message)
     {
-        if (Application.isPlaying) return;
+        if (Application.isPlaying)
+        {
+            return;
+        }
+
         GetComponentInParent<Canvas>(true).transform.localScale = Vector3.one;
         messageText.text = message;
         canvasGroup.alpha = string.IsNullOrEmpty(message) ? 0f : 1f;

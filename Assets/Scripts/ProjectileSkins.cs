@@ -19,7 +19,11 @@ public static class ProjectileSkins
     public static Sprite EquippedArtwork(int index) => IsEquipped(index) ? Get(index).Artwork : null;
     public static int IndexOf(GameObject prefab)
     {
-        if (prefab == null) return -1;
+        if (prefab == null)
+        {
+            return -1;
+        }
+
         var visual = prefab.GetComponent<ProjectileSkinVisual>();
         return visual != null ? visual.ProjectileIndex : -1;
     }
@@ -29,7 +33,11 @@ public static class ProjectileSkins
     {
         var skin = Get(index);
         if (skin == null || skin.Artwork == null || skin.DiamondPrice <= 0 || IsOwned(index)
-            || MetaProgression.Diamonds < skin.DiamondPrice) return false;
+            || MetaProgression.Diamonds < skin.DiamondPrice)
+        {
+            return false;
+        }
+
         PlayerPrefs.SetInt(OwnedKey(skin), 1);
         PlayerPrefs.SetInt(EquippedKey(skin), 1);
         // No callbacks run between checking the balance and spending it. The
@@ -46,7 +54,11 @@ public static class ProjectileSkins
 
     public static bool TryEquip(int index, bool equipped)
     {
-        if (!IsOwned(index)) return false;
+        if (!IsOwned(index))
+        {
+            return false;
+        }
+
         PlayerPrefs.SetInt(EquippedKey(Get(index)), equipped ? 1 : 0);
         PlayerPrefs.Save();
         Changed?.Invoke();

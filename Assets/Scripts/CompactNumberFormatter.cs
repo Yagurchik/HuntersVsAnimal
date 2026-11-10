@@ -10,18 +10,36 @@ public static class CompactNumberFormatter
 
     public static string Format(double value)
     {
-        if (double.IsNaN(value)) return "0";
-        if (double.IsPositiveInfinity(value)) return "∞";
-        if (double.IsNegativeInfinity(value)) return "-∞";
+        if (double.IsNaN(value))
+        {
+            return "0";
+        }
+
+        if (double.IsPositiveInfinity(value))
+        {
+            return "∞";
+        }
+
+        if (double.IsNegativeInfinity(value))
+        {
+            return "-∞";
+        }
 
         bool negative = value < 0d;
         double number = Math.Abs(value);
         if (number < 1000d)
         {
             long rounded = (long)Math.Round(number, MidpointRounding.AwayFromZero);
-            if (number > 0d && rounded == 0) rounded = 1;
+            if (number > 0d && rounded == 0)
+            {
+                rounded = 1;
+            }
+
             if (rounded < 1000)
+            {
                 return (negative ? "-" : "") + rounded.ToString(CultureInfo.InvariantCulture);
+            }
+
             number = rounded;
         }
 

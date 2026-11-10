@@ -21,7 +21,7 @@ public sealed class BeaverSawdustParticle : MonoBehaviour
     private static void ResetPool() { Pools.Clear(); poolRoot = null; }
     private static Transform Root
     {
-        get { if (poolRoot == null) poolRoot = new GameObject("Beaver Sawdust Pool").transform; return poolRoot; }
+        get { if (poolRoot == null) { poolRoot = new GameObject("Beaver Sawdust Pool").transform; } return poolRoot; }
     }
     private void Awake()
     {
@@ -31,12 +31,24 @@ public sealed class BeaverSawdustParticle : MonoBehaviour
     }
     public static BeaverSawdustParticle Spawn(BeaverSawdustParticle source, Vector2 origin, Vector2 direction, float speed)
     {
-        if (source == null) return null;
+        if (source == null)
+        {
+            return null;
+        }
+
         int key = source.GetInstanceID();
         if (!Pools.TryGetValue(key, out var pool)) { pool = new Stack<BeaverSawdustParticle>(32); Pools.Add(key, pool); }
         BeaverSawdustParticle particle = null;
-        while (pool.Count > 0 && particle == null) particle = pool.Pop();
-        if (particle == null) particle = Instantiate(source, Root);
+        while (pool.Count > 0 && particle == null)
+        {
+            particle = pool.Pop();
+        }
+
+        if (particle == null)
+        {
+            particle = Instantiate(source, Root);
+        }
+
         particle.sourceKey = key;
         particle.returned = false;
         particle.Launch(origin, direction, speed);
@@ -50,11 +62,18 @@ public sealed class BeaverSawdustParticle : MonoBehaviour
         velocity = direction.normalized * speed;
         transform.localScale = initialScale * Random.Range(0.75f, 1.2f);
         transform.rotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
-        if (artwork != null) artwork.color = initialColor;
+        if (artwork != null)
+        {
+            artwork.color = initialColor;
+        }
     }
     private void Update()
     {
-        if (returned) return;
+        if (returned)
+        {
+            return;
+        }
+
         age += Time.deltaTime;
         transform.position += (Vector3)(velocity * Time.deltaTime);
         velocity *= Mathf.Max(0f, 1f - 4f * Time.deltaTime);
@@ -64,7 +83,11 @@ public sealed class BeaverSawdustParticle : MonoBehaviour
             color.a *= 1f - Mathf.Clamp01(age / lifetime);
             artwork.color = color;
         }
-        if (age < lifetime) return;
+        if (age < lifetime)
+        {
+            return;
+        }
+
         returned = true;
         if (sourceKey == 0 || !Pools.TryGetValue(sourceKey, out var pool) || pool.Count >= MaximumCachedPerPrefab)
         { Destroy(gameObject); return; }

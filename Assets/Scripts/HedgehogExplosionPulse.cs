@@ -89,7 +89,11 @@ public class HedgehogExplosionPulse : MonoBehaviour
 
         EnsureMesh(source);
         pulseRenderer.enabled = true;
-        if (source != null) pulseRenderer.sharedMaterial = source.sharedMaterial;
+        if (source != null)
+        {
+            pulseRenderer.sharedMaterial = source.sharedMaterial;
+        }
+
         pulseRenderer.sortingLayerID = source != null ? source.sortingLayerID : 0;
         pulseRenderer.sortingOrder = Mathf.Max(
             source != null ? source.sortingOrder : 0,
@@ -108,11 +112,19 @@ public class HedgehogExplosionPulse : MonoBehaviour
 
     private void EnsureMesh(SpriteRenderer source)
     {
-        if (quillMesh != null) return;
+        if (quillMesh != null)
+        {
+            return;
+        }
+
         quillMesh = new Mesh { name = "Hedgehog quills (pooled)" };
         quillMesh.MarkDynamic();
         int[] triangles = new int[vertices.Length];
-        for (int i = 0; i < triangles.Length; i++) triangles[i] = i;
+        for (int i = 0; i < triangles.Length; i++)
+        {
+            triangles[i] = i;
+        }
+
         quillMesh.vertices = vertices;
         quillMesh.colors32 = colors;
         quillMesh.uv = new Vector2[vertices.Length];
@@ -121,7 +133,10 @@ public class HedgehogExplosionPulse : MonoBehaviour
         pulseRenderer = gameObject.AddComponent<MeshRenderer>();
         pulseRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         pulseRenderer.receiveShadows = false;
-        if (source != null) pulseRenderer.sharedMaterial = source.sharedMaterial;
+        if (source != null)
+        {
+            pulseRenderer.sharedMaterial = source.sharedMaterial;
+        }
         // Reuse the projectile's sprite material, but do not sample its texture.
         MaterialPropertyBlock properties = new MaterialPropertyBlock();
         properties.SetTexture("_MainTex", Texture2D.whiteTexture);
@@ -182,7 +197,10 @@ public class HedgehogExplosionPulse : MonoBehaviour
 
     private void DamageNewEnemies(float currentRadius)
     {
-        if (damage <= 0f || currentRadius <= 0f) return;
+        if (damage <= 0f || currentRadius <= 0f)
+        {
+            return;
+        }
 
         int hitCount = Physics2D.OverlapCircleNonAlloc(transform.position, currentRadius, HitBuffer);
         for (int i = 0; i < hitCount; i++)
@@ -195,7 +213,11 @@ public class HedgehogExplosionPulse : MonoBehaviour
                 if (damageGrowthPerHit > 0f)
                 {
                     HedgehogQuillStacks stacks = enemy.GetComponent<HedgehogQuillStacks>();
-                    if (stacks == null) stacks = enemy.gameObject.AddComponent<HedgehogQuillStacks>();
+                    if (stacks == null)
+                    {
+                        stacks = enemy.gameObject.AddComponent<HedgehogQuillStacks>();
+                    }
+
                     dealtDamage += stacks.RegisterExplosion(
                         damageTurnNumber, damageGrowthPerHit);
                 }
@@ -208,21 +230,36 @@ public class HedgehogExplosionPulse : MonoBehaviour
 
     private void ReturnToPool()
     {
-        if (returnedToPool) return;
+        if (returnedToPool)
+        {
+            return;
+        }
+
         returnedToPool = true;
-        if (pulseRenderer != null) pulseRenderer.enabled = false;
+        if (pulseRenderer != null)
+        {
+            pulseRenderer.enabled = false;
+        }
+
         gameObject.SetActive(false);
         Pool.Push(this);
     }
 
     private void OnDestroy()
     {
-        if (quillMesh != null) Destroy(quillMesh);
+        if (quillMesh != null)
+        {
+            Destroy(quillMesh);
+        }
     }
 
     private void OnDisable()
     {
-        if (comboEffectRegistered) ProjectileComboUI.Instance?.EndEffect(comboVolleyId);
+        if (comboEffectRegistered)
+        {
+            ProjectileComboUI.Instance?.EndEffect(comboVolleyId);
+        }
+
         comboEffectRegistered = false;
     }
 }

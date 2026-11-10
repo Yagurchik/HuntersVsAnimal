@@ -19,7 +19,11 @@ public sealed class EnemySpecialistBuffs : MonoBehaviour
 
     public void GrantShield(float amount, Brick source)
     {
-        if (amount <= 0f || source == null) return;
+        if (amount <= 0f || source == null)
+        {
+            return;
+        }
+
         shield = Mathf.Max(shield, amount);
         shieldSource = source;
         RefreshIndicator();
@@ -27,7 +31,11 @@ public sealed class EnemySpecialistBuffs : MonoBehaviour
 
     public void GrantBrand(Brick source)
     {
-        if (source == null) return;
+        if (source == null)
+        {
+            return;
+        }
+
         brandSource = source;
         RefreshIndicator();
     }
@@ -43,7 +51,11 @@ public sealed class EnemySpecialistBuffs : MonoBehaviour
     public float AbsorbDirectDamage(float damage, CombatDamageSource source)
     {
         if (source == CombatDamageSource.Fire || source == CombatDamageSource.Firefly
-            || source == CombatDamageSource.Poison) return damage;
+            || source == CombatDamageSource.Poison)
+        {
+            return damage;
+        }
+
         if (shieldSource != null && !shieldSource.IsDefeated && shield > 0f)
         {
             float blocked = Mathf.Min(shield, damage);
@@ -61,14 +73,25 @@ public sealed class EnemySpecialistBuffs : MonoBehaviour
         {
             brandSource = null;
             RefreshIndicator();
-            if (projectile.TakeEnemyDamage(2f)) Destroy(projectile.gameObject);
+            if (projectile.TakeEnemyDamage(2f))
+            {
+                Destroy(projectile.gameObject);
+            }
         }
     }
 
     private void LateUpdate()
     {
-        if (indicator == null) return;
-        if (head == null) head = transform.Find("Visual")?.GetComponent<SpriteRenderer>();
+        if (indicator == null)
+        {
+            return;
+        }
+
+        if (head == null)
+        {
+            head = transform.Find("Visual")?.GetComponent<SpriteRenderer>();
+        }
+
         if (head != null)
         {
             indicator.sortingLayerID = head.sortingLayerID;
@@ -84,7 +107,11 @@ public sealed class EnemySpecialistBuffs : MonoBehaviour
         bool accelerated = extraStep > 0;
         if (!branded && !shielded && !accelerated)
         {
-            if (indicator != null) indicator.enabled = false;
+            if (indicator != null)
+            {
+                indicator.enabled = false;
+            }
+
             return;
         }
         if (indicator == null)
@@ -116,6 +143,8 @@ public sealed class EnemySpecialistBuffs : MonoBehaviour
     private void OnDestroy()
     {
         if (indicator != null && indicator.sharedMaterial != null)
+        {
             Destroy(indicator.sharedMaterial);
+        }
     }
 }

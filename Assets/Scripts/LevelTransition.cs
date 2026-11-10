@@ -15,20 +15,43 @@ public class LevelTransition : MonoBehaviour
     private void Awake()
     {
         ConfigurePanelLayers();
-        if (PausePanel != null) PausePanel.SetActive(false);
-        if (LosePanel != null) LosePanel.SetActive(false);
-        if (WinPanel != null) WinPanel.SetActive(false);
-        if (survivalResultText != null) survivalResultText.gameObject.SetActive(false);
+        if (PausePanel != null)
+        {
+            PausePanel.SetActive(false);
+        }
+
+        if (LosePanel != null)
+        {
+            LosePanel.SetActive(false);
+        }
+
+        if (WinPanel != null)
+        {
+            WinPanel.SetActive(false);
+        }
+
+        if (survivalResultText != null)
+        {
+            survivalResultText.gameObject.SetActive(false);
+        }
     }
 
     public void ConfigurePanelLayers()
     {
         foreach (GameObject panel in new[] { PausePanel, LosePanel, WinPanel })
         {
-            if (panel == null) continue;
+            if (panel == null)
+            {
+                continue;
+            }
+
             Canvas parent = panel.transform.parent != null ? panel.transform.parent.GetComponentInParent<Canvas>(true) : null;
             Canvas canvas = panel.GetComponent<Canvas>();
-            if (canvas == null) canvas = panel.AddComponent<Canvas>();
+            if (canvas == null)
+            {
+                canvas = panel.AddComponent<Canvas>();
+            }
+
             Canvas root = parent != null ? parent.rootCanvas : canvas;
             // Handle both nested legacy panels and standalone panels placed in the scene.
             root.renderMode = RenderMode.ScreenSpaceOverlay;
@@ -38,7 +61,10 @@ public class LevelTransition : MonoBehaviour
             canvas.sortingLayerID = 0;
             canvas.overrideSorting = true;
             canvas.sortingOrder = Mathf.Max(300, canvas.sortingOrder);
-            if (panel.GetComponent<GraphicRaycaster>() == null) panel.AddComponent<GraphicRaycaster>();
+            if (panel.GetComponent<GraphicRaycaster>() == null)
+            {
+                panel.AddComponent<GraphicRaycaster>();
+            }
         }
     }
     public void PauseButtonPressed()
@@ -76,7 +102,11 @@ public class LevelTransition : MonoBehaviour
     public void ChangeScene(int scene)
     {
         Time.timeScale = 1f;
-        if (GameManager.Instance != null) GameManager.Instance.isPaused = false;
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.isPaused = false;
+        }
+
         if (scene == 1)
         {
             if (SceneManager.GetActiveScene().buildIndex == 0)
@@ -88,7 +118,9 @@ public class LevelTransition : MonoBehaviour
             {
                 GameRunMode.PrepareReplay();
                 if (!GameRunMode.IsSurvival)
+                {
                     LevelProgression.PrepareLevel(LevelProgression.Instance.CurrentLevel);
+                }
             }
         }
 

@@ -110,9 +110,16 @@ public sealed class HoneyBadgerProjectile : ProjectileDamageModifier
 
     public override float ModifyDamage(Brick enemy, float baseDamage)
     {
-        if (chainFinished || mergedIntoOther) return 0f;
+        if (chainFinished || mergedIntoOther)
+        {
+            return 0f;
+        }
+
         if (enemy != null && !enemy.IsDefeated && !chainActive)
+        {
             BeginChain(enemy, Mathf.Max(0f, baseDamage));
+        }
+
         return 0f;
     }
 
@@ -126,7 +133,11 @@ public sealed class HoneyBadgerProjectile : ProjectileDamageModifier
         chainBaseDamage = Mathf.Max(0f, damage);
         mergedIntoOther = false;
         currentTarget = firstTarget;
-        if (!ActiveChains.Contains(this)) ActiveChains.Add(this);
+        if (!ActiveChains.Contains(this))
+        {
+            ActiveChains.Add(this);
+        }
+
         originalFlightSpeed = flight != null ? flight.TargetSpeed : body.velocity.magnitude;
         flight?.StopFlight();
         if (body != null) { body.velocity = Vector2.zero; body.angularVelocity = 0f; body.simulated = false; }
@@ -145,9 +156,17 @@ public sealed class HoneyBadgerProjectile : ProjectileDamageModifier
         while (target != null && room != null && !room.IsLost)
         {
             HoneyBadgerProjectile survivor = MergeChainsTargeting(target);
-            if (survivor != this || mergedIntoOther) yield break;
+            if (survivor != this || mergedIntoOther)
+            {
+                yield break;
+            }
+
             yield return TravelTo(target);
-            if (mergedIntoOther) yield break;
+            if (mergedIntoOther)
+            {
+                yield break;
+            }
+
             if (target == null || target.IsDefeated)
             {
                 target = FindNextTarget(room, transform.position, null);
@@ -156,7 +175,11 @@ public sealed class HoneyBadgerProjectile : ProjectileDamageModifier
                 continue;
             }
             survivor = MergeChainsTargeting(target);
-            if (survivor != this || mergedIntoOther) yield break;
+            if (survivor != this || mergedIntoOther)
+            {
+                yield break;
+            }
+
             UniversalBossAbility boss = target.GetComponent<UniversalBossAbility>();
             if (boss != null && boss.TryConsumeProjectile(animal))
             {
@@ -173,7 +196,10 @@ public sealed class HoneyBadgerProjectile : ProjectileDamageModifier
                 CombatDamageSource.HoneyBadger);
             bool releasedAttackCloud = Random.value < AttackPoisonCloudChance;
             if (releasedAttackCloud)
+            {
                 SpawnPoisonCloud(room, attackPosition, attackDamage);
+            }
+
             lastTarget = target;
             bool killed = target == null || target.IsDefeated;
             chainHits++;
@@ -189,7 +215,10 @@ public sealed class HoneyBadgerProjectile : ProjectileDamageModifier
                 if (animal != null && animal.TakeEnemyDamage(target.ProjectileContactDamage))
                 {
                     if (!releasedAttackCloud)
+                    {
                         SpawnPoisonCloud(room, target.transform.position, damage);
+                    }
+
                     Destroy(gameObject);
                     yield break;
                 }
@@ -197,7 +226,11 @@ public sealed class HoneyBadgerProjectile : ProjectileDamageModifier
             if (chainHits >= CurrentChainLength) { Destroy(gameObject); yield break; }
             Brick previous = target;
             Vector2 jumpOrigin = transform.position;
-            if (pauseBetweenAttacks > 0f) yield return new WaitForSeconds(pauseBetweenAttacks);
+            if (pauseBetweenAttacks > 0f)
+            {
+                yield return new WaitForSeconds(pauseBetweenAttacks);
+            }
+
             if (!killed && consecutiveAttacks < MaximumConsecutiveAttacksPerTarget)
             {
                 target = previous;
@@ -214,7 +247,11 @@ public sealed class HoneyBadgerProjectile : ProjectileDamageModifier
 
     private HoneyBadgerProjectile MergeChainsTargeting(Brick target)
     {
-        if (!chainActive || mergedIntoOther || target == null || target.IsDefeated) return this;
+        if (!chainActive || mergedIntoOther || target == null || target.IsDefeated)
+        {
+            return this;
+        }
+
         currentTarget = target;
         HoneyBadgerProjectile survivor = this;
         for (int i = ActiveChains.Count - 1; i >= 0; i--)
@@ -226,8 +263,15 @@ public sealed class HoneyBadgerProjectile : ProjectileDamageModifier
                 continue;
             }
             if (!candidate.chainActive || candidate.mergedIntoOther
-                || candidate.currentTarget != target) continue;
-            if (IsStronger(candidate, survivor)) survivor = candidate;
+                || candidate.currentTarget != target)
+            {
+                continue;
+            }
+
+            if (IsStronger(candidate, survivor))
+            {
+                survivor = candidate;
+            }
         }
 
         for (int i = ActiveChains.Count - 1; i >= 0; i--)
@@ -239,7 +283,11 @@ public sealed class HoneyBadgerProjectile : ProjectileDamageModifier
                 continue;
             }
             if (donor == survivor || !donor.chainActive || donor.mergedIntoOther
-                || donor.currentTarget != target) continue;
+                || donor.currentTarget != target)
+            {
+                continue;
+            }
+
             donor.MergeInto(survivor);
         }
         return survivor;
@@ -248,14 +296,26 @@ public sealed class HoneyBadgerProjectile : ProjectileDamageModifier
     private static bool IsStronger(HoneyBadgerProjectile candidate,
         HoneyBadgerProjectile current)
     {
-        if (candidate.CurrentAttackDamage > current.CurrentAttackDamage + 0.0001f) return true;
-        if (candidate.CurrentAttackDamage + 0.0001f < current.CurrentAttackDamage) return false;
+        if (candidate.CurrentAttackDamage > current.CurrentAttackDamage + 0.0001f)
+        {
+            return true;
+        }
+
+        if (candidate.CurrentAttackDamage + 0.0001f < current.CurrentAttackDamage)
+        {
+            return false;
+        }
+
         return candidate.GetInstanceID() < current.GetInstanceID();
     }
 
     private void MergeInto(HoneyBadgerProjectile survivor)
     {
-        if (survivor == null || survivor == this || mergedIntoOther || !chainActive) return;
+        if (survivor == null || survivor == this || mergedIntoOther || !chainActive)
+        {
+            return;
+        }
+
         survivor.transferredAttacks += RemainingChainAttacks;
         mergedIntoOther = true;
         chainActive = false;
@@ -275,7 +335,11 @@ public sealed class HoneyBadgerProjectile : ProjectileDamageModifier
 
     private IEnumerator TravelTo(Brick target)
     {
-        if (target == null) yield break;
+        if (target == null)
+        {
+            yield break;
+        }
+
         Vector3 start = transform.position;
         float duration = Mathf.Max(0.025f,
             Vector2.Distance(start, target.transform.position) / Mathf.Max(1f, chainTravelSpeed));
@@ -288,7 +352,10 @@ public sealed class HoneyBadgerProjectile : ProjectileDamageModifier
                 t * t * (3f - 2f * t));
             yield return null;
         }
-        if (target != null && !target.IsDefeated) transform.position = target.transform.position;
+        if (target != null && !target.IsDefeated)
+        {
+            transform.position = target.transform.position;
+        }
     }
 
     private Brick FindNextTarget(LevelGenerator room, Vector2 origin, Brick previous)
@@ -299,8 +366,16 @@ public sealed class HoneyBadgerProjectile : ProjectileDamageModifier
         for (int i = 0; i < room.EnemyCollection.Count; i++)
         {
             GameObject value = room.EnemyCollection[i];
-            if (value == null || !value.TryGetComponent(out Brick candidate) || candidate.IsDefeated) continue;
-            if (candidate == previous) continue;
+            if (value == null || !value.TryGetComponent(out Brick candidate) || candidate.IsDefeated)
+            {
+                continue;
+            }
+
+            if (candidate == previous)
+            {
+                continue;
+            }
+
             Vector2 offset = (Vector2)candidate.transform.position - origin;
             float horizontalDistance = Mathf.Abs(offset.x);
             float verticalDistance = Mathf.Abs(offset.y);
@@ -311,12 +386,24 @@ public sealed class HoneyBadgerProjectile : ProjectileDamageModifier
                 verticalDistance = Mathf.Max(0f, verticalDistance - (footprint.y - 1) * 0.5f);
             }
             if (Mathf.Max(horizontalDistance, verticalDistance)
-                > ChainJumpRadius + 0.0001f) continue;
+                > ChainJumpRadius + 0.0001f)
+            {
+                continue;
+            }
+
             float distance = horizontalDistance * horizontalDistance
                 + verticalDistance * verticalDistance;
-            if (candidate.hp > lowestHealth + 0.0001f) continue;
+            if (candidate.hp > lowestHealth + 0.0001f)
+            {
+                continue;
+            }
+
             if (Mathf.Abs(candidate.hp - lowestHealth) <= 0.0001f
-                && distance >= closestDistance) continue;
+                && distance >= closestDistance)
+            {
+                continue;
+            }
+
             lowestHealth = candidate.hp;
             closestDistance = distance;
             weakest = candidate;
@@ -340,21 +427,38 @@ public sealed class HoneyBadgerProjectile : ProjectileDamageModifier
                 position.y = Mathf.Min(position.y, targetCollider.bounds.min.y
                     - ProjectilePhysics2D.GetCollisionRadius(gameObject) - 0.025f);
                 transform.position = position;
-                if (body != null) body.position = position;
+                if (body != null)
+                {
+                    body.position = position;
+                }
             }
         }
         // The chain has exhausted its attacks. Keep its hitboxes disabled for
         // the final descent: a nearby ghost (or any other enemy) must not
         // reflect the badger back upward or start the chain again.
         SetColliders(false);
-        if (body != null) body.simulated = true;
-        if (flight != null) flight.Launch(Vector2.down, Mathf.Max(1f, originalFlightSpeed));
-        else if (body != null) body.velocity = Vector2.down * Mathf.Max(1f, originalFlightSpeed);
+        if (body != null)
+        {
+            body.simulated = true;
+        }
+
+        if (flight != null)
+        {
+            flight.Launch(Vector2.down, Mathf.Max(1f, originalFlightSpeed));
+        }
+        else if (body != null)
+        {
+            body.velocity = Vector2.down * Mathf.Max(1f, originalFlightSpeed);
+        }
     }
 
     private void EnsureDustBrawlVisual()
     {
-        if (dustBrawlSprite == null) return;
+        if (dustBrawlSprite == null)
+        {
+            return;
+        }
+
         Transform visual = transform.Find("Dust Brawl Visual");
         if (visual == null)
         {
@@ -363,7 +467,11 @@ public sealed class HoneyBadgerProjectile : ProjectileDamageModifier
             visual.SetParent(transform, false);
         }
         dustBrawlRenderer = visual.GetComponent<SpriteRenderer>();
-        if (dustBrawlRenderer == null) dustBrawlRenderer = visual.gameObject.AddComponent<SpriteRenderer>();
+        if (dustBrawlRenderer == null)
+        {
+            dustBrawlRenderer = visual.gameObject.AddComponent<SpriteRenderer>();
+        }
+
         dustBrawlRenderer.sprite = dustBrawlSprite;
         SpriteRenderer source = GetComponent<SpriteRenderer>();
         if (source != null)
@@ -385,15 +493,30 @@ public sealed class HoneyBadgerProjectile : ProjectileDamageModifier
 
     private void SetDustBrawlVisible(bool visible)
     {
-        if (dustBrawlRenderer == null) EnsureDustBrawlVisual();
-        if (dustBrawlRenderer == null) return;
+        if (dustBrawlRenderer == null)
+        {
+            EnsureDustBrawlVisual();
+        }
+
+        if (dustBrawlRenderer == null)
+        {
+            return;
+        }
+
         dustBrawlRenderer.enabled = visible;
-        if (!visible) dustBrawlRenderer.transform.localScale = dustBrawlBaseScale;
+        if (!visible)
+        {
+            dustBrawlRenderer.transform.localScale = dustBrawlBaseScale;
+        }
     }
 
     private void LateUpdate()
     {
-        if (dustBrawlRenderer == null || !dustBrawlRenderer.enabled) return;
+        if (dustBrawlRenderer == null || !dustBrawlRenderer.enabled)
+        {
+            return;
+        }
+
         Transform visual = dustBrawlRenderer.transform;
         visual.rotation = Quaternion.Euler(0f, 0f, Time.time * dustBrawlSpinSpeed);
         visual.localScale = dustBrawlBaseScale * (1f + Mathf.Sin(Time.time * 15f) * 0.045f);
@@ -401,14 +524,27 @@ public sealed class HoneyBadgerProjectile : ProjectileDamageModifier
 
     private void SetColliders(bool value)
     {
-        if (colliders == null) colliders = GetComponentsInChildren<Collider2D>(true);
-        for (int i = 0; i < colliders.Length; i++) if (colliders[i] != null) colliders[i].enabled = value;
+        if (colliders == null)
+        {
+            colliders = GetComponentsInChildren<Collider2D>(true);
+        }
+
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            if (colliders[i] != null)
+            {
+                colliders[i].enabled = value;
+            }
+        }
     }
 
     private void OnDestroy()
     {
         ActiveChains.Remove(this);
-        if (attackRoutine != null) StopCoroutine(attackRoutine);
+        if (attackRoutine != null)
+        {
+            StopCoroutine(attackRoutine);
+        }
     }
     private void OnValidate()
     {

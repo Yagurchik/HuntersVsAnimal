@@ -39,14 +39,46 @@ public sealed class BattlefieldTilePalette : ScriptableObject
         bool right = x == width - 1;
         bool bottom = y == 0;
         bool top = y == height - 1;
-        if (top && left) return topLeft;
-        if (top && right) return topRight;
-        if (bottom && left) return bottomLeft;
-        if (bottom && right) return bottomRight;
-        if (top) return Pick(topEdges, x, y, seed);
-        if (right) return Pick(rightEdges, x, y, seed);
-        if (bottom) return Pick(bottomEdges, x, y, seed);
-        if (left) return Pick(leftEdges, x, y, seed);
+        if (top && left)
+        {
+            return topLeft;
+        }
+
+        if (top && right)
+        {
+            return topRight;
+        }
+
+        if (bottom && left)
+        {
+            return bottomLeft;
+        }
+
+        if (bottom && right)
+        {
+            return bottomRight;
+        }
+
+        if (top)
+        {
+            return Pick(topEdges, x, y, seed);
+        }
+
+        if (right)
+        {
+            return Pick(rightEdges, x, y, seed);
+        }
+
+        if (bottom)
+        {
+            return Pick(bottomEdges, x, y, seed);
+        }
+
+        if (left)
+        {
+            return Pick(leftEdges, x, y, seed);
+        }
+
         return Pick(floorTiles, x, y, seed);
     }
 
@@ -58,7 +90,11 @@ public sealed class BattlefieldTilePalette : ScriptableObject
     // Atlas order is left-to-right, top-to-bottom.
     public void ConfigureFromAtlas(IReadOnlyList<TileBase> tiles)
     {
-        if (tiles == null || tiles.Count != 16) return;
+        if (tiles == null || tiles.Count != 16)
+        {
+            return;
+        }
+
         topLeft = tiles[0];
         topEdges = new[] { tiles[1], tiles[2] };
         topRight = tiles[3];
@@ -72,8 +108,19 @@ public sealed class BattlefieldTilePalette : ScriptableObject
 
     private static bool HasTiles(TileBase[] tiles)
     {
-        if (tiles == null || tiles.Length == 0) return false;
-        for (int i = 0; i < tiles.Length; i++) if (tiles[i] == null) return false;
+        if (tiles == null || tiles.Length == 0)
+        {
+            return false;
+        }
+
+        for (int i = 0; i < tiles.Length; i++)
+        {
+            if (tiles[i] == null)
+            {
+                return false;
+            }
+        }
+
         return true;
     }
 
@@ -81,15 +128,30 @@ public sealed class BattlefieldTilePalette : ScriptableObject
 
     private static int CountConfigured(params TileBase[] tiles)
     {
-        if (tiles == null) return 0;
+        if (tiles == null)
+        {
+            return 0;
+        }
+
         int count = 0;
-        for (int i = 0; i < tiles.Length; i++) if (tiles[i] != null) count++;
+        for (int i = 0; i < tiles.Length; i++)
+        {
+            if (tiles[i] != null)
+            {
+                count++;
+            }
+        }
+
         return count;
     }
 
     private static TileBase Pick(TileBase[] tiles, int x, int y, int seed)
     {
-        if (tiles == null || tiles.Length == 0) return null;
+        if (tiles == null || tiles.Length == 0)
+        {
+            return null;
+        }
+
         unchecked
         {
             int hash = seed;

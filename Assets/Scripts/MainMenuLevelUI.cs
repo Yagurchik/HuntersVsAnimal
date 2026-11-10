@@ -30,7 +30,11 @@ public static class MainMenuLevelUI
 
     private static void CreateProgressPanel()
     {
-        if (Object.FindObjectOfType<MenuHubController>(true) != null) return;
+        if (Object.FindObjectOfType<MenuHubController>(true) != null)
+        {
+            return;
+        }
+
         if (GameObject.Find(CanvasName) != null)
         {
             return;

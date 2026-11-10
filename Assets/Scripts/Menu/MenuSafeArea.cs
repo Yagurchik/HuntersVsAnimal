@@ -8,10 +8,18 @@ public class MenuSafeArea : MonoBehaviour
 
     private void Update()
     {
-        if (Screen.width <= 0 || Screen.height <= 0) return;
+        if (Screen.width <= 0 || Screen.height <= 0)
+        {
+            return;
+        }
+
         Rect area = Screen.safeArea;
         Vector2 size = new Vector2(Screen.width, Screen.height);
-        if (area == lastArea && size == lastSize) return;
+        if (area == lastArea && size == lastSize)
+        {
+            return;
+        }
+
         lastArea = area;
         lastSize = size;
         RectTransform rect = (RectTransform)transform;

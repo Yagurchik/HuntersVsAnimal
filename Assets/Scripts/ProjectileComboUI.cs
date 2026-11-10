@@ -38,7 +38,11 @@ public sealed class ProjectileComboUI : MonoBehaviour
 
     public static ProjectileComboUI Ensure()
     {
-        if (Instance != null) return Instance;
+        if (Instance != null)
+        {
+            return Instance;
+        }
+
         ProjectileComboUI ui = FindObjectOfType<ProjectileComboUI>(true);
         if (ui == null)
         {
@@ -47,7 +51,11 @@ public sealed class ProjectileComboUI : MonoBehaviour
             ui = root.GetComponent<ProjectileComboUI>();
             ui.BuildInterface();
         }
-        if (Application.isPlaying) Instance = ui;
+        if (Application.isPlaying)
+        {
+            Instance = ui;
+        }
+
         return ui;
     }
 
@@ -55,7 +63,11 @@ public sealed class ProjectileComboUI : MonoBehaviour
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
-        if (visibility == null) BuildInterface();
+        if (visibility == null)
+        {
+            BuildInterface();
+        }
+
         labelScale = countLabel != null ? countLabel.transform.localScale : Vector3.one;
         Hide();
         RefreshSafeArea();
@@ -63,7 +75,11 @@ public sealed class ProjectileComboUI : MonoBehaviour
 
     public int BeginVolley()
     {
-        if (visibility == null) BuildInterface();
+        if (visibility == null)
+        {
+            BuildInterface();
+        }
+
         VolleyId = VolleyId == int.MaxValue ? 1 : VolleyId + 1;
         HitCount = PendingEffects = 0;
         IsCounting = true;
@@ -76,7 +92,11 @@ public sealed class ProjectileComboUI : MonoBehaviour
 
     public void RegisterHit(int volleyId)
     {
-        if (!IsCounting || volleyId == 0 || volleyId != VolleyId) return;
+        if (!IsCounting || volleyId == 0 || volleyId != VolleyId)
+        {
+            return;
+        }
+
         HitCount++;
         pulseRemaining = pulseDuration;
         RefreshLabels();
@@ -84,14 +104,21 @@ public sealed class ProjectileComboUI : MonoBehaviour
 
     public bool BeginEffect(int volleyId)
     {
-        if (!IsCounting || volleyId == 0 || volleyId != VolleyId) return false;
+        if (!IsCounting || volleyId == 0 || volleyId != VolleyId)
+        {
+            return false;
+        }
+
         PendingEffects++;
         return true;
     }
 
     public void EndEffect(int volleyId)
     {
-        if (volleyId == VolleyId) PendingEffects = Mathf.Max(0, PendingEffects - 1);
+        if (volleyId == VolleyId)
+        {
+            PendingEffects = Mathf.Max(0, PendingEffects - 1);
+        }
     }
 
     private void LateUpdate()
@@ -103,11 +130,14 @@ public sealed class ProjectileComboUI : MonoBehaviour
         {
             IsCounting = false;
             resultRemaining = resultHold + fadeDuration;
-            if (captionLabel != null) captionLabel.text = "попаданий за залп";
+            if (captionLabel != null)
+            {
+                captionLabel.text = "попаданий за залп";
+            }
         }
         bool paused = manager != null && manager.isPaused;
         bool modal = manager != null && (manager.IsChoosingUpgrade || manager.IsFrontMapOpen);
-        if (paused) { if (visibility != null) visibility.alpha = 0f; return; }
+        if (paused) { if (visibility != null) { visibility.alpha = 0f; } return; }
         float delta = Time.unscaledDeltaTime;
         pulseRemaining = Mathf.Max(0f, pulseRemaining - delta);
         if (countLabel != null)
@@ -115,17 +145,31 @@ public sealed class ProjectileComboUI : MonoBehaviour
             float t = pulseRemaining / Mathf.Max(0.05f, pulseDuration);
             countLabel.transform.localScale = labelScale * (1f + pulseScale * t * t);
         }
-        if (!IsCounting) resultRemaining = Mathf.Max(0f, resultRemaining - delta);
-        if (visibility != null) visibility.alpha = modal ? 0f : IsCounting ? 1f
+        if (!IsCounting)
+        {
+            resultRemaining = Mathf.Max(0f, resultRemaining - delta);
+        }
+
+        if (visibility != null)
+        {
+            visibility.alpha = modal ? 0f : IsCounting ? 1f
             : Mathf.Clamp01(resultRemaining / Mathf.Max(0.05f, fadeDuration));
+        }
     }
 
     private void RefreshLabels()
     {
         Color color = Color.Lerp(normalColor, hotColor, Mathf.Clamp01(HitCount / 40f));
         if (countLabel != null) { countLabel.SetText("{0}", HitCount); countLabel.color = color; }
-        if (accent != null) accent.color = color;
-        if (captionLabel != null) captionLabel.text = "попаданий";
+        if (accent != null)
+        {
+            accent.color = color;
+        }
+
+        if (captionLabel != null)
+        {
+            captionLabel.text = "попаданий";
+        }
     }
 
     private void Hide()
@@ -133,22 +177,45 @@ public sealed class ProjectileComboUI : MonoBehaviour
         IsCounting = false;
         PendingEffects = 0;
         resultRemaining = pulseRemaining = 0f;
-        if (visibility != null) visibility.alpha = 0f;
-        if (countLabel != null) countLabel.transform.localScale = labelScale;
+        if (visibility != null)
+        {
+            visibility.alpha = 0f;
+        }
+
+        if (countLabel != null)
+        {
+            countLabel.transform.localScale = labelScale;
+        }
     }
 
     private void OnDisable() => Hide();
-    private void OnDestroy() { if (Instance == this) Instance = null; }
+    private void OnDestroy() { if (Instance == this)
+        {
+            Instance = null;
+        }
+    }
 
     private void RefreshSafeArea()
     {
-        if (safeArea == null || Screen.width <= 0 || Screen.height <= 0) return;
+        if (safeArea == null || Screen.width <= 0 || Screen.height <= 0)
+        {
+            return;
+        }
+
         var screen = new Vector2Int(Screen.width, Screen.height);
         Rect area = Screen.safeArea;
-        if (lastSafeArea == area && lastScreen == screen) return;
+        if (lastSafeArea == area && lastScreen == screen)
+        {
+            return;
+        }
+
         lastSafeArea = area;
         lastScreen = screen;
-        if (area.width <= 0f || area.height <= 0f) area = new Rect(0, 0, Screen.width, Screen.height);
+        if (area.width <= 0f || area.height <= 0f)
+        {
+            area = new Rect(0, 0, Screen.width, Screen.height);
+        }
+
         safeArea.anchorMin = new Vector2(area.xMin / Screen.width, area.yMin / Screen.height);
         safeArea.anchorMax = new Vector2(area.xMax / Screen.width, area.yMax / Screen.height);
         safeArea.offsetMin = safeArea.offsetMax = Vector2.zero;
@@ -156,8 +223,16 @@ public sealed class ProjectileComboUI : MonoBehaviour
 
     public void Preview(int hits, bool show)
     {
-        if (Application.isPlaying) return;
-        if (visibility == null) BuildInterface();
+        if (Application.isPlaying)
+        {
+            return;
+        }
+
+        if (visibility == null)
+        {
+            BuildInterface();
+        }
+
         HitCount = Mathf.Max(0, hits);
         RefreshLabels();
         visibility.alpha = show ? 1f : 0f;
@@ -171,7 +246,11 @@ public sealed class ProjectileComboUI : MonoBehaviour
 
     public void BuildInterface()
     {
-        if (visibility != null) return; // Never rebuild the artist's authored hierarchy.
+        if (visibility != null)
+        {
+            return; // Never rebuild the artist's authored hierarchy.
+        }
+
         Canvas canvas = GetComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.sortingOrder = 230; // Below map, upgrades and pause; above the battlefield darkness.
@@ -209,12 +288,19 @@ public sealed class ProjectileComboUI : MonoBehaviour
 
     public void ApplyRecommendedLayout()
     {
-        if (visibility != null) ApplyRecommendedLayout(visibility.transform as RectTransform);
+        if (visibility != null)
+        {
+            ApplyRecommendedLayout(visibility.transform as RectTransform);
+        }
     }
 
     private static void ApplyRecommendedLayout(RectTransform panel)
     {
-        if (panel == null) return;
+        if (panel == null)
+        {
+            return;
+        }
+
         panel.anchorMin = panel.anchorMax = new Vector2(0.97f, 1f);
         panel.pivot = new Vector2(1f, 1f);
         panel.anchoredPosition = new Vector2(-54f, -168f);

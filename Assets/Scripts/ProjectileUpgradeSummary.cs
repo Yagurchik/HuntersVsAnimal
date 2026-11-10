@@ -19,7 +19,11 @@ public static class ProjectileUpgradeSummary
     private static string Cells(float value)
     {
         int whole = Mathf.RoundToInt(value);
-        if (!Mathf.Approximately(value, whole)) return Number(value) + " клетки";
+        if (!Mathf.Approximately(value, whole))
+        {
+            return Number(value) + " клетки";
+        }
+
         int lastTwo = whole % 100, last = whole % 10;
         string word = lastTwo >= 11 && lastTwo <= 14 ? "клеток"
             : last == 1 ? "клетка" : last >= 2 && last <= 4 ? "клетки" : "клеток";
@@ -29,13 +33,21 @@ public static class ProjectileUpgradeSummary
     public static List<Item> ForAnimal(AnimalProjectileQueue queue, int index)
     {
         var result = new List<Item>(5);
-        if (queue == null || index < 0 || index >= queue.Animals.Count || !queue.IsAvailable(index)) return result;
+        if (queue == null || index < 0 || index >= queue.Animals.Count || !queue.IsAvailable(index))
+        {
+            return result;
+        }
+
         var entry = queue.Animals[index];
         if (index != AnimalProjectileQueue.FireflyIndex && index != AnimalProjectileQueue.RabbitIndex
             && entry.AmmoUpgradeLevel > 1)
+        {
             Add(result, "Количество", "Снарядов за залп: " + entry.AmmoPerTurn, entry.AmmoUpgradeLevel);
+        }
         else if (entry.UpgradeLevel > 0 && index != AnimalProjectileQueue.FireflyIndex && index != queue.StartingAnimalIndex)
+        {
             Add(result, "Снаряд открыт", "Снарядов за залп: " + entry.AmmoPerTurn, 1, 1);
+        }
 
         switch (index)
         {
@@ -97,10 +109,16 @@ public static class ProjectileUpgradeSummary
 
     private static void Add(List<Item> result, string title, string description, int rank, int maximum = AnimalProjectileQueue.MaximumBranchLevel)
     {
-        if (rank > 0) result.Add(new Item { Title = title, Description = description, Rank = rank, MaximumRank = maximum });
+        if (rank > 0)
+        {
+            result.Add(new Item { Title = title, Description = description, Rank = rank, MaximumRank = maximum });
+        }
     }
     private static void Ultimate(List<Item> result, string title, string description, bool selected)
     {
-        if (selected) result.Add(new Item { Title = title, Description = description, Ultimate = true });
+        if (selected)
+        {
+            result.Add(new Item { Title = title, Description = description, Ultimate = true });
+        }
     }
 }

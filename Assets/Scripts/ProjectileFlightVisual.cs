@@ -30,13 +30,18 @@ public sealed class ProjectileFlightVisual : MonoBehaviour
         spinDegreesPerSecond = Mathf.Max(0f, spinSpeed);
         CreateVisual();
         if (spinDegreesPerSecond <= 0f && visual != null)
+        {
             visual.transform.localRotation = Quaternion.identity;
+        }
     }
 
     public void SetFacingDirection(Vector2 direction)
     {
         CreateVisual();
-        if (visual == null || direction.sqrMagnitude < 0.0001f) return;
+        if (visual == null || direction.sqrMagnitude < 0.0001f)
+        {
+            return;
+        }
         // Directional projectile art is authored head-up in a strict top view.
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
         visual.flipX = false;
@@ -51,9 +56,16 @@ public sealed class ProjectileFlightVisual : MonoBehaviour
 
     private void CreateVisual()
     {
-        if (visual != null) return;
+        if (visual != null)
+        {
+            return;
+        }
+
         SpriteRenderer source = GetComponent<SpriteRenderer>();
-        if (source == null) return;
+        if (source == null)
+        {
+            return;
+        }
 
         GameObject child = new GameObject("Projectile Rotating Visual");
         child.layer = gameObject.layer;
@@ -82,9 +94,21 @@ public sealed class ProjectileFlightVisual : MonoBehaviour
 
     private void Update()
     {
-        if (visual == null || spinDegreesPerSecond <= 0f) return;
-        if (flight == null) flight = GetComponent<ProjectilePhysics2D>();
-        if (flight == null || !flight.IsFlying) return;
+        if (visual == null || spinDegreesPerSecond <= 0f)
+        {
+            return;
+        }
+
+        if (flight == null)
+        {
+            flight = GetComponent<ProjectilePhysics2D>();
+        }
+
+        if (flight == null || !flight.IsFlying)
+        {
+            return;
+        }
+
         visual.transform.Rotate(0f, 0f, spinDegreesPerSecond * Time.deltaTime, Space.Self);
     }
 }

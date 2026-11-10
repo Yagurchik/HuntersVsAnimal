@@ -24,8 +24,16 @@ public static class GameTypography
     {
         get
         {
-            if (legacyFont == null) legacyFont = Resources.Load<Font>(LegacyFontResource);
-            if (legacyFont == null) legacyFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            if (legacyFont == null)
+            {
+                legacyFont = Resources.Load<Font>(LegacyFontResource);
+            }
+
+            if (legacyFont == null)
+            {
+                legacyFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            }
+
             return legacyFont;
         }
     }
@@ -34,7 +42,11 @@ public static class GameTypography
     {
         get
         {
-            if (tmpFont == null) tmpFont = Resources.Load<TMP_FontAsset>(TmpFontResource);
+            if (tmpFont == null)
+            {
+                tmpFont = Resources.Load<TMP_FontAsset>(TmpFontResource);
+            }
+
             Material material = tmpFont != null ? tmpFont.material : null;
             if (material != null)
             {
@@ -49,10 +61,22 @@ public static class GameTypography
 
     public static void Apply(Text label)
     {
-        if (label == null) return;
-        if (Font != null) label.font = Font;
+        if (label == null)
+        {
+            return;
+        }
+
+        if (Font != null)
+        {
+            label.font = Font;
+        }
+
         Outline outline = label.GetComponent<Outline>();
-        if (outline == null) outline = label.gameObject.AddComponent<Outline>();
+        if (outline == null)
+        {
+            outline = label.gameObject.AddComponent<Outline>();
+        }
+
         outline.effectColor = Color.black;
         float distance = LegacyOutlineDistanceFor(label);
         outline.effectDistance = new Vector2(distance, -distance);
@@ -61,7 +85,10 @@ public static class GameTypography
 
     public static float LegacyOutlineDistanceFor(Text label)
     {
-        if (label == null) return 0f;
+        if (label == null)
+        {
+            return 0f;
+        }
         // Best-fit may shrink the face well below fontSize. Base the outline
         // on its smallest possible size so the fill is never swallowed.
         float size = label.resizeTextForBestFit && label.resizeTextMinSize > 0
@@ -72,20 +99,42 @@ public static class GameTypography
 
     public static void Apply(TMP_Text label)
     {
-        if (label == null) return;
-        if (label.GetComponentInParent<EnemyHealthBarView>(true) != null) return;
+        if (label == null)
+        {
+            return;
+        }
+
+        if (label.GetComponentInParent<EnemyHealthBarView>(true) != null)
+        {
+            return;
+        }
+
         if (TmpFont != null)
         {
             label.font = TmpFont;
-            if (TmpFont.material != null) label.fontSharedMaterial = TmpFont.material;
+            if (TmpFont.material != null)
+            {
+                label.fontSharedMaterial = TmpFont.material;
+            }
         }
     }
 
     public static void ApplyTo(GameObject root)
     {
-        if (root == null) return;
-        foreach (Text label in root.GetComponentsInChildren<Text>(true)) Apply(label);
-        foreach (TMP_Text label in root.GetComponentsInChildren<TMP_Text>(true)) Apply(label);
+        if (root == null)
+        {
+            return;
+        }
+
+        foreach (Text label in root.GetComponentsInChildren<Text>(true))
+        {
+            Apply(label);
+        }
+
+        foreach (TMP_Text label in root.GetComponentsInChildren<TMP_Text>(true))
+        {
+            Apply(label);
+        }
     }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -105,7 +154,14 @@ public static class GameTypography
 
     private static void ApplyToScene(Scene scene, LoadSceneMode mode)
     {
-        if (!scene.IsValid() || !scene.isLoaded) return;
-        foreach (GameObject root in scene.GetRootGameObjects()) ApplyTo(root);
+        if (!scene.IsValid() || !scene.isLoaded)
+        {
+            return;
+        }
+
+        foreach (GameObject root in scene.GetRootGameObjects())
+        {
+            ApplyTo(root);
+        }
     }
 }

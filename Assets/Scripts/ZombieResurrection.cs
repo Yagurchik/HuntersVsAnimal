@@ -44,27 +44,52 @@ public sealed class ZombieResurrection : MonoBehaviour, IEnemyDefeatHandler
     private void Awake()
     {
         enemy = GetComponent<Brick>();
-        if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>(true);
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>(true);
+        }
+
         spriteAnimator = spriteRenderer != null ? spriteRenderer.GetComponent<Animator>() : null;
         visualHover = spriteRenderer != null ? spriteRenderer.GetComponent<EnemyVisualHover>() : null;
         livingVisualScale = spriteRenderer != null ? spriteRenderer.transform.localScale : Vector3.one;
         colliders = GetComponentsInChildren<Collider2D>(true);
         colliderStates = new bool[colliders.Length];
         for (int i = 0; i < colliders.Length; i++)
+        {
             colliderStates[i] = colliders[i] != null && colliders[i].enabled;
-        if (livingSprite == null && spriteRenderer != null) livingSprite = spriteRenderer.sprite;
-        if (!All.Contains(this)) All.Add(this);
+        }
+
+        if (livingSprite == null && spriteRenderer != null)
+        {
+            livingSprite = spriteRenderer.sprite;
+        }
+
+        if (!All.Contains(this))
+        {
+            All.Add(this);
+        }
     }
 
     private void OnEnable()
     {
-        if (!All.Contains(this)) All.Add(this);
-        if (awaitingResurrection) ShowGrave();
+        if (!All.Contains(this))
+        {
+            All.Add(this);
+        }
+
+        if (awaitingResurrection)
+        {
+            ShowGrave();
+        }
     }
 
     public bool TryHandleDefeat(Brick defeatedEnemy)
     {
-        if (resurrectionConsumed || awaitingResurrection || defeatedEnemy == null) return false;
+        if (resurrectionConsumed || awaitingResurrection || defeatedEnemy == null)
+        {
+            return false;
+        }
+
         enemy = defeatedEnemy;
         resurrectionConsumed = true;
         awaitingResurrection = true;
@@ -87,28 +112,66 @@ public sealed class ZombieResurrection : MonoBehaviour, IEnemyDefeatHandler
         {
             ZombieResurrection zombie = All[i];
             if (zombie == null) { All.RemoveAt(i); continue; }
-            if (!zombie.awaitingResurrection || !zombie.gameObject.activeInHierarchy) continue;
-            if (turnNumber < zombie.firstRevivalEnemyTurn) continue;
-            if (zombie.Revive()) revived++;
+            if (!zombie.awaitingResurrection || !zombie.gameObject.activeInHierarchy)
+            {
+                continue;
+            }
+
+            if (turnNumber < zombie.firstRevivalEnemyTurn)
+            {
+                continue;
+            }
+
+            if (zombie.Revive())
+            {
+                revived++;
+            }
         }
         return revived;
     }
 
     private bool Revive()
     {
-        if (!awaitingResurrection) return false;
-        if (enemy == null) enemy = GetComponent<Brick>();
-        if (enemy == null || enemy.levelGenerator == null || enemy.levelGenerator.IsLost) return false;
+        if (!awaitingResurrection)
+        {
+            return false;
+        }
+
+        if (enemy == null)
+        {
+            enemy = GetComponent<Brick>();
+        }
+
+        if (enemy == null || enemy.levelGenerator == null || enemy.levelGenerator.IsLost)
+        {
+            return false;
+        }
 
         awaitingResurrection = false;
         if (spriteRenderer != null)
         {
-            if (livingSprite != null) spriteRenderer.sprite = livingSprite;
+            if (livingSprite != null)
+            {
+                spriteRenderer.sprite = livingSprite;
+            }
+
             spriteRenderer.enabled = true;
         }
-        if (spriteAnimator != null) spriteAnimator.enabled = true;
-        if (spriteRenderer != null) spriteRenderer.transform.localScale = livingVisualScale;
-        if (visualHover != null) visualHover.enabled = true;
+        if (spriteAnimator != null)
+        {
+            spriteAnimator.enabled = true;
+        }
+
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.transform.localScale = livingVisualScale;
+        }
+
+        if (visualHover != null)
+        {
+            visualHover.enabled = true;
+        }
+
         RestoreColliders();
         enemy.Revive(RevivedHealthFraction);
         return true;
@@ -119,8 +182,16 @@ public sealed class ZombieResurrection : MonoBehaviour, IEnemyDefeatHandler
         // A lethal hit starts the living zombie's damage pose before this call.
         // Stop it so its delayed restore cannot replace the grave with a zombie.
         GetComponent<EnemyHitReaction>()?.Cancel();
-        if (spriteAnimator != null) spriteAnimator.enabled = false;
-        if (visualHover != null) visualHover.enabled = false;
+        if (spriteAnimator != null)
+        {
+            spriteAnimator.enabled = false;
+        }
+
+        if (visualHover != null)
+        {
+            visualHover.enabled = false;
+        }
+
         if (spriteRenderer != null && graveSprite != null)
         {
             spriteRenderer.sprite = graveSprite;
@@ -135,12 +206,20 @@ public sealed class ZombieResurrection : MonoBehaviour, IEnemyDefeatHandler
 
     private void RestoreColliders()
     {
-        if (colliders == null) return;
+        if (colliders == null)
+        {
+            return;
+        }
+
         for (int i = 0; i < colliders.Length; i++)
+        {
             if (colliders[i] != null)
+            {
                 colliders[i].enabled = colliderStates != null && i < colliderStates.Length
                     ? colliderStates[i]
                     : true;
+            }
+        }
     }
 
     private void OnValidate()

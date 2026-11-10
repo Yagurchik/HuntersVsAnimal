@@ -37,7 +37,11 @@ public class CameraRenderer : MonoBehaviour
 
     private void Initialize()
     {
-        if (initialized) return;
+        if (initialized)
+        {
+            return;
+        }
+
         componentCamera = GetComponent<Camera>();
         GameplayBackdropUI.Ensure(componentCamera);
         transform.rotation = Quaternion.identity;
@@ -59,7 +63,11 @@ public class CameraRenderer : MonoBehaviour
         currentRoom = room;
         currentRoomStyle = room != null ? room.GetComponent<BattlefieldForestStyle>() : null;
         transitioning = false;
-        if (room == null) return;
+        if (room == null)
+        {
+            return;
+        }
+
         roomBounds = GetPresentationBounds();
         if (animated && Application.isPlaying && roomTransitionDuration > 0f
             && TryGetRoomFraming(out _, out _))
@@ -87,7 +95,11 @@ public class CameraRenderer : MonoBehaviour
                 float eased = progress * progress * (3f - 2f * progress);
                 transform.position = Vector3.LerpUnclamped(transitionStartPosition, targetPosition, eased);
                 componentCamera.orthographicSize = Mathf.LerpUnclamped(transitionStartSize, targetSize, eased);
-                if (progress >= 1f) transitioning = false;
+                if (progress >= 1f)
+                {
+                    transitioning = false;
+                }
+
                 return;
             }
             transitioning = false;
@@ -116,7 +128,11 @@ public class CameraRenderer : MonoBehaviour
 
     private void ApplyRoomFraming()
     {
-        if (!TryGetRoomFraming(out Vector3 position, out float orthographicSize)) return;
+        if (!TryGetRoomFraming(out Vector3 position, out float orthographicSize))
+        {
+            return;
+        }
+
         componentCamera.orthographicSize = orthographicSize;
         transform.position = position;
     }
@@ -128,7 +144,10 @@ public class CameraRenderer : MonoBehaviour
         Rect viewport = componentCamera.pixelRect;
         position = transform.position;
         orthographicSize = componentCamera.orthographicSize;
-        if (viewport.width < 1f || viewport.height < 1f) return false;
+        if (viewport.width < 1f || viewport.height < 1f)
+        {
+            return false;
+        }
 
         Rect safe = componentCamera.targetTexture != null ? viewport : Screen.safeArea;
         if (safe.width < 1f || safe.height < 1f)

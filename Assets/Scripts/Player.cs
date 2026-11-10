@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
 
     private Magazine magazine;
     public int magazineBullet;
-    Coroutine coroutine;
+    private Coroutine coroutine;
     private bool isShooting;
     private int comboVolleyId;
     private static int currentCombatVolleyId;
@@ -67,7 +67,13 @@ public class Player : MonoBehaviour
         get
         {
             for (int i = 0; i < animalsCollect.Count; i++)
-                if (animalsCollect[i] != null) return true;
+            {
+                if (animalsCollect[i] != null)
+                {
+                    return true;
+                }
+            }
+
             return false;
         }
     }
@@ -138,14 +144,25 @@ public class Player : MonoBehaviour
 
     public static Vector2 ClampUpwardLaunchDirection(Vector2 direction, float minimumAngleDegrees)
     {
-        if (direction.sqrMagnitude < 0.000001f) return Vector2.up;
+        if (direction.sqrMagnitude < 0.000001f)
+        {
+            return Vector2.up;
+        }
+
         direction.Normalize();
         float angle = Mathf.Clamp(minimumAngleDegrees, 0f, 89f) * Mathf.Deg2Rad;
         float minimumY = Mathf.Sin(angle);
-        if (direction.y >= minimumY) return direction;
+        if (direction.y >= minimumY)
+        {
+            return direction;
+        }
 
         // A perfectly vertical downward drag has no meaningful left/right intent.
-        if (Mathf.Abs(direction.x) < 0.0001f) return Vector2.up;
+        if (Mathf.Abs(direction.x) < 0.0001f)
+        {
+            return Vector2.up;
+        }
+
         float horizontalSign = Mathf.Sign(direction.x);
         return new Vector2(horizontalSign * Mathf.Cos(angle), minimumY).normalized;
     }
@@ -199,126 +216,170 @@ public class Player : MonoBehaviour
         ShowIdleVisual();
     }
 
-    void Update()
+    private void Update()
     {
-        if (isShooting && recallRequested && Time.time >= recallDeadline)
-        {
-            // A large magazine must not keep emitting bullets after the recall timeout.
-            if (coroutine != null) StopCoroutine(coroutine);
-            if (animalQueue != null && volleyAnimalIndex >= 0)
-                animalQueue.ClearAmmo(volleyAnimalIndex);
-            else if (magazine != null)
-                magazine.currentAmmo = 0;
-            shootingPlayer = animalQueue != null && animalQueue.HasRemainingAmmo;
-            ReleaseVolley();
-            GameManager.Instance?.TryCompletePlayerTurn();
-        }
+        StopVolleyAfterRecallTimeout();
 
         if (waitForFreshTouch)
         {
-            SetAimVisible(false);
-            if (Input.touchCount == 0 && !Input.GetMouseButton(0))
-            {
-                waitForFreshTouch = false;
-            }
-
+            UpdateFreshTouchWait();
             return;
         }
 
-        if (GameManager.Instance == null
-            || GameManager.Instance.isPaused
-            || GameManager.Instance.GameEnded
-            || GameManager.Instance.IsFrontMapOpen
-            || GameManager.Instance.stepGame
-            || GameManager.Instance.IsChoosingUpgrade
-            || HasActiveProjectiles)
+        if (IsAimingBlocked())
         {
             SetAimVisible(false);
             return;
         }
 
-        if (GameManager.Instance.stepPlayer == true)
+        if (GameManager.Instance.stepPlayer)
         {
-            if (animalQueue != null)
-            {
-                animalQueue.ReloadAll();
-            }
-            else
-            {
-                magazine.Reload();
-            }
-
-            FirstAnimalOut = false;
-            shootingPlayer = true;
-            GameManager.Instance.stepPlayer = false;
-            Debug.Log("Ход игрока");
+            BeginPlayerTurn();
         }
-        if (currentRoom == null || currentRoom.IsLost || !currentRoom.HasLivingEnemies)
+
+        if (!HasShootableRoom())
         {
             SetAimVisible(false);
-            // This also moves the camera to another room with a shootable target.
-            // Zombie graves remain shootable, so this branch only runs when the
-            // current room has neither living enemies nor breakable graves.
-            // Every authored room owns a Player component, so only the Player in
-            // the camera's current room may initiate this routing decision.
-            if (currentRoom != null && !currentRoom.IsLost
-                && GameManager.Instance.Front != null
-                && GameManager.Instance.Front.CurrentRoomId == currentRoom.RoomId)
-                GameManager.Instance.TryCompletePlayerTurn();
+            LeaveRoomWithoutTargets();
             return;
         }
-        if (GetSelectedProjectile() != null && shootingPlayer == true && !isShooting)
+
+        UpdateAim();
+    }
+
+    private void StopVolleyAfterRecallTimeout()
+    {
+        if (!isShooting || !recallRequested || Time.time < recallDeadline)
         {
-            if (TryGetPointer(out Vector2 screenPosition, out TouchPhase phase, out int pointerId))
-            {
-                Camera aimCamera = Camera.main;
-                if (aimCamera == null)
-                {
-                    SetAimVisible(false);
-                    return;
-                }
+            return;
+        }
 
-                Vector2 worldTarget = aimCamera.ScreenToWorldPoint(screenPosition);
-                bool insideRoom = IsInsideTouchArea(worldTarget);
-                bool overUI = IsOverInterface(screenPosition);
+        // A large magazine must not keep emitting bullets after the recall timeout.
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
 
-                if (phase == TouchPhase.Began)
-                {
-                    isAiming = insideRoom && !overUI;
-                    aimingPointerId = pointerId;
-                }
+        if (animalQueue != null && volleyAnimalIndex >= 0)
+        {
+            animalQueue.ClearAmmo(volleyAnimalIndex);
+        }
+        else if (magazine != null)
+        {
+            magazine.currentAmmo = 0;
+        }
 
-                if (!isAiming || aimingPointerId != pointerId || phase == TouchPhase.Canceled)
-                {
-                    SetAimVisible(false);
-                    return;
-                }
+        shootingPlayer = animalQueue != null && animalQueue.HasRemainingAmmo;
+        ReleaseVolley();
+        GameManager.Instance?.TryCompletePlayerTurn();
+    }
 
-                if (phase == TouchPhase.Ended)
-                {
-                    SetAimVisible(false);
-                    if (insideRoom && !overUI)
-                    {
-                        Shoot(worldTarget);
-                    }
-                }
-                else if (insideRoom && !overUI)
-                {
-                    ballSpawner?.ShowAim(worldTarget);
-                }
-                else
-                {
-                    ballSpawner?.HideAim();
-                }
-            }
-            else
-            {
-                SetAimVisible(false);
-            }
+    private void UpdateFreshTouchWait()
+    {
+        SetAimVisible(false);
+        if (Input.touchCount == 0 && !Input.GetMouseButton(0))
+        {
+            waitForFreshTouch = false;
+        }
+    }
+
+    private bool IsAimingBlocked()
+    {
+        GameManager game = GameManager.Instance;
+        return game == null
+            || game.isPaused
+            || game.GameEnded
+            || game.IsFrontMapOpen
+            || game.stepGame
+            || game.IsChoosingUpgrade
+            || HasActiveProjectiles;
+    }
+
+    private void BeginPlayerTurn()
+    {
+        if (animalQueue != null)
+        {
+            animalQueue.ReloadAll();
         }
         else
         {
+            magazine.Reload();
+        }
+
+        FirstAnimalOut = false;
+        shootingPlayer = true;
+        GameManager.Instance.stepPlayer = false;
+        Debug.Log("Ход игрока");
+    }
+
+    private bool HasShootableRoom()
+    {
+        return currentRoom != null && !currentRoom.IsLost && currentRoom.HasLivingEnemies;
+    }
+
+    private void LeaveRoomWithoutTargets()
+    {
+        // This also moves the camera to another room with a shootable target.
+        // Zombie graves remain shootable, so this only runs when the
+        // current room has neither living enemies nor breakable graves.
+        // Every authored room owns a Player component, so only the Player in
+        // the camera's current room may initiate this routing decision.
+        if (currentRoom != null && !currentRoom.IsLost
+            && GameManager.Instance.Front != null
+            && GameManager.Instance.Front.CurrentRoomId == currentRoom.RoomId)
+        {
+            GameManager.Instance.TryCompletePlayerTurn();
+        }
+    }
+
+    private void UpdateAim()
+    {
+        if (GetSelectedProjectile() == null || !shootingPlayer || isShooting
+            || !TryGetPointer(out Vector2 screenPosition, out TouchPhase phase, out int pointerId))
+        {
             SetAimVisible(false);
+            return;
+        }
+
+        Camera aimCamera = Camera.main;
+        if (aimCamera == null)
+        {
+            SetAimVisible(false);
+            return;
+        }
+
+        Vector2 worldTarget = aimCamera.ScreenToWorldPoint(screenPosition);
+        bool insideRoom = IsInsideTouchArea(worldTarget);
+        bool overUI = IsOverInterface(screenPosition);
+        bool canTarget = insideRoom && !overUI;
+
+        if (phase == TouchPhase.Began)
+        {
+            isAiming = canTarget;
+            aimingPointerId = pointerId;
+        }
+
+        if (!isAiming || aimingPointerId != pointerId || phase == TouchPhase.Canceled)
+        {
+            SetAimVisible(false);
+            return;
+        }
+
+        if (phase == TouchPhase.Ended)
+        {
+            SetAimVisible(false);
+            if (canTarget)
+            {
+                Shoot(worldTarget);
+            }
+        }
+        else if (canTarget)
+        {
+            ballSpawner?.ShowAim(worldTarget);
+        }
+        else
+        {
+            ballSpawner?.HideAim();
         }
     }
 
@@ -475,7 +536,11 @@ public class Player : MonoBehaviour
         for (int order = 0; ; order++)
         {
             int animalIndex = AnimalProjectileQueue.GetAllVolleyAnimalIndex(order);
-            if (animalIndex < 0) break;
+            if (animalIndex < 0)
+            {
+                break;
+            }
+
             while (animalQueue != null && animalQueue.HasAmmo(animalIndex))
             {
                 volleyAnimalIndex = animalIndex;
@@ -492,13 +557,21 @@ public class Player : MonoBehaviour
                     yield return new WaitForSeconds(0.1f);
                 }
 
-                if (!launchedThisVolley) break;
+                if (!launchedThisVolley)
+                {
+                    break;
+                }
+
                 animalQueue.CompleteVolley(animalIndex);
             }
         }
 
         volleyAnimalIndex = -1;
-        if (!launchedAnyProjectile) queueVolleyAwaitingResolution = false;
+        if (!launchedAnyProjectile)
+        {
+            queueVolleyAwaitingResolution = false;
+        }
+
         ReleaseVolley();
         GameManager.Instance?.TryCompletePlayerTurn();
     }
@@ -570,15 +643,24 @@ public class Player : MonoBehaviour
         coroutine = null;
         TryCommitPendingLanding();
         TryFinalizeQueueVolley();
-        if (!queueVolleyAwaitingResolution && volleyOwner == this) volleyOwner = null;
+        if (!queueVolleyAwaitingResolution && volleyOwner == this)
+        {
+            volleyOwner = null;
+        }
     }
 
     public bool TryCommitProjectileLanding(float requestedWorldX)
     {
-        if (landingPositionCommitted || landingCancelled) return false;
+        if (landingPositionCommitted || landingCancelled)
+        {
+            return false;
+        }
 
         Stage room = GetComponentInParent<Stage>();
-        if (room == null) return false;
+        if (room == null)
+        {
+            return false;
+        }
 
         landingPositionCommitted = true;
         FirstAnimalOut = true;
@@ -590,7 +672,11 @@ public class Player : MonoBehaviour
 
     public void NotifyProjectileDestroyed(float worldX)
     {
-        if (landingPositionCommitted || landingCancelled) return;
+        if (landingPositionCommitted || landingCancelled)
+        {
+            return;
+        }
+
         pendingLandingX = worldX;
         hasPendingLanding = true;
         TryCommitPendingLanding();
@@ -604,7 +690,10 @@ public class Player : MonoBehaviour
 
     private void TryFinalizeQueueVolley()
     {
-        if (!queueVolleyAwaitingResolution || isShooting || HasProjectileOwnedByThisPlayer()) return;
+        if (!queueVolleyAwaitingResolution || isShooting || HasProjectileOwnedByThisPlayer())
+        {
+            return;
+        }
 
         queueVolleyAwaitingResolution = false;
         if (animalQueue != null)
@@ -614,13 +703,18 @@ public class Player : MonoBehaviour
                 // A completed combined sequence already advances each volley while
                 // emitting. A recalled sequence advances only the interrupted one.
                 if (!combinedVolleyActive || recallRequested)
+                {
                     animalQueue.CompleteVolley(volleyAnimalIndex);
+                }
             }
             shootingPlayer = animalQueue.HasRemainingAmmo;
         }
         combinedVolleyActive = false;
         volleyAnimalIndex = -1;
-        if (volleyOwner == this) volleyOwner = null;
+        if (volleyOwner == this)
+        {
+            volleyOwner = null;
+        }
     }
 
     private bool HasProjectileOwnedByThisPlayer()
@@ -628,7 +722,10 @@ public class Player : MonoBehaviour
         for (int i = 0; i < animalsCollect.Count; i++)
         {
             Animal animal = animalsCollect[i];
-            if (animal != null && animal.ReturnPlayer == this) return true;
+            if (animal != null && animal.ReturnPlayer == this)
+            {
+                return true;
+            }
         }
         return false;
     }
@@ -642,7 +739,10 @@ public class Player : MonoBehaviour
     private void TryCommitPendingLanding()
     {
         if (!hasPendingLanding || isShooting || landingPositionCommitted || landingCancelled
-            || HasNormalProjectileInFlight()) return;
+            || HasNormalProjectileInFlight())
+        {
+            return;
+        }
 
         TryCommitProjectileLanding(pendingLandingX);
         hasPendingLanding = false;
@@ -654,7 +754,9 @@ public class Player : MonoBehaviour
         {
             Animal animal = animalsCollect[i];
             if (animal != null && !animal.IsReturning && animal.ReturnPlayer == this)
+            {
                 return true;
+            }
         }
         return false;
     }
@@ -663,12 +765,18 @@ public class Player : MonoBehaviour
     {
         PlayerVisualProfile profile = ResolveVisualProfile();
         if (profile != null && profile.IdleSprite != null)
+        {
             return Mathf.Max(0.05f, profile.WorldWidth * 0.5f);
+        }
+
         SpriteRenderer playerRenderer = characterRenderer != null
             ? characterRenderer
             : GetComponent<SpriteRenderer>();
         if (playerRenderer != null && playerRenderer.sprite != null)
+        {
             return Mathf.Max(0.05f, playerRenderer.bounds.extents.x);
+        }
+
         return 0.25f;
     }
 
@@ -745,7 +853,11 @@ public class Player : MonoBehaviour
             sourceRenderer.enabled = false;
         }
 
-        if (!shootingVisualActive) characterRenderer.sprite = profile.IdleSprite;
+        if (!shootingVisualActive)
+        {
+            characterRenderer.sprite = profile.IdleSprite;
+        }
+
         characterRenderer.enabled = true;
         float spriteWidth = Mathf.Max(0.001f, profile.IdleSprite.bounds.size.x);
         float worldScale = profile.WorldWidth / spriteWidth;
@@ -1046,13 +1158,17 @@ public class Player : MonoBehaviour
 
         FrogProjectile frog = projectile.GetComponent<FrogProjectile>();
         if (frog != null && animalQueue != null && animalIndex >= 0)
+        {
             frog.ConfigureRunUpgrades(animalQueue.GetFrogJumpRadius(animalIndex),
                 animalQueue.GetFrogChorusRank(animalIndex), animalQueue.HasFrogUltimate(animalIndex));
+        }
 
         SquirrelProjectile squirrel = projectile.GetComponent<SquirrelProjectile>();
         if (squirrel != null && animalQueue != null && animalIndex >= 0)
+        {
             squirrel.ConfigureRunUpgrades(animalQueue.GetSquirrelEarlyExplosionChance(animalIndex),
                 animalQueue.GetSquirrelBindingRank(animalIndex), animalQueue.HasSquirrelUltimate(animalIndex));
+        }
 
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
         if (rb != null)
@@ -1079,17 +1195,26 @@ public class Player : MonoBehaviour
             else if (beaver != null)
             {
                 if (animalQueue != null && animalIndex >= 0)
+                {
                     beaver.ConfigureRunUpgrades(
                         animalQueue.GetBeaverDefenseHealthUpgradeLevel(animalIndex),
                         animalQueue.GetBeaverBonusDamage(animalIndex),
                         animalQueue.HasBeaverUltimate(animalIndex));
+                }
+
                 beaver.Launch(direction, launchSpeed);
             }
-            else projectilePhysics.Launch(direction, launchSpeed);
+            else
+            {
+                projectilePhysics.Launch(direction, launchSpeed);
+            }
         }
 
         // Shots still being emitted share the original deadline, not a fresh two seconds.
-        if (recallRequested && animal != null) animal.DropDown(recallDeadline);
+        if (recallRequested && animal != null)
+        {
+            animal.DropDown(recallDeadline);
+        }
     }
 
     private static Vector2 RotateDirection(Vector2 direction, float degrees)
@@ -1112,7 +1237,11 @@ public class Player : MonoBehaviour
     }
     public void DropDownBalls()
     {
-        if (!HasActiveProjectiles) return;
+        if (!HasActiveProjectiles)
+        {
+            return;
+        }
+
         BlockInputUntilReleased();
         if (volleyOwner != null && !volleyOwner.recallRequested)
         {
@@ -1122,7 +1251,10 @@ public class Player : MonoBehaviour
         float deadline = volleyOwner != null ? volleyOwner.recallDeadline : Time.time + Animal.RecallTimeout;
         for(int i = 0; i < animalsCollect.Count; i++)
         {
-            if (animalsCollect[i] != null) animalsCollect[i].DropDown(deadline);
+            if (animalsCollect[i] != null)
+            {
+                animalsCollect[i].DropDown(deadline);
+            }
         }
     }
 }

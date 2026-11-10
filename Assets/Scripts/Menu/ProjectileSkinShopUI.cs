@@ -40,7 +40,11 @@ public sealed class ProjectileSkinShopUI : MonoBehaviour
 
     private void Bind()
     {
-        if (bound) return;
+        if (bound)
+        {
+            return;
+        }
+
         bound = true;
         CloseButton.onClick.AddListener(Close);
         for (int i = 0; i < Cards.Length; i++)
@@ -73,14 +77,22 @@ public sealed class ProjectileSkinShopUI : MonoBehaviour
     public void Close() => gameObject.SetActive(false);
     public void Refresh()
     {
-        if (Wallet == null || Cards == null) return;
+        if (Wallet == null || Cards == null)
+        {
+            return;
+        }
+
         Wallet.text = "БРИЛЛИАНТЫ  " + MetaProgression.Diamonds;
         for (int i = 0; i < Cards.Length; i++)
         {
             var skin = ProjectileSkins.Get(i);
             var card = Cards[i];
             card.Action.transform.parent.gameObject.SetActive(skin != null);
-            if (skin == null) continue;
+            if (skin == null)
+            {
+                continue;
+            }
+
             bool owned = ProjectileSkins.IsOwned(i), equipped = ProjectileSkins.IsEquipped(i);
             card.Preview.sprite = skin.Artwork;
             card.ProjectileName.text = skin.ProjectileName;
@@ -98,7 +110,11 @@ public sealed class ProjectileSkinShopUI : MonoBehaviour
     }
     public void AcquireOrEquip(int index)
     {
-        if (!Application.isPlaying) return;
+        if (!Application.isPlaying)
+        {
+            return;
+        }
+
         bool owned = ProjectileSkins.IsOwned(index);
         bool success = owned ? ProjectileSkins.TryEquip(index, true) : ProjectileSkins.TryBuy(index);
         Refresh();
@@ -108,7 +124,11 @@ public sealed class ProjectileSkinShopUI : MonoBehaviour
     }
     public void UseOriginal(int index)
     {
-        if (!Application.isPlaying || !ProjectileSkins.TryEquip(index, false)) return;
+        if (!Application.isPlaying || !ProjectileSkins.TryEquip(index, false))
+        {
+            return;
+        }
+
         Refresh();
         Feedback.text = "Выбран обычный облик. Купленный скин сохранён.";
     }

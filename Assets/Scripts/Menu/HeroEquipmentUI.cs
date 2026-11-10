@@ -32,11 +32,21 @@ public sealed class HeroEquipmentUI
 
     public static HeroEquipmentUI Ensure(MenuHubController owner)
     {
-        if (owner.tabs == null || owner.tabs.Length < 2 || owner.tabs[1].page == null) return null;
+        if (owner.tabs == null || owner.tabs.Length < 2 || owner.tabs[1].page == null)
+        {
+            return null;
+        }
+
         var ui = new HeroEquipmentUI { hub = owner };
         Transform page = owner.tabs[1].page.transform;
-        if (page.Find("Hero Equipment Runtime") != null) ui.BindExisting(page);
-        else if (!Application.isPlaying) ui.Build(page);
+        if (page.Find("Hero Equipment Runtime") != null)
+        {
+            ui.BindExisting(page);
+        }
+        else if (!Application.isPlaying)
+        {
+            ui.Build(page);
+        }
         else
         {
             Debug.LogError("The editable artifact UI is missing from UIscene. "
@@ -44,7 +54,11 @@ public sealed class HeroEquipmentUI
             return null;
         }
         owner.tabs[1].title = "Артефакты";
-        if (owner.tabs[1].buttonLabel != null) owner.tabs[1].buttonLabel.text = "АРТЕФАКТЫ";
+        if (owner.tabs[1].buttonLabel != null)
+        {
+            owner.tabs[1].buttonLabel.text = "АРТЕФАКТЫ";
+        }
+
         ui.Refresh();
         return ui;
     }
@@ -94,8 +108,9 @@ public sealed class HeroEquipmentUI
         // Migrate the old left-anchored layout once. Keep later Inspector edits intact.
         if (!Application.isPlaying
             && ((RectTransform)content.Find("Hero Stage")).anchorMin.x < 0.49f)
+        {
             ApplyCenteredSlotLayout(content);
-
+        }
     }
 
     private static void CenterTop(RectTransform rect, float centerX, float y, float width, float height)
@@ -142,7 +157,10 @@ public sealed class HeroEquipmentUI
 
     public void CloseDialog()
     {
-        if (dialog != null) dialog.SetActive(false);
+        if (dialog != null)
+        {
+            dialog.SetActive(false);
+        }
     }
 
     public void Refresh()
@@ -152,7 +170,11 @@ public sealed class HeroEquipmentUI
         {
             int artifact = MetaProgression.GetEquippedArtifact(i);
             MetaArtifactDefinition definition = MetaProgression.GetArtifactDefinition(artifact);
-            if (definition != null) equipped++;
+            if (definition != null)
+            {
+                equipped++;
+            }
+
             slotMarks[i].text = definition != null ? definition.Mark : "◇";
             if (slotIcons[i] != null)
             {
@@ -165,11 +187,20 @@ public sealed class HeroEquipmentUI
         }
         int count = 0;
         for (int artifact = 0; artifact < MetaProgression.ArtifactCount; artifact++)
+        {
             if (MetaProgression.AvailableArtifactAmount(artifact) > 0 && count < bagContents.Length)
+            {
                 bagContents[count++] = artifact;
+            }
+        }
+
         for (int cell = 0; cell < bag.Length; cell++)
         {
-            if (cell >= count) bagContents[cell] = -1;
+            if (cell >= count)
+            {
+                bagContents[cell] = -1;
+            }
+
             MetaArtifactDefinition definition = MetaProgression.GetArtifactDefinition(bagContents[cell]);
             bagMarks[cell].text = definition == null ? "◇" : definition.Mark;
             bagNames[cell].text = definition == null ? "" : definition.Name;
@@ -182,32 +213,52 @@ public sealed class HeroEquipmentUI
                 bagIcons[cell].enabled = definition != null;
                 bagMarks[cell].enabled = definition == null;
             }
-            if (bagQuantities[cell] != null) bagQuantities[cell].text = definition != null
+            if (bagQuantities[cell] != null)
+            {
+                bagQuantities[cell].text = definition != null
                 ? "×" + MetaProgression.AvailableArtifactAmount(bagContents[cell]) : "";
-
+            }
         }
         bagCount.text = "РЮКЗАК  ·  " + count + " ВИДОВ";
-        if (contentRect != null) contentRect.sizeDelta = new Vector2(0f, 1100f + Mathf.Max(4, (count + 3) / 4) * 244f);
+        if (contentRect != null)
+        {
+            contentRect.sizeDelta = new Vector2(0f, 1100f + Mathf.Max(4, (count + 3) / 4) * 244f);
+        }
+
         equippedCount.text = "НАДЕТО " + equipped + " / " + slots.Length;
         hint.text = selectedSlot >= 0
             ? "Выбрана ячейка " + (selectedSlot + 1) + ". Выбери артефакт из рюкзака."
             : "Выбери ячейку рядом с героем или артефакт в рюкзаке.";
         if (count == 0 && equipped == 0)
+        {
             hint.text = "Рюкзак пока пуст. Артефакты продаются в Лесной лавке.";
-        if (IsDialogOpen) RefreshDetail();
+        }
+
+        if (IsDialogOpen)
+        {
+            RefreshDetail();
+        }
     }
 
     private void SelectSlot(int slot)
     {
         selectedSlot = slot;
         int artifact = MetaProgression.GetEquippedArtifact(slot);
-        if (artifact >= 0) OpenArtifact(artifact);
+        if (artifact >= 0)
+        {
+            OpenArtifact(artifact);
+        }
+
         Refresh();
     }
 
     private void OpenArtifact(int artifact)
     {
-        if (!MetaProgression.IsArtifactOwned(artifact)) return;
+        if (!MetaProgression.IsArtifactOwned(artifact))
+        {
+            return;
+        }
+
         hub.CloseDialogs();
         selectedArtifact = artifact;
         dialog.SetActive(true);
@@ -218,7 +269,11 @@ public sealed class HeroEquipmentUI
     private void RefreshDetail()
     {
         MetaArtifactDefinition definition = MetaProgression.GetArtifactDefinition(selectedArtifact);
-        if (definition == null) return;
+        if (definition == null)
+        {
+            return;
+        }
+
         int currentSlot = MetaProgression.GetArtifactSlot(selectedArtifact);
         int target = selectedSlot >= 0 ? selectedSlot : MetaProgression.GetFirstEmptyEquipmentSlot();
         artifactName.text = definition.Name;
@@ -227,20 +282,34 @@ public sealed class HeroEquipmentUI
         remove.gameObject.SetActive(currentSlot >= 0);
         equip.interactable = target >= 0;
         if (currentSlot >= 0)
+        {
             artifactActionHint.text = "Надет в ячейке " + (currentSlot + 1) + ". Бонус активен.";
+        }
         else if (target < 0)
+        {
             artifactActionHint.text = "Все ячейки заняты. Сними один из надетых артефактов.";
+        }
         else
+        {
             artifactActionHint.text = "Надеть в ячейку " + (target + 1) + "."
                 + (MetaProgression.GetEquippedArtifact(target) >= 0
                     ? "\nПредыдущий артефакт вернётся в рюкзак." : "");
+        }
     }
 
     private void EquipSelected()
     {
-        if (!Application.isPlaying) return;
+        if (!Application.isPlaying)
+        {
+            return;
+        }
+
         int target = selectedSlot >= 0 ? selectedSlot : MetaProgression.GetFirstEmptyEquipmentSlot();
-        if (!MetaProgression.TryEquipArtifact(selectedArtifact, target)) return;
+        if (!MetaProgression.TryEquipArtifact(selectedArtifact, target))
+        {
+            return;
+        }
+
         selectedSlot = -1;
         CloseDialog();
         Refresh();
@@ -248,8 +317,16 @@ public sealed class HeroEquipmentUI
 
     private void RemoveSelected()
     {
-        if (!Application.isPlaying) return;
-        if (!MetaProgression.TryUnequipArtifact(MetaProgression.GetArtifactSlot(selectedArtifact))) return;
+        if (!Application.isPlaying)
+        {
+            return;
+        }
+
+        if (!MetaProgression.TryUnequipArtifact(MetaProgression.GetArtifactSlot(selectedArtifact)))
+        {
+            return;
+        }
+
         selectedSlot = -1;
         CloseDialog();
         Refresh();

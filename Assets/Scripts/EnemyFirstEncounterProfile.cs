@@ -38,8 +38,16 @@ public sealed class EnemyFirstEncounterProfile : MonoBehaviour
 
     private void OnValidate()
     {
-        if (string.IsNullOrWhiteSpace(enemyTypeId)) enemyTypeId = "enemy";
-        if (string.IsNullOrWhiteSpace(displayName)) displayName = "Противник";
+        if (string.IsNullOrWhiteSpace(enemyTypeId))
+        {
+            enemyTypeId = "enemy";
+        }
+
+        if (string.IsNullOrWhiteSpace(displayName))
+        {
+            displayName = "Противник";
+        }
+
         accentColor.a = 1f;
     }
 }

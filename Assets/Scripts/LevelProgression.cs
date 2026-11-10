@@ -297,15 +297,27 @@ public class LevelProgression : MonoBehaviour
 
     public int GetZombieCountPerWave(int levelNumber, int defenseLine, int roomIndex)
     {
-        if (zombieSpawnRules == null) return 0;
+        if (zombieSpawnRules == null)
+        {
+            return 0;
+        }
+
         int result = 0;
         int bestSpecificity = -1;
         for (int i = 0; i < zombieSpawnRules.Count; i++)
         {
             ZombieSpawnRule rule = zombieSpawnRules[i];
-            if (rule == null || !rule.Matches(levelNumber, defenseLine, roomIndex)) continue;
+            if (rule == null || !rule.Matches(levelNumber, defenseLine, roomIndex))
+            {
+                continue;
+            }
+
             int specificity = rule.Specificity;
-            if (specificity < bestSpecificity) continue;
+            if (specificity < bestSpecificity)
+            {
+                continue;
+            }
+
             bestSpecificity = specificity;
             result = Mathf.Max(0, rule.zombiesPerWave);
         }
@@ -319,15 +331,27 @@ public class LevelProgression : MonoBehaviour
 
     public int GetArmoredSkeletonCountPerWave(int levelNumber, int defenseLine, int roomIndex)
     {
-        if (armoredSkeletonSpawnRules == null) return 0;
+        if (armoredSkeletonSpawnRules == null)
+        {
+            return 0;
+        }
+
         int result = 0;
         int bestSpecificity = -1;
         for (int i = 0; i < armoredSkeletonSpawnRules.Count; i++)
         {
             ArmoredSkeletonSpawnRule rule = armoredSkeletonSpawnRules[i];
-            if (rule == null || !rule.Matches(levelNumber, defenseLine, roomIndex)) continue;
+            if (rule == null || !rule.Matches(levelNumber, defenseLine, roomIndex))
+            {
+                continue;
+            }
+
             int specificity = rule.Specificity;
-            if (specificity < bestSpecificity) continue;
+            if (specificity < bestSpecificity)
+            {
+                continue;
+            }
+
             bestSpecificity = specificity;
             result = Mathf.Max(0, rule.armoredSkeletonsPerWave);
         }
@@ -374,7 +398,11 @@ public class LevelProgression : MonoBehaviour
             campaignWavePlans.Add(safeLevel, plan);
         }
         int total = 0;
-        foreach (int count in plan.Values) total += count;
+        foreach (int count in plan.Values)
+        {
+            total += count;
+        }
+
         return total + GetScriptedEnemyReserve(levelNumber);
     }
 
@@ -382,7 +410,10 @@ public class LevelProgression : MonoBehaviour
     {
         int total = 0;
         for (int wave = 1; wave <= CampaignWavesPerRoom; wave++)
+        {
             total += GetCampaignWaveEnemyCount(levelNumber, defenseLine, roomIndex, wave);
+        }
+
         return total;
     }
 
@@ -408,7 +439,11 @@ public class LevelProgression : MonoBehaviour
         {
             for (int room = 1; room <= line * 2 - 1; room++)
             {
-                if (!IsCampaignRoomActive(levelNumber, line, room)) continue;
+                if (!IsCampaignRoomActive(levelNumber, line, room))
+                {
+                    continue;
+                }
+
                 if (line >= 2)
                 {
                     // Project all five finite waves without kills. Actual waves
@@ -427,7 +462,9 @@ public class LevelProgression : MonoBehaviour
                 int roomTotal = RandomRoomEnemyTotal(line);
                 int[] waves = DistributeRoomTotal(roomTotal, GetCampaignWaveEnemyLimit(line));
                 for (int wave = 1; wave <= CampaignWavesPerRoom; wave++)
+                {
                     result[CampaignWaveKey(line, room, wave)] = waves[wave - 1];
+                }
             }
         }
         return result;
@@ -438,8 +475,11 @@ public class LevelProgression : MonoBehaviour
         int safeTotal = Mathf.Max(0, roomTotal);
         int safeLimit = Mathf.Max(1, perWaveLimit);
         if (safeTotal > CampaignWavesPerRoom * safeLimit)
+        {
             throw new InvalidOperationException("Campaign room budget " + safeTotal
                 + " exceeds five-wave capacity " + (CampaignWavesPerRoom * safeLimit) + ".");
+        }
+
         float[] weights = { 0.20f, 0.20f, 0.20f, 0.20f, 0.20f };
         var counts = new int[CampaignWavesPerRoom];
         int remaining = safeTotal;
@@ -454,7 +494,11 @@ public class LevelProgression : MonoBehaviour
             float bestRemainder = float.NegativeInfinity;
             for (int wave = 0; wave < counts.Length; wave++)
             {
-                if (counts[wave] >= safeLimit) continue;
+                if (counts[wave] >= safeLimit)
+                {
+                    continue;
+                }
+
                 float remainder = safeTotal * weights[wave] - counts[wave];
                 if (remainder > bestRemainder)
                 {
@@ -463,7 +507,10 @@ public class LevelProgression : MonoBehaviour
                 }
             }
             if (bestWave < 0)
+            {
                 throw new InvalidOperationException("Campaign waves have no room for the enemy budget.");
+            }
+
             counts[bestWave]++;
             remaining--;
         }
@@ -518,7 +565,11 @@ public class LevelProgression : MonoBehaviour
     public bool IsRoomActive(int levelNumber, int defenseLine, int roomIndex)
     {
         if (defenseLine < 1 || defenseLine > 4 || roomIndex < 1
-            || roomIndex > defenseLine * 2 - 1) return false;
+            || roomIndex > defenseLine * 2 - 1)
+        {
+            return false;
+        }
+
         return defenseLine <= FinalCampaignLineForLevel(levelNumber);
     }
 
@@ -527,8 +578,16 @@ public class LevelProgression : MonoBehaviour
     public static int FinalCampaignLineForLevel(int levelNumber)
     {
         int local = LocalLevelFor(levelNumber);
-        if (local <= 2) return 2;
-        if (local <= 4) return 3;
+        if (local <= 2)
+        {
+            return 2;
+        }
+
+        if (local <= 4)
+        {
+            return 3;
+        }
+
         return 4;
     }
 
@@ -552,7 +611,11 @@ public class LevelProgression : MonoBehaviour
 
     public BossKind GetBossKind(int levelNumber, int defenseLine, int roomIndex)
     {
-        if (!IsBossRoomPosition(defenseLine, roomIndex)) return BossKind.None;
+        if (!IsBossRoomPosition(defenseLine, roomIndex))
+        {
+            return BossKind.None;
+        }
+
         levelNumber = Mathf.Clamp(levelNumber, 1, MaxLevel);
         GameLevelBalance level = FindLevel(levelNumber);
         List<BossKind> bosses = level != null && HasValidBosses(level)
@@ -625,16 +688,27 @@ public class LevelProgression : MonoBehaviour
 
     private static bool HasValidBosses(GameLevelBalance level)
     {
-        if (level.bosses == null || level.bosses.Count != 3) return false;
+        if (level.bosses == null || level.bosses.Count != 3)
+        {
+            return false;
+        }
+
         for (int i = 0; i < 3; i++)
         {
             BossKind kind = level.bosses[i];
             if (kind == BossKind.None || kind == BossKind.BoneDragonMini
-                || level.bosses.IndexOf(kind) != i) return false;
+                || level.bosses.IndexOf(kind) != i)
+            {
+                return false;
+            }
+
             int dragonLocation = kind == BossKind.BoneDragon ? 1 : kind == BossKind.GhostlySorrow ? 2
                 : kind == BossKind.PoisonousGloom ? 3 : 0;
             if (dragonLocation > 0 && (LocationIndexForLevel(level.levelNumber) != dragonLocation
-                || LocalLevelFor(level.levelNumber) != LevelsPerLocation || i != 2)) return false;
+                || LocalLevelFor(level.levelNumber) != LevelsPerLocation || i != 2))
+            {
+                return false;
+            }
         }
         return true;
     }
@@ -643,7 +717,10 @@ public class LevelProgression : MonoBehaviour
     {
         // Victory is normally recorded by GameManager as soon as it happens.
         // Keep this call as a safe fallback for old scenes and saved button bindings.
-        if (!GameRunMode.IsDeveloperRun) RecordLevelCompletion(currentLevel);
+        if (!GameRunMode.IsDeveloperRun)
+        {
+            RecordLevelCompletion(currentLevel);
+        }
 
         if (!HasNextLevel)
         {
@@ -651,11 +728,18 @@ public class LevelProgression : MonoBehaviour
         }
 
         currentLevel++;
-        if (!GameRunMode.IsDeveloperRun) UnlockLevel(currentLevel);
+        if (!GameRunMode.IsDeveloperRun)
+        {
+            UnlockLevel(currentLevel);
+        }
+
         PlayerPrefs.SetInt(MenuSelectedLevelKey, currentLevel);
         PlayerPrefs.SetInt(RequestedLevelKey, currentLevel);
         if (!GameRunMode.IsDeveloperRun)
+        {
             PlayerPrefs.SetInt(LegacyCurrentLevelKey, currentLevel);
+        }
+
         PlayerPrefs.Save();
         return true;
     }
@@ -740,7 +824,11 @@ public class LevelProgression : MonoBehaviour
     {
         campaignWavePlans.Clear();
         List<GameLevelBalance> defaults = CreateDefaultLevels();
-        if (levels == null) levels = new List<GameLevelBalance>();
+        if (levels == null)
+        {
+            levels = new List<GameLevelBalance>();
+        }
+
         levels.RemoveAll(level => level == null || level.levelNumber < 1 || level.levelNumber > MaxLevel);
         for (int i = 0; i < defaults.Count; i++)
         {
@@ -752,7 +840,10 @@ public class LevelProgression : MonoBehaviour
                 continue;
             }
             if (level.defenseLines == null || level.defenseLines.Count == 0)
+            {
                 level.defenseLines = fallback.defenseLines;
+            }
+
             for (int line = 0; line < level.defenseLines.Count; line++)
             {
                 DefenseLineBalance balance = level.defenseLines[line];
@@ -761,18 +852,37 @@ public class LevelProgression : MonoBehaviour
             }
             level.activeFourthLineRooms = new List<int> { 1, 2, 3, 4, 5, 6, 7 };
             level.bossRoomIndex = 4;
-            if (!HasValidBosses(level)) level.bosses = fallback.bosses;
-            if (level.specialistSlots == null) level.specialistSlots = new List<int>();
+            if (!HasValidBosses(level))
+            {
+                level.bosses = fallback.bosses;
+            }
+
+            if (level.specialistSlots == null)
+            {
+                level.specialistSlots = new List<int>();
+            }
+
             level.specialistSlots.RemoveAll(slot => slot < 1 || slot > 4);
-            if (level.specialistSlots.Count == 0) level.specialistSlots = fallback.specialistSlots;
+            if (level.specialistSlots.Count == 0)
+            {
+                level.specialistSlots = fallback.specialistSlots;
+            }
             // Migrate old side-room Mirage encounters to the only outer boss room.
             if (level.mirageRoomIndices != null && level.mirageRoomIndices.Count > 0)
+            {
                 level.mirageRoomIndices = new List<int> { 4 };
+            }
         }
         levels.Sort((left, right) => left.levelNumber.CompareTo(right.levelNumber));
-        if (zombieSpawnRules == null) zombieSpawnRules = CreateDefaultZombieRules();
+        if (zombieSpawnRules == null)
+        {
+            zombieSpawnRules = CreateDefaultZombieRules();
+        }
+
         if (armoredSkeletonSpawnRules == null || armoredSkeletonSpawnRules.Count == 0)
+        {
             armoredSkeletonSpawnRules = CreateDefaultArmoredSkeletonRules();
+        }
     }
 
     private static List<ZombieSpawnRule> CreateDefaultZombieRules()

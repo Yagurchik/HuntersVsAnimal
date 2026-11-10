@@ -22,14 +22,20 @@ public sealed class EnemyDarknessVisibility : MonoBehaviour
     private void OnTransformParentChanged()
     {
         parentDarkness = GetComponentInParent<RoomDarkness>(true);
-        if (isActiveAndEnabled) RefreshVisibility();
+        if (isActiveAndEnabled)
+        {
+            RefreshVisibility();
+        }
     }
 
     private void OnTransformChildrenChanged()
     {
         RestoreVisuals();
         CacheVisuals();
-        if (isActiveAndEnabled) RefreshVisibility();
+        if (isActiveAndEnabled)
+        {
+            RefreshVisibility();
+        }
     }
 
     private void CacheVisuals()
@@ -44,7 +50,11 @@ public sealed class EnemyDarknessVisibility : MonoBehaviour
 
     public void RefreshVisibility()
     {
-        if (visuals == null) CacheVisuals();
+        if (visuals == null)
+        {
+            CacheVisuals();
+        }
+
         RoomDarkness darkness = enemy != null && enemy.levelGenerator != null
             ? enemy.levelGenerator.Darkness : parentDarkness;
         bool hide = isActiveAndEnabled && darkness != null && !darkness.IsVisible(transform.position);
@@ -56,13 +66,24 @@ public sealed class EnemyDarknessVisibility : MonoBehaviour
 
         for (int i = 0; i < visuals.Length; i++)
         {
-            if (visuals[i] == null) continue;
+            if (visuals[i] == null)
+            {
+                continue;
+            }
+
             visuals[i].forceRenderingOff = true;
         }
         for (int i = 0; i < healthGraphics.Length; i++)
         {
-            if (healthGraphics[i] == null) continue;
-            if (!IsHidden) previousAlpha[i] = healthGraphics[i].GetAlpha();
+            if (healthGraphics[i] == null)
+            {
+                continue;
+            }
+
+            if (!IsHidden)
+            {
+                previousAlpha[i] = healthGraphics[i].GetAlpha();
+            }
             // CanvasRenderer alpha is transient: editor previews do not save disabled HP UI.
             healthGraphics[i].SetAlpha(0f);
         }
@@ -73,15 +94,34 @@ public sealed class EnemyDarknessVisibility : MonoBehaviour
 
     private void RestoreVisuals()
     {
-        if (visuals == null) return;
+        if (visuals == null)
+        {
+            return;
+        }
         // This is the only component that uses forceRenderingOff on enemies.
         // Always clear it when visible: a cached flag can survive a room transfer
         // or a visual child being rebuilt while the enemy is concealed.
         for (int i = 0; i < visuals.Length; i++)
-            if (visuals[i] != null) visuals[i].forceRenderingOff = false;
-        if (!IsHidden) return;
+        {
+            if (visuals[i] != null)
+            {
+                visuals[i].forceRenderingOff = false;
+            }
+        }
+
+        if (!IsHidden)
+        {
+            return;
+        }
+
         for (int i = 0; i < healthGraphics.Length; i++)
-            if (healthGraphics[i] != null) healthGraphics[i].SetAlpha(previousAlpha[i]);
+        {
+            if (healthGraphics[i] != null)
+            {
+                healthGraphics[i].SetAlpha(previousAlpha[i]);
+            }
+        }
+
         IsHidden = false;
     }
 }

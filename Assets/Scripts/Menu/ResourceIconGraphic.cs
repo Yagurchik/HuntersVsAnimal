@@ -83,7 +83,10 @@ public sealed class ResourceIconGraphic : MaskableGraphic
             float y = Mathf.Sin(angle) * radiusY;
             mesh.AddVert(Point(center + new Vector2(x * cosine - y * sine,
                 x * sine + y * cosine)), fill * color, Vector2.zero);
-            if (i > 0) mesh.AddTriangle(start, start + i, start + i + 1);
+            if (i > 0)
+            {
+                mesh.AddTriangle(start, start + i, start + i + 1);
+            }
         }
     }
 
@@ -91,9 +94,14 @@ public sealed class ResourceIconGraphic : MaskableGraphic
     {
         int start = mesh.currentVertCount;
         for (int i = 0; i < vertices.Length; i++)
+        {
             mesh.AddVert(Point(vertices[i]), fill * color, Vector2.zero);
+        }
+
         for (int i = 1; i < vertices.Length - 1; i++)
+        {
             mesh.AddTriangle(start, start + i, start + i + 1);
+        }
     }
 
     private Vector3 Point(Vector2 normalized)

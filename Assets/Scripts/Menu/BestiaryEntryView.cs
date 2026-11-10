@@ -42,17 +42,27 @@ public sealed class BestiaryEntryView : MonoBehaviour
     {
         Image background = GetComponent<Image>();
         if (background != null)
+        {
             background.color = value
                 ? new Color(0.33f, 0.38f, 0.24f, 1f)
                 : VillageUIStyle.Panel;
+        }
     }
 
     private void RefreshPreview()
     {
         Transform title = transform.Find("Name");
-        if (title != null) title.GetComponent<Text>().text = entryTitle;
+        if (title != null)
+        {
+            title.GetComponent<Text>().text = entryTitle;
+        }
+
         Transform subtitle = transform.Find("Subtitle");
-        if (subtitle != null) subtitle.GetComponent<Text>().text = entrySubtitle;
+        if (subtitle != null)
+        {
+            subtitle.GetComponent<Text>().text = entrySubtitle;
+        }
+
         Transform icon = transform.Find("Portrait");
         if (icon != null)
         {

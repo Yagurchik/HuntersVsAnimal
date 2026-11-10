@@ -78,7 +78,10 @@ public class RabbitReplication : ProjectileDamageModifier, IProjectileHitResolve
         {
             ActiveRabbits.Remove(this);
             countedAsLiving = false;
-            if (ActiveRabbits.Count == 0) sharedUltimateHitCount = 0;
+            if (ActiveRabbits.Count == 0)
+            {
+                sharedUltimateHitCount = 0;
+            }
         }
     }
 
@@ -101,7 +104,11 @@ public class RabbitReplication : ProjectileDamageModifier, IProjectileHitResolve
 
     public void OnProjectileHitResolved(Brick enemy, Vector2 impactPoint, Vector2 impactNormal)
     {
-        if (lifetimeEnded) return;
+        if (lifetimeEnded)
+        {
+            return;
+        }
+
         hitsSinceReplica++;
         totalEnemyHits++;
         // Scale the physics root so the visible rabbit and its collider grow together.
@@ -130,7 +137,10 @@ public class RabbitReplication : ProjectileDamageModifier, IProjectileHitResolve
             transform.localScale = originalScale;
         }
 
-        if (triggerUltimate) TriggerUltimateFluffClouds();
+        if (triggerUltimate)
+        {
+            TriggerUltimateFluffClouds();
+        }
 
         if (totalEnemyHits >= MaximumLifetimeHits)
         {
@@ -166,7 +176,9 @@ public class RabbitReplication : ProjectileDamageModifier, IProjectileHitResolve
             replicaAnimal.SetComboVolley(sourceAnimal.ComboVolleyId);
             replicaAnimal.SetCombatSource(sourceAnimal.CombatSource);
             if (sourceAnimal.ReturnPlayer != null)
+            {
                 replicaAnimal.SetReturnTarget(sourceAnimal.ReturnPlayer.gameObject);
+            }
         }
 
         RabbitReplication replication = replica.GetComponent<RabbitReplication>();
@@ -195,7 +207,10 @@ public class RabbitReplication : ProjectileDamageModifier, IProjectileHitResolve
     {
         Stage stage = sourceAnimal != null && sourceAnimal.ReturnPlayer != null
             ? sourceAnimal.ReturnPlayer.GetComponentInParent<Stage>() : null;
-        if (stage == null) return;
+        if (stage == null)
+        {
+            return;
+        }
 
         Bounds field = stage.GetViewBounds();
         float radius = Mathf.Max(0.02f, ProjectilePhysics2D.GetCollisionRadius(projectilePrefab));
@@ -203,7 +218,10 @@ public class RabbitReplication : ProjectileDamageModifier, IProjectileHitResolve
         float maxX = field.max.x - radius;
         float minY = field.min.y + radius;
         float maxY = field.max.y - radius;
-        if (minX > maxX || minY > maxY) return;
+        if (minX > maxX || minY > maxY)
+        {
+            return;
+        }
 
         Vector2 desired = spawnPosition;
         bool crossedLeft = desired.x < minX;
@@ -215,11 +233,20 @@ public class RabbitReplication : ProjectileDamageModifier, IProjectileHitResolve
 
         if ((crossedLeft && replicaDirection.x < 0f)
             || (crossedRight && replicaDirection.x > 0f))
+        {
             replicaDirection.x = -replicaDirection.x;
+        }
+
         if ((crossedBottom && replicaDirection.y < 0f)
             || (crossedTop && replicaDirection.y > 0f))
+        {
             replicaDirection.y = -replicaDirection.y;
-        if (replicaDirection.sqrMagnitude > 0.0001f) replicaDirection.Normalize();
+        }
+
+        if (replicaDirection.sqrMagnitude > 0.0001f)
+        {
+            replicaDirection.Normalize();
+        }
     }
 
     private void TriggerUltimateFluffClouds()
@@ -229,7 +256,11 @@ public class RabbitReplication : ProjectileDamageModifier, IProjectileHitResolve
         for (int i = 0; i < snapshot.Length; i++)
         {
             RabbitReplication rabbit = snapshot[i];
-            if (rabbit == null || !rabbit.isActiveAndEnabled) continue;
+            if (rabbit == null || !rabbit.isActiveAndEnabled)
+            {
+                continue;
+            }
+
             RabbitFluffExplosion.Create(rabbit.transform.position, rabbit.FluffCloudRadius,
                 Mathf.Max(0f, rabbit.ultimateFluffDamage),
                 rabbit.GetComponentInChildren<SpriteRenderer>(true));
@@ -239,7 +270,12 @@ public class RabbitReplication : ProjectileDamageModifier, IProjectileHitResolve
     private static void RemoveDestroyedRabbits()
     {
         for (int i = ActiveRabbits.Count - 1; i >= 0; i--)
-            if (ActiveRabbits[i] == null) ActiveRabbits.RemoveAt(i);
+        {
+            if (ActiveRabbits[i] == null)
+            {
+                ActiveRabbits.RemoveAt(i);
+            }
+        }
     }
 
     private void OnValidate()
@@ -299,14 +335,21 @@ public sealed class RabbitFluffExplosion : MonoBehaviour
 
     private void DamageEnemies(float damage)
     {
-        if (damage <= 0f) return;
+        if (damage <= 0f)
+        {
+            return;
+        }
+
         int count = Physics2D.OverlapCircleNonAlloc(transform.position, radius, HitBuffer);
         for (int i = 0; i < count; i++)
         {
             Collider2D hit = HitBuffer[i];
             Brick enemy = hit != null ? hit.GetComponentInParent<Brick>() : null;
             if (enemy != null && !enemy.IsDefeated && damagedEnemies.Add(enemy))
+            {
                 enemy.TakeDamage(damage, CombatDamageSource.Rabbit);
+            }
+
             HitBuffer[i] = null;
         }
     }
@@ -369,7 +412,10 @@ public sealed class RabbitFluffExplosion : MonoBehaviour
         elapsed += Time.deltaTime;
         float progress = Mathf.Clamp01(elapsed / Duration);
         UpdateMesh(progress);
-        if (progress >= 1f) Destroy(gameObject);
+        if (progress >= 1f)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void UpdateMesh(float progress)
@@ -404,8 +450,14 @@ public sealed class RabbitFluffExplosion : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (mesh != null) Destroy(mesh);
+        if (mesh != null)
+        {
+            Destroy(mesh);
+        }
+
         if (ownsMaterial && meshRenderer != null && meshRenderer.sharedMaterial != null)
+        {
             Destroy(meshRenderer.sharedMaterial);
+        }
     }
 }

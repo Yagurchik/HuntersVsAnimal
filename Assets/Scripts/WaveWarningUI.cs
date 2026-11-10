@@ -20,7 +20,11 @@ public sealed class WaveWarningUI : MonoBehaviour
 
     public static bool Show(int defenseLine, int waveNumber, bool endless = false)
     {
-        if (instance == null) instance = FindObjectOfType<WaveWarningUI>(true);
+        if (instance == null)
+        {
+            instance = FindObjectOfType<WaveWarningUI>(true);
+        }
+
         if (instance == null || instance.canvasGroup == null || instance.label == null)
         {
             if (!missingWarningLogged)
@@ -53,7 +57,11 @@ public sealed class WaveWarningUI : MonoBehaviour
 
     private void ShowMessage(int defenseLine, int waveNumber, bool endless)
     {
-        if (warningAnimation != null) StopCoroutine(warningAnimation);
+        if (warningAnimation != null)
+        {
+            StopCoroutine(warningAnimation);
+        }
+
         label.text = endless
             ? "ЛИНИЯ " + defenseLine + "  ·  ВОЛНА " + waveNumber + " ПРИБЛИЖАЕТСЯ"
             : "ЛИНИЯ " + defenseLine + "  ·  ВОЛНА " + waveNumber + "/"
@@ -83,6 +91,9 @@ public sealed class WaveWarningUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (instance == this) instance = null;
+        if (instance == this)
+        {
+            instance = null;
+        }
     }
 }

@@ -54,7 +54,11 @@ public class DefenseFrontUI : MonoBehaviour
                 typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster), typeof(DefenseFrontUI));
             ui = root.GetComponent<DefenseFrontUI>();
         }
-        if (ui.mapPanel == null) ui.BuildInterface();
+        if (ui.mapPanel == null)
+        {
+            ui.BuildInterface();
+        }
+
         ui.GetComponent<Canvas>().sortingOrder = 240;
         ui.Bind(runtime, game);
         return ui;
@@ -66,22 +70,38 @@ public class DefenseFrontUI : MonoBehaviour
         if (game != null && game.Clock != null && mapPanel != null)
         {
             Text title = mapPanel.transform.Find("Title/Label")?.GetComponent<Text>();
-            if (title != null) title.text = "ВЫЖИВАНИЕ · ЧАСЫ";
+            if (title != null)
+            {
+                title.text = "ВЫЖИВАНИЕ · ЧАСЫ";
+            }
         }
-        if (front != null) front.Changed -= MarkDirty;
+        if (front != null)
+        {
+            front.Changed -= MarkDirty;
+        }
+
         front = runtime;
         manager = game;
         front.Changed += MarkDirty;
         mapButton.onClick.RemoveAllListeners();
         mapButton.onClick.AddListener(ToggleMap);
         if (defendRoomButton == null)
+        {
             defendRoomButton = transform.Find("Safe Area/Defend Room Button")?.GetComponent<Button>();
+        }
+
         if (defendRoomButton != null)
         {
             if (defendRoomBackground == null)
+            {
                 defendRoomBackground = defendRoomButton.GetComponent<Image>();
+            }
+
             if (defendRoomLabel == null)
+            {
                 defendRoomLabel = defendRoomButton.transform.Find("Label")?.GetComponent<Text>();
+            }
+
             defendRoomButton.onClick.RemoveAllListeners();
             defendRoomButton.onClick.AddListener(ToggleDefendRoom);
         }
@@ -97,7 +117,10 @@ public class DefenseFrontUI : MonoBehaviour
             int captured = i;
             roomButtons[i].onClick.RemoveAllListeners();
             roomButtons[i].onClick.AddListener(() => {
-                if (front.FocusRoom(captured)) CloseMap();
+                if (front.FocusRoom(captured))
+                {
+                    CloseMap();
+                }
             });
         }
         CloseMap();
@@ -115,18 +138,36 @@ public class DefenseFrontUI : MonoBehaviour
 
     private void ToggleDefendRoom()
     {
-        if (front == null) return;
+        if (front == null)
+        {
+            return;
+        }
+
         front.ToggleDefendCurrentRoom();
         Refresh();
     }
     private void LateUpdate()
     {
-        if (manager == null || front == null) return;
+        if (manager == null || front == null)
+        {
+            return;
+        }
+
         bool canSwitch = manager.CanSwitchRooms;
         if (dirty || lastCanSwitch != canSwitch || lastEnded != manager.GameEnded)
+        {
             Refresh();
-        if (IsMapOpen) PulseDangerHalos();
-        if (IsMapOpen && Input.GetKeyDown(KeyCode.Escape)) CloseMap();
+        }
+
+        if (IsMapOpen)
+        {
+            PulseDangerHalos();
+        }
+
+        if (IsMapOpen && Input.GetKeyDown(KeyCode.Escape))
+        {
+            CloseMap();
+        }
     }
 
     public void ToggleMap()
@@ -137,8 +178,16 @@ public class DefenseFrontUI : MonoBehaviour
 
     public bool OpenMap(bool force = false)
     {
-        if (IsMapOpen) return true;
-        if (manager == null || (!force && !manager.CanSwitchRooms)) return false;
+        if (IsMapOpen)
+        {
+            return true;
+        }
+
+        if (manager == null || (!force && !manager.CanSwitchRooms))
+        {
+            return false;
+        }
+
         Player.BlockInputUntilReleased();
         mapPanel.SetActive(true);
         Refresh();
@@ -147,9 +196,16 @@ public class DefenseFrontUI : MonoBehaviour
 
     public void CloseMap()
     {
-        if (mapPanel != null) mapPanel.SetActive(false);
+        if (mapPanel != null)
+        {
+            mapPanel.SetActive(false);
+        }
+
         dirty = true;
-        if (Application.isPlaying) Player.BlockInputUntilReleased();
+        if (Application.isPlaying)
+        {
+            Player.BlockInputUntilReleased();
+        }
     }
 
     private void Refresh()
@@ -166,13 +222,22 @@ public class DefenseFrontUI : MonoBehaviour
                 && front.CanSelect(front.CurrentRoomId);
             bool defending = front.IsDefendingRoom;
             if (defendRoomBackground != null)
+            {
                 defendRoomBackground.color = defending
                     ? new Color(0.51f, 0.32f, 0.13f, 1f)
                     : new Color(0.15f, 0.30f, 0.22f, 1f);
+            }
+
             if (defendRoomLabel != null)
+            {
                 defendRoomLabel.text = defending ? "СНЯТЬ ЗАЩИТУ" : "ЗАЩИЩАТЬ КОМНАТУ";
+            }
         }
-        if (waitButton != null) waitButton.gameObject.SetActive(false);
+        if (waitButton != null)
+        {
+            waitButton.gameObject.SetActive(false);
+        }
+
         DefenseFront.Room selected = front.Model.GetRoom(front.CurrentRoomId);
         toolbarText.text = "КАРТА  ·  " + (selected != null ? selected.Label : "—")
             + "     БАРРИКАДА " + Mathf.CeilToInt(front.BarricadeHealth)
@@ -197,12 +262,20 @@ public class DefenseFrontUI : MonoBehaviour
 
     public void Preview(DefenseFront model, int selectedId, int level, bool showMap)
     {
-        if (Application.isPlaying) return;
+        if (Application.isPlaying)
+        {
+            return;
+        }
+
         BuildInterface();
         mapPanel.SetActive(showMap);
         mapButton.gameObject.SetActive(!showMap);
         mapButton.interactable = true;
-        if (waitButton != null) waitButton.gameObject.SetActive(false);
+        if (waitButton != null)
+        {
+            waitButton.gameObject.SetActive(false);
+        }
+
         toolbarText.text = "КАРТА  ·  " + model.GetRoom(selectedId).Label
             + "     ЗОЛОТО " + MetaProgression.Gold + "  (+" + model.Income(1) + "/ход)";
         statusText.text = LevelProgression.LocationNameForLevel(level) + " · УРОВЕНЬ "
@@ -214,7 +287,11 @@ public class DefenseFrontUI : MonoBehaviour
     private void RenderRooms(DefenseFront model, int selectedId, bool canSwitch, int goldPerRoom)
     {
         ClockSiegeDirector clock = model.IsClockLayout && manager != null ? manager.Clock : null;
-        if (clock != null) ApplyClockLayout(model);
+        if (clock != null)
+        {
+            ApplyClockLayout(model);
+        }
+
         foreach (DefenseFront.Room room in model.Rooms)
         {
             int id = room.Id;
@@ -251,7 +328,11 @@ public class DefenseFrontUI : MonoBehaviour
                     description = "ЗАКРЫТА";
                     break;
             }
-            if (clock != null) ClockAppearance(room, hidden, stormDark, ref color, ref description);
+            if (clock != null)
+            {
+                ClockAppearance(room, hidden, stormDark, ref color, ref description);
+            }
+
             roomLabels[id].text = room.Label + "\n" + description;
             roomBackgrounds[id].color = color;
             selectedBorders[id].enabled = id == selectedId;
@@ -264,7 +345,10 @@ public class DefenseFrontUI : MonoBehaviour
                 fill.rectTransform.anchorMax = new Vector2(1f, progress);
             }
             if (breachHalos != null && id < breachHalos.Length && breachHalos[id] != null)
+            {
                 breachHalos[id].enabled = front != null && !hidden && front.TurnsUntilRoomBreach(id) <= 1;
+            }
+
             bool showLight = room.State == DefenseFront.RoomState.Contested
                 || room.State == DefenseFront.RoomState.Secured || hidden;
             float lit = stormDark ? 0f : front != null ? front.RoomLitFraction(id) : 1f;
@@ -286,22 +370,33 @@ public class DefenseFrontUI : MonoBehaviour
             }
             roomButtons[id].interactable = canSwitch && room.CanSelect
                 && (front == null || front.CanFocusWhileDefending(id));
-            if (id > 0) connections[id - 1].color = room.State == DefenseFront.RoomState.Disabled
+            if (id > 0)
+            {
+                connections[id - 1].color = room.State == DefenseFront.RoomState.Disabled
                 ? new Color(0.11f, 0.12f, 0.12f, 0.45f)
                 : room.State == DefenseFront.RoomState.Lost
                 ? new Color(0.85f, 0.33f, 0.20f) : room.State == DefenseFront.RoomState.Locked
                     ? new Color(0.23f, 0.28f, 0.28f) : new Color(0.52f, 0.68f, 0.53f);
+            }
         }
     }
 
     private static void ClockAppearance(DefenseFront.Room room, bool hidden, bool stormDark,
         ref Color color, ref string description)
     {
-        if (room.State == DefenseFront.RoomState.Disabled) return;
+        if (room.State == DefenseFront.RoomState.Disabled)
+        {
+            return;
+        }
+
         if (!hidden)
         {
             // Seen enemies: show how many, but not whether more waves will come.
-            if (room.State == DefenseFront.RoomState.Contested) description = room.Enemies + " враг.";
+            if (room.State == DefenseFront.RoomState.Contested)
+            {
+                description = room.Enemies + " враг.";
+            }
+
             return;
         }
         color = stormDark ? new Color(0.13f, 0.10f, 0.19f)
@@ -315,12 +410,25 @@ public class DefenseFrontUI : MonoBehaviour
 
     private void ApplyClockLayout(DefenseFront model)
     {
-        if (roomBackgrounds == null) return;
+        if (roomBackgrounds == null)
+        {
+            return;
+        }
+
         bool changed = clockLayoutHours == null || clockLayoutHours.Length != model.Rooms.Count;
         if (!changed)
+        {
             for (int i = 0; i < model.Rooms.Count; i++)
+            {
                 changed |= clockLayoutHours[i] != model.Rooms[i].ClockHour;
-        if (!changed) return;
+            }
+        }
+
+        if (!changed)
+        {
+            return;
+        }
+
         clockLayoutHours = new int[model.Rooms.Count];
         Vector2 center = ClockGraphPosition(model.GetRoom(0));
         foreach (DefenseFront.Room room in model.Rooms)
@@ -351,14 +459,21 @@ public class DefenseFrontUI : MonoBehaviour
             {
                 connections[id - 1].gameObject.SetActive(shown);
                 DefenseMapConnection connection = connections[id - 1].GetComponent<DefenseMapConnection>();
-                if (connection != null && shown) connection.Configure(position, center);
+                if (connection != null && shown)
+                {
+                    connection.Configure(position, center);
+                }
             }
         }
     }
 
     private static Vector2 ClockGraphPosition(DefenseFront.Room room)
     {
-        if (room == null || room.ClockHour <= 0) return new Vector2(0.5f, 0.5f);
+        if (room == null || room.ClockHour <= 0)
+        {
+            return new Vector2(0.5f, 0.5f);
+        }
+
         float angle = (90f - room.ClockHour * 30f) * Mathf.Deg2Rad;
         return new Vector2(0.5f + 0.27f * Mathf.Cos(angle), 0.5f + 0.39f * Mathf.Sin(angle));
     }
@@ -368,15 +483,27 @@ public class DefenseFrontUI : MonoBehaviour
     {
         if (mapPanel != null) { EnsureThreatVisuals(); return; }
         Canvas canvas = GetComponent<Canvas>();
-        if (canvas == null) canvas = gameObject.AddComponent<Canvas>();
+        if (canvas == null)
+        {
+            canvas = gameObject.AddComponent<Canvas>();
+        }
+
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.sortingOrder = 240;
         CanvasScaler scaler = GetComponent<CanvasScaler>();
-        if (scaler == null) scaler = gameObject.AddComponent<CanvasScaler>();
+        if (scaler == null)
+        {
+            scaler = gameObject.AddComponent<CanvasScaler>();
+        }
+
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         scaler.referenceResolution = new Vector2(1080, 1920);
         scaler.matchWidthOrHeight = 0.5f;
-        if (GetComponent<GraphicRaycaster>() == null) gameObject.AddComponent<GraphicRaycaster>();
+        if (GetComponent<GraphicRaycaster>() == null)
+        {
+            gameObject.AddComponent<GraphicRaycaster>();
+        }
+
         RectTransform safe = Rect("Safe Area", transform);
         Stretch(safe, Vector2.zero, Vector2.one);
         safe.gameObject.AddComponent<MenuSafeArea>();
@@ -406,7 +533,11 @@ public class DefenseFrontUI : MonoBehaviour
         connections = new Image[15];
         foreach (DefenseFront.Room room in layout.Rooms)
         {
-            if (room.ParentId < 0) continue;
+            if (room.ParentId < 0)
+            {
+                continue;
+            }
+
             Vector2 from = GraphPosition(room);
             Vector2 to = GraphPosition(layout.GetRoom(room.ParentId));
             RectTransform edge = Panel(room.Label + " to parent", graph, new Color(0.4f, 0.55f, 0.43f));
@@ -454,11 +585,21 @@ public class DefenseFrontUI : MonoBehaviour
 
     private void EnsureThreatVisuals()
     {
-        if (roomBackgrounds == null || roomBackgrounds.Length == 0) return;
+        if (roomBackgrounds == null || roomBackgrounds.Length == 0)
+        {
+            return;
+        }
+
         if (breachFillColor.a <= 0f)
+        {
             breachFillColor = new Color(0.47f, 0.045f, 0.13f, 0.96f);
+        }
+
         if (breachHaloColor.a <= 0f)
+        {
             breachHaloColor = new Color(1f, 0.20f, 0.31f, 1f);
+        }
+
         Transform legend = mapPanel != null ? mapPanel.transform.Find("Legend/Label") : null;
         Text legendText = legend != null ? legend.GetComponent<Text>() : null;
         // Upgrade only the known older built-in legends; custom text is kept.
@@ -466,20 +607,39 @@ public class DefenseFrontUI : MonoBehaviour
             || legendText.text == "Золотая рамка — вы здесь · Зелёная — доход\n"
                 + "Бордовое заполнение — враг ближе к прорыву\n"
                 + "Мигающая рамка — прорыв через ход"))
+        {
             legendText.text = LegendText;
+        }
+
         if (lightMeterLit == null || lightMeterLit.Length != roomBackgrounds.Length)
+        {
             lightMeterLit = new Image[roomBackgrounds.Length];
+        }
+
         if (lightMeterDark == null || lightMeterDark.Length != roomBackgrounds.Length)
+        {
             lightMeterDark = new Image[roomBackgrounds.Length];
+        }
+
         if (breachFills == null || breachFills.Length != roomBackgrounds.Length)
+        {
             breachFills = new Image[roomBackgrounds.Length];
+        }
+
         if (breachHalos == null || breachHalos.Length != roomBackgrounds.Length)
+        {
             breachHalos = new Image[roomBackgrounds.Length];
+        }
+
         DefenseFront layout = new DefenseFront();
         for (int id = 0; id < roomBackgrounds.Length; id++)
         {
             Image node = roomBackgrounds[id];
-            if (node == null) continue;
+            if (node == null)
+            {
+                continue;
+            }
+
             if (breachFills[id] == null)
             {
                 Transform existing = node.transform.Find("Burgundy Breach Fill");
@@ -501,15 +661,23 @@ public class DefenseFrontUI : MonoBehaviour
                 Vector2 half = new Vector2(0.071f, 0.101f);
                 Stretch(halo, center - half, center + half);
                 if (selectedBorders != null && id < selectedBorders.Length && selectedBorders[id] != null)
+                {
                     halo.SetSiblingIndex(selectedBorders[id].transform.GetSiblingIndex());
+                }
+
                 breachHalos[id] = halo.GetComponent<Image>();
                 breachHalos[id].raycastTarget = false;
                 breachHalos[id].enabled = false;
             }
             if (lightMeterLit[id] == null)
+            {
                 lightMeterLit[id] = LightMeterPart(node.transform, "Light Meter Lit", litMeterColor);
+            }
+
             if (lightMeterDark[id] == null)
+            {
                 lightMeterDark[id] = LightMeterPart(node.transform, "Light Meter Dark", darkMeterColor);
+            }
         }
     }
 
@@ -519,7 +687,11 @@ public class DefenseFrontUI : MonoBehaviour
     {
         Transform existing = node.Find(name);
         RectTransform part = existing != null ? (RectTransform)existing : Panel(name, node, color);
-        if (existing == null) Stretch(part, new Vector2(1f - LightMeterWidth, 0f), Vector2.one);
+        if (existing == null)
+        {
+            Stretch(part, new Vector2(1f - LightMeterWidth, 0f), Vector2.one);
+        }
+
         Image image = part.GetComponent<Image>();
         image.raycastTarget = false;
         image.enabled = false;
@@ -528,11 +700,20 @@ public class DefenseFrontUI : MonoBehaviour
 
     private void PulseDangerHalos()
     {
-        if (breachHalos == null) return;
+        if (breachHalos == null)
+        {
+            return;
+        }
+
         Color color = breachHaloColor;
         color.a *= 0.55f + 0.45f * Mathf.Sin(Time.unscaledTime * 5f) * Mathf.Sin(Time.unscaledTime * 5f);
         foreach (Image halo in breachHalos)
-            if (halo != null && halo.enabled) halo.color = color;
+        {
+            if (halo != null && halo.enabled)
+            {
+                halo.color = color;
+            }
+        }
     }
 
     private static Vector2 GraphPosition(DefenseFront.Room room)
@@ -576,6 +757,9 @@ public class DefenseFrontUI : MonoBehaviour
     }
     private void OnDestroy()
     {
-        if (front != null) front.Changed -= MarkDirty;
+        if (front != null)
+        {
+            front.Changed -= MarkDirty;
+        }
     }
 }

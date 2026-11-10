@@ -44,7 +44,9 @@ public sealed class HoneyBadgerPoisonCloud : MonoBehaviour
         float damage, float radius, int durationTurns, Sprite cloudPuffSprite = null)
     {
         if (targetRoom == null || targetRoom.IsLost || damage <= 0f || durationTurns <= 0)
+        {
             return null;
+        }
 
         GameObject cloudObject = new GameObject("Honey Badger Poison Cloud");
         cloudObject.SetActive(false);
@@ -63,7 +65,11 @@ public sealed class HoneyBadgerPoisonCloud : MonoBehaviour
         int initialCount = All.Count;
         for (int i = initialCount - 1; i >= 0; i--)
         {
-            if (i >= All.Count) continue;
+            if (i >= All.Count)
+            {
+                continue;
+            }
+
             HoneyBadgerPoisonCloud cloud = All[i];
             if (cloud == null)
             {
@@ -90,18 +96,28 @@ public sealed class HoneyBadgerPoisonCloud : MonoBehaviour
 
     private void Update()
     {
-        if (!initialized || ignited || Time.timeScale <= 0f) return;
+        if (!initialized || ignited || Time.timeScale <= 0f)
+        {
+            return;
+        }
+
         for (int i = Player.animalsCollect.Count - 1; i >= 0; i--)
         {
             Animal projectile = Player.animalsCollect[i];
-            if (projectile != null && TryIgnite(projectile)) return;
+            if (projectile != null && TryIgnite(projectile))
+            {
+                return;
+            }
         }
     }
 
     public bool TryIgnite(Animal projectile)
     {
         if (!initialized || ignited || projectile == null
-            || projectile.GetComponent<FireflyImpactEffect>() == null) return false;
+            || projectile.GetComponent<FireflyImpactEffect>() == null)
+        {
+            return false;
+        }
 
         Collider2D projectileCollider = projectile.GetComponent<Collider2D>();
         float projectileRadius = projectileCollider != null
@@ -109,7 +125,10 @@ public sealed class HoneyBadgerPoisonCloud : MonoBehaviour
             : 0f;
         float contactRadius = damageRadius + projectileRadius;
         if (((Vector2)projectile.transform.position - (Vector2)transform.position).sqrMagnitude
-            > contactRadius * contactRadius + 0.0001f) return false;
+            > contactRadius * contactRadius + 0.0001f)
+        {
+            return false;
+        }
 
         Ignite();
         return true;
@@ -117,7 +136,11 @@ public sealed class HoneyBadgerPoisonCloud : MonoBehaviour
 
     private void Ignite()
     {
-        if (ignited) return;
+        if (ignited)
+        {
+            return;
+        }
+
         ignited = true;
         name = "Burning Honey Badger Poison Cloud (" + remainingTurns + " turn)";
 
@@ -148,13 +171,21 @@ public sealed class HoneyBadgerPoisonCloud : MonoBehaviour
 
         CreateIgnitedFlames();
         illumination = GetComponent<EnemyIllumination>();
-        if (illumination == null) illumination = gameObject.AddComponent<EnemyIllumination>();
+        if (illumination == null)
+        {
+            illumination = gameObject.AddComponent<EnemyIllumination>();
+        }
+
         illumination.Illuminate(damageRadius);
     }
 
     private int ProcessAfterEnemyTurn(int turnNumber)
     {
-        if (!initialized || turnNumber <= lastProcessedTurn) return 0;
+        if (!initialized || turnNumber <= lastProcessedTurn)
+        {
+            return 0;
+        }
+
         lastProcessedTurn = turnNumber;
         if (room == null || room.IsLost)
         {
@@ -168,9 +199,17 @@ public sealed class HoneyBadgerPoisonCloud : MonoBehaviour
         {
             GameObject enemyObject = room.EnemyCollection[i];
             if (enemyObject == null || !enemyObject.TryGetComponent(out Brick enemy)
-                || enemy.IsDefeated) continue;
+                || enemy.IsDefeated)
+            {
+                continue;
+            }
+
             if (((Vector2)enemy.transform.position - (Vector2)transform.position).sqrMagnitude
-                > radiusSquared + 0.0001f) continue;
+                > radiusSquared + 0.0001f)
+            {
+                continue;
+            }
+
             enemy.TakePoisonDamage(damagePerTurn, ignited);
             hits++;
         }
@@ -178,7 +217,11 @@ public sealed class HoneyBadgerPoisonCloud : MonoBehaviour
         remainingTurns--;
         name = (ignited ? "Burning Honey Badger Poison Cloud (" : "Honey Badger Poison Cloud (")
             + Mathf.Max(0, remainingTurns) + " turns)";
-        if (remainingTurns <= 0) Expire();
+        if (remainingTurns <= 0)
+        {
+            Expire();
+        }
+
         return hits;
     }
 
@@ -253,7 +296,11 @@ public sealed class HoneyBadgerPoisonCloud : MonoBehaviour
             animation.AddSprite(puffSprite);
         }
         Material material = GetPoisonMaterial(puffSprite);
-        if (material != null) renderer.sharedMaterial = material;
+        if (material != null)
+        {
+            renderer.sharedMaterial = material;
+        }
+
         visual.SetActive(true);
     }
 
@@ -320,7 +367,11 @@ public sealed class HoneyBadgerPoisonCloud : MonoBehaviour
         renderer.renderMode = ParticleSystemRenderMode.Billboard;
         renderer.sortingOrder = RoomDarkness.WorldOverlayOrder + 28;
         Material material = GetPoisonMaterial();
-        if (material != null) renderer.sharedMaterial = material;
+        if (material != null)
+        {
+            renderer.sharedMaterial = material;
+        }
+
         FireflyFlameArt.Apply(flames, renderer);
 
         visual.SetActive(true);
@@ -331,10 +382,22 @@ public sealed class HoneyBadgerPoisonCloud : MonoBehaviour
     private static Material GetPoisonMaterial(Sprite sprite = null)
     {
         Material cached = sprite != null ? sharedPuffMaterial : sharedPoisonMaterial;
-        if (cached != null) return cached;
+        if (cached != null)
+        {
+            return cached;
+        }
+
         Shader shader = Shader.Find("Sprites/Default");
-        if (shader == null) shader = Shader.Find("UI/Default");
-        if (shader == null) return null;
+        if (shader == null)
+        {
+            shader = Shader.Find("UI/Default");
+        }
+
+        if (shader == null)
+        {
+            return null;
+        }
+
         Material material = new Material(shader) {
             name = sprite != null ? "Honey Badger Poison Puffs" : "Honey Badger Poison Material",
             hideFlags = HideFlags.HideAndDontSave
@@ -344,34 +407,59 @@ public sealed class HoneyBadgerPoisonCloud : MonoBehaviour
             material.mainTexture = sprite.texture;
             sharedPuffMaterial = material;
         }
-        else sharedPoisonMaterial = material;
+        else
+        {
+            sharedPoisonMaterial = material;
+        }
+
         return material;
     }
 
     private void OnEnable()
     {
-        if (!All.Contains(this)) All.Add(this);
-        if (initialized && particles != null) particles.Play(true);
+        if (!All.Contains(this))
+        {
+            All.Add(this);
+        }
+
+        if (initialized && particles != null)
+        {
+            particles.Play(true);
+        }
     }
 
     private void OnDisable()
     {
         All.Remove(this);
         if (particles != null)
+        {
             particles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
+
         if (flames != null)
+        {
             flames.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
     }
 
     private void Expire()
     {
-        if (Application.isPlaying) Destroy(gameObject);
-        else DestroyImmediate(gameObject);
+        if (Application.isPlaying)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            DestroyImmediate(gameObject);
+        }
     }
 
     private void OnDestroy()
     {
         All.Remove(this);
-        if (LastSpawned == this) LastSpawned = null;
+        if (LastSpawned == this)
+        {
+            LastSpawned = null;
+        }
     }
 }

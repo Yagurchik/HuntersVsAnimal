@@ -38,7 +38,10 @@ public sealed class EnemyStatusEffects : MonoBehaviour
     private void Awake()
     {
         enemy = GetComponent<Brick>();
-        if (!All.Contains(this)) All.Add(this);
+        if (!All.Contains(this))
+        {
+            All.Add(this);
+        }
     }
 
     public bool HasPeriodicDamage(string effectId)
@@ -69,9 +72,16 @@ public sealed class EnemyStatusEffects : MonoBehaviour
         bool permanent = false, CombatDamageSource source = CombatDamageSource.Other,
         int damageOwner = -1, bool alreadyModified = false)
     {
-        if (enemy == null) enemy = GetComponent<Brick>();
+        if (enemy == null)
+        {
+            enemy = GetComponent<Brick>();
+        }
+
         if (enemy == null || enemy.IsDefeated || string.IsNullOrWhiteSpace(effectId)
-            || damage <= 0f || turns <= 0) return 0;
+            || damage <= 0f || turns <= 0)
+        {
+            return 0;
+        }
 
         bool isBurn = effectId == FireflyImpactEffect.BurnEffectId;
         if (isBurn) { source = CombatDamageSource.Fire; damageOwner = AnimalProjectileQueue.FireflyIndex; }
@@ -125,7 +135,11 @@ public sealed class EnemyStatusEffects : MonoBehaviour
         for (int i = controllers.Length - 1; i >= 0; i--)
         {
             EnemyStatusEffects controller = controllers[i];
-            if (controller == null) continue;
+            if (controller == null)
+            {
+                continue;
+            }
+
             ticks += controller.ProcessAfterEnemyTurn(turnNumber);
         }
         All.RemoveAll(controller => controller == null);
@@ -134,9 +148,17 @@ public sealed class EnemyStatusEffects : MonoBehaviour
 
     private int ProcessAfterEnemyTurn(int turnNumber)
     {
-        if (turnNumber <= lastProcessedTurn || periodicDamage.Count == 0) return 0;
+        if (turnNumber <= lastProcessedTurn || periodicDamage.Count == 0)
+        {
+            return 0;
+        }
+
         lastProcessedTurn = turnNumber;
-        if (enemy == null) enemy = GetComponent<Brick>();
+        if (enemy == null)
+        {
+            enemy = GetComponent<Brick>();
+        }
+
         if (enemy == null || enemy.IsDefeated) { periodicDamage.Clear(); return 0; }
 
         int ticks = 0;
@@ -146,10 +168,17 @@ public sealed class EnemyStatusEffects : MonoBehaviour
         for (int i = effects.Length - 1; i >= 0; i--)
         {
             PeriodicDamage effect = effects[i];
-            if (!periodicDamage.Contains(effect)) continue;
+            if (!periodicDamage.Contains(effect))
+            {
+                continue;
+            }
+
             float damage = effect.Damage;
             bool decayingBurn = !effect.Permanent && effect.Id == FireflyImpactEffect.BurnEffectId;
-            if (!effect.Permanent && !decayingBurn) effect.RemainingTurns--;
+            if (!effect.Permanent && !decayingBurn)
+            {
+                effect.RemainingTurns--;
+            }
             // Keep the effect registered while its final tick deals damage. Death
             // reactions can then identify which status caused the defeat.
             enemy.TakeAfterTurnDamage(damage, effect.Source, effect.Owner, effect.AlreadyModified);
@@ -160,7 +189,11 @@ public sealed class EnemyStatusEffects : MonoBehaviour
                 break;
             }
             // Remove by identity: callbacks may clear, add, or refresh effects.
-            if (!periodicDamage.Contains(effect)) continue;
+            if (!periodicDamage.Contains(effect))
+            {
+                continue;
+            }
+
             if (decayingBurn)
             {
                 // The current stacks deal their damage before one burns out.
@@ -171,8 +204,14 @@ public sealed class EnemyStatusEffects : MonoBehaviour
                 effect.RemainingTurns = effect.Stacks;
             }
             if (!effect.Permanent && effect.RemainingTurns <= 0)
+            {
                 periodicDamage.Remove(effect);
-            if (decayingBurn) enemy.GetComponent<EnemyBurnTint>()?.Refresh();
+            }
+
+            if (decayingBurn)
+            {
+                enemy.GetComponent<EnemyBurnTint>()?.Refresh();
+            }
         }
         return ticks;
     }

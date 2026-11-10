@@ -55,7 +55,11 @@ public sealed class ProjectileLoadoutUI : MonoBehaviour
         GameTypography.ApplyTo(gameObject);
         int starter = AnimalProjectileQueue.StartingAnimalForLocation(locationIndex > 0
             ? locationIndex : LevelProgression.SelectedMenuLocation);
-        if (startingAnimal != starter && startingAnimal >= 0) selected.Remove(startingAnimal);
+        if (startingAnimal != starter && startingAnimal >= 0)
+        {
+            selected.Remove(startingAnimal);
+        }
+
         startingAnimal = starter;
         selected.Add(AnimalProjectileQueue.FireflyIndex);
         selected.Add(startingAnimal);
@@ -78,8 +82,16 @@ public sealed class ProjectileLoadoutUI : MonoBehaviour
 
     private void Toggle(int index)
     {
-        if (index == AnimalProjectileQueue.FireflyIndex || index == startingAnimal) return;
-        if (!selected.Remove(index) && selected.Count < MaximumTypes) selected.Add(index);
+        if (index == AnimalProjectileQueue.FireflyIndex || index == startingAnimal)
+        {
+            return;
+        }
+
+        if (!selected.Remove(index) && selected.Count < MaximumTypes)
+        {
+            selected.Add(index);
+        }
+
         Refresh();
     }
 
@@ -88,27 +100,51 @@ public sealed class ProjectileLoadoutUI : MonoBehaviour
         for (int i = 0; i < choices.Length; i++)
         {
             ChoiceView choice = choices[i];
-            if (choice == null || choice.button == null || !choice.button.gameObject.activeSelf) continue;
+            if (choice == null || choice.button == null || !choice.button.gameObject.activeSelf)
+            {
+                continue;
+            }
+
             bool included = selected.Contains(i);
             if (choice.background != null)
+            {
                 choice.background.color = included
                     ? new Color(0.43f, 0.30f, 0.13f, 1f)
                     : new Color(0.12f, 0.22f, 0.17f, 1f);
+            }
+
             if (choice.status != null)
+            {
                 choice.status.text = i == AnimalProjectileQueue.FireflyIndex || i == startingAnimal
                     ? "СРАЗУ: " + AnimalProjectileQueue.StartingAmmoForAnimal(i) : included ? "В УЛУЧШЕНИЯХ"
                     : selected.Count == MaximumTypes ? "СНИМИ ОДИН" : "ВЫБРАТЬ";
+            }
         }
-        if (countText != null) countText.text = "В НАБОРЕ: " + selected.Count + " / " + MaximumTypes;
+        if (countText != null)
+        {
+            countText.text = "В НАБОРЕ: " + selected.Count + " / " + MaximumTypes;
+        }
+
         bool ready = selected.Count == MaximumTypes;
-        if (startButton != null) startButton.interactable = ready;
-        if (startLabel != null) startLabel.text = ready ? "НАЧАТЬ УРОВЕНЬ" : "ВЫБЕРИ 5 ВИДОВ";
+        if (startButton != null)
+        {
+            startButton.interactable = ready;
+        }
+
+        if (startLabel != null)
+        {
+            startLabel.text = ready ? "НАЧАТЬ УРОВЕНЬ" : "ВЫБЕРИ 5 ВИДОВ";
+        }
     }
 
     private void Confirm()
     {
         if (submitted || onConfirmed == null
-            || selected.Count != MaximumTypes) return;
+            || selected.Count != MaximumTypes)
+        {
+            return;
+        }
+
         List<int> loadout = new List<int>(selected);
         loadout.Sort();
         submitted = true;

@@ -28,7 +28,11 @@ public sealed class PumpkinBackdropGraphic : MaskableGraphic
     public void SetBoardWindow(Vector2 min, Vector2 max)
     {
         if ((windowMin - min).sqrMagnitude < 0.0000001f
-            && (windowMax - max).sqrMagnitude < 0.0000001f) return;
+            && (windowMax - max).sqrMagnitude < 0.0000001f)
+        {
+            return;
+        }
+
         windowMin = min;
         windowMax = max;
         SetVerticesDirty();
@@ -38,7 +42,10 @@ public sealed class PumpkinBackdropGraphic : MaskableGraphic
         Color ornament, Color accent)
     {
         if (locationPalettes == null || locationPalettes.Length != 6)
+        {
             locationPalettes = new LocationPalette[6];
+        }
+
         int index = Mathf.Clamp(locationIndex, 1, 6) - 1;
         locationPalettes[index] = new LocationPalette {
             margin = margin, edge = edge, ornament = ornament, accent = accent
@@ -48,11 +55,19 @@ public sealed class PumpkinBackdropGraphic : MaskableGraphic
     public void ShowLocation(int locationIndex)
     {
         int next = Mathf.Clamp(locationIndex, 1, 6);
-        if (activeLocation == next) return;
+        if (activeLocation == next)
+        {
+            return;
+        }
+
         activeLocation = next;
         LocationPalette theme = locationPalettes != null
             && locationPalettes.Length >= next ? locationPalettes[next - 1] : null;
-        if (theme == null) return;
+        if (theme == null)
+        {
+            return;
+        }
+
         marginColor = theme.margin;
         edgeColor = theme.edge;
         pumpkinPattern = theme.ornament;
@@ -70,7 +85,10 @@ public sealed class PumpkinBackdropGraphic : MaskableGraphic
     {
         vertexHelper.Clear();
         Rect rect = rectTransform.rect;
-        if (rect.width <= 0f || rect.height <= 0f) return;
+        if (rect.width <= 0f || rect.height <= 0f)
+        {
+            return;
+        }
 
         float left = Mathf.Lerp(rect.xMin, rect.xMax, windowMin.x);
         float right = Mathf.Lerp(rect.xMin, rect.xMax, windowMax.x);
@@ -107,7 +125,11 @@ public sealed class PumpkinBackdropGraphic : MaskableGraphic
             Vector2 point = new Vector2(
                 baseX + Mathf.Sin(t * Mathf.PI * 5f) * wave * direction,
                 Mathf.Lerp(rect.yMin, rect.yMax, t));
-            if (i > 0) AddLine(vh, previous, point, thickness, leafPattern);
+            if (i > 0)
+            {
+                AddLine(vh, previous, point, thickness, leafPattern);
+            }
+
             previous = point;
 
             if (i > 2 && i < segments - 2 && i % 5 == 0)
@@ -146,7 +168,11 @@ public sealed class PumpkinBackdropGraphic : MaskableGraphic
 
     private static void AddRect(VertexHelper vh, Rect rect, Color color)
     {
-        if (rect.width <= 0f || rect.height <= 0f) return;
+        if (rect.width <= 0f || rect.height <= 0f)
+        {
+            return;
+        }
+
         AddQuad(vh,
             new Vector2(rect.center.x, rect.center.y),
             new Vector2(rect.width, rect.height), 0f, color);
@@ -155,7 +181,11 @@ public sealed class PumpkinBackdropGraphic : MaskableGraphic
     private static void AddLine(VertexHelper vh, Vector2 a, Vector2 b, float thickness, Color color)
     {
         Vector2 direction = b - a;
-        if (direction.sqrMagnitude < 0.0001f) return;
+        if (direction.sqrMagnitude < 0.0001f)
+        {
+            return;
+        }
+
         AddQuad(vh, (a + b) * 0.5f,
             new Vector2(direction.magnitude, thickness),
             Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg, color);

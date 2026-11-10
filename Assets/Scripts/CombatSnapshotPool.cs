@@ -7,8 +7,15 @@ public static class CombatSnapshotPool<T>
     public static List<T> Rent() => Available.Count > 0 ? Available.Pop() : new List<T>(16);
     public static void Return(List<T> values)
     {
-        if (values == null) return;
+        if (values == null)
+        {
+            return;
+        }
+
         values.Clear();
-        if (Available.Count < 16) Available.Push(values);
+        if (Available.Count < 16)
+        {
+            Available.Push(values);
+        }
     }
 }

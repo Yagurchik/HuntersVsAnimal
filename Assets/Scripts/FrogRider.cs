@@ -68,7 +68,7 @@ public sealed class FrogRider : MonoBehaviour
 
     public static bool HasActiveJumps
     {
-        get { foreach (FrogRider frog in All) if (frog != null && frog.jumping) return true; return false; }
+        get { foreach (FrogRider frog in All) { if (frog != null && frog.jumping) { return true; } } return false; }
     }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -85,7 +85,11 @@ public sealed class FrogRider : MonoBehaviour
     {
         foreach (FrogRider frog in All)
         {
-            if (frog == null) continue;
+            if (frog == null)
+            {
+                continue;
+            }
+
             frog.dislodgementCount = 0;
             frog.dislodgementVolleyId = id;
         }
@@ -93,7 +97,11 @@ public sealed class FrogRider : MonoBehaviour
 
     private void Awake()
     {
-        if (frogVisual == null) frogVisual = GetComponent<SpriteRenderer>();
+        if (frogVisual == null)
+        {
+            frogVisual = GetComponent<SpriteRenderer>();
+        }
+
         Sprite skin = ProjectileSkins.EquippedArtwork(AnimalProjectileQueue.FrogIndex);
         if (skin != null && frogVisual != null && frogVisual.sprite != null)
         {
@@ -105,30 +113,59 @@ public sealed class FrogRider : MonoBehaviour
             frogVisual.sprite = skin;
             frogVisual.color = Color.white;
         }
-        if (frogVisual != null) frogRestScale = frogVisual.transform.localScale;
-        if (kvaRing != null) kvaRing.enabled = false;
-        if (jumpTrail != null) jumpTrail.emitting = false;
+        if (frogVisual != null)
+        {
+            frogRestScale = frogVisual.transform.localScale;
+        }
+
+        if (kvaRing != null)
+        {
+            kvaRing.enabled = false;
+        }
+
+        if (jumpTrail != null)
+        {
+            jumpTrail.emitting = false;
+        }
     }
 
     public static int CountOn(Brick enemy)
     {
         int count = 0;
         foreach (FrogRider frog in All)
-            if (frog != null && !frog.falling && frog.host == enemy) count++;
+        {
+            if (frog != null && !frog.falling && frog.host == enemy)
+            {
+                count++;
+            }
+        }
+
         return count;
     }
 
     public static float DamageMultiplier(LevelGenerator targetRoom)
     {
-        if (targetRoom == null) return 1f;
+        if (targetRoom == null)
+        {
+            return 1f;
+        }
+
         if (chorusFrame != Time.frameCount)
         {
             RoomChorus.Clear();
             foreach (FrogRider frog in All)
             {
-                if (frog == null || frog.falling) continue;
+                if (frog == null || frog.falling)
+                {
+                    continue;
+                }
+
                 var owner = frog.Room;
-                if (owner == null) continue;
+                if (owner == null)
+                {
+                    continue;
+                }
+
                 RoomChorus.TryGetValue(owner, out float percent);
                 RoomChorus[owner] = percent + frog.chorusRank;
             }
@@ -142,7 +179,11 @@ public sealed class FrogRider : MonoBehaviour
         InvalidateRoomBonuses();
         foreach (FrogRider frog in All)
         {
-            if (frog == null) continue;
+            if (frog == null)
+            {
+                continue;
+            }
+
             frog.jumpRadius = Mathf.Max(2f, radius);
             frog.chorusRank = Mathf.Clamp(supportRank, 0, 3);
             frog.ultimate = hasUltimate;
@@ -152,7 +193,11 @@ public sealed class FrogRider : MonoBehaviour
     public void Initialize(Brick firstTarget, float damage, float radius,
         int supportRank, bool hasUltimate, int comboVolleyId)
     {
-        if (initialized) return;
+        if (initialized)
+        {
+            return;
+        }
+
         initialized = true;
         baseDamage = Mathf.Max(0f, damage);
         jumpRadius = Mathf.Max(2f, radius);
@@ -179,7 +224,11 @@ public sealed class FrogRider : MonoBehaviour
         { BeginFall(); yield break; }
         Vector3 origin = target.transform.position;
         DealDamage(target, baseDamage, false, reaction);
-        if (CanSit(target) && Sit(target)) yield break;
+        if (CanSit(target) && Sit(target))
+        {
+            yield break;
+        }
+
         host = null;
         yield return JumpChain(origin, target, NextJumpCount(volleyId), reaction);
     }
@@ -188,7 +237,11 @@ public sealed class FrogRider : MonoBehaviour
     {
         foreach (FrogRider frog in All)
         {
-            if (frog == null || !frog.seated || frog.host != enemy) continue;
+            if (frog == null || !frog.seated || frog.host != enemy)
+            {
+                continue;
+            }
+
             frog.JumpFromHost(new JumpReaction(ResolveVolleyId(comboVolleyId)));
             return;
         }
@@ -199,7 +252,13 @@ public sealed class FrogRider : MonoBehaviour
         JumpReaction cause = damageReaction ?? new JumpReaction(ResolveVolleyId(comboVolleyId));
         var snapshot = CombatSnapshotPool<FrogRider>.Rent(); snapshot.AddRange(All);
         try { foreach (FrogRider frog in snapshot)
-            if (frog != null && frog.seated && frog.host == enemy && !frog.resolvingLanding) frog.JumpFromHost(cause); }
+            {
+                if (frog != null && frog.seated && frog.host == enemy && !frog.resolvingLanding)
+                {
+                    frog.JumpFromHost(cause);
+                }
+            }
+        }
         finally { CombatSnapshotPool<FrogRider>.Return(snapshot); }
     }
 
@@ -207,9 +266,17 @@ public sealed class FrogRider : MonoBehaviour
 
     private static void TriggerSeatedBites(Brick enemy, JumpReaction cause = null)
     {
-        if (enemy == null || enemy.IsDefeated) return;
+        if (enemy == null || enemy.IsDefeated)
+        {
+            return;
+        }
+
         PendingSeatBites.Enqueue(new SeatBite { Enemy = enemy, Reaction = cause ?? new JumpReaction(0) });
-        if (processingSeatBites) return;
+        if (processingSeatBites)
+        {
+            return;
+        }
+
         processingSeatBites = true;
         try
         {
@@ -217,13 +284,21 @@ public sealed class FrogRider : MonoBehaviour
             {
                 SeatBite bite = PendingSeatBites.Dequeue();
                 Brick target = bite.Enemy;
-                if (target == null || target.IsDefeated) continue;
+                if (target == null || target.IsDefeated)
+                {
+                    continue;
+                }
                 // Airborne reservations enforce capacity but are not seated frogs.
                 // Snapshot before damage: KVA can kill hosts and release their riders.
                 var snapshot = CombatSnapshotPool<FrogRider>.Rent(); snapshot.AddRange(All);
                 try { foreach (FrogRider frog in snapshot)
-                    if (frog != null && frog.seated && frog.host == target && !target.IsDefeated)
-                        frog.DealDamage(target, frog.baseDamage, false, bite.Reaction); }
+                    {
+                        if (frog != null && frog.seated && frog.host == target && !target.IsDefeated)
+                        {
+                            frog.DealDamage(target, frog.baseDamage, false, bite.Reaction);
+                        }
+                    }
+                }
                 finally { CombatSnapshotPool<FrogRider>.Return(snapshot); }
             }
         }
@@ -232,12 +307,20 @@ public sealed class FrogRider : MonoBehaviour
 
     private void JumpFromHost(JumpReaction cause)
     {
-        if (!seated || jumping || host == null) return;
+        if (!seated || jumping || host == null)
+        {
+            return;
+        }
+
         Vector3 origin = host.transform.position;
         Brick previous = LeaveSeat();
         reaction = cause;
         volleyId = cause.VolleyId;
-        if (jumpTrail != null) jumpTrail.Clear();
+        if (jumpTrail != null)
+        {
+            jumpTrail.Clear();
+        }
+
         StartCoroutine(JumpChain(origin, previous, NextJumpCount(cause.VolleyId), cause));
         TriggerSeatedBites(previous, cause);
     }
@@ -245,7 +328,11 @@ public sealed class FrogRider : MonoBehaviour
     private int NextJumpCount(int id)
     {
         // Off-volley damage starts a fresh one-hop reaction, never a lifetime streak.
-        if (id <= 0 || id != dislodgementVolleyId) dislodgementCount = 0;
+        if (id <= 0 || id != dislodgementVolleyId)
+        {
+            dislodgementCount = 0;
+        }
+
         dislodgementVolleyId = id;
         dislodgementCount = Mathf.Min(MaximumJumps, dislodgementCount + 1);
         return dislodgementCount;
@@ -259,7 +346,11 @@ public sealed class FrogRider : MonoBehaviour
         seated = false;
         host = null;
         seatAnchor = null;
-        if (frogVisual != null) frogVisual.transform.localScale = frogRestScale;
+        if (frogVisual != null)
+        {
+            frogVisual.transform.localScale = frogRestScale;
+        }
+
         jumping = true;
         InvalidateRoomBonuses();
         return previous;
@@ -270,7 +361,11 @@ public sealed class FrogRider : MonoBehaviour
         // A damage callback may still be completing enemy death and collection removal.
         yield return null;
         var excluded = new HashSet<Brick>();
-        if (previous != null) excluded.Add(previous);
+        if (previous != null)
+        {
+            excluded.Add(previous);
+        }
+
         Brick nextTarget = null;
         float damage = baseDamage;
         for (int hop = 0; hop < MaximumJumps; hop++)
@@ -278,7 +373,10 @@ public sealed class FrogRider : MonoBehaviour
             Brick target = nextTarget != null && !nextTarget.IsDefeated
                 ? nextTarget : FindTarget(room, origin, excluded);
             nextTarget = null;
-            if (target == null) break;
+            if (target == null)
+            {
+                break;
+            }
             // Only the enemy being left is excluded. Earlier enemies remain
             // valid random targets, even when just two enemies are nearby.
             excluded.Clear(); excluded.Add(target);
@@ -293,10 +391,18 @@ public sealed class FrogRider : MonoBehaviour
             bool landed = CanSit(target) && Sit(target, false);
             // A full target still receives every resident's bite on arrival,
             // while the incoming frog continues searching for its own seat.
-            if (!landed) TriggerSeatedBites(target, cause);
+            if (!landed)
+            {
+                TriggerSeatedBites(target, cause);
+            }
+
             if (landed)
             {
-                if (hop + 1 < jumpCount) nextTarget = FindTarget(room, origin, excluded);
+                if (hop + 1 < jumpCount)
+                {
+                    nextTarget = FindTarget(room, origin, excluded);
+                }
+
                 if (hop + 1 >= jumpCount || nextTarget == null)
                 {
                     CompleteJump();
@@ -314,13 +420,21 @@ public sealed class FrogRider : MonoBehaviour
 
     public Brick FindTarget(LevelGenerator targetRoom, Vector2 origin, HashSet<Brick> excluded = null)
     {
-        if (targetRoom == null || targetRoom.IsLost) return null;
+        if (targetRoom == null || targetRoom.IsLost)
+        {
+            return null;
+        }
+
         Brick selected = null;
         int candidateCount = 0;
         foreach (GameObject value in targetRoom.EnemyCollection)
         {
             if (value == null || !value.TryGetComponent(out Brick enemy) || enemy.IsDefeated
-                || (excluded != null && excluded.Contains(enemy))) continue;
+                || (excluded != null && excluded.Contains(enemy)))
+            {
+                continue;
+            }
+
             Vector2 delta = (Vector2)enemy.transform.position - origin;
             float x = Mathf.Abs(delta.x), y = Mathf.Abs(delta.y);
             if (enemy.UsesBossHealth)
@@ -328,11 +442,17 @@ public sealed class FrogRider : MonoBehaviour
                 x = Mathf.Max(0f, x - (enemy.Footprint.x - 1) * 0.5f);
                 y = Mathf.Max(0f, y - (enemy.Footprint.y - 1) * 0.5f);
             }
-            if (Mathf.Max(x, y) > jumpRadius + 0.0001f) continue;
+            if (Mathf.Max(x, y) > jumpRadius + 0.0001f)
+            {
+                continue;
+            }
             // Every eligible enemy has equal probability, regardless of its
             // health, distance within the radius, or number of seated frogs.
             candidateCount++;
-            if (Random.Range(0, candidateCount) == 0) selected = enemy;
+            if (Random.Range(0, candidateCount) == 0)
+            {
+                selected = enemy;
+            }
         }
         return selected;
     }
@@ -355,13 +475,21 @@ public sealed class FrogRider : MonoBehaviour
                 + Vector3.up * (Mathf.Sin(t * Mathf.PI) * jumpHeight);
             yield return null;
         }
-        if (target != null) transform.position = target.transform.position;
+        if (target != null)
+        {
+            transform.position = target.transform.position;
+        }
+
         StopJumpTrail();
     }
 
     private void StopJumpTrail()
     {
-        if (jumpTrail == null) return;
+        if (jumpTrail == null)
+        {
+            return;
+        }
+
         jumpTrail.emitting = false;
         trailExpiresAt = Time.time + jumpTrail.time;
     }
@@ -376,7 +504,11 @@ public sealed class FrogRider : MonoBehaviour
     private bool Sit(Brick target, bool completeChain = true)
     {
         InvalidateRoomBonuses();
-        if (host != target) seatSlot = FindFreeSlot(target);
+        if (host != target)
+        {
+            seatSlot = FindFreeSlot(target);
+        }
+
         host = target;
         room = target.levelGenerator;
         seated = true;
@@ -393,12 +525,19 @@ public sealed class FrogRider : MonoBehaviour
             jumping = true;
             host = null;
             seatAnchor = null;
-            if (frogVisual != null) frogVisual.transform.localScale = frogRestScale;
+            if (frogVisual != null)
+            {
+                frogVisual.transform.localScale = frogRestScale;
+            }
+
             return false;
         }
         // Keep the turn occupied until arrival bites and their death callbacks finish.
         if (completeChain)
+        {
             CompleteJump();
+        }
+
         return true;
     }
 
@@ -411,26 +550,43 @@ public sealed class FrogRider : MonoBehaviour
 
     private void DealDamage(Brick target, float damage, bool periodic, JumpReaction cause = null)
     {
-        if (target == null || target.IsDefeated) return;
+        if (target == null || target.IsDefeated)
+        {
+            return;
+        }
+
         LevelGenerator attackRoom = target.levelGenerator;
         Vector2 center = target.transform.position;
         var victims = CombatSnapshotPool<Brick>.Rent(); victims.Add(target);
         if (ultimate && attackRoom != null)
         {
             foreach (GameObject value in attackRoom.EnemyCollection)
+            {
                 if (value != null && value.TryGetComponent(out Brick enemy)
                     && enemy != target && !enemy.IsDefeated
                     && Vector2.SqrMagnitude((Vector2)enemy.transform.position - center) <= 1.0001f)
+                {
                     victims.Add(enemy);
+                }
+            }
+
             PulseKva(center);
         }
         JumpReaction previousReaction = damageReaction;
         damageReaction = cause ?? new JumpReaction(periodic ? 0 : volleyId);
         try { foreach (Brick enemy in victims)
         {
-            if (enemy == null || enemy.IsDefeated) continue;
-            if (!periodic) enemy.PlayProjectileImpact(enemy.transform.position, Vector2.up);
-            enemy.TakeFrogDamage(damage, damageReaction.VolleyId, periodic, enemy == target);
+            if (enemy == null || enemy.IsDefeated)
+                {
+                    continue;
+                }
+
+                if (!periodic)
+                {
+                    enemy.PlayProjectileImpact(enemy.transform.position, Vector2.up);
+                }
+
+                enemy.TakeFrogDamage(damage, damageReaction.VolleyId, periodic, enemy == target);
         } }
         finally { damageReaction = previousReaction; CombatSnapshotPool<Brick>.Return(victims); }
     }
@@ -441,8 +597,12 @@ public sealed class FrogRider : MonoBehaviour
         try { foreach (FrogRider frog in snapshot)
         {
             if (frog == null || !frog.seated || frog.host == null || frog.host.IsDefeated
-                || turnNumber <= frog.lastTickTurn) continue;
-            frog.lastTickTurn = turnNumber;
+                || turnNumber <= frog.lastTickTurn)
+                {
+                    continue;
+                }
+
+                frog.lastTickTurn = turnNumber;
             // The frog's own periodic bite doesn't make the riders jump off their host.
             frog.DealDamage(frog.host, frog.baseDamage, true);
         } }
@@ -453,12 +613,19 @@ public sealed class FrogRider : MonoBehaviour
     {
         pulseOrigin = center;
         pulseUntil = Time.time + 0.22f;
-        if (kvaRing != null) kvaRing.enabled = true;
+        if (kvaRing != null)
+        {
+            kvaRing.enabled = true;
+        }
     }
 
     private void CacheSeatAnchor()
     {
-        if (host == null) return;
+        if (host == null)
+        {
+            return;
+        }
+
         Transform visual = host.GetComponent<EnemyHitReaction>()?.VisualRoot;
         SpriteRenderer body = visual != null ? visual.GetComponentInChildren<SpriteRenderer>()
             : host.GetComponentInChildren<SpriteRenderer>();
@@ -473,8 +640,16 @@ public sealed class FrogRider : MonoBehaviour
 
     private void UpdateSeatPosition()
     {
-        if (host == null) return;
-        if (seatAnchor == null) CacheSeatAnchor();
+        if (host == null)
+        {
+            return;
+        }
+
+        if (seatAnchor == null)
+        {
+            CacheSeatAnchor();
+        }
+
         transform.position = seatAnchor.TransformPoint(seatLocalOffset) + Vector3.back * 0.02f;
         // The overhead sprite faces inward from each inset corner.
         if (frogVisual != null)
@@ -496,23 +671,46 @@ public sealed class FrogRider : MonoBehaviour
         foreach (FrogRider frog in All)
         {
             if (frog != null && frog != this && frog.host == target && !frog.falling)
+            {
                 mask |= 1 << frog.seatSlot;
+            }
         }
-        for (int i = 0; i < MaximumPerEnemy; i++) if ((mask & (1 << i)) == 0) return i;
+        for (int i = 0; i < MaximumPerEnemy; i++)
+        {
+            if ((mask & (1 << i)) == 0)
+            {
+                return i;
+            }
+        }
+
         return 0;
     }
 
     private void LateUpdate()
     {
-        if (!initialized) return;
+        if (!initialized)
+        {
+            return;
+        }
+
         if (seated)
         {
-            if (Room == null || Room.IsLost || host == null) BeginFall();
-            else if (host.IsDefeated) JumpFromHost(new JumpReaction(Player.CurrentVolleyId));
+            if (Room == null || Room.IsLost || host == null)
+            {
+                BeginFall();
+            }
+            else if (host.IsDefeated)
+            {
+                JumpFromHost(new JumpReaction(Player.CurrentVolleyId));
+            }
             else
             {
                 room = Room;
-                if (transform.parent != room.transform) transform.SetParent(room.transform, true);
+                if (transform.parent != room.transform)
+                {
+                    transform.SetParent(room.transform, true);
+                }
+
                 UpdateSeatPosition();
             }
         }
@@ -520,11 +718,21 @@ public sealed class FrogRider : MonoBehaviour
         {
             transform.position += Vector3.down * (fallSpeed * Time.deltaTime);
             Stage stage = room != null ? room.GetComponentInParent<Stage>() : null;
-            if (stage == null || transform.position.y < stage.FieldBottomY - 0.5f) Destroy(gameObject);
+            if (stage == null || transform.position.y < stage.FieldBottomY - 0.5f)
+            {
+                Destroy(gameObject);
+            }
         }
         if (frogVisual != null)
+        {
             frogVisual.enabled = Room == null || Room.Darkness == null || Room.Darkness.IsVisible(transform.position);
-        if (jumpTrail != null && frogVisual != null) jumpTrail.enabled = frogVisual.enabled;
+        }
+
+        if (jumpTrail != null && frogVisual != null)
+        {
+            jumpTrail.enabled = frogVisual.enabled;
+        }
+
         if (jumpTrail != null && trailExpiresAt > 0f && Time.time >= trailExpiresAt)
         {
             jumpTrail.Clear();
@@ -532,7 +740,10 @@ public sealed class FrogRider : MonoBehaviour
         }
         if (kvaRing != null && kvaRing.enabled)
         {
-            if (Time.time >= pulseUntil) kvaRing.enabled = false;
+            if (Time.time >= pulseUntil)
+            {
+                kvaRing.enabled = false;
+            }
             else
             {
                 kvaRing.transform.position = pulseOrigin;
@@ -547,7 +758,11 @@ public sealed class FrogRider : MonoBehaviour
         Brick previous = seated ? host : null;
         room = Room;
         seated = false; jumping = false; falling = true; host = null;
-        if (jumpTrail != null && jumpTrail.emitting) StopJumpTrail();
+        if (jumpTrail != null && jumpTrail.emitting)
+        {
+            StopJumpTrail();
+        }
+
         All.Remove(this);
         InvalidateRoomBonuses();
         TriggerSeatedBites(previous);
@@ -565,6 +780,9 @@ public sealed class FrogRider : MonoBehaviour
         bool wasJumping = jumping;
         All.Remove(this);
         InvalidateRoomBonuses();
-        if (wasJumping && Application.isPlaying) NotifyJumpResolved();
+        if (wasJumping && Application.isPlaying)
+        {
+            NotifyJumpResolved();
+        }
     }
 }

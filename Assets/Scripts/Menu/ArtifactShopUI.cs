@@ -39,7 +39,11 @@ public sealed class ArtifactShopUI : MonoBehaviour
 
     private void Bind()
     {
-        if (bound) return;
+        if (bound)
+        {
+            return;
+        }
+
         bound = true;
         OrdinaryTab.onClick.AddListener(() => SelectKind(false));
         AssembledTab.onClick.AddListener(() => SelectKind(true));
@@ -50,7 +54,7 @@ public sealed class ArtifactShopUI : MonoBehaviour
         for (int i = 0; i < Cards.Length; i++)
         {
             int cell = i;
-            Cards[i].Button.onClick.AddListener(() => { if (cell < shown.Count) SelectArtifact(shown[cell]); });
+            Cards[i].Button.onClick.AddListener(() => { if (cell < shown.Count) { SelectArtifact(shown[cell]); } });
         }
         for (int i = 0; i < Components.Length; i++)
         {
@@ -58,7 +62,11 @@ public sealed class ArtifactShopUI : MonoBehaviour
             Components[i].Button.onClick.AddListener(() =>
             {
                 var item = MetaProgression.GetArtifactDefinition(selected);
-                if (item == null || cell >= item.Ingredients.Length) return;
+                if (item == null || cell >= item.Ingredients.Length)
+                {
+                    return;
+                }
+
                 history.Push(selected);
                 ShowDetail(MetaProgression.FindArtifact(item.Ingredients[cell].Id));
             });
@@ -89,7 +97,11 @@ public sealed class ArtifactShopUI : MonoBehaviour
     }
     private void ShowDetail(int index)
     {
-        if (MetaProgression.GetArtifactDefinition(index) == null) return;
+        if (MetaProgression.GetArtifactDefinition(index) == null)
+        {
+            return;
+        }
+
         selected = index;
         Browse.SetActive(false); Detail.SetActive(true);
         Feedback.text = "";
@@ -106,12 +118,22 @@ public sealed class ArtifactShopUI : MonoBehaviour
     public void Refresh()
     {
         Wallet.text = "ЗОЛОТО  " + MetaProgression.Gold;
-        if (selected >= 0) RefreshDetail();
-        else RefreshList();
+        if (selected >= 0)
+        {
+            RefreshDetail();
+        }
+        else
+        {
+            RefreshList();
+        }
     }
     private void RefreshList()
     {
-        if (Cards == null) return;
+        if (Cards == null)
+        {
+            return;
+        }
+
         Heading.text = assembled ? "Сборные реликвии" : "Обычные артефакты";
         OrdinaryTab.image.color = assembled ? VillageUIStyle.Panel : VillageUIStyle.Green;
         AssembledTab.image.color = assembled ? VillageUIStyle.Green : VillageUIStyle.Panel;
@@ -120,15 +142,27 @@ public sealed class ArtifactShopUI : MonoBehaviour
         for (int i = 0; i < MetaProgression.ArtifactCount; i++)
         {
             var item = MetaProgression.GetArtifactDefinition(i);
-            if (item.IsAssembled != assembled) continue;
-            if (query.Length > 0 && !(item.Name + " " + item.Category + " " + item.Description).ToLowerInvariant().Contains(query)) continue;
+            if (item.IsAssembled != assembled)
+            {
+                continue;
+            }
+
+            if (query.Length > 0 && !(item.Name + " " + item.Category + " " + item.Description).ToLowerInvariant().Contains(query))
+            {
+                continue;
+            }
+
             shown.Add(i);
         }
         for (int i = 0; i < Cards.Length; i++)
         {
             var card = Cards[i];
             card.Button.gameObject.SetActive(i < shown.Count);
-            if (i >= shown.Count) continue;
+            if (i >= shown.Count)
+            {
+                continue;
+            }
+
             int index = shown[i]; var item = MetaProgression.GetArtifactDefinition(index);
             card.Icon.sprite = item.Icon;
             card.Name.text = item.Name;
@@ -142,7 +176,11 @@ public sealed class ArtifactShopUI : MonoBehaviour
     private void RefreshDetail()
     {
         var item = MetaProgression.GetArtifactDefinition(selected);
-        if (item == null) return;
+        if (item == null)
+        {
+            return;
+        }
+
         Heading.text = item.IsAssembled ? "Сборная реликвия" : "Обычный артефакт";
         DetailIcon.sprite = item.Icon;
         DetailName.text = item.Name;
@@ -156,7 +194,11 @@ public sealed class ArtifactShopUI : MonoBehaviour
         for (int i = 0; i < Components.Length; i++)
         {
             var card = Components[i]; card.Button.gameObject.SetActive(i < item.Ingredients.Length);
-            if (i >= item.Ingredients.Length) continue;
+            if (i >= item.Ingredients.Length)
+            {
+                continue;
+            }
+
             var ingredient = item.Ingredients[i];
             int index = MetaProgression.FindArtifact(ingredient.Id);
             var component = MetaProgression.GetArtifactDefinition(index);
@@ -173,7 +215,11 @@ public sealed class ArtifactShopUI : MonoBehaviour
     }
     public void AcquireSelected()
     {
-        if (!Application.isPlaying || !MetaProgression.TryAcquireArtifact(selected)) return;
+        if (!Application.isPlaying || !MetaProgression.TryAcquireArtifact(selected))
+        {
+            return;
+        }
+
         Refresh();
         Feedback.text = MetaProgression.GetArtifactDefinition(selected).Name + " — в рюкзаке.";
     }

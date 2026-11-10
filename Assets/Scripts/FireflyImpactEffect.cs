@@ -51,10 +51,18 @@ public sealed class FireflyImpactEffect : ProjectileEnemyEffect
 
     public override void ApplyTo(Brick enemy)
     {
-        if (enemy == null || enemy.IsDefeated) return;
+        if (enemy == null || enemy.IsDefeated)
+        {
+            return;
+        }
+
         float burnDamage = BurnDamage;
         EnemyStatusEffects statuses = enemy.GetComponent<EnemyStatusEffects>();
-        if (statuses == null) statuses = enemy.gameObject.AddComponent<EnemyStatusEffects>();
+        if (statuses == null)
+        {
+            statuses = enemy.gameObject.AddComponent<EnemyStatusEffects>();
+        }
+
         int stackCount = statuses.ApplyPeriodicDamage(BurnEffectId, burnDamage,
             eternalFire ? int.MaxValue : BurnTurns,
             EnemyStatusEffects.StackingMode.AddDamage,
@@ -64,7 +72,11 @@ public sealed class FireflyImpactEffect : ProjectileEnemyEffect
         enemy.GetComponent<EnemyBurnTint>()?.Refresh();
 
         EnemyIllumination light = enemy.GetComponent<EnemyIllumination>();
-        if (light == null) light = enemy.gameObject.AddComponent<EnemyIllumination>();
+        if (light == null)
+        {
+            light = enemy.gameObject.AddComponent<EnemyIllumination>();
+        }
+
         light.Illuminate(GetLightRadius(stackCount));
     }
 }

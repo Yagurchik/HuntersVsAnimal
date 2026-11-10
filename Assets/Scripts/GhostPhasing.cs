@@ -26,22 +26,46 @@ public sealed class GhostPhasing : MonoBehaviour
 
     private void Awake()
     {
-        if (bodyCollider == null) bodyCollider = GetComponent<Collider2D>();
-        if (visual == null) visual = GetComponentInChildren<GhostVisualAnimator>();
+        if (bodyCollider == null)
+        {
+            bodyCollider = GetComponent<Collider2D>();
+        }
+
+        if (visual == null)
+        {
+            visual = GetComponentInChildren<GhostVisualAnimator>();
+        }
     }
 
     public bool TryPassThrough(Animal projectile)
     {
         WinterEnemyForm winter = GetComponent<WinterEnemyForm>();
-        if (winter != null && !winter.IsFrozen) return false;
-        if (winter != null && GetComponent<EnemyIllumination>()?.IsIlluminated == true)
+        if (winter != null && !winter.IsFrozen)
+        {
             return false;
-        if (projectile == null || bodyCollider == null) return false;
-        if (contactResults.TryGetValue(projectile, out bool previous)) return previous;
+        }
+
+        if (winter != null && GetComponent<EnemyIllumination>()?.IsIlluminated == true)
+        {
+            return false;
+        }
+
+        if (projectile == null || bodyCollider == null)
+        {
+            return false;
+        }
+
+        if (contactResults.TryGetValue(projectile, out bool previous))
+        {
+            return previous;
+        }
 
         bool passes = Random.value < PassThroughChance;
         contactResults.Add(projectile, passes);
-        if (!passes) return false;
+        if (!passes)
+        {
+            return false;
+        }
 
         Collider2D[] colliders = projectile.GetComponentsInChildren<Collider2D>();
         ProjectilePhysics2D flight = projectile.GetComponent<ProjectilePhysics2D>();
@@ -49,10 +73,23 @@ public sealed class GhostPhasing : MonoBehaviour
         Vector2 direction = flight != null && flight.IsFlying
             ? flight.FlightDirection : body != null ? body.velocity : Vector2.zero;
         if (direction.sqrMagnitude < 0.000001f)
+        {
             direction = (Vector2)(transform.position - projectile.transform.position);
-        if (direction.sqrMagnitude < 0.000001f) direction = Vector2.up;
+        }
+
+        if (direction.sqrMagnitude < 0.000001f)
+        {
+            direction = Vector2.up;
+        }
+
         for (int i = 0; i < colliders.Length; i++)
-            if (colliders[i] != null) Physics2D.IgnoreCollision(bodyCollider, colliders[i], true);
+        {
+            if (colliders[i] != null)
+            {
+                Physics2D.IgnoreCollision(bodyCollider, colliders[i], true);
+            }
+        }
+
         ignoredColliders.Add(projectile, new Passage {
             Colliders = colliders,
             Direction = direction.normalized
@@ -72,19 +109,30 @@ public sealed class GhostPhasing : MonoBehaviour
     {
         Animal projectile = collision.gameObject.GetComponentInParent<Animal>();
         if (projectile != null && contactResults.TryGetValue(projectile, out bool passed)
-            && !passed) contactResults.Remove(projectile);
+            && !passed)
+        {
+            contactResults.Remove(projectile);
+        }
     }
 
     private void FixedUpdate()
     {
-        if (contactResults.Count == 0 || bodyCollider == null) return;
+        if (contactResults.Count == 0 || bodyCollider == null)
+        {
+            return;
+        }
+
         finishedContacts.Clear();
         foreach (KeyValuePair<Animal, bool> contact in contactResults)
         {
             Animal projectile = contact.Key;
             if (projectile == null || !contact.Value)
             {
-                if (projectile == null) finishedContacts.Add(projectile);
+                if (projectile == null)
+                {
+                    finishedContacts.Add(projectile);
+                }
+
                 continue;
             }
             if (!ignoredColliders.TryGetValue(projectile, out Passage passage)
@@ -97,11 +145,20 @@ public sealed class GhostPhasing : MonoBehaviour
             // Do not restore collision just because the first solver step briefly
             // leaves the entry edge. Keep the ghost intangible until the entire
             // projectile has cleared the far side of its physical collider.
-            if (OverlapsAnyCollider(passage.Colliders)) continue;
+            if (OverlapsAnyCollider(passage.Colliders))
+            {
+                continue;
+            }
+
             if (HasClearedFarSide(passage) || HasRetreatedFromNearSide(projectile, passage))
+            {
                 finishedContacts.Add(projectile);
+            }
         }
-        for (int i = 0; i < finishedContacts.Count; i++) Restore(finishedContacts[i]);
+        for (int i = 0; i < finishedContacts.Count; i++)
+        {
+            Restore(finishedContacts[i]);
+        }
     }
 
     private bool OverlapsAnyCollider(Collider2D[] colliders)
@@ -109,15 +166,27 @@ public sealed class GhostPhasing : MonoBehaviour
         Bounds enemyBounds = bodyCollider.bounds;
         enemyBounds.Expand(0.03f);
         for (int i = 0; i < colliders.Length; i++)
+        {
             if (colliders[i] != null && colliders[i].enabled
-                && enemyBounds.Intersects(colliders[i].bounds)) return true;
+                && enemyBounds.Intersects(colliders[i].bounds))
+            {
+                return true;
+            }
+        }
+
         return false;
     }
 
     private static bool HasEnabledCollider(Collider2D[] colliders)
     {
         for (int i = 0; i < colliders.Length; i++)
-            if (colliders[i] != null && colliders[i].enabled) return true;
+        {
+            if (colliders[i] != null && colliders[i].enabled)
+            {
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -129,10 +198,17 @@ public sealed class GhostPhasing : MonoBehaviour
         for (int i = 0; i < passage.Colliders.Length; i++)
         {
             Collider2D collider = passage.Colliders[i];
-            if (collider == null || !collider.enabled) continue;
+            if (collider == null || !collider.enabled)
+            {
+                continue;
+            }
+
             Bounds bounds = collider.bounds;
             if (Project(bounds.center, passage.Direction)
-                - ProjectRadius(bounds.extents, passage.Direction) <= farSide) return false;
+                - ProjectRadius(bounds.extents, passage.Direction) <= farSide)
+            {
+                return false;
+            }
         }
         return true;
     }
@@ -141,17 +217,27 @@ public sealed class GhostPhasing : MonoBehaviour
     {
         Rigidbody2D body = projectile.GetComponent<Rigidbody2D>();
         if (body == null || Vector2.Dot(body.velocity, passage.Direction) >= -0.01f)
+        {
             return false;
+        }
+
         Bounds ghost = bodyCollider.bounds;
         float nearSide = Project(ghost.center, passage.Direction)
             - ProjectRadius(ghost.extents, passage.Direction) - 0.03f;
         for (int i = 0; i < passage.Colliders.Length; i++)
         {
             Collider2D collider = passage.Colliders[i];
-            if (collider == null || !collider.enabled) continue;
+            if (collider == null || !collider.enabled)
+            {
+                continue;
+            }
+
             Bounds bounds = collider.bounds;
             if (Project(bounds.center, passage.Direction)
-                + ProjectRadius(bounds.extents, passage.Direction) >= nearSide) return false;
+                + ProjectRadius(bounds.extents, passage.Direction) >= nearSide)
+            {
+                return false;
+            }
         }
         return true;
     }
@@ -168,8 +254,13 @@ public sealed class GhostPhasing : MonoBehaviour
         {
             Collider2D[] colliders = passage.Colliders;
             for (int i = 0; i < colliders.Length; i++)
+            {
                 if (bodyCollider != null && colliders[i] != null)
+                {
                     Physics2D.IgnoreCollision(bodyCollider, colliders[i], false);
+                }
+            }
+
             ignoredColliders.Remove(projectile);
         }
         contactResults.Remove(projectile);
@@ -178,8 +269,16 @@ public sealed class GhostPhasing : MonoBehaviour
     private void OnDisable()
     {
         finishedContacts.Clear();
-        foreach (Animal projectile in ignoredColliders.Keys) finishedContacts.Add(projectile);
-        for (int i = 0; i < finishedContacts.Count; i++) Restore(finishedContacts[i]);
+        foreach (Animal projectile in ignoredColliders.Keys)
+        {
+            finishedContacts.Add(projectile);
+        }
+
+        for (int i = 0; i < finishedContacts.Count; i++)
+        {
+            Restore(finishedContacts[i]);
+        }
+
         contactResults.Clear();
     }
 }

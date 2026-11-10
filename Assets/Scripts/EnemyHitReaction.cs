@@ -31,21 +31,41 @@ public sealed class EnemyHitReaction : MonoBehaviour
     private void Awake()
     {
         enemy = GetComponent<Brick>();
-        if (visualRoot == null) visualRoot = transform.Find("Visual");
+        if (visualRoot == null)
+        {
+            visualRoot = transform.Find("Visual");
+        }
+
         if (spriteRenderer == null && visualRoot != null)
+        {
             spriteRenderer = visualRoot.GetComponentInChildren<SpriteRenderer>();
-        if (visualRoot != null && visualRoot != transform) restPosition = visualRoot.localPosition;
+        }
+
+        if (visualRoot != null && visualRoot != transform)
+        {
+            restPosition = visualRoot.localPosition;
+        }
+
         fallbackSprite = spriteRenderer != null ? spriteRenderer.sprite : null;
         if (fallbackSprite == null)
+        {
             fallbackSprite = GetComponent<EnemyFirstEncounterProfile>()?.Portrait;
+        }
     }
 
     public void Play()
     {
-        if (visualRoot == null || visualRoot == transform) return;
+        if (visualRoot == null || visualRoot == transform)
+        {
+            return;
+        }
+
         if (remaining <= 0f && spriteRenderer != null)
+        {
             restingSprite = spriteRenderer.sprite != null
                 ? spriteRenderer.sprite : fallbackSprite;
+        }
+
         remaining = Mathf.Max(0.01f, duration);
     }
 
@@ -64,27 +84,46 @@ public sealed class EnemyHitReaction : MonoBehaviour
         float strength = shakeDistance * remaining / Mathf.Max(0.01f, duration);
         visualRoot.localPosition = restPosition
             + new Vector3(Mathf.Sin(phase), Mathf.Cos(phase * 1.37f) * 0.35f, 0f) * strength;
-        if (damageSprite != null && spriteRenderer != null) spriteRenderer.sprite = damageSprite;
+        if (damageSprite != null && spriteRenderer != null)
+        {
+            spriteRenderer.sprite = damageSprite;
+        }
     }
 
     private void RestoreMissingSprite()
     {
-        if (spriteRenderer == null || (enemy != null && enemy.IsDefeated)) return;
+        if (spriteRenderer == null || (enemy != null && enemy.IsDefeated))
+        {
+            return;
+        }
+
         if (spriteRenderer.sprite != null)
         {
             if (spriteRenderer.sprite != damageSprite)
+            {
                 fallbackSprite = spriteRenderer.sprite;
+            }
+
             return;
         }
-        if (fallbackSprite != null) spriteRenderer.sprite = fallbackSprite;
+        if (fallbackSprite != null)
+        {
+            spriteRenderer.sprite = fallbackSprite;
+        }
     }
 
     private void Restore()
     {
-        if (visualRoot != null && visualRoot != transform) visualRoot.localPosition = restPosition;
+        if (visualRoot != null && visualRoot != transform)
+        {
+            visualRoot.localPosition = restPosition;
+        }
         // Only undo our own pose; a live Animator may already have supplied its next frame.
         if (damageSprite != null && spriteRenderer != null && spriteRenderer.sprite == damageSprite)
+        {
             spriteRenderer.sprite = restingSprite != null ? restingSprite : fallbackSprite;
+        }
+
         remaining = 0f;
     }
 

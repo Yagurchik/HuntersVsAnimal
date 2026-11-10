@@ -29,7 +29,11 @@ public sealed class SoulAbsorptionEffect : MonoBehaviour
 
     public static void Play(Vector3 source, Transform boss)
     {
-        if (boss == null) return;
+        if (boss == null)
+        {
+            return;
+        }
+
         SoulAbsorptionEffect prefab = Resources.Load<SoulAbsorptionEffect>(ResourcePath);
         if (prefab == null)
         {
@@ -48,13 +52,21 @@ public sealed class SoulAbsorptionEffect : MonoBehaviour
         startedAt = Time.time;
         arrived = false;
         running = true;
-        if (wisps != null) wisps.Play(true);
+        if (wisps != null)
+        {
+            wisps.Play(true);
+        }
+
         ActiveCount++;
     }
 
     private void Update()
     {
-        if (target != null) lastTargetPosition = target.position;
+        if (target != null)
+        {
+            lastTargetPosition = target.position;
+        }
+
         if (!arrived)
         {
             float progress = Mathf.Clamp01((Time.time - startedAt) / Mathf.Max(0.1f, travelSeconds));
@@ -62,11 +74,22 @@ public sealed class SoulAbsorptionEffect : MonoBehaviour
             float sway = Mathf.Sin(progress * Mathf.PI * 3f) * arch * swayWidth;
             transform.position = Vector3.Lerp(sourcePosition, lastTargetPosition, progress)
                 + new Vector3(sway, arcHeight * arch, 0f);
-            if (progress < 1f) return;
+            if (progress < 1f)
+            {
+                return;
+            }
 
             arrived = true;
-            if (wisps != null) wisps.Stop(true, ParticleSystemStopBehavior.StopEmitting);
-            if (arrivalBurst != null) arrivalBurst.Play(true);
+            if (wisps != null)
+            {
+                wisps.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+            }
+
+            if (arrivalBurst != null)
+            {
+                arrivalBurst.Play(true);
+            }
+
             releaseAt = Time.time + lingerSeconds;
         }
         else if (Time.time >= releaseAt)
@@ -77,6 +100,9 @@ public sealed class SoulAbsorptionEffect : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (running) ActiveCount = Mathf.Max(0, ActiveCount - 1);
+        if (running)
+        {
+            ActiveCount = Mathf.Max(0, ActiveCount - 1);
+        }
     }
 }

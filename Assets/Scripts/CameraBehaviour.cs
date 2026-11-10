@@ -59,7 +59,10 @@ public class CameraBehaviour : MonoBehaviour
 
         LevelGenerator generator = room != null ? room.GetComponentInChildren<LevelGenerator>(true) : null;
         if (generator != null && GameManager.Instance?.Front != null
-            && !GameManager.Instance.Front.CanSelect(generator.RoomId)) return;
+            && !GameManager.Instance.Front.CanSelect(generator.RoomId))
+        {
+            return;
+        }
 
         SetRoom(room);
     }
@@ -86,7 +89,9 @@ public class CameraBehaviour : MonoBehaviour
         LevelGenerator target = room.GetComponentInChildren<LevelGenerator>(true);
         DefenseLineRuntime front = GameManager.Instance != null ? GameManager.Instance.Front : null;
         if (front != null && target != null && !front.CanFocusWhileDefending(target.RoomId))
+        {
             return;
+        }
 
         animated &= CurrentRoom != room.transform;
 
@@ -131,7 +136,11 @@ public class CameraBehaviour : MonoBehaviour
 
     private void FocusPosition(Vector3 position)
     {
-        if (GameManager.Instance?.Front?.IsDefendingRoom == true) return;
+        if (GameManager.Instance?.Front?.IsDefendingRoom == true)
+        {
+            return;
+        }
+
         CurrentRoom = null;
         position.z = transform.position.z;
         transform.SetPositionAndRotation(position, Quaternion.identity);

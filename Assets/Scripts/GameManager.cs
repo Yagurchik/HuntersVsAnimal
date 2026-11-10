@@ -73,36 +73,74 @@ public class GameManager : MonoBehaviour
     {
         get
         {
-            if (IsSurvivalMode) return false;
+            if (IsSurvivalMode)
+            {
+                return false;
+            }
+
             foreach (LevelGenerator room in rooms)
-                if (room != null && room.HasLivingCampaignBoss) return true;
+            {
+                if (room != null && room.HasLivingCampaignBoss)
+                {
+                    return true;
+                }
+            }
+
             return false;
         }
     }
     public bool HasLivingCampaignBossOnLine(int line)
     {
-        if (IsSurvivalMode) return false;
+        if (IsSurvivalMode)
+        {
+            return false;
+        }
+
         foreach (LevelGenerator room in rooms)
+        {
             if (room != null && room.DefenseLine == line && room.HasLivingCampaignBoss)
+            {
                 return true;
+            }
+        }
+
         return false;
     }
     public bool HasStartedCampaignBossEncounter
     {
         get
         {
-            if (IsSurvivalMode) return false;
+            if (IsSurvivalMode)
+            {
+                return false;
+            }
+
             foreach (LevelGenerator room in rooms)
-                if (room != null && room.IsCampaignBossRoom) return true;
+            {
+                if (room != null && room.IsCampaignBossRoom)
+                {
+                    return true;
+                }
+            }
+
             return false;
         }
     }
     public bool HasStartedCampaignBossEncounterOnLine(int line)
     {
-        if (IsSurvivalMode) return false;
+        if (IsSurvivalMode)
+        {
+            return false;
+        }
+
         foreach (LevelGenerator room in rooms)
+        {
             if (room != null && room.DefenseLine == line && room.IsCampaignBossRoom)
+            {
                 return true;
+            }
+        }
+
         return false;
     }
     public bool GameEnded => gameEnded;
@@ -175,12 +213,19 @@ public class GameManager : MonoBehaviour
 
     public void TryCompletePlayerTurn()
     {
-        if (!battleStarted || gameEnded || resolvingTurn || stepPlayer || tutorialFlowActive) return;
+        if (!battleStarted || gameEnded || resolvingTurn || stepPlayer || tutorialFlowActive)
+        {
+            return;
+        }
+
         AnimalProjectileQueue projectileQueue = AnimalProjectileQueue.Instance;
         bool allAmmoSpent = projectileQueue == null || !projectileQueue.HasRemainingAmmo;
         bool allProjectilesResolved = !Player.HasActiveProjectiles;
         if (allProjectilesResolved && !isPaused && !IsChoosingUpgrade && !stepGame
-            && TryStartBellRingerPulse()) return;
+            && TryStartBellRingerPulse())
+        {
+            return;
+        }
         // Delayed breach cohorts remain a campaign threat, but they are not
         // shootable targets. An empty battlefield advances without consuming
         // ammunition until the next cohort is ready to enter.
@@ -204,7 +249,11 @@ public class GameManager : MonoBehaviour
             || isPaused
             || IsChoosingUpgrade)
         {
-            if (!allProjectilesResolved || isPaused || IsChoosingUpgrade || stepGame) return;
+            if (!allProjectilesResolved || isPaused || IsChoosingUpgrade || stepGame)
+            {
+                return;
+            }
+
             defenseLineRuntime?.EnsureCombatFocus();
             ShowClockEmptyRoomHint();
             return;
@@ -245,18 +294,34 @@ public class GameManager : MonoBehaviour
     private bool clockHintPending;
     private void TrackClockRoomForHint()
     {
-        if (clockDirector == null || defenseLineRuntime == null) return;
+        if (clockDirector == null || defenseLineRuntime == null)
+        {
+            return;
+        }
+
         int roomId = defenseLineRuntime.CurrentRoomId;
-        if (roomId == clockHintRoomId) return;
+        if (roomId == clockHintRoomId)
+        {
+            return;
+        }
+
         clockHintPending = clockHintRoomId >= 0;
         clockHintRoomId = roomId;
     }
 
     private void ShowClockEmptyRoomHint()
     {
-        if (!clockHintPending || clockDirector == null || defenseLineRuntime == null || IsFrontMapOpen) return;
+        if (!clockHintPending || clockDirector == null || defenseLineRuntime == null || IsFrontMapOpen)
+        {
+            return;
+        }
+
         LevelGenerator current = defenseLineRuntime.GetGenerator(defenseLineRuntime.CurrentRoomId);
-        if (current == null || current.HasLivingEnemies) return;
+        if (current == null || current.HasLivingEnemies)
+        {
+            return;
+        }
+
         clockHintPending = false;
         GameAnnouncementUI.Show("Здесь врагов нет. Ищите их через карту", 2f);
     }
@@ -265,19 +330,33 @@ public class GameManager : MonoBehaviour
     {
         bellPulseTargets.Clear();
         int completedVolley = Player.LastCombatVolleyId;
-        if (completedVolley <= 0) return false;
+        if (completedVolley <= 0)
+        {
+            return false;
+        }
+
         for (int roomIndex = 0; roomIndex < rooms.Count; roomIndex++)
         {
             LevelGenerator room = rooms[roomIndex];
-            if (room == null || room.IsLost) continue;
+            if (room == null || room.IsLost)
+            {
+                continue;
+            }
+
             for (int enemyIndex = 0; enemyIndex < room.EnemyCollection.Count; enemyIndex++)
             {
                 GameObject occupant = room.EnemyCollection[enemyIndex];
                 if (occupant != null && occupant.TryGetComponent(out UniversalBossAbility bell))
+                {
                     bell.ConsumeBellPulse(completedVolley, bellPulseTargets);
+                }
             }
         }
-        if (bellPulseTargets.Count == 0) return false;
+        if (bellPulseTargets.Count == 0)
+        {
+            return false;
+        }
+
         StartCoroutine(ResolveBellRingerPulseRoutine());
         return true;
     }
@@ -289,25 +368,66 @@ public class GameManager : MonoBehaviour
         turnRooms.AddRange(rooms);
         bellPulseTargets.Sort((left, right) =>
         {
-            if (left == null) return right == null ? 0 : 1;
-            if (right == null) return -1;
+            if (left == null)
+            {
+                return right == null ? 0 : 1;
+            }
+
+            if (right == null)
+            {
+                return -1;
+            }
+
             int byFront = left.LowestCellY.CompareTo(right.LowestCellY);
             return byFront != 0 ? byFront : left.GetInstanceID().CompareTo(right.GetInstanceID());
         });
         try
         {
             foreach (Brick target in bellPulseTargets)
+            {
                 if (!gameEnded && target != null && !target.IsDefeated
                     && target.levelGenerator != null && !target.levelGenerator.IsLost)
+                {
                     target.Step();
-            while (!gameEnded && HasEnemyStepAnimations()) yield return null;
-            if (gameEnded) yield break;
+                }
+            }
+
+            while (!gameEnded && HasEnemyStepAnimations())
+            {
+                yield return null;
+            }
+
+            if (gameEnded)
+            {
+                yield break;
+            }
+
             foreach (LevelGenerator room in turnRooms)
-                if (room != null) room.AnimateRequestedBreach();
-            while (!gameEnded && HasEnemyVisualTransitions()) yield return null;
-            if (gameEnded) yield break;
+            {
+                if (room != null)
+                {
+                    room.AnimateRequestedBreach();
+                }
+            }
+
+            while (!gameEnded && HasEnemyVisualTransitions())
+            {
+                yield return null;
+            }
+
+            if (gameEnded)
+            {
+                yield break;
+            }
+
             foreach (LevelGenerator room in turnRooms)
-                if (room != null) room.ResolveRequestedBreach();
+            {
+                if (room != null)
+                {
+                    room.ResolveRequestedBreach();
+                }
+            }
+
             defenseLineRuntime?.DeliverPressure();
             defenseLineRuntime?.RefreshAll();
             defenseLineRuntime?.NotifyApproachingBreaches();
@@ -318,7 +438,10 @@ public class GameManager : MonoBehaviour
             bellPulseTargets.Clear();
             resolvingTurn = false;
         }
-        if (!gameEnded) TryCompletePlayerTurn();
+        if (!gameEnded)
+        {
+            TryCompletePlayerTurn();
+        }
     }
 
     public void LoseGame()
@@ -363,7 +486,9 @@ public class GameManager : MonoBehaviour
             ? LevelProgression.Instance.CurrentLevel
             : 1;
         if (GameRunMode.IsDeveloperRun)
+        {
             GameAnnouncementUI.Show("Тестовая победа · прогресс и награды не сохранены", 3f);
+        }
         else
         {
             LevelProgression.RecordLevelCompletion(levelNumber);
@@ -391,7 +516,11 @@ public class GameManager : MonoBehaviour
         maxStage = 4;
         // The director must exist before the rooms are prepared: clock fronts
         // use one shared battlefield size and breach straight into the centre.
-        if (IsClockMode) clockDirector = ClockSiegeDirector.Ensure(this);
+        if (IsClockMode)
+        {
+            clockDirector = ClockSiegeDirector.Ensure(this);
+        }
+
         defenseLineRuntime = DefenseLineRuntime.Ensure(this, secondStage, secondStageButton);
 
         if (experienceEconomy == null)
@@ -432,7 +561,10 @@ public class GameManager : MonoBehaviour
                 ? "РЕЖИМ ВЫЖИВАНИЯ · враги где-то на 12 фронтах"
                 : "РЕЖИМ ВЫЖИВАНИЯ · " + LevelProgression.CurrentLocationName, 2f);
             // The clock siege starts without bonus upgrade choices.
-            if (!IsClockMode) GrantSurvivalStartingUpgrades();
+            if (!IsClockMode)
+            {
+                GrantSurvivalStartingUpgrades();
+            }
         }
         else
         {
@@ -451,7 +583,10 @@ public class GameManager : MonoBehaviour
         UpdateProjectileFastForward();
         if (battleStarted && stepGame && !resolvingTurn && !isPaused && !gameEnded
             && !IsChoosingUpgrade && !Player.HasActiveProjectiles)
+        {
             ResolveEnemyTurn();
+        }
+
         RefreshRoomSwitchButtons();
     }
 
@@ -472,25 +607,40 @@ public class GameManager : MonoBehaviour
 
         // Pausing suspends the five-second clock. Upgrade and result screens
         // must retain their own time-scale control.
-        if (isPaused || gameEnded || IsChoosingUpgrade || Time.timeScale <= 0f) return;
+        if (isPaused || gameEnded || IsChoosingUpgrade || Time.timeScale <= 0f)
+        {
+            return;
+        }
 
         if (!projectileFastForwardActive)
         {
             projectileFlightElapsed += Time.unscaledDeltaTime;
             if (projectileFastForwardRequested || projectileFlightElapsed >= ProjectileFastForwardDelay)
+            {
                 ActivateProjectileFastForward();
+            }
         }
 
         if (projectileFastForwardActive)
+        {
             Time.timeScale = ProjectileFastForwardScale;
+        }
     }
 
     public void RequestProjectileFastForward()
     {
-        if (!Player.HasProjectileBodies || gameEnded) return;
+        if (!Player.HasProjectileBodies || gameEnded)
+        {
+            return;
+        }
+
         projectileFastForwardRequested = true;
         // Keep modal screens paused; a pending request resumes with the volley.
-        if (isPaused || IsChoosingUpgrade || Time.timeScale <= 0f) return;
+        if (isPaused || IsChoosingUpgrade || Time.timeScale <= 0f)
+        {
+            return;
+        }
+
         ActivateProjectileFastForward();
     }
 
@@ -507,7 +657,9 @@ public class GameManager : MonoBehaviour
     public void NotifyProjectileCollectionChanged()
     {
         if (!Player.HasProjectileBodies)
+        {
             ResetProjectileFastForward(true);
+        }
     }
 
     public void SetTutorialFlowActive(bool active)
@@ -533,7 +685,11 @@ public class GameManager : MonoBehaviour
 
     private void ResolveEnemyTurn()
     {
-        if (resolvingTurn || gameEnded) return;
+        if (resolvingTurn || gameEnded)
+        {
+            return;
+        }
+
         StartCoroutine(ResolveEnemyTurnRoutine());
     }
 
@@ -555,14 +711,28 @@ public class GameManager : MonoBehaviour
             try
             {
                 FireflyBonfire.ProcessAllAfterEnemyTurn(TurnNumber);
-                if (gameEnded) yield break;
+                if (gameEnded)
+                {
+                    yield break;
+                }
+
                 HoneyBadgerPoisonCloud.ProcessAllAfterEnemyTurn(TurnNumber);
-                if (gameEnded) yield break;
+                if (gameEnded)
+                {
+                    yield break;
+                }
+
                 EnemyStatusEffects.ProcessAllAfterEnemyTurn(TurnNumber);
-                if (gameEnded) yield break;
+                if (gameEnded)
+                {
+                    yield break;
+                }
+
                 FrogRider.ProcessAllAfterEnemyTurn(TurnNumber);
                 while ((FrogRider.HasActiveJumps || SquirrelAcorn.HasActiveBlasts) && !gameEnded)
+                {
                     yield return null;
+                }
             }
             finally
             {
@@ -571,61 +741,137 @@ public class GameManager : MonoBehaviour
             LevelGenerator approachingWave = GetUpcomingWaveWarningRoom();
             // The clock director announces its own fronts and events instead.
             if (approachingWave != null && clockDirector == null)
+            {
                 WaveWarningUI.Show(approachingWave.DefenseLine,
                     approachingWave.SpawnedWaveCount + 1, approachingWave.IsEndlessSurvivalSource);
+            }
             // Arrivals happen after movement, so no enemy moves twice in one turn.
             foreach (LevelGenerator room in turnRooms)
             {
-                if (room != null) room.StepEnemy();
-                if (gameEnded) yield break;
+                if (room != null)
+                {
+                    room.StepEnemy();
+                }
+
+                if (gameEnded)
+                {
+                    yield break;
+                }
             }
             // The turn stays locked until every enemy reaches its next cell.
             // This keeps collisions and breaches in sync with the jump the
             // player actually sees.
-            while (!gameEnded && HasEnemyStepAnimations()) yield return null;
-            if (gameEnded) yield break;
+            while (!gameEnded && HasEnemyStepAnimations())
+            {
+                yield return null;
+            }
+
+            if (gameEnded)
+            {
+                yield break;
+            }
+
             foreach (LevelGenerator room in turnRooms)
-                if (room != null) room.AnimateRequestedBreach();
-            while (!gameEnded && HasEnemyVisualTransitions()) yield return null;
-            if (gameEnded) yield break;
+            {
+                if (room != null)
+                {
+                    room.AnimateRequestedBreach();
+                }
+            }
+
+            while (!gameEnded && HasEnemyVisualTransitions())
+            {
+                yield return null;
+            }
+
+            if (gameEnded)
+            {
+                yield break;
+            }
             // Resolve breaches only after the complete movement batch lands.
             // This preserves the final cell of every enemy when their individual
             // travel delay to the next room is calculated.
             foreach (LevelGenerator room in turnRooms)
-                if (room != null) room.ResolveRequestedBreach();
-            if (gameEnded) yield break;
+            {
+                if (room != null)
+                {
+                    room.ResolveRequestedBreach();
+                }
+            }
+
+            if (gameEnded)
+            {
+                yield break;
+            }
+
             foreach (LevelGenerator room in turnRooms)
-                if (room != null) room.SpawnNextWave();
+            {
+                if (room != null)
+                {
+                    room.SpawnNextWave();
+                }
+            }
             // Deliver only cohorts whose cell-based breach delay has elapsed.
             // Arrival happens after movement so enemies neither overlap jumping
             // units nor move a second time in their arrival phase.
             defenseLineRuntime.DeliverPressure();
-            if (gameEnded) yield break;
+            if (gameEnded)
+            {
+                yield break;
+            }
+
             foreach (LevelGenerator room in turnRooms)
-                if (room != null) room.CompleteEnemyTurn(TurnNumber);
+            {
+                if (room != null)
+                {
+                    room.CompleteEnemyTurn(TurnNumber);
+                }
+            }
+
             AdvanceCampaignLineSchedule();
             // Clock fronts open, light eras change and events start between turns.
             clockDirector?.AfterEnemyTurn(TurnNumber);
-            if (gameEnded) yield break;
+            if (gameEnded)
+            {
+                yield break;
+            }
             // Pick one final destination after all simultaneous breaches have
             // been collected, without jumping the camera through each callback.
             focusedAfterBreach = defenseLineRuntime.FocusPendingBreachRoom();
             // Graves block this enemy movement phase, then eligible zombies
             // rise before control returns to the player.
             ZombieResurrection.ProcessAllAfterEnemyTurn(TurnNumber);
-            if (IsSurvivalFinalLineActive && !gameEnded) survivedSurvivalWaves++;
+            if (IsSurvivalFinalLineActive && !gameEnded)
+            {
+                survivedSurvivalWaves++;
+            }
+
             defenseLineRuntime.RefreshAll();
             defenseLineRuntime.NotifyApproachingBreaches();
             defenseLineRuntime.PayTurnIncome();
             if (defenseLineRuntime.IsReady && defenseLineRuntime.IsQuiet)
             {
-                if (stage >= maxStage && !IsSurvivalMode) WinGame();
+                if (stage >= maxStage && !IsSurvivalMode)
+                {
+                    WinGame();
+                }
             }
             if (!gameEnded)
             {
-                if (!focusedAfterBreach) defenseLineRuntime.EnsureCombatFocus();
-                while (!gameEnded && defenseLineRuntime.IsCameraTransitioning) yield return null;
-                if (gameEnded) yield break;
+                if (!focusedAfterBreach)
+                {
+                    defenseLineRuntime.EnsureCombatFocus();
+                }
+
+                while (!gameEnded && defenseLineRuntime.IsCameraTransitioning)
+                {
+                    yield return null;
+                }
+
+                if (gameEnded)
+                {
+                    yield break;
+                }
 
                 stepPlayer = true;
                 // A burn kill can earn an upgrade before enemies move.
@@ -648,13 +894,22 @@ public class GameManager : MonoBehaviour
         LevelGenerator focused = defenseLineRuntime != null
             ? defenseLineRuntime.GetGenerator(defenseLineRuntime.CurrentRoomId) : null;
         if (focused != null && focused.IsInitialized && focused.RemainingWaves > 0)
+        {
             return focused;
+        }
+
         LevelGenerator outermost = null;
         foreach (LevelGenerator room in turnRooms)
         {
-            if (room == null || !room.IsInitialized || room.RemainingWaves <= 0) continue;
+            if (room == null || !room.IsInitialized || room.RemainingWaves <= 0)
+            {
+                continue;
+            }
+
             if (outermost == null || room.DefenseLine > outermost.DefenseLine)
+            {
                 outermost = room;
+            }
         }
         return outermost;
     }
@@ -664,12 +919,18 @@ public class GameManager : MonoBehaviour
         for (int roomIndex = 0; roomIndex < turnRooms.Count; roomIndex++)
         {
             LevelGenerator room = turnRooms[roomIndex];
-            if (room == null) continue;
+            if (room == null)
+            {
+                continue;
+            }
+
             for (int enemyIndex = 0; enemyIndex < room.EnemyCollection.Count; enemyIndex++)
             {
                 GameObject enemy = room.EnemyCollection[enemyIndex];
                 if (enemy != null && enemy.TryGetComponent(out Brick brick) && brick.IsStepping)
+                {
                     return true;
+                }
             }
         }
         return false;
@@ -680,12 +941,19 @@ public class GameManager : MonoBehaviour
         for (int roomIndex = 0; roomIndex < turnRooms.Count; roomIndex++)
         {
             LevelGenerator room = turnRooms[roomIndex];
-            if (room == null) continue;
+            if (room == null)
+            {
+                continue;
+            }
+
             for (int enemyIndex = 0; enemyIndex < room.EnemyCollection.Count; enemyIndex++)
             {
                 GameObject enemy = room.EnemyCollection[enemyIndex];
                 if (enemy != null && enemy.TryGetComponent(out Brick brick)
-                    && brick.IsVisualTransitioning) return true;
+                    && brick.IsVisualTransitioning)
+                {
+                    return true;
+                }
             }
         }
         return false;
@@ -694,7 +962,10 @@ public class GameManager : MonoBehaviour
     private void OnDestroy()
     {
         if (projectileFastForwardActive && Time.timeScale > 0f)
+        {
             Time.timeScale = Mathf.Max(0.01f, timeScaleBeforeProjectileFastForward);
+        }
+
         if (experienceEconomy != null)
         {
             experienceEconomy.Changed -= OnExperienceChanged;
@@ -715,14 +986,20 @@ public class GameManager : MonoBehaviour
     {
         RegisterEnemyDefeated(experienceReward);
         if (!gameEnded && !IsSurvivalMode && enemy != null && !enemy.IsSummonedVariant)
+        {
             defeatedPlannedEnemies++;
+        }
     }
 
     // Clock siege event reward: one extra upgrade choice, offered at the next
     // safe point of the turn exactly like a line-clear bonus.
     public void GrantEventUpgrade()
     {
-        if (gameEnded || experienceEconomy == null) return;
+        if (gameEnded || experienceEconomy == null)
+        {
+            return;
+        }
+
         pendingProjectileUpgrades++;
         experienceEconomy.GrantUpgradeLevels(1);
         ExperienceChanged?.Invoke();
@@ -742,7 +1019,10 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        if (!rewardedLines.Add(defenseLine)) return;
+        if (!rewardedLines.Add(defenseLine))
+        {
+            return;
+        }
         // One bonus level per completed line, independent of room count and
         // later reoccupation. XP progress and the next XP price are preserved.
         pendingProjectileUpgrades++;
@@ -842,7 +1122,10 @@ public class GameManager : MonoBehaviour
         // Exhausted unique branches must close the modal even with more pending levels.
         if (AnimalProjectileQueue.Instance == null
             || AnimalProjectileQueue.Instance.GetAvailableUpgradeOptions().Count == 0)
+        {
             pendingProjectileUpgrades = 0;
+        }
+
         ExperienceChanged?.Invoke();
 
         ExperienceAndUpgradeUI ui = ExperienceAndUpgradeUI.Ensure(this);
@@ -865,7 +1148,11 @@ public class GameManager : MonoBehaviour
 
     private bool OpenUpgradeChoice()
     {
-        if (gameEnded || CampaignVictoryReady) return false;
+        if (gameEnded || CampaignVictoryReady)
+        {
+            return false;
+        }
+
         AnimalProjectileQueue queue = AnimalProjectileQueue.Instance;
         bool hasAvailableUpgrade = queue != null
             && queue.GetAvailableUpgradeOptions().Count > 0;
@@ -901,16 +1188,27 @@ public class GameManager : MonoBehaviour
     }
     private void AdvanceCampaignLineSchedule()
     {
-        if (IsSurvivalMode || GameRunMode.IsDeveloperRun || gameEnded) return;
+        if (IsSurvivalMode || GameRunMode.IsDeveloperRun || gameEnded)
+        {
+            return;
+        }
+
         int scheduledLine = Mathf.Min(maxStage, CampaignLineForTurn(TurnNumber, CampaignLineIntervalTurns));
-        while (stage < scheduledLine) OpenNextLine(false);
+        while (stage < scheduledLine)
+        {
+            OpenNextLine(false);
+        }
     }
 
     public void NextStage() => OpenNextLine(true);
 
     private void OpenNextLine(bool focusNewLine)
     {
-        if (stage >= maxStage) return;
+        if (stage >= maxStage)
+        {
+            return;
+        }
+
         int completedStage = stage;
         defenseLineRuntime?.LiberateCompletedLines(completedStage);
         stage = Mathf.Min(stage + 1, maxStage);
@@ -926,16 +1224,24 @@ public class GameManager : MonoBehaviour
         stepPlayer = true;
 
         if (IsSurvivalMode && stage == maxStage)
+        {
             GameAnnouncementUI.Show("Четвёртая линия открыта. Волны больше не закончатся", 3f);
+        }
         else
+        {
             GameAnnouncementUI.Show("Открыта линия " + stage + " · "
                 + LevelProgression.CampaignWavesPerRoom + " волн", 2f);
+        }
     }
 
     public int GetSurvivalWaveEnemyCount(int baseEnemyCount)
     {
         int safeBase = Mathf.Clamp(baseEnemyCount, 1, survivalMaximumEnemiesPerWave);
-        if (!IsSurvivalFinalLineActive) return safeBase;
+        if (!IsSurvivalFinalLineActive)
+        {
+            return safeBase;
+        }
+
         int interval = Mathf.Max(1, survivalExtraEnemyEveryTurns);
         int additional = SurvivalPressureTurns / interval;
         return Mathf.Clamp(safeBase + additional, 1, survivalMaximumEnemiesPerWave);
@@ -943,7 +1249,11 @@ public class GameManager : MonoBehaviour
 
     private void AdvanceSurvivalDifficulty()
     {
-        if (!IsSurvivalMode) return;
+        if (!IsSurvivalMode)
+        {
+            return;
+        }
+
         SurvivalPressureTurns++;
         // Clock health is linear in the turn number, so living enemies grow by
         // the ratio between this turn and the previous one.
@@ -956,12 +1266,18 @@ public class GameManager : MonoBehaviour
         for (int roomIndex = 0; roomIndex < rooms.Count; roomIndex++)
         {
             LevelGenerator room = rooms[roomIndex];
-            if (room == null) continue;
+            if (room == null)
+            {
+                continue;
+            }
+
             for (int enemyIndex = 0; enemyIndex < room.EnemyCollection.Count; enemyIndex++)
             {
                 GameObject enemy = room.EnemyCollection[enemyIndex];
                 if (enemy != null && enemy.TryGetComponent(out Brick brick))
+                {
                     brick.ApplySurvivalGrowth(healthFactor, damageFactor);
+                }
             }
         }
 
@@ -970,7 +1286,11 @@ public class GameManager : MonoBehaviour
 
     public void CompleteRoom(LevelGenerator room)
     {
-        if (gameEnded || room == null) return;
+        if (gameEnded || room == null)
+        {
+            return;
+        }
+
         defenseLineRuntime?.RoomCompleted(room);
     }
 

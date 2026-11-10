@@ -51,23 +51,39 @@ public sealed class FirstLevelTutorial : MonoBehaviour
     private void Awake()
     {
         if (Application.isPlaying && tutorialCanvas != null)
+        {
             tutorialCanvas.gameObject.SetActive(false);
+        }
     }
 
     private void OnEnable()
     {
-        if (Application.isPlaying) Player.VolleyStarted += OnVolleyStarted;
+        if (Application.isPlaying)
+        {
+            Player.VolleyStarted += OnVolleyStarted;
+        }
     }
 
     private void OnDisable()
     {
-        if (Application.isPlaying) Player.VolleyStarted -= OnVolleyStarted;
-        if (queue != null) queue.UpgradesChanged -= OnQueueUpgradesChanged;
+        if (Application.isPlaying)
+        {
+            Player.VolleyStarted -= OnVolleyStarted;
+        }
+
+        if (queue != null)
+        {
+            queue.UpgradesChanged -= OnQueueUpgradesChanged;
+        }
     }
 
     private IEnumerator Start()
     {
-        if (!Application.isPlaying) yield break;
+        if (!Application.isPlaying)
+        {
+            yield break;
+        }
+
         yield return null;
 
         manager = GameManager.Instance;
@@ -78,14 +94,22 @@ public sealed class FirstLevelTutorial : MonoBehaviour
             && LevelProgression.Instance != null && LevelProgression.Instance.CurrentLevel == 1;
         if (!firstCampaignLevel || queue == null)
         {
-            if (tutorialCanvas != null) tutorialCanvas.gameObject.SetActive(false);
+            if (tutorialCanvas != null)
+            {
+                tutorialCanvas.gameObject.SetActive(false);
+            }
+
             enabled = false;
             yield break;
         }
 
         loadoutMode = queue.HasRunLoadout || queue.StartingAnimalIndex >= 0;
 
-        if (tutorialCanvas == null) BuildEditableUI();
+        if (tutorialCanvas == null)
+        {
+            BuildEditableUI();
+        }
+
         continueButton.onClick.RemoveListener(AdvanceFromButton);
         continueButton.onClick.AddListener(AdvanceFromButton);
 
@@ -108,7 +132,11 @@ public sealed class FirstLevelTutorial : MonoBehaviour
 
     private void Update()
     {
-        if (!running) return;
+        if (!running)
+        {
+            return;
+        }
+
         if (focusFrame != null && focusFrame.gameObject.activeSelf)
         {
             float pulse = 1f + Mathf.Sin(Time.unscaledTime * 4.5f) * 0.018f;
@@ -116,16 +144,26 @@ public sealed class FirstLevelTutorial : MonoBehaviour
         }
 
         if (step == Step.FireflyFlight && !Player.HasActiveProjectiles)
+        {
             ShowDarkness();
+        }
         else if (step == Step.AwaitingExperience && manager.IsChoosingUpgrade)
+        {
             ShowEarnedExperienceChoice();
+        }
         else if (step == Step.HedgehogFlight && !Player.HasActiveProjectiles)
+        {
             ShowComplete();
+        }
     }
 
     private void OnVolleyStarted(int animalIndex)
     {
-        if (!running) return;
+        if (!running)
+        {
+            return;
+        }
+
         if (step == Step.FireflyAction && animalIndex == AnimalProjectileQueue.FireflyIndex)
         {
             step = Step.FireflyFlight;
@@ -152,14 +190,24 @@ public sealed class FirstLevelTutorial : MonoBehaviour
             return;
         }
         if (!running || queue == null
-            || !queue.IsAvailable(AnimalProjectileQueue.HedgehogIndex)) return;
+            || !queue.IsAvailable(AnimalProjectileQueue.HedgehogIndex))
+        {
+            return;
+        }
+
         if (step == Step.AwaitingExperience || step == Step.AwaitingHedgehogChoice)
+        {
             ShowHedgehogIntro();
+        }
     }
 
     private void AdvanceFromButton()
     {
-        if (!running) return;
+        if (!running)
+        {
+            return;
+        }
+
         switch (step)
         {
             case Step.Welcome:
@@ -225,7 +273,11 @@ public sealed class FirstLevelTutorial : MonoBehaviour
     private void ShowRooms()
     {
         step = Step.Rooms;
-        if (frontUI == null && manager.Front != null) frontUI = manager.Front.Interface;
+        if (frontUI == null && manager.Front != null)
+        {
+            frontUI = manager.Front.Interface;
+        }
+
         frontUI?.OpenMap(true);
         ShowModal(Progress(5), "КОМНАТЫ И ЛИНИИ",
             "После зачистки линии открываются связанные комнаты следующей: 1, затем 3, 5 и 7. На карте видно, куда ведёт каждая ветка.\n\nЕсли комнату прорывают, враги сразу переходят во внутреннюю связанную комнату. Освобождённые комнаты приносят золото каждый ход.",
@@ -248,7 +300,11 @@ public sealed class FirstLevelTutorial : MonoBehaviour
     private void BeginExperienceHunt()
     {
         step = Step.AwaitingExperience;
-        if (tutorialCanvas != null) tutorialCanvas.gameObject.SetActive(false);
+        if (tutorialCanvas != null)
+        {
+            tutorialCanvas.gameObject.SetActive(false);
+        }
+
         manager.SetTutorialFlowActive(false);
         SetPaused(false);
         Player.BlockInputUntilReleased();
@@ -279,7 +335,11 @@ public sealed class FirstLevelTutorial : MonoBehaviour
 
     private void SpawnHedgehogTargets()
     {
-        if (hedgehogTargetsSpawned || manager == null || manager.Front == null) return;
+        if (hedgehogTargetsSpawned || manager == null || manager.Front == null)
+        {
+            return;
+        }
+
         LevelGenerator room = manager.Front.GetGenerator(manager.Front.CurrentRoomId);
         if (room == null || room.IsLost)
         {
@@ -293,9 +353,17 @@ public sealed class FirstLevelTutorial : MonoBehaviour
                 }
             }
         }
-        if (room == null) return;
+        if (room == null)
+        {
+            return;
+        }
+
         int spawned = room.SpawnTutorialCluster(6);
-        if (spawned <= 0) return;
+        if (spawned <= 0)
+        {
+            return;
+        }
+
         hedgehogTargetsSpawned = true;
         manager.Front.FocusRoom(room.RoomId, true);
     }
@@ -330,8 +398,15 @@ public sealed class FirstLevelTutorial : MonoBehaviour
         frontUI?.CloseMap();
         queue?.ClearForcedUpgradeOption();
         if (queue != null)
+        {
             queue.SetMaximumAllowedAnimalIndex(queue.Animals.Count - 1);
-        if (tutorialCanvas != null) tutorialCanvas.gameObject.SetActive(false);
+        }
+
+        if (tutorialCanvas != null)
+        {
+            tutorialCanvas.gameObject.SetActive(false);
+        }
+
         manager.SetTutorialFlowActive(false);
         SetPaused(false);
         Player.BlockInputUntilReleased();
@@ -343,7 +418,11 @@ public sealed class FirstLevelTutorial : MonoBehaviour
     private void ShowModal(string progress, string title, string body, int iconIndex,
         string buttonText, FocusKind focus)
     {
-        if (tutorialCanvas == null) return;
+        if (tutorialCanvas == null)
+        {
+            return;
+        }
+
         tutorialCanvas.gameObject.SetActive(true);
         dimmer.gameObject.SetActive(true);
         dimmer.raycastTarget = true;
@@ -361,7 +440,11 @@ public sealed class FirstLevelTutorial : MonoBehaviour
 
     private void ShowAction(string progress, string title, string body, int iconIndex, FocusKind focus)
     {
-        if (tutorialCanvas == null) return;
+        if (tutorialCanvas == null)
+        {
+            return;
+        }
+
         tutorialCanvas.gameObject.SetActive(true);
         dimmer.gameObject.SetActive(false);
         SetCardLayout(true);
@@ -378,7 +461,11 @@ public sealed class FirstLevelTutorial : MonoBehaviour
     {
         bool show = queue != null && index >= 0 && index < queue.Animals.Count;
         projectileIcon.gameObject.SetActive(show);
-        if (!show) return;
+        if (!show)
+        {
+            return;
+        }
+
         projectileIcon.sprite = queue.Animals[index].GetIcon();
         projectileIcon.color = queue.Animals[index].GetIconColor();
         projectileIcon.preserveAspect = true;
@@ -386,7 +473,11 @@ public sealed class FirstLevelTutorial : MonoBehaviour
 
     private void SetPaused(bool paused)
     {
-        if (manager == null) return;
+        if (manager == null)
+        {
+            return;
+        }
+
         manager.isPaused = paused;
         Time.timeScale = paused ? 0f : 1f;
     }
@@ -394,14 +485,22 @@ public sealed class FirstLevelTutorial : MonoBehaviour
     private void SetCardLayout(bool action)
     {
         if (action)
+        {
             Stretch(card, new Vector2(0.07f, 0.77f), new Vector2(0.93f, 0.94f));
+        }
         else
+        {
             Stretch(card, new Vector2(0.08f, 0.29f), new Vector2(0.92f, 0.70f));
+        }
     }
 
     private void SetFocus(FocusKind kind)
     {
-        if (focusFrame == null) return;
+        if (focusFrame == null)
+        {
+            return;
+        }
+
         focusFrame.localScale = Vector3.one;
         focusFrame.gameObject.SetActive(kind != FocusKind.None && kind != FocusKind.Map);
         switch (kind)
@@ -424,7 +523,11 @@ public sealed class FirstLevelTutorial : MonoBehaviour
     [ContextMenu("Build editable first-level tutorial UI")]
     public void BuildEditableUI()
     {
-        if (tutorialCanvas != null) return;
+        if (tutorialCanvas != null)
+        {
+            return;
+        }
+
         GameObject root = new GameObject("First Level Tutorial UI", typeof(RectTransform),
             typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
         root.transform.SetParent(transform, false);
@@ -495,7 +598,11 @@ public sealed class FirstLevelTutorial : MonoBehaviour
 
     public void PreviewInEditor()
     {
-        if (tutorialCanvas == null) return;
+        if (tutorialCanvas == null)
+        {
+            return;
+        }
+
         tutorialCanvas.gameObject.SetActive(true);
         dimmer.gameObject.SetActive(true);
         SetCardLayout(false);

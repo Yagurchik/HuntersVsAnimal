@@ -50,7 +50,10 @@ public class HedgehogExplosion : MonoBehaviour
 
     private void Start()
     {
-        if (configured) return;
+        if (configured)
+        {
+            return;
+        }
 
         Animal animal = GetComponent<Animal>();
         directDamage = animal != null ? Mathf.Max(0f, animal.dmg) : 0f;
@@ -84,7 +87,11 @@ public class HedgehogExplosion : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Brick enemy = collision.gameObject.GetComponentInParent<Brick>();
-        if (enemy == null) return;
+        if (enemy == null)
+        {
+            return;
+        }
+
         UniversalBossAbility boss = enemy.GetComponent<UniversalBossAbility>();
         if (boss != null && boss.TryConsumeProjectile(GetComponent<Animal>()))
         {
@@ -92,7 +99,10 @@ public class HedgehogExplosion : MonoBehaviour
             return;
         }
         GhostPhasing ghost = enemy.GetComponent<GhostPhasing>();
-        if (ghost != null && ghost.TryPassThrough(GetComponent<Animal>())) return;
+        if (ghost != null && ghost.TryPassThrough(GetComponent<Animal>()))
+        {
+            return;
+        }
 
         Vector3 impactPoint = collision.contactCount > 0
             ? collision.GetContact(0).point
@@ -165,7 +175,11 @@ public sealed class HedgehogExplosionSequence : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (comboEffectRegistered) ProjectileComboUI.Instance?.EndEffect(comboVolleyId);
+        if (comboEffectRegistered)
+        {
+            ProjectileComboUI.Instance?.EndEffect(comboVolleyId);
+        }
+
         comboEffectRegistered = false;
     }
 }

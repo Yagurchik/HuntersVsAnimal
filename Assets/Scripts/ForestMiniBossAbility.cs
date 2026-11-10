@@ -28,7 +28,11 @@ public sealed class ForestMiniBossAbility : EnemyProjectileDamageModifier
     private void Awake()
     {
         enemy = GetComponent<Brick>();
-        if (faceRenderer == null) faceRenderer = GetComponentInChildren<SpriteRenderer>(true);
+        if (faceRenderer == null)
+        {
+            faceRenderer = GetComponentInChildren<SpriteRenderer>(true);
+        }
+
         UpdateFace();
     }
 
@@ -36,7 +40,9 @@ public sealed class ForestMiniBossAbility : EnemyProjectileDamageModifier
         Vector2 impactPoint, float baseDamage)
     {
         if (target == null || target.IsDefeated || projectile == null || baseDamage <= 0f)
+        {
             return baseDamage;
+        }
 
         if (kind == AbilityKind.GreenJudge)
         {
@@ -58,7 +64,11 @@ public sealed class ForestMiniBossAbility : EnemyProjectileDamageModifier
     public void CompleteEnemyTurn(int turnNumber)
     {
         if (kind != AbilityKind.GreenJudge || enemy == null || enemy.IsDefeated
-            || lastTurn == turnNumber) return;
+            || lastTurn == turnNumber)
+        {
+            return;
+        }
+
         lastTurn = turnNumber;
         leftEyeOpen = !leftEyeOpen;
         UpdateFace();
@@ -71,17 +81,28 @@ public sealed class ForestMiniBossAbility : EnemyProjectileDamageModifier
         yield return null;
         releasePending = false;
         if (enemy == null || enemy.IsDefeated || enemy.levelGenerator == null
-            || beePrefab == null) yield break;
+            || beePrefab == null)
+        {
+            yield break;
+        }
 
         for (int i = livingBees.Count - 1; i >= 0; i--)
+        {
             if (livingBees[i] == null || livingBees[i].IsDefeated)
+            {
                 livingBees.RemoveAt(i);
+            }
+        }
 
         LevelGenerator room = enemy.levelGenerator;
         int available = Mathf.Max(0, maximumLivingBees - livingBees.Count);
         for (int i = 0; i < Mathf.Min(2, available); i++)
         {
-            if (!room.TrySummonNear(enemy, beePrefab, out Brick bee)) break;
+            if (!room.TrySummonNear(enemy, beePrefab, out Brick bee))
+            {
+                break;
+            }
+
             bee.ConfigureSummonedVariant(0, Color.white);
             bee.SetSummonedHealth(bee.MaxHp * 0.3f);
             livingBees.Add(bee);
@@ -91,6 +112,8 @@ public sealed class ForestMiniBossAbility : EnemyProjectileDamageModifier
     private void UpdateFace()
     {
         if (kind == AbilityKind.GreenJudge && faceRenderer != null)
+        {
             faceRenderer.flipX = !leftEyeOpen;
+        }
     }
 }

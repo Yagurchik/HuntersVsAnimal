@@ -34,47 +34,83 @@ public sealed class PauseProjectileUpgradesUI : MonoBehaviour
 
     public void Show(AnimalProjectileQueue currentQueue, int index, Sprite fallbackIcon)
     {
-        if (index < 0 || index >= PauseDamageUI.AnimalNames.Length) return;
-        if (IsOpen) Close();
+        if (index < 0 || index >= PauseDamageUI.AnimalNames.Length)
+        {
+            return;
+        }
+
+        if (IsOpen)
+        {
+            Close();
+        }
+
         previousSelection = EventSystem.current != null ? EventSystem.current.currentSelectedGameObject : null;
         queue = currentQueue; animalIndex = index;
         icon.sprite = queue != null && index < queue.Animals.Count ? queue.Animals[index].GetIcon() : null;
-        if (icon.sprite == null) icon.sprite = fallbackIcon;
+        if (icon.sprite == null)
+        {
+            icon.sprite = fallbackIcon;
+        }
+
         icon.color = queue != null && index < queue.Animals.Count ? queue.Animals[index].GetIconColor() : Color.white;
         projectileName.text = PauseDamageUI.AnimalNames[index];
         Refresh();
         gameObject.SetActive(true);
         transform.SetAsLastSibling();
         Canvas.ForceUpdateCanvases(); LayoutCard();
-        if (scroll != null) scroll.verticalNormalizedPosition = 1f;
-        if (EventSystem.current != null && closeButton != null) EventSystem.current.SetSelectedGameObject(closeButton.gameObject);
+        if (scroll != null)
+        {
+            scroll.verticalNormalizedPosition = 1f;
+        }
+
+        if (EventSystem.current != null && closeButton != null)
+        {
+            EventSystem.current.SetSelectedGameObject(closeButton.gameObject);
+        }
     }
 
     private void OnEnable()
     {
-        if (queue != null) queue.UpgradesChanged += Refresh;
+        if (queue != null)
+        {
+            queue.UpgradesChanged += Refresh;
+        }
+
         LayoutCard();
     }
     private void OnDisable()
     {
-        if (queue != null) queue.UpgradesChanged -= Refresh;
+        if (queue != null)
+        {
+            queue.UpgradesChanged -= Refresh;
+        }
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) Close();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Close();
+        }
     }
     private void OnRectTransformDimensionsChange() => LayoutCard();
     public void Close()
     {
         gameObject.SetActive(false);
         if (EventSystem.current != null && previousSelection != null && previousSelection.activeInHierarchy)
+        {
             EventSystem.current.SetSelectedGameObject(previousSelection);
+        }
+
         previousSelection = null;
     }
 
     private void Refresh()
     {
-        if (drawing || rows == null || content == null) return;
+        if (drawing || rows == null || content == null)
+        {
+            return;
+        }
+
         drawing = true;
         try
         {
@@ -87,7 +123,11 @@ public sealed class PauseProjectileUpgradesUI : MonoBehaviour
             for (int i = 0; i < rows.Length; i++)
             {
                 rows[i].root.gameObject.SetActive(i < displayedCount);
-                if (i >= displayedCount) continue;
+                if (i >= displayedCount)
+                {
+                    continue;
+                }
+
                 var item = chosen[i]; var row = rows[i];
                 row.root.anchoredPosition = new Vector2(0, -i * 190f);
                 row.title.text = item.Title; row.description.text = item.Description;
@@ -102,9 +142,17 @@ public sealed class PauseProjectileUpgradesUI : MonoBehaviour
 
     private void LayoutCard()
     {
-        if (drawing || card == null) return;
+        if (drawing || card == null)
+        {
+            return;
+        }
+
         var root = transform as RectTransform;
-        if (root == null || root.rect.width <= 1f || root.rect.height <= 1f) return;
+        if (root == null || root.rect.width <= 1f || root.rect.height <= 1f)
+        {
+            return;
+        }
+
         float desiredHeight = Mathf.Clamp(364f + displayedCount * 190f, 560f, 1320f);
         card.sizeDelta = new Vector2(Mathf.Min(950f, root.rect.width - 72f), Mathf.Min(desiredHeight, root.rect.height - 72f));
     }

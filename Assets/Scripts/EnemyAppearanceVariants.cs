@@ -23,14 +23,27 @@ public sealed class EnemyAppearanceVariants : MonoBehaviour
 
     private void Awake()
     {
-        if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer == null || AppearanceCount == 0) return;
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
+        if (spriteRenderer == null || AppearanceCount == 0)
+        {
+            return;
+        }
 
         Appearance selected = appearances[UnityEngine.Random.Range(0, appearances.Length)];
-        if (selected.sprite == null) return;
+        if (selected.sprite == null)
+        {
+            return;
+        }
+
         spriteRenderer.sprite = selected.sprite;
         if (selected.visualScale.x > 0f && selected.visualScale.y > 0f
             && selected.visualScale.z > 0f)
+        {
             transform.localScale = selected.visualScale;
+        }
     }
 }

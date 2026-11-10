@@ -32,23 +32,43 @@ public sealed class LichSummoner : MonoBehaviour
 
     public void CompleteEnemyTurn(int turnNumber)
     {
-        if (enemy == null) enemy = GetComponent<Brick>();
+        if (enemy == null)
+        {
+            enemy = GetComponent<Brick>();
+        }
+
         if (lastSummonTurn == turnNumber || enemy.IsDefeated || !isActiveAndEnabled
-            || enemy.IsStepping || enemy.levelGenerator == null || enemy.levelGenerator.IsLost) return;
+            || enemy.IsStepping || enemy.levelGenerator == null || enemy.levelGenerator.IsLost)
+        {
+            return;
+        }
+
         lastSummonTurn = turnNumber;
         LastSummonCount = 0;
         LevelGenerator room = enemy.levelGenerator;
         GameObject prefab = skeletonPrefab != null ? skeletonPrefab : room.brickPrefab;
         if (prefab == null || !prefab.TryGetComponent(out Brick skeleton)
-            || skeleton.Footprint != Vector2Int.one || prefab.GetComponent<LichSummoner>() != null) return;
+            || skeleton.Footprint != Vector2Int.one || prefab.GetComponent<LichSummoner>() != null)
+        {
+            return;
+        }
+
         int availableSlots = MaximumLivingSummons - LivingSummonCount;
-        if (availableSlots <= 0) return;
+        if (availableSlots <= 0)
+        {
+            return;
+        }
+
         int min = Mathf.Clamp(minimumSummons, 1, 3);
         int count = Mathf.Min(availableSlots,
             Random.Range(min, Mathf.Clamp(maximumSummons, min, 3) + 1));
         for (int i = 0; i < count; i++)
         {
-            if (!room.TrySummonNear(enemy, prefab, out Brick summoned)) break;
+            if (!room.TrySummonNear(enemy, prefab, out Brick summoned))
+            {
+                break;
+            }
+
             summoned.ConfigureSummonedVariant(0, summonedSkeletonTint);
             ownedSummons.Add(summoned);
             LastSummonCount++;
@@ -58,7 +78,12 @@ public sealed class LichSummoner : MonoBehaviour
     private void RemoveDestroyedSummons()
     {
         for (int i = ownedSummons.Count - 1; i >= 0; i--)
-            if (ownedSummons[i] == null) ownedSummons.RemoveAt(i);
+        {
+            if (ownedSummons[i] == null)
+            {
+                ownedSummons.RemoveAt(i);
+            }
+        }
     }
 
     private void OnValidate()

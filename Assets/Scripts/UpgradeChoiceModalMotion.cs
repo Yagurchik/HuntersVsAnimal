@@ -12,7 +12,11 @@ public sealed class UpgradeChoiceModalMotion : MonoBehaviour
 
     private void OnEnable()
     {
-        if (group == null) group = GetComponent<CanvasGroup>();
+        if (group == null)
+        {
+            group = GetComponent<CanvasGroup>();
+        }
+
         elapsed = 0f;
         group.alpha = Application.isPlaying ? 0f : 1f;
         group.interactable = true;
@@ -21,7 +25,11 @@ public sealed class UpgradeChoiceModalMotion : MonoBehaviour
 
     private void Update()
     {
-        if (!Application.isPlaying || group.alpha >= 1f) return;
+        if (!Application.isPlaying || group.alpha >= 1f)
+        {
+            return;
+        }
+
         elapsed += Time.unscaledDeltaTime;
         group.alpha = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(elapsed / fadeDuration));
     }

@@ -14,18 +14,34 @@ public sealed class RoomEnemyIndex
     public void Invalidate() => builtFrame = -1;
     private void Rebuild()
     {
-        if (builtFrame == Time.frameCount && builtCount == owner.EnemyCollection.Count) return;
-        foreach (var bucket in bucketStorage) bucket.Clear();
+        if (builtFrame == Time.frameCount && builtCount == owner.EnemyCollection.Count)
+        {
+            return;
+        }
+
+        foreach (var bucket in bucketStorage)
+        {
+            bucket.Clear();
+        }
+
         cells.Clear();
         int used = 0;
         foreach (var candidate in owner.EnemyCollection)
         {
-            if (candidate == null || !candidate.TryGetComponent(out Brick enemy)) continue;
+            if (candidate == null || !candidate.TryGetComponent(out Brick enemy))
+            {
+                continue;
+            }
+
             Vector3 point = enemy.transform.position;
             var key = new Vector2Int(Mathf.FloorToInt(point.x), Mathf.FloorToInt(point.y));
             if (!cells.TryGetValue(key, out var bucket))
             {
-                if (used == bucketStorage.Count) bucketStorage.Add(new List<Brick>(4));
+                if (used == bucketStorage.Count)
+                {
+                    bucketStorage.Add(new List<Brick>(4));
+                }
+
                 bucket = bucketStorage[used++]; cells.Add(key, bucket);
             }
             bucket.Add(enemy);
@@ -39,16 +55,28 @@ public sealed class RoomEnemyIndex
         int xMin = Mathf.FloorToInt(center.x - radius - 0.001f), xMax = Mathf.FloorToInt(center.x + radius + 0.001f);
         int yMin = Mathf.FloorToInt(center.y - radius - 0.001f), yMax = Mathf.FloorToInt(center.y + radius + 0.001f);
         for (int y = yMin; y <= yMax; y++)
-        for (int x = xMin; x <= xMax; x++)
         {
-            if (!cells.TryGetValue(new Vector2Int(x, y), out var bucket)) continue;
-            foreach (var enemy in bucket)
+            for (int x = xMin; x <= xMax; x++)
+        {
+            if (!cells.TryGetValue(new Vector2Int(x, y), out var bucket))
+                {
+                    continue;
+                }
+
+                foreach (var enemy in bucket)
             {
-                if (enemy == null || enemy == excluded || enemy.IsDefeated || enemy.hp <= 0f) continue;
-                Vector2 gap = (Vector2)enemy.transform.position - center;
+                if (enemy == null || enemy == excluded || enemy.IsDefeated || enemy.hp <= 0f)
+                    {
+                        continue;
+                    }
+
+                    Vector2 gap = (Vector2)enemy.transform.position - center;
                 if (square ? Mathf.Max(Mathf.Abs(gap.x), Mathf.Abs(gap.y)) <= radius + 0.001f : gap.sqrMagnitude <= squareRadius)
-                    result.Add(enemy);
-            }
+                    {
+                        result.Add(enemy);
+                    }
+                }
+        }
         }
     }
 }

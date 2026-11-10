@@ -10,7 +10,11 @@ public sealed class BrineHazard : MonoBehaviour
 
     public static void Spawn(LevelGenerator room, Vector3 position)
     {
-        if (room == null || Player.CurrentVolleyId <= 0) return;
+        if (room == null || Player.CurrentVolleyId <= 0)
+        {
+            return;
+        }
+
         GameObject puddle = new GameObject("Salt Puddle", typeof(BrineHazard));
         puddle.transform.SetParent(room.transform, true);
         puddle.transform.position = position;
@@ -31,8 +35,15 @@ public sealed class BrineHazard : MonoBehaviour
         {
             Animal projectile = contacts[i] != null
                 ? contacts[i].GetComponentInParent<Animal>() : null;
-            if (projectile == null || !touched.Add(projectile)) continue;
-            if (projectile.TakeEnemyDamage(1f)) Destroy(projectile.gameObject);
+            if (projectile == null || !touched.Add(projectile))
+            {
+                continue;
+            }
+
+            if (projectile.TakeEnemyDamage(1f))
+            {
+                Destroy(projectile.gameObject);
+            }
         }
     }
 
@@ -60,6 +71,8 @@ public sealed class BrineHazard : MonoBehaviour
     {
         LineRenderer outline = GetComponent<LineRenderer>();
         if (outline != null && outline.sharedMaterial != null)
+        {
             Destroy(outline.sharedMaterial);
+        }
     }
 }

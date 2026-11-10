@@ -50,8 +50,15 @@ public sealed class BattlefieldForestStyle : MonoBehaviour
 
     public void Refresh(Stage room)
     {
-        if (room == null) room = GetComponent<Stage>();
-        if (room == null) return;
+        if (room == null)
+        {
+            room = GetComponent<Stage>();
+        }
+
+        if (room == null)
+        {
+            return;
+        }
 
         // Older scenes can clone a lower-line room when building outer lines.
         if (frameProfile == null || frameProfile.DefenseLine != room.DefenseLine)
@@ -61,10 +68,15 @@ public sealed class BattlefieldForestStyle : MonoBehaviour
                 "Battlefield/TwilightThicket/Frames/Frame_Line" + room.DefenseLine
                 + "_" + dimensions.x + "x" + dimensions.y);
         }
-        if (frameProfile != null) shadowFrame = frameProfile.Artwork;
+        if (frameProfile != null)
+        {
+            shadowFrame = frameProfile.Artwork;
+        }
 
         foreach (Tilemap map in room.GetComponentsInChildren<Tilemap>(true))
+        {
             map.color = terrainTint;
+        }
 
         Vector2 size = room.BattlefieldSize;
         float visualDepth = ResolveVisualDepth(room);
@@ -95,18 +107,53 @@ public sealed class BattlefieldForestStyle : MonoBehaviour
 
     public void RefreshFrameSorting()
     {
-        if (frameRenderer != null) frameRenderer.sortingOrder = FrameSortingOrder;
+        if (frameRenderer != null)
+        {
+            frameRenderer.sortingOrder = FrameSortingOrder;
+        }
+
         if (boardEdgeRenderers != null)
+        {
             foreach (SpriteRenderer edge in boardEdgeRenderers)
-                if (edge != null) edge.sortingOrder = FrameSortingOrder + 1;
-        if (vineGlowRenderer != null) vineGlowRenderer.sortingOrder = FrameSortingOrder + 1;
-        if (vineRenderer != null) vineRenderer.sortingOrder = FrameSortingOrder + 2;
-        if (blinkingEyes == null) return;
+            {
+                if (edge != null)
+                {
+                    edge.sortingOrder = FrameSortingOrder + 1;
+                }
+            }
+        }
+
+        if (vineGlowRenderer != null)
+        {
+            vineGlowRenderer.sortingOrder = FrameSortingOrder + 1;
+        }
+
+        if (vineRenderer != null)
+        {
+            vineRenderer.sortingOrder = FrameSortingOrder + 2;
+        }
+
+        if (blinkingEyes == null)
+        {
+            return;
+        }
+
         foreach (ForestEyeBlinker eyes in blinkingEyes)
         {
-            if (eyes == null) continue;
-            if (eyes.LeftEye != null) eyes.LeftEye.sortingOrder = FrameSortingOrder + 3;
-            if (eyes.RightEye != null) eyes.RightEye.sortingOrder = FrameSortingOrder + 3;
+            if (eyes == null)
+            {
+                continue;
+            }
+
+            if (eyes.LeftEye != null)
+            {
+                eyes.LeftEye.sortingOrder = FrameSortingOrder + 3;
+            }
+
+            if (eyes.RightEye != null)
+            {
+                eyes.RightEye.sortingOrder = FrameSortingOrder + 3;
+            }
         }
     }
 
@@ -114,13 +161,20 @@ public sealed class BattlefieldForestStyle : MonoBehaviour
     // Each defense line has its own editable profile; animals do not get 9-slice stretched.
     private void GetFrameLayout(Vector2 fieldSize, out Vector2 size, out Vector2 center)
     {
-        if (frameProfile != null) frameProfile.GetLayout(fieldSize, out size, out center);
+        if (frameProfile != null)
+        {
+            frameProfile.GetLayout(fieldSize, out size, out center);
+        }
         else { size = fieldSize; center = Vector2.zero; }
     }
 
     public Bounds GetFramingBounds(Bounds gameplayBounds)
     {
-        if (shadowFrame == null) return gameplayBounds;
+        if (shadowFrame == null)
+        {
+            return gameplayBounds;
+        }
+
         GetFrameLayout(gameplayBounds.size, out Vector2 size, out Vector2 center);
         size += Vector2.one * ((frameProfile != null ? frameProfile.CameraMargin : 0f) * 2f);
         return new Bounds(gameplayBounds.center + (Vector3)center, new Vector3(size.x, size.y, 0f));
@@ -139,8 +193,14 @@ public sealed class BattlefieldForestStyle : MonoBehaviour
         Transform obsoleteBottom = transform.Find("Orange Forest Edge Bottom");
         if (obsoleteBottom != null)
         {
-            if (Application.isPlaying) Destroy(obsoleteBottom.gameObject);
-            else DestroyImmediate(obsoleteBottom.gameObject);
+            if (Application.isPlaying)
+            {
+                Destroy(obsoleteBottom.gameObject);
+            }
+            else
+            {
+                DestroyImmediate(obsoleteBottom.gameObject);
+            }
         }
         if (boardEdgeRenderers == null || boardEdgeRenderers.Length != 3)
         {
@@ -179,7 +239,11 @@ public sealed class BattlefieldForestStyle : MonoBehaviour
 
     public void RefreshLowerField(Stage room, Tilemap sourceTiles)
     {
-        if (lowerFieldRenderer == null || room == null || sourceTiles == null) return;
+        if (lowerFieldRenderer == null || room == null || sourceTiles == null)
+        {
+            return;
+        }
+
         BoundsInt cells = sourceTiles.cellBounds;
         Sprite floorSprite = sourceTiles.GetSprite(new Vector3Int(cells.xMin, cells.yMin, cells.zMin));
         if (floorSprite == null)
@@ -213,7 +277,10 @@ public sealed class BattlefieldForestStyle : MonoBehaviour
                 existing.SetParent(transform, false);
             }
             current = existing.GetComponent<SpriteRenderer>();
-            if (current == null) current = existing.gameObject.AddComponent<SpriteRenderer>();
+            if (current == null)
+            {
+                current = existing.gameObject.AddComponent<SpriteRenderer>();
+            }
         }
         current.sortingOrder = sortingOrder;
         current.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
@@ -252,7 +319,9 @@ public sealed class BattlefieldForestStyle : MonoBehaviour
     private void EnsureEyePairs(Stage room, Vector2 size, float localDepth)
     {
         if (blinkingEyes == null || blinkingEyes.Length != 3)
+        {
             blinkingEyes = new ForestEyeBlinker[3];
+        }
         // The bottom spectators face away from us. Eyes belong to the three
         // forward-facing animals on the top rail, outside the enemy grid.
         for (int i = 0; i < blinkingEyes.Length; i++)
@@ -268,7 +337,11 @@ public sealed class BattlefieldForestStyle : MonoBehaviour
                     existing.SetParent(transform, false);
                 }
                 eyes = existing.GetComponent<ForestEyeBlinker>();
-                if (eyes == null) eyes = existing.gameObject.AddComponent<ForestEyeBlinker>();
+                if (eyes == null)
+                {
+                    eyes = existing.gameObject.AddComponent<ForestEyeBlinker>();
+                }
+
                 blinkingEyes[i] = eyes;
             }
             Vector2 position = FramePixelToLocal(frameProfile != null ? frameProfile.EyePixel(i) : Vector2.zero, size);
@@ -280,7 +353,11 @@ public sealed class BattlefieldForestStyle : MonoBehaviour
 
     private Vector2 FramePixelToLocal(Vector2 pixel, Vector2 fieldSize)
     {
-        if (shadowFrame == null) return Vector2.zero;
+        if (shadowFrame == null)
+        {
+            return Vector2.zero;
+        }
+
         GetFrameLayout(fieldSize, out Vector2 size, out Vector2 center);
         return center - size * 0.5f + new Vector2(
             pixel.x / shadowFrame.rect.width * size.x, pixel.y / shadowFrame.rect.height * size.y);
@@ -289,7 +366,10 @@ public sealed class BattlefieldForestStyle : MonoBehaviour
     private static float ResolveVisualDepth(Stage room)
     {
         if (room.PlayerObject != null)
+        {
             return room.transform.InverseTransformPoint(room.PlayerObject.transform.position).z;
+        }
+
         LevelGenerator generator = room.GetComponentInChildren<LevelGenerator>(true);
         return generator != null
             ? room.transform.InverseTransformPoint(generator.transform.position).z

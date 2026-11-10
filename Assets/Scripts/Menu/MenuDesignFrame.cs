@@ -10,9 +10,17 @@ public class MenuDesignFrame : MonoBehaviour
     {
         var rect = (RectTransform)transform;
         var parent = rect.parent as RectTransform;
-        if (parent == null || designSize.x <= 0 || designSize.y <= 0) return;
+        if (parent == null || designSize.x <= 0 || designSize.y <= 0)
+        {
+            return;
+        }
+
         float scale = Mathf.Min(parent.rect.width / designSize.x, parent.rect.height / designSize.y);
-        if (scale <= 0) return;
+        if (scale <= 0)
+        {
+            return;
+        }
+
         rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(0.5f, 0.5f);
         rect.sizeDelta = designSize;
         rect.anchoredPosition = Vector2.zero;

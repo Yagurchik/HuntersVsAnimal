@@ -85,15 +85,27 @@ public static class VillageUIStyle
         button.colors = colors;
         Label("Label", rect, text, size, Cream, 10, 5, w - 20, h - 10,
             true, TextAnchor.MiddleCenter);
-        if (action != null) button.onClick.AddListener(action);
+        if (action != null)
+        {
+            button.onClick.AddListener(action);
+        }
+
         return button;
     }
 
     public static RectTransform ScrollPage(Transform page, string name, float height)
     {
         var legacy = page.GetComponent<ScrollRect>();
-        if (legacy != null) legacy.enabled = false;
-        foreach (Transform child in page) child.gameObject.SetActive(false);
+        if (legacy != null)
+        {
+            legacy.enabled = false;
+        }
+
+        foreach (Transform child in page)
+        {
+            child.gameObject.SetActive(false);
+        }
+
         RectTransform root = PanelRect(name, page, Background, 0, 0, 1080, height);
         Stretch(root);
         root.GetComponent<Image>().raycastTarget = true;

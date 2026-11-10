@@ -21,12 +21,19 @@ public sealed class SquirrelProjectile : ProjectileEnemyEffect
     public override void ApplyTo(Brick enemy)
     {
         Animal animal = GetComponent<Animal>();
-        if (animal == null || animal.IsReturning || enemy == null || enemy.IsDefeated) return;
+        if (animal == null || animal.IsReturning || enemy == null || enemy.IsDefeated)
+        {
+            return;
+        }
+
         bool alreadyPlanted = SquirrelAcorn.FindOn(enemy) != null;
         SquirrelAcorn seed = SquirrelAcorn.Plant(enemy, acornPrefab, earlyExplosionChance, bindingRank,
             chainReaction, animal.ComboVolleyId);
         // The planting hit never rolls. Only another squirrel collision can
         // detonate a living host's acorn before its death.
-        if (alreadyPlanted && seed != null && !seed.IsArtifactSeed) seed.TryDetonateEarly();
+        if (alreadyPlanted && seed != null && !seed.IsArtifactSeed)
+        {
+            seed.TryDetonateEarly();
+        }
     }
 }

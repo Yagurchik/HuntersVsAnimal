@@ -28,14 +28,20 @@ public sealed class ProjectilePhysics2D : MonoBehaviour
 
     public static float GetCollisionRadius(GameObject projectilePrefab)
     {
-        if (projectilePrefab == null) return 0f;
+        if (projectilePrefab == null)
+        {
+            return 0f;
+        }
 
         CircleCollider2D[] colliders = projectilePrefab.GetComponentsInChildren<CircleCollider2D>(true);
         float largestRadius = 0f;
         for (int i = 0; i < colliders.Length; i++)
         {
             CircleCollider2D collider = colliders[i];
-            if (collider == null || collider.isTrigger) continue;
+            if (collider == null || collider.isTrigger)
+            {
+                continue;
+            }
 
             Vector3 scale = collider.transform.lossyScale;
             float worldScale = Mathf.Max(Mathf.Abs(scale.x), Mathf.Abs(scale.y));
@@ -52,7 +58,11 @@ public sealed class ProjectilePhysics2D : MonoBehaviour
 
     private void OnEnable()
     {
-        if (body == null) body = GetComponent<Rigidbody2D>();
+        if (body == null)
+        {
+            body = GetComponent<Rigidbody2D>();
+        }
+
         ConfigureBody();
     }
 
@@ -70,7 +80,11 @@ public sealed class ProjectilePhysics2D : MonoBehaviour
 
     public void Launch(Vector2 direction, float speed)
     {
-        if (body == null) body = GetComponent<Rigidbody2D>();
+        if (body == null)
+        {
+            body = GetComponent<Rigidbody2D>();
+        }
+
         ConfigureBody();
 
         targetSpeed = Mathf.Max(0.1f, speed);
@@ -85,7 +99,11 @@ public sealed class ProjectilePhysics2D : MonoBehaviour
 
     public void ReturnTo(Vector2 target, float speed)
     {
-        if (body == null) body = GetComponent<Rigidbody2D>();
+        if (body == null)
+        {
+            body = GetComponent<Rigidbody2D>();
+        }
+
         ConfigureBody();
 
         flying = false;
@@ -98,8 +116,16 @@ public sealed class ProjectilePhysics2D : MonoBehaviour
 
     public void Redirect(Vector2 direction)
     {
-        if (body == null) body = GetComponent<Rigidbody2D>();
-        if (body == null) return;
+        if (body == null)
+        {
+            body = GetComponent<Rigidbody2D>();
+        }
+
+        if (body == null)
+        {
+            return;
+        }
+
         float speed = targetSpeed > 0.1f ? targetSpeed : Mathf.Max(0.1f, body.velocity.magnitude);
         lastDirection = KeepVerticalMotion(SafeDirection(direction, lastDirection),
             MinimumRicochetVerticalAngle, direction.y);
@@ -114,7 +140,11 @@ public sealed class ProjectilePhysics2D : MonoBehaviour
     // Restore the pre-contact trajectory without treating it as a ricochet.
     public void ContinueThroughEnemy()
     {
-        if (!flying || body == null || !body.simulated) return;
+        if (!flying || body == null || !body.simulated)
+        {
+            return;
+        }
+
         body.velocity = lastDirection * targetSpeed;
         body.angularVelocity = 0f;
         preserveExactReflectionDirection = false;
@@ -130,7 +160,10 @@ public sealed class ProjectilePhysics2D : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!flying || body == null || !body.simulated || !preserveLaunchSpeed) return;
+        if (!flying || body == null || !body.simulated || !preserveLaunchSpeed)
+        {
+            return;
+        }
 
         Vector2 velocity = body.velocity;
         float stoppedThreshold = targetSpeed * stoppedSpeedRatio;
@@ -150,7 +183,11 @@ public sealed class ProjectilePhysics2D : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!flying || body == null || !body.simulated || collision.contactCount == 0) return;
+        if (!flying || body == null || !body.simulated || collision.contactCount == 0)
+        {
+            return;
+        }
+
         GhostPhasing ghost = collision.gameObject.GetComponentInParent<GhostPhasing>();
         if (ghost != null && ghost.TryPassThrough(GetComponent<Animal>()))
         {
@@ -167,7 +204,11 @@ public sealed class ProjectilePhysics2D : MonoBehaviour
         }
         // A wide projectile can touch two neighboring bricks during one physics
         // step. Reflect only once so two callbacks cannot undo or twist the bounce.
-        if (lastReflectionFixedTime == Time.fixedTime) return;
+        if (lastReflectionFixedTime == Time.fixedTime)
+        {
+            return;
+        }
+
         lastReflectionFixedTime = Time.fixedTime;
 
         // Rigidbody2D may already have applied its material response by the time
@@ -185,14 +226,20 @@ public sealed class ProjectilePhysics2D : MonoBehaviour
         else
         {
             if (IsEnemyCollision(collision) && !HasOctagonalBossCollider(collision))
+            {
                 normal = StabilizeEnemyReflectionNormal(incoming, normal);
+            }
+
             reflected = ReflectDirection(incoming, normal);
         }
         // A mathematically horizontal bounce keeps the incoming vertical sign
         // when adding the minimum angle; the bevel must not force it downward.
         if (!mirageReflection)
+        {
             reflected = KeepVerticalMotion(reflected, MinimumRicochetVerticalAngle,
                 incoming.y);
+        }
+
         preserveExactReflectionDirection = mirageReflection;
 
         if (boar != null && boar.TryBeginWallBouncePause(collision, reflected))
@@ -201,7 +248,10 @@ public sealed class ProjectilePhysics2D : MonoBehaviour
             body.velocity = Vector2.zero;
             body.angularVelocity = 0f;
             if (collisionSeparation > 0f)
+            {
                 body.position += normal * collisionSeparation;
+            }
+
             return;
         }
 
@@ -210,7 +260,9 @@ public sealed class ProjectilePhysics2D : MonoBehaviour
         body.velocity = reflected * targetSpeed;
         body.angularVelocity = 0f;
         if (collisionSeparation > 0f)
+        {
             body.position += normal * collisionSeparation;
+        }
     }
 
     public static Vector2 ReflectDirection(Vector2 incoming, Vector2 normal)
@@ -233,10 +285,14 @@ public sealed class ProjectilePhysics2D : MonoBehaviour
 
         const float axisEpsilon = 0.001f;
         if (Mathf.Abs(normal.x) <= axisEpsilon || Mathf.Abs(normal.y) <= axisEpsilon)
+        {
             return normal;
+        }
 
         if (Mathf.Abs(incoming.x) > Mathf.Abs(incoming.y))
+        {
             return new Vector2(normal.x >= 0f ? 1f : -1f, 0f);
+        }
 
         return new Vector2(0f, normal.y >= 0f ? 1f : -1f);
     }
@@ -252,7 +308,10 @@ public sealed class ProjectilePhysics2D : MonoBehaviour
         reflectedDirection = Vector2.zero;
         if (enemy == null || enemy.GetComponent<MirageCornerMirror>() == null
             || enemyCollider == null)
+        {
             return false;
+        }
+
         reflectedDirection = ReturnToSenderDirection(incoming);
         return true;
     }
@@ -263,7 +322,10 @@ public sealed class ProjectilePhysics2D : MonoBehaviour
         direction = SafeDirection(direction, Vector2.up);
         float angle = Mathf.Clamp(minimumAngleDegrees, 0f, 89f) * Mathf.Deg2Rad;
         float minimumY = Mathf.Sin(angle);
-        if (Mathf.Abs(direction.y) >= minimumY) return direction;
+        if (Mathf.Abs(direction.y) >= minimumY)
+        {
+            return direction;
+        }
 
         float verticalSign = Mathf.Abs(direction.y) > 0.0001f
             ? Mathf.Sign(direction.y)
@@ -291,7 +353,11 @@ public sealed class ProjectilePhysics2D : MonoBehaviour
 
     private static bool IsEnemyCollision(Collision2D collision)
     {
-        if (collision == null) return false;
+        if (collision == null)
+        {
+            return false;
+        }
+
         return collision.gameObject.GetComponentInParent<Brick>() != null
             || (collision.collider != null
                 && collision.collider.GetComponentInParent<Brick>() != null)
@@ -313,7 +379,9 @@ public sealed class ProjectilePhysics2D : MonoBehaviour
                     ? contact.collider.GetComponentInParent<Brick>() : null, contact.collider)
                 || IsOctagonalBossCollider(contact.otherCollider != null
                     ? contact.otherCollider.GetComponentInParent<Brick>() : null, contact.otherCollider))
+            {
                 return true;
+            }
         }
         return false;
     }
@@ -322,7 +390,10 @@ public sealed class ProjectilePhysics2D : MonoBehaviour
         out Vector2 reflectedDirection)
     {
         reflectedDirection = Vector2.zero;
-        if (collision == null) return false;
+        if (collision == null)
+        {
+            return false;
+        }
 
         for (int i = 0; i < collision.contactCount; i++)
         {
@@ -331,7 +402,9 @@ public sealed class ProjectilePhysics2D : MonoBehaviour
                 out reflectedDirection)
                 || TryGetMirageReturnReflectionFromCollider(contact.otherCollider, incoming,
                     out reflectedDirection))
+            {
                 return true;
+            }
         }
         return false;
     }
@@ -340,7 +413,11 @@ public sealed class ProjectilePhysics2D : MonoBehaviour
         Vector2 incoming, out Vector2 reflectedDirection)
     {
         reflectedDirection = Vector2.zero;
-        if (collider == null) return false;
+        if (collider == null)
+        {
+            return false;
+        }
+
         Brick enemy = collider.GetComponentInParent<Brick>();
         return TryGetMirageReturnReflection(enemy, collider, incoming,
             out reflectedDirection);
@@ -354,13 +431,21 @@ public sealed class ProjectilePhysics2D : MonoBehaviour
 
     private static Vector2 SafeDirection(Vector2 direction, Vector2 fallback)
     {
-        if (direction.sqrMagnitude > 0.000001f) return direction.normalized;
+        if (direction.sqrMagnitude > 0.000001f)
+        {
+            return direction.normalized;
+        }
+
         return fallback.sqrMagnitude > 0.000001f ? fallback.normalized : Vector2.up;
     }
 
     private void ConfigureBody()
     {
-        if (body == null) return;
+        if (body == null)
+        {
+            return;
+        }
+
         body.gravityScale = 0f;
         body.drag = 0f;
         body.angularDrag = 0f;

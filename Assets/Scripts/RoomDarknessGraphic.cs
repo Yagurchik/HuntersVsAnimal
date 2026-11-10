@@ -67,22 +67,44 @@ public sealed class RoomDarknessGraphic : MaskableGraphic
         bool changed = litFraction != lighting || softness != edgeWidth || !color.Equals(tint)
             || lights.Count != lightCount || shadows.Count != shadowCount;
         for (int i = 0; !changed && i < lightCount; i++)
+        {
             changed = !lights[i].Center.Equals(localLights[i].Center) || lights[i].Radius != localLights[i].Radius
                 || lights[i].Softness != localLights[i].Softness;
+        }
+
         for (int i = 0; !changed && i < shadowCount; i++)
+        {
             changed = !shadows[i].Center.Equals(localShadows[i].Center)
                 || shadows[i].Radius != localShadows[i].Radius
                 || shadows[i].Softness != localShadows[i].Softness;
-        if (!changed) return;
+        }
+
+        if (!changed)
+        {
+            return;
+        }
+
         litFraction = lighting;
         softness = edgeWidth;
         color = tint;
         lights.Clear();
         if (localLights != null)
-            for (int i = 0; i < localLights.Count; i++) lights.Add(localLights[i]);
+        {
+            for (int i = 0; i < localLights.Count; i++)
+            {
+                lights.Add(localLights[i]);
+            }
+        }
+
         shadows.Clear();
         if (localShadows != null)
-            for (int i = 0; i < localShadows.Count; i++) shadows.Add(localShadows[i]);
+        {
+            for (int i = 0; i < localShadows.Count; i++)
+            {
+                shadows.Add(localShadows[i]);
+            }
+        }
+
         samplesDirty = true;
         SetVerticesDirty();
     }
@@ -90,7 +112,11 @@ public sealed class RoomDarknessGraphic : MaskableGraphic
     protected override void OnPopulateMesh(VertexHelper mesh)
     {
         mesh.Clear();
-        if (litFraction >= 1f && shadows.Count == 0) return;
+        if (litFraction >= 1f && shadows.Count == 0)
+        {
+            return;
+        }
+
         Rect area = rectTransform.rect;
         if (lights.Count > 0 || shadows.Count > 0)
         {
@@ -112,7 +138,11 @@ public sealed class RoomDarknessGraphic : MaskableGraphic
 
     private void AddStrip(VertexHelper mesh, Rect area, float bottom, float top, float bottomAlpha, float topAlpha)
     {
-        if (top <= bottom) return;
+        if (top <= bottom)
+        {
+            return;
+        }
+
         int first = mesh.currentVertCount;
         Color low = color;
         Color high = color;
@@ -137,9 +167,18 @@ public sealed class RoomDarknessGraphic : MaskableGraphic
     private float SampleAlpha(Vector2 localPosition, float start, float end)
     {
         float alpha;
-        if (localPosition.y <= start) alpha = litFraction <= 0f ? 1f : 0f;
-        else if (end <= start) alpha = 1f;
-        else alpha = Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(start, end, localPosition.y));
+        if (localPosition.y <= start)
+        {
+            alpha = litFraction <= 0f ? 1f : 0f;
+        }
+        else if (end <= start)
+        {
+            alpha = 1f;
+        }
+        else
+        {
+            alpha = Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(start, end, localPosition.y));
+        }
 
         for (int i = 0; i < shadows.Count; i++)
         {
@@ -169,23 +208,33 @@ public sealed class RoomDarknessGraphic : MaskableGraphic
         int rows = Mathf.Max(1, Mathf.CeilToInt(area.height / MeshCellSize));
         int stride = columns + 1;
         int sampleCount = stride * (rows + 1);
-        if (alphaSamples.Length < sampleCount) alphaSamples = new float[sampleCount];
+        if (alphaSamples.Length < sampleCount)
+        {
+            alphaSamples = new float[sampleCount];
+        }
+
         if (samplesDirty || !sampleArea.Equals(area) || !sampleColor.Equals(color))
         {
             float start = Mathf.Lerp(area.yMin, area.yMax, litFraction);
             float end = Mathf.Min(area.yMax, start + (litFraction <= 0f ? 0f : softness));
             // Adjacent quads share corners; calculate each light sample only once.
             for (int row = 0; row <= rows; row++)
-            for (int column = 0; column <= columns; column++)
-                alphaSamples[row * stride + column] = SampleAlpha(new Vector2(
+            {
+                for (int column = 0; column <= columns; column++)
+                {
+                    alphaSamples[row * stride + column] = SampleAlpha(new Vector2(
                     Mathf.Lerp(area.xMin, area.xMax, (float)column / columns),
                     Mathf.Lerp(area.yMin, area.yMax, (float)row / rows)), start, end);
+                }
+            }
+
             samplesDirty = false;
             sampleArea = area;
             sampleColor = color;
         }
         for (int row = 0; row < rows; row++)
-        for (int column = 0; column < columns; column++)
+        {
+            for (int column = 0; column < columns; column++)
         {
             float x0 = Mathf.Lerp(area.xMin, area.xMax, (float)column / columns);
             float x1 = Mathf.Lerp(area.xMin, area.xMax, (float)(column + 1) / columns);
@@ -195,8 +244,12 @@ public sealed class RoomDarknessGraphic : MaskableGraphic
             float a10 = alphaSamples[row * stride + column + 1];
             float a11 = alphaSamples[(row + 1) * stride + column + 1];
             float a01 = alphaSamples[(row + 1) * stride + column];
-            if (a00 <= 0.001f && a10 <= 0.001f && a11 <= 0.001f && a01 <= 0.001f) continue;
-            int first = mesh.currentVertCount;
+            if (a00 <= 0.001f && a10 <= 0.001f && a11 <= 0.001f && a01 <= 0.001f)
+                {
+                    continue;
+                }
+
+                int first = mesh.currentVertCount;
             Color c00 = color; c00.a = a00;
             Color c10 = color; c10.a = a10;
             Color c11 = color; c11.a = a11;
@@ -207,6 +260,7 @@ public sealed class RoomDarknessGraphic : MaskableGraphic
             mesh.AddVert(new Vector3(x0, y1), c01, Vector2.zero);
             mesh.AddTriangle(first, first + 1, first + 2);
             mesh.AddTriangle(first + 2, first + 3, first);
+        }
         }
     }
 }

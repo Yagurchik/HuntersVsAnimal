@@ -93,7 +93,11 @@ public sealed class ClockSiegeDirector : MonoBehaviour
     public static ClockSiegeDirector Ensure(GameManager game)
     {
         ClockSiegeDirector director = game.GetComponent<ClockSiegeDirector>();
-        if (director == null) director = game.gameObject.AddComponent<ClockSiegeDirector>();
+        if (director == null)
+        {
+            director = game.gameObject.AddComponent<ClockSiegeDirector>();
+        }
+
         director.manager = game;
         return director;
     }
@@ -109,23 +113,38 @@ public sealed class ClockSiegeDirector : MonoBehaviour
     {
         int count = 1;
         if (extraFrontTurns != null)
+        {
             foreach (int turn in extraFrontTurns)
-                if (playerTurn >= turn) count++;
+            {
+                if (playerTurn >= turn)
+                {
+                    count++;
+                }
+            }
+        }
+
         return Mathf.Clamp(count, 1, ClockHours);
     }
 
     public float EraLitFraction(int playerTurn)
     {
         float lit = 1f;
-        if (lightEraStartTurns == null || lightEraLitFractions == null) return lit;
+        if (lightEraStartTurns == null || lightEraLitFractions == null)
+        {
+            return lit;
+        }
+
         int count = Mathf.Min(lightEraStartTurns.Length, lightEraLitFractions.Length);
         int bestStart = int.MinValue;
         for (int i = 0; i < count; i++)
+        {
             if (playerTurn >= lightEraStartTurns[i] && lightEraStartTurns[i] >= bestStart)
             {
                 bestStart = lightEraStartTurns[i];
                 lit = Mathf.Clamp01(lightEraLitFractions[i]);
             }
+        }
+
         return lit;
     }
 
@@ -133,9 +152,17 @@ public sealed class ClockSiegeDirector : MonoBehaviour
 
     public bool ShouldSpawnWave(int roomId)
     {
-        if (!spawning.Contains(roomId) || manager == null) return false;
+        if (!spawning.Contains(roomId) || manager == null)
+        {
+            return false;
+        }
+
         int turn = manager.TurnNumber;
-        if (turn == calmEnemyTurn) return false;
+        if (turn == calmEnemyTurn)
+        {
+            return false;
+        }
+
         int opened = openedTurn.TryGetValue(roomId, out int value) ? value : 0;
         return (turn - opened) % Mathf.Max(1, waveIntervalTurns) == 0;
     }
@@ -145,16 +172,30 @@ public sealed class ClockSiegeDirector : MonoBehaviour
         model = defenseModel;
         frontIds.Clear();
         foreach (DefenseFront.Room room in defenseModel.Rooms)
-            if (room.Line >= 3) frontIds.Add(room.Id);
+        {
+            if (room.Line >= 3)
+            {
+                frontIds.Add(room.Id);
+            }
+        }
+
         defenseModel.ConfigureClockLayout(frontIds, ShuffledHours());
     }
 
     public void BeginRun(DefenseLineRuntime runtime)
     {
-        if (running) return;
+        if (running)
+        {
+            return;
+        }
+
         running = true;
         front = runtime;
-        if (manager == null) manager = GetComponent<GameManager>();
+        if (manager == null)
+        {
+            manager = GetComponent<GameManager>();
+        }
+
         model = runtime.Model;
         int minimumGap = Mathf.Max(1, minimumEventGapTurns);
         nextEventTurn = Random.Range(minimumGap, Mathf.Max(minimumGap, maximumEventGapTurns) + 1);
@@ -175,7 +216,11 @@ public sealed class ClockSiegeDirector : MonoBehaviour
 
     public void AfterEnemyTurn(int completedTurn)
     {
-        if (!running || front == null || manager == null || manager.GameEnded) return;
+        if (!running || front == null || manager == null || manager.GameEnded)
+        {
+            return;
+        }
+
         CheckEventTargets();
         CloseExpiredSplit(completedTurn);
         UpdateTimedEvents(completedTurn);
@@ -190,7 +235,11 @@ public sealed class ClockSiegeDirector : MonoBehaviour
 
     private void Update()
     {
-        if (!running || manager == null || manager.GameEnded) return;
+        if (!running || manager == null || manager.GameEnded)
+        {
+            return;
+        }
+
         CheckEventTargets();
         UpdateRevealedRooms();
     }
@@ -202,7 +251,11 @@ public sealed class ClockSiegeDirector : MonoBehaviour
     // no living enemy is left there, so later waves stay unknown until seen.
     private void UpdateRevealedRooms()
     {
-        if (front == null) return;
+        if (front == null)
+        {
+            return;
+        }
+
         bool changed = false;
         int currentId = front.CurrentRoomId;
         if (currentId >= 0 && !revealedRooms.Contains(currentId) && !front.IsCameraTransitioning
@@ -215,22 +268,43 @@ public sealed class ClockSiegeDirector : MonoBehaviour
         foreach (int id in revealedRooms)
         {
             LevelGenerator generator = front.GetGenerator(id);
-            if (generator == null || !generator.HasLivingEnemies) concealAgain.Add(id);
+            if (generator == null || !generator.HasLivingEnemies)
+            {
+                concealAgain.Add(id);
+            }
         }
-        foreach (int id in concealAgain) revealedRooms.Remove(id);
-        if (changed || concealAgain.Count > 0) front.NotifyChanged();
+        foreach (int id in concealAgain)
+        {
+            revealedRooms.Remove(id);
+        }
+
+        if (changed || concealAgain.Count > 0)
+        {
+            front.NotifyChanged();
+        }
     }
 
     private static bool HasVisibleEnemy(LevelGenerator generator)
     {
-        if (generator == null) return false;
+        if (generator == null)
+        {
+            return false;
+        }
+
         RoomDarkness darkness = generator.Darkness;
         foreach (GameObject enemy in generator.EnemyCollection)
         {
             if (enemy == null || !enemy.TryGetComponent(out Brick brick) || brick.IsDefeated
-                || brick.levelGenerator != generator) continue;
+                || brick.levelGenerator != generator)
+            {
+                continue;
+            }
+
             if (darkness == null || !darkness.isActiveAndEnabled
-                || darkness.IsVisible(enemy.transform.position)) return true;
+                || darkness.IsVisible(enemy.transform.position))
+            {
+                return true;
+            }
         }
         return false;
     }
@@ -247,16 +321,26 @@ public sealed class ClockSiegeDirector : MonoBehaviour
         {
             int id = pendingFrontId >= 0 ? pendingFrontId : PickClosedFront(-1);
             pendingFrontId = -1;
-            if (id < 0) break;
+            if (id < 0)
+            {
+                break;
+            }
+
             OpenFront(id);
-            if (!firstFront) messages.Add("Враги пошли в наступление ещё на одном фронте");
+            if (!firstFront)
+            {
+                messages.Add("Враги пошли в наступление ещё на одном фронте");
+            }
+
             firstFront = false;
         }
         if (pendingFrontId < 0 && DesiredFronts(playerTurn + 1) > CoreSpawningCount)
         {
             pendingFrontId = PickClosedFront(-1);
             if (pendingFrontId >= 0)
+            {
                 messages.Add("Через ход враги нападут ещё с одной стороны");
+            }
         }
     }
 
@@ -277,9 +361,19 @@ public sealed class ClockSiegeDirector : MonoBehaviour
         var quiet = new List<int>();
         foreach (int id in frontIds)
         {
-            if (spawning.Contains(id) || id == pendingFrontId || id == excluded) continue;
-            if (openedTurn.ContainsKey(id)) quiet.Add(id);
-            else fresh.Add(id);
+            if (spawning.Contains(id) || id == pendingFrontId || id == excluded)
+            {
+                continue;
+            }
+
+            if (openedTurn.ContainsKey(id))
+            {
+                quiet.Add(id);
+            }
+            else
+            {
+                fresh.Add(id);
+            }
         }
         List<int> pool = fresh.Count > 0 ? fresh : quiet;
         return pool.Count > 0 ? pool[Random.Range(0, pool.Count)] : -1;
@@ -288,7 +382,11 @@ public sealed class ClockSiegeDirector : MonoBehaviour
     private static List<int> ShuffledHours()
     {
         var hours = new List<int>(ClockHours);
-        for (int hour = 1; hour <= ClockHours; hour++) hours.Add(hour);
+        for (int hour = 1; hour <= ClockHours; hour++)
+        {
+            hours.Add(hour);
+        }
+
         for (int i = hours.Count - 1; i > 0; i--)
         {
             int j = Random.Range(0, i + 1);
@@ -299,7 +397,11 @@ public sealed class ClockSiegeDirector : MonoBehaviour
 
     private int RandomSpawningFront()
     {
-        if (spawning.Count == 0) return -1;
+        if (spawning.Count == 0)
+        {
+            return -1;
+        }
+
         var candidates = new List<int>(spawning);
         return candidates[Random.Range(0, candidates.Count)];
     }
@@ -320,19 +422,34 @@ public sealed class ClockSiegeDirector : MonoBehaviour
     private void ApplyLighting()
     {
         float lit = CurrentLitFraction;
-        foreach (int id in frontIds) front.SetRoomLitFraction(id, lit);
+        foreach (int id in frontIds)
+        {
+            front.SetRoomLitFraction(id, lit);
+        }
     }
 
     private void UpdateLightEra(int playerTurn)
     {
-        if (lightEraStartTurns == null) return;
+        if (lightEraStartTurns == null)
+        {
+            return;
+        }
+
         foreach (int start in lightEraStartTurns)
         {
-            if (start <= 1) continue;
+            if (start <= 1)
+            {
+                continue;
+            }
+
             if (playerTurn + Mathf.Max(1, lightWarningTurns) == start)
+            {
                 messages.Add("Сумерки сгущаются: через " + lightWarningTurns + " хода станет темнее");
+            }
             else if (playerTurn == start)
+            {
                 messages.Add("Стало темнее: освещено " + Mathf.RoundToInt(EraLitFraction(start) * 100f) + "% фронтов");
+            }
         }
     }
 
@@ -361,7 +478,10 @@ public sealed class ClockSiegeDirector : MonoBehaviour
             messages.Add("Буря стихла");
         }
         else if (activeEvent == ClockEvent.Calm && completedTurn >= activeEventEndsAfterTurn)
+        {
             activeEvent = ClockEvent.None;
+        }
+
         if (eliteTracked && completedTurn >= activeEventEndsAfterTurn
             && activeEvent == ClockEvent.EliteEnemy)
         {
@@ -378,7 +498,10 @@ public sealed class ClockSiegeDirector : MonoBehaviour
         {
             // Only one event at a time: wait and announce after this one ends.
             if (announcedEvent == ClockEvent.None && nextEventTurn <= completedTurn + 1)
+            {
                 nextEventTurn = completedTurn + 2;
+            }
+
             return;
         }
         if (announcedEvent != ClockEvent.None && completedTurn >= nextEventTurn)
@@ -396,7 +519,9 @@ public sealed class ClockSiegeDirector : MonoBehaviour
             nextEventTurn = completedTurn + 1;
             announcedEvent = PickEvent();
             if (announcedEvent != ClockEvent.None)
+            {
                 messages.Add("Через ход: " + EventName(announcedEvent));
+            }
         }
     }
 
@@ -405,8 +530,16 @@ public sealed class ClockSiegeDirector : MonoBehaviour
         var pool = new List<ClockEvent> {
             ClockEvent.EliteEnemy, ClockEvent.DarkStorm, ClockEvent.Calm, ClockEvent.FireflySwarm
         };
-        if (!goldenAcornTracked) pool.Add(ClockEvent.GoldenAcorn);
-        if (PickClosedFront(-1) >= 0) pool.Add(ClockEvent.SplitFront);
+        if (!goldenAcornTracked)
+        {
+            pool.Add(ClockEvent.GoldenAcorn);
+        }
+
+        if (PickClosedFront(-1) >= 0)
+        {
+            pool.Add(ClockEvent.SplitFront);
+        }
+
         return pool[Random.Range(0, pool.Count)];
     }
 
@@ -430,7 +563,11 @@ public sealed class ClockSiegeDirector : MonoBehaviour
             LevelGenerator generator = front.GetGenerator(id);
             Brick spawned = generator != null
                 ? generator.SpawnEventEnemy(eliteHealthMultiplier, eliteTint, false) : null;
-            if (spawned == null) continue;
+            if (spawned == null)
+            {
+                continue;
+            }
+
             elite = spawned;
             eliteTracked = true;
             activeEvent = ClockEvent.EliteEnemy;
@@ -447,7 +584,10 @@ public sealed class ClockSiegeDirector : MonoBehaviour
         // light left by fireflies goes out.
         List<int> hours = ShuffledHours();
         for (int i = 0; i < frontIds.Count && i < hours.Count; i++)
+        {
             model.SetClockHour(frontIds[i], hours[i]);
+        }
+
         front.ExtinguishAllEnemyLights();
         // After the shuffle the player no longer knows where anyone is.
         revealedRooms.Clear();
@@ -477,12 +617,24 @@ public sealed class ClockSiegeDirector : MonoBehaviour
             if (count > bestCount) { bestCount = count; bestId = id; }
         }
         LevelGenerator target = front.GetGenerator(bestId);
-        if (target == null) return;
+        if (target == null)
+        {
+            return;
+        }
+
         foreach (GameObject enemy in target.EnemyCollection)
         {
-            if (enemy == null || !enemy.TryGetComponent(out Brick brick) || brick.IsDefeated) continue;
+            if (enemy == null || !enemy.TryGetComponent(out Brick brick) || brick.IsDefeated)
+            {
+                continue;
+            }
+
             EnemyIllumination light = enemy.GetComponent<EnemyIllumination>();
-            if (light == null) light = enemy.AddComponent<EnemyIllumination>();
+            if (light == null)
+            {
+                light = enemy.AddComponent<EnemyIllumination>();
+            }
+
             light.Illuminate(1f);
         }
         messages.Add("Стая светлячков осветила всех врагов одного из фронтов");
@@ -495,7 +647,11 @@ public sealed class ClockSiegeDirector : MonoBehaviour
             LevelGenerator generator = front.GetGenerator(id);
             Brick spawned = generator != null
                 ? generator.SpawnEventEnemy(goldenAcornHealthMultiplier, goldenAcornTint, true) : null;
-            if (spawned == null) continue;
+            if (spawned == null)
+            {
+                continue;
+            }
+
             generator.SummonGuardsAround(spawned, goldenAcornGuards);
             goldenAcorn = spawned;
             goldenAcornTracked = true;
@@ -507,7 +663,11 @@ public sealed class ClockSiegeDirector : MonoBehaviour
     private void StartSplitFront(int completedTurn)
     {
         int id = PickClosedFront(-1);
-        if (id < 0) return;
+        if (id < 0)
+        {
+            return;
+        }
+
         splitFrontId = id;
         splitEndsAfterTurn = completedTurn + Mathf.Max(1, splitFrontDurationTurns);
         activeEvent = ClockEvent.SplitFront;
@@ -518,28 +678,54 @@ public sealed class ClockSiegeDirector : MonoBehaviour
 
     private void CloseExpiredSplit(int completedTurn)
     {
-        if (splitFrontId < 0 || completedTurn < splitEndsAfterTurn) return;
+        if (splitFrontId < 0 || completedTurn < splitEndsAfterTurn)
+        {
+            return;
+        }
+
         spawning.Remove(splitFrontId);
         LevelGenerator generator = front.GetGenerator(splitFrontId);
-        if (generator != null) front.RefreshRoom(generator);
+        if (generator != null)
+        {
+            front.RefreshRoom(generator);
+        }
+
         messages.Add("Дополнительный фронт больше не присылает волны");
         splitFrontId = -1;
-        if (activeEvent == ClockEvent.SplitFront) activeEvent = ClockEvent.None;
+        if (activeEvent == ClockEvent.SplitFront)
+        {
+            activeEvent = ClockEvent.None;
+        }
     }
 
     private void UpdateBossRaid(int completedTurn)
     {
         int every = Mathf.Max(0, bossRaidEveryTurns);
-        if (every == 0) return;
+        if (every == 0)
+        {
+            return;
+        }
+
         if ((completedTurn + 1) % every == 0)
+        {
             messages.Add("Через ход: " + EventName(ClockEvent.BossRaid));
-        if (completedTurn <= 0 || completedTurn % every != 0) return;
+        }
+
+        if (completedTurn <= 0 || completedTurn % every != 0)
+        {
+            return;
+        }
+
         List<LevelProgression.BossKind> pool = BossPool();
         LevelProgression.BossKind kind = pool[Random.Range(0, pool.Count)];
         foreach (int id in SpawningFrontsInRandomOrder())
         {
             LevelGenerator generator = front.GetGenerator(id);
-            if (generator == null || generator.SpawnRaidBoss(kind) == null) continue;
+            if (generator == null || generator.SpawnRaidBoss(kind) == null)
+            {
+                continue;
+            }
+
             messages.Add("Набег босса! Найдите его, пока он не дошёл до центра");
             return;
         }
@@ -550,13 +736,25 @@ public sealed class ClockSiegeDirector : MonoBehaviour
         var pool = new List<LevelProgression.BossKind>();
         LevelProgression progression = LevelProgression.Instance;
         if (progression != null)
+        {
             for (int level = 1; level <= LevelProgression.LevelsPerLocation; level++)
-            for (int line = 2; line <= 4; line++)
+            {
+                for (int line = 2; line <= 4; line++)
             {
                 LevelProgression.BossKind kind = progression.GetBossKind(level, line, line);
-                if (kind != LevelProgression.BossKind.None && !pool.Contains(kind)) pool.Add(kind);
+                if (kind != LevelProgression.BossKind.None && !pool.Contains(kind))
+                    {
+                        pool.Add(kind);
+                    }
+                }
             }
-        if (pool.Count == 0) pool.Add(LevelProgression.BossKind.Lich);
+        }
+
+        if (pool.Count == 0)
+        {
+            pool.Add(LevelProgression.BossKind.Lich);
+        }
+
         return pool;
     }
 
@@ -566,9 +764,17 @@ public sealed class ClockSiegeDirector : MonoBehaviour
         {
             eliteTracked = false;
             elite = null;
-            if (activeEvent == ClockEvent.EliteEnemy) activeEvent = ClockEvent.None;
+            if (activeEvent == ClockEvent.EliteEnemy)
+            {
+                activeEvent = ClockEvent.None;
+            }
+
             manager.GrantEventUpgrade();
-            if (!GameRunMode.IsDeveloperRun) MetaProgression.AwardRoomGold(eliteGoldReward);
+            if (!GameRunMode.IsDeveloperRun)
+            {
+                MetaProgression.AwardRoomGold(eliteGoldReward);
+            }
+
             GameAnnouncementUI.Show("Элитный враг повержен! Улучшение и +" + eliteGoldReward + " золота", 2.5f);
             front?.NotifyChanged();
         }
@@ -577,7 +783,11 @@ public sealed class ClockSiegeDirector : MonoBehaviour
             goldenAcornTracked = false;
             goldenAcorn = null;
             manager.GrantEventUpgrade();
-            if (!GameRunMode.IsDeveloperRun) MetaProgression.AwardRoomGold(goldenAcornGoldReward);
+            if (!GameRunMode.IsDeveloperRun)
+            {
+                MetaProgression.AwardRoomGold(goldenAcornGoldReward);
+            }
+
             GameAnnouncementUI.Show("Золотой жёлудь расколот! Улучшение и +" + goldenAcornGoldReward
                 + " золота", 2.5f);
             front?.NotifyChanged();
@@ -588,7 +798,11 @@ public sealed class ClockSiegeDirector : MonoBehaviour
     // because a new announcement replaces the previous one.
     private void FlushMessages()
     {
-        if (messages.Count == 0) return;
+        if (messages.Count == 0)
+        {
+            return;
+        }
+
         GameAnnouncementUI.Show(string.Join("\n", messages), 2.5f + messages.Count * 0.75f);
         messages.Clear();
     }
@@ -598,9 +812,15 @@ public sealed class ClockSiegeDirector : MonoBehaviour
     {
         string line = "ФРОНТОВ " + spawning.Count + "  ·  СВЕТ "
             + Mathf.RoundToInt(CurrentLitFraction * 100f) + "%";
-        if (activeEvent != ClockEvent.None) line += "  ·  " + EventName(activeEvent).ToUpperInvariant();
+        if (activeEvent != ClockEvent.None)
+        {
+            line += "  ·  " + EventName(activeEvent).ToUpperInvariant();
+        }
         else if (announcedEvent != ClockEvent.None)
+        {
             line += "  ·  СКОРО: " + EventName(announcedEvent).ToUpperInvariant();
+        }
+
         return line;
     }
 }

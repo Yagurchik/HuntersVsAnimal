@@ -37,7 +37,10 @@ public sealed class ForestEyeBlinker : MonoBehaviour
                 child.SetParent(transform, false);
             }
             current = child.GetComponent<LineRenderer>();
-            if (current == null) current = child.gameObject.AddComponent<LineRenderer>();
+            if (current == null)
+            {
+                current = child.gameObject.AddComponent<LineRenderer>();
+            }
         }
 
         current.useWorldSpace = false;
@@ -82,7 +85,11 @@ public sealed class ForestEyeBlinker : MonoBehaviour
         if (blinkAge < 0f)
         {
             wait -= Time.unscaledDeltaTime;
-            if (wait <= 0f) blinkAge = 0f;
+            if (wait <= 0f)
+            {
+                blinkAge = 0f;
+            }
+
             return;
         }
 
@@ -90,13 +97,19 @@ public sealed class ForestEyeBlinker : MonoBehaviour
         float progress = Mathf.Clamp01(blinkAge / blinkDuration);
         // Close and reopen without a hard visibility toggle.
         SetOpenAmount(Mathf.Max(0.06f, Mathf.Abs(progress * 2f - 1f)));
-        if (progress >= 1f) ResetBlink();
+        if (progress >= 1f)
+        {
+            ResetBlink();
+        }
     }
 
     private void ResetBlink()
     {
         if (randomState == 0)
+        {
             randomState = unchecked((uint)(GetInstanceID() * 747796405) + 2891336453u);
+        }
+
         randomState = randomState * 1664525u + 1013904223u;
         float normalized = (randomState & 0x00FFFFFFu) / 16777215f;
         wait = Mathf.Lerp(Mathf.Max(0.2f, blinkInterval.x),

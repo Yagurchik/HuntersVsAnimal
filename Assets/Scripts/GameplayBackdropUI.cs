@@ -11,7 +11,11 @@ public sealed class GameplayBackdropUI : MonoBehaviour
 
     public static GameplayBackdropUI Ensure(Camera gameplayCamera)
     {
-        if (gameplayCamera == null) return null;
+        if (gameplayCamera == null)
+        {
+            return null;
+        }
+
         gameplayCamera.clearFlags = CameraClearFlags.SolidColor;
         gameplayCamera.backgroundColor = CameraColor;
 
@@ -46,12 +50,19 @@ public sealed class GameplayBackdropUI : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (gameplayCamera == null) gameplayCamera = Camera.main;
+        if (gameplayCamera == null)
+        {
+            gameplayCamera = Camera.main;
+        }
+
         CameraBehaviour focus = gameplayCamera != null
             ? gameplayCamera.GetComponent<CameraBehaviour>() : null;
         Stage room = focus != null && focus.CurrentRoom != null
             ? focus.CurrentRoom.GetComponent<Stage>() : null;
-        if (room == null || gameplayCamera == null) return;
+        if (room == null || gameplayCamera == null)
+        {
+            return;
+        }
 
         Bounds bounds = room.GetViewBounds();
         Vector3 lower = gameplayCamera.WorldToViewportPoint(bounds.min);
@@ -71,13 +82,21 @@ public sealed class GameplayBackdropUI : MonoBehaviour
         int location = LevelProgression.Instance != null
             && (GameManager.Instance == null || !GameManager.Instance.IsSurvivalMode)
             ? LevelProgression.Instance.CurrentLocationIndex : 1;
-        if (shownLocation == location) return;
+        if (shownLocation == location)
+        {
+            return;
+        }
+
         shownLocation = location;
         LocationBackdropGraphic exterior = GetComponentInChildren<LocationBackdropGraphic>(true);
         PumpkinBackdropGraphic ornament = GetComponentInChildren<PumpkinBackdropGraphic>(true);
         exterior?.ShowLocation(location);
         ornament?.ShowLocation(location);
-        if (gameplayCamera == null) gameplayCamera = Camera.main;
+        if (gameplayCamera == null)
+        {
+            gameplayCamera = Camera.main;
+        }
+
         if (gameplayCamera != null)
         {
             gameplayCamera.clearFlags = CameraClearFlags.SolidColor;
@@ -89,15 +108,21 @@ public sealed class GameplayBackdropUI : MonoBehaviour
     public void Build()
     {
         Canvas canvas = GetComponent<Canvas>();
-        if (gameplayCamera == null) gameplayCamera = Camera.main;
+        if (gameplayCamera == null)
+        {
+            gameplayCamera = Camera.main;
+        }
         // Overlay canvases always cover world sprites, regardless of sortingOrder.
         // Put scenery in the camera's sorting stack so the floor and animal frame
         // remain visible outside the rectangular gameplay window as well.
         canvas.renderMode = RenderMode.ScreenSpaceCamera;
         canvas.worldCamera = gameplayCamera;
         if (gameplayCamera != null)
+        {
             canvas.planeDistance = Mathf.Lerp(gameplayCamera.nearClipPlane,
                 gameplayCamera.farClipPlane, 0.9f);
+        }
+
         canvas.sortingLayerID = 0;
         canvas.sortingOrder = -200;
 

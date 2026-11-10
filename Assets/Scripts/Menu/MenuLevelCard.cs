@@ -14,7 +14,11 @@ public class MenuLevelCard : MonoBehaviour
 
     public void SelectLevel()
     {
-        if (!Application.isPlaying || hub == null) return;
+        if (!Application.isPlaying || hub == null)
+        {
+            return;
+        }
+
         hub.SelectCampaignLevel(levelNumber);
     }
 
@@ -28,8 +32,19 @@ public class MenuLevelCard : MonoBehaviour
         bool available = GameRunMode.DeveloperModeEnabled
             || globalLevel <= LevelProgression.HighestUnlockedLevel;
         bool selected = globalLevel == LevelProgression.SelectedMenuLevel;
-        if (background != null) background.color = selected ? selectedColor : available ? availableColor : lockedColor;
-        if (numberText != null) numberText.text = levelNumber.ToString("00");
-        if (stateText != null) stateText.text = selected ? "ВЫБРАН" : available ? "ОТКРЫТ" : "ЗАКРЫТ";
+        if (background != null)
+        {
+            background.color = selected ? selectedColor : available ? availableColor : lockedColor;
+        }
+
+        if (numberText != null)
+        {
+            numberText.text = levelNumber.ToString("00");
+        }
+
+        if (stateText != null)
+        {
+            stateText.text = selected ? "ВЫБРАН" : available ? "ОТКРЫТ" : "ЗАКРЫТ";
+        }
     }
 }

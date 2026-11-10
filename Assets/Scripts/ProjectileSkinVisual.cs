@@ -14,11 +14,18 @@ public sealed class ProjectileSkinVisual : MonoBehaviour
     public void Apply()
     {
         Sprite artwork = ProjectileSkins.EquippedArtwork(projectileIndex);
-        if (artwork == null) return;
+        if (artwork == null)
+        {
+            return;
+        }
+
         SpriteRenderer source = GetComponent<SpriteRenderer>();
         ProjectileFlightVisual flight = GetComponent<ProjectileFlightVisual>();
         SpriteRenderer target = flight != null && flight.Renderer != null ? flight.Renderer : source;
-        if (target == null) return;
+        if (target == null)
+        {
+            return;
+        }
         // Import matches the original sprite's world canvas and pivot, preserving
         // the physics body, collider, rotation center and authored visual scale.
         target.sprite = artwork;

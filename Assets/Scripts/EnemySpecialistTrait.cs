@@ -39,21 +39,32 @@ public sealed class EnemySpecialistTrait : EnemyProjectileDamageModifier, IEnemy
 
     private void OnEnable()
     {
-        if (kind == Kind.ShadowWeaver) shadowWeavers.Add(this);
+        if (kind == Kind.ShadowWeaver)
+        {
+            shadowWeavers.Add(this);
+        }
     }
 
     private void OnDisable()
     {
-        if (kind == Kind.ShadowWeaver) shadowWeavers.Remove(this);
+        if (kind == Kind.ShadowWeaver)
+        {
+            shadowWeavers.Remove(this);
+        }
     }
 
     public static bool HasActiveShadow(RoomDarkness room)
     {
         foreach (EnemySpecialistTrait shadow in shadowWeavers)
+        {
             if (shadow != null && shadow.enemy != null && !shadow.enemy.IsDefeated
                 && shadow.enemy.levelGenerator != null
                 && shadow.enemy.levelGenerator.Darkness == room)
+            {
                 return true;
+            }
+        }
+
         return false;
     }
 
@@ -61,16 +72,23 @@ public sealed class EnemySpecialistTrait : EnemyProjectileDamageModifier, IEnemy
     {
         positions.Clear();
         foreach (EnemySpecialistTrait shadow in shadowWeavers)
+        {
             if (shadow != null && shadow.enemy != null && !shadow.enemy.IsDefeated
                 && shadow.enemy.levelGenerator != null
                 && shadow.enemy.levelGenerator.Darkness == room)
+            {
                 positions.Add(shadow.transform.position);
+            }
+        }
     }
 
     public static bool HasNearbyTinnik(Brick target)
     {
         if (target == null || target.UsesBossHealth || target.levelGenerator == null)
+        {
             return false;
+        }
+
         var nearby = new List<Brick>(8);
         target.levelGenerator.CollectNearbyEnemies(target.transform.position, 1f,
             true, target, nearby);
@@ -79,14 +97,20 @@ public sealed class EnemySpecialistTrait : EnemyProjectileDamageModifier, IEnemy
             EnemySpecialistTrait trait = nearby[i] != null
                 ? nearby[i].GetComponent<EnemySpecialistTrait>() : null;
             if (trait != null && trait.kind == Kind.BogTinnik && !nearby[i].IsDefeated)
+            {
                 return true;
+            }
         }
         return false;
     }
 
     public static void NotifyEnemyDefeated(Brick defeatedEnemy)
     {
-        if (defeatedEnemy == null || defeatedEnemy.levelGenerator == null) return;
+        if (defeatedEnemy == null || defeatedEnemy.levelGenerator == null)
+        {
+            return;
+        }
+
         LevelGenerator room = defeatedEnemy.levelGenerator;
         var nearby = new List<Brick>(12);
         room.CollectNearbyEnemies(defeatedEnemy.transform.position, 1f, true,
@@ -94,12 +118,28 @@ public sealed class EnemySpecialistTrait : EnemyProjectileDamageModifier, IEnemy
         for (int i = 0; i < nearby.Count; i++)
         {
             Brick candidate = nearby[i];
-            if (candidate == null || candidate.IsDefeated || candidate.UsesBossHealth) continue;
+            if (candidate == null || candidate.IsDefeated || candidate.UsesBossHealth)
+            {
+                continue;
+            }
+
             EnemySpecialistTrait trait = candidate.GetComponent<EnemySpecialistTrait>();
-            if (trait == null || trait.kind != Kind.FireAshCollector) continue;
-            if (defeatedEnemy.IsSummonedVariant) continue;
+            if (trait == null || trait.kind != Kind.FireAshCollector)
+            {
+                continue;
+            }
+
+            if (defeatedEnemy.IsSummonedVariant)
+            {
+                continue;
+            }
+
             int volley = Player.CurrentVolleyId;
-            if (trait.lastVolley == volley && trait.firstHitUsed) continue;
+            if (trait.lastVolley == volley && trait.firstHitUsed)
+            {
+                continue;
+            }
+
             trait.lastVolley = volley;
             trait.firstHitUsed = true;
             candidate.Heal(candidate.MaxHp * 0.2f);
@@ -110,10 +150,18 @@ public sealed class EnemySpecialistTrait : EnemyProjectileDamageModifier, IEnemy
     {
         int volley = projectile != null && projectile.ComboVolleyId > 0
             ? projectile.ComboVolleyId : Player.CurrentVolleyId;
-        if (volley == lastVolley) return;
+        if (volley == lastVolley)
+        {
+            return;
+        }
+
         lastVolley = volley;
         firstHitUsed = false;
-        if (kind == Kind.BogLeech) secondChanceUsed = false;
+        if (kind == Kind.BogLeech)
+        {
+            secondChanceUsed = false;
+        }
+
         leechProjectile = null;
         touchedProjectiles.Clear();
     }
@@ -121,7 +169,11 @@ public sealed class EnemySpecialistTrait : EnemyProjectileDamageModifier, IEnemy
     public override float ModifyDamage(Brick target, Animal projectile,
         Vector2 impactPoint, float baseDamage)
     {
-        if (enemy == null || enemy.IsDefeated || projectile == null) return baseDamage;
+        if (enemy == null || enemy.IsDefeated || projectile == null)
+        {
+            return baseDamage;
+        }
+
         BeginVolley(projectile);
         float damage = Mathf.Max(0f, baseDamage);
         CombatDamageSource projectileSource = CombatDamagePalette.FromProjectile(projectile);
@@ -130,10 +182,18 @@ public sealed class EnemySpecialistTrait : EnemyProjectileDamageModifier, IEnemy
         switch (kind)
         {
             case Kind.BarkGuard:
-                if (impactPoint.y >= enemy.transform.position.y) damage *= 0.7f;
+                if (impactPoint.y >= enemy.transform.position.y)
+                {
+                    damage *= 0.7f;
+                }
+
                 break;
             case Kind.LeafEater:
-                if (!fireProjectile && HasNearbyEnemy()) damage *= 0.8f;
+                if (!fireProjectile && HasNearbyEnemy())
+                {
+                    damage *= 0.8f;
+                }
+
                 break;
             case Kind.BayShellback:
                 if (!fireProjectile && !firstHitUsed)
@@ -145,7 +205,10 @@ public sealed class EnemySpecialistTrait : EnemyProjectileDamageModifier, IEnemy
             case Kind.Thornling:
             case Kind.BayPuffer:
                 if (touchedProjectiles.Add(projectile))
+                {
                     DamageProjectile(projectile, kind == Kind.Thornling ? 1f : 2f);
+                }
+
                 break;
             case Kind.BogLeech:
                 if (!firstHitUsed)
@@ -171,17 +234,33 @@ public sealed class EnemySpecialistTrait : EnemyProjectileDamageModifier, IEnemy
 
     public float ModifyIncomingDamage(float damage, CombatDamageSource source, bool directHit)
     {
-        if (enemy == null || enemy.IsDefeated) return damage;
+        if (enemy == null || enemy.IsDefeated)
+        {
+            return damage;
+        }
+
         bool fire = source == CombatDamageSource.Fire || source == CombatDamageSource.Firefly;
         if (kind == Kind.SnowIceface && WinterPowerActive)
         {
-            if (fire) damage *= 1.5f;
-            else if (directHit) damage *= 0.85f;
+            if (fire)
+            {
+                damage *= 1.5f;
+            }
+            else if (directHit)
+            {
+                damage *= 0.85f;
+            }
         }
         if (kind == Kind.FireSlag)
         {
-            if (fire) damage *= 0.5f;
-            else if (directHit) damage *= 1.15f;
+            if (fire)
+            {
+                damage *= 0.5f;
+            }
+            else if (directHit)
+            {
+                damage *= 1.15f;
+            }
         }
         if (kind == Kind.SnowDoppel && WinterPowerActive && directHit && !fire
             && !secondChanceUsed && damage >= enemy.hp)
@@ -194,8 +273,16 @@ public sealed class EnemySpecialistTrait : EnemyProjectileDamageModifier, IEnemy
 
     public void CompleteEnemyTurn(int turnNumber)
     {
-        if (enemy == null || enemy.IsDefeated || enemy.levelGenerator == null) return;
-        if (lastAbilityTurn == turnNumber) return;
+        if (enemy == null || enemy.IsDefeated || enemy.levelGenerator == null)
+        {
+            return;
+        }
+
+        if (lastAbilityTurn == turnNumber)
+        {
+            return;
+        }
+
         lastAbilityTurn = turnNumber;
         switch (kind)
         {
@@ -203,7 +290,10 @@ public sealed class EnemySpecialistTrait : EnemyProjectileDamageModifier, IEnemy
                 if (turnNumber % 2 == 0)
                 {
                     Brick target = PickMostWoundedNeighbor();
-                    if (target != null) target.Heal(target.MaxHp * 0.12f);
+                    if (target != null)
+                    {
+                        target.Heal(target.MaxHp * 0.12f);
+                    }
                 }
                 break;
             case Kind.BayTideHerald:
@@ -211,7 +301,9 @@ public sealed class EnemySpecialistTrait : EnemyProjectileDamageModifier, IEnemy
                 {
                     Brick target = PickFrontmostNeighbor();
                     if (target != null)
+                    {
                         EnemySpecialistBuffs.Ensure(target).GrantExtraStep();
+                    }
                 }
                 break;
             case Kind.SnowRunesmith:
@@ -219,8 +311,10 @@ public sealed class EnemySpecialistTrait : EnemyProjectileDamageModifier, IEnemy
                 {
                     Brick target = PickFrontmostNeighbor();
                     if (target != null)
+                    {
                         EnemySpecialistBuffs.Ensure(target).GrantShield(
                             target.MaxHp * 0.2f, enemy);
+                    }
                 }
                 break;
             case Kind.FireBrander:
@@ -228,7 +322,9 @@ public sealed class EnemySpecialistTrait : EnemyProjectileDamageModifier, IEnemy
                 {
                     Brick target = PickFrontmostNeighbor();
                     if (target != null)
+                    {
                         EnemySpecialistBuffs.Ensure(target).GrantBrand(enemy);
+                    }
                 }
                 break;
         }
@@ -236,10 +332,21 @@ public sealed class EnemySpecialistTrait : EnemyProjectileDamageModifier, IEnemy
 
     public bool TryHandleDefeat(Brick defeated)
     {
-        if (defeated == null) return false;
-        if (kind == Kind.FireEmber) Explode(defeated);
+        if (defeated == null)
+        {
+            return false;
+        }
+
+        if (kind == Kind.FireEmber)
+        {
+            Explode(defeated);
+        }
+
         if (kind == Kind.BaySaltbearer)
+        {
             BrineHazard.Spawn(defeated.levelGenerator, defeated.transform.position);
+        }
+
         return false;
     }
 
@@ -254,24 +361,45 @@ public sealed class EnemySpecialistTrait : EnemyProjectileDamageModifier, IEnemy
             if (other != null)
             {
                 if (other != defeated && !other.IsDefeated && !other.UsesBossHealth
-                    && other.levelGenerator == defeated.levelGenerator) enemies.Add(other);
+                    && other.levelGenerator == defeated.levelGenerator)
+                {
+                    enemies.Add(other);
+                }
+
                 continue;
             }
             Animal projectile = hits[i].GetComponentInParent<Animal>();
-            if (projectile != null) projectiles.Add(projectile);
+            if (projectile != null)
+            {
+                projectiles.Add(projectile);
+            }
         }
         EnemyImpactEffectPool.PlayBogExplosion(defeated.transform.position, true, 1f);
         foreach (Brick other in enemies)
+        {
             if (other != null && !other.IsDefeated)
+            {
                 other.TakeDamage(defeated.MaxHp * 0.25f, CombatDamageSource.Fire);
-        foreach (Animal projectile in projectiles) DamageProjectile(projectile, 2f);
+            }
+        }
+
+        foreach (Animal projectile in projectiles)
+        {
+            DamageProjectile(projectile, 2f);
+        }
     }
 
     private bool HasNearbyEnemy()
     {
         CollectNeighbors();
         for (int i = 0; i < neighbors.Count; i++)
-            if (IsOrdinaryAlly(neighbors[i])) return true;
+        {
+            if (IsOrdinaryAlly(neighbors[i]))
+            {
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -283,7 +411,11 @@ public sealed class EnemySpecialistTrait : EnemyProjectileDamageModifier, IEnemy
         for (int i = 0; i < neighbors.Count; i++)
         {
             Brick other = neighbors[i];
-            if (!IsOrdinaryAlly(other)) continue;
+            if (!IsOrdinaryAlly(other))
+            {
+                continue;
+            }
+
             float deficit = other.MaxHp - other.hp;
             if (deficit > missing) { best = other; missing = deficit; }
         }
@@ -297,8 +429,15 @@ public sealed class EnemySpecialistTrait : EnemyProjectileDamageModifier, IEnemy
         for (int i = 0; i < neighbors.Count; i++)
         {
             Brick other = neighbors[i];
-            if (!IsOrdinaryAlly(other)) continue;
-            if (best == null || other.LowestCellY < best.LowestCellY) best = other;
+            if (!IsOrdinaryAlly(other))
+            {
+                continue;
+            }
+
+            if (best == null || other.LowestCellY < best.LowestCellY)
+            {
+                best = other;
+            }
         }
         return best;
     }
@@ -307,8 +446,10 @@ public sealed class EnemySpecialistTrait : EnemyProjectileDamageModifier, IEnemy
     {
         neighbors.Clear();
         if (enemy != null && enemy.levelGenerator != null)
+        {
             enemy.levelGenerator.CollectNearbyEnemies(enemy.transform.position,
                 Mathf.Max(0.1f, effectRadius), true, enemy, neighbors);
+        }
     }
 
     private bool IsOrdinaryAlly(Brick other) => other != null && !other.IsDefeated
@@ -317,6 +458,8 @@ public sealed class EnemySpecialistTrait : EnemyProjectileDamageModifier, IEnemy
     private static void DamageProjectile(Animal projectile, float amount)
     {
         if (projectile != null && projectile.TakeEnemyDamage(amount))
+        {
             Destroy(projectile.gameObject);
+        }
     }
 }

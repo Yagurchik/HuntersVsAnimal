@@ -40,8 +40,11 @@ public class Stage : MonoBehaviour
             BattlefieldForestStyle style = GetComponent<BattlefieldForestStyle>();
             SpriteRenderer frame = style != null ? style.FrameRenderer : null;
             if (frame != null && frame.enabled && frame.sprite != null)
+            {
                 return new Vector3(frame.bounds.center.x, frame.bounds.min.y,
                     frame.transform.position.z);
+            }
+
             LevelGenerator field = GetComponentInChildren<LevelGenerator>(true);
             return new Vector3(transform.position.x, FieldBottomY - 0.5f,
                 field != null ? field.transform.position.z : transform.position.z);
@@ -96,7 +99,11 @@ public class Stage : MonoBehaviour
 
         foreach (EdgeCollider2D wall in GetComponentsInChildren<EdgeCollider2D>(true))
         {
-            if (!wall.name.StartsWith("Walls")) continue;
+            if (!wall.name.StartsWith("Walls"))
+            {
+                continue;
+            }
+
             SetRoomPosition(wall.transform, 0f, 0f);
             wall.transform.rotation = Quaternion.identity;
             wall.transform.localScale = Vector3.one;
@@ -112,7 +119,11 @@ public class Stage : MonoBehaviour
         {
             bool touch = box.name.StartsWith("CollisionTouch");
             bool exit = box.name.StartsWith("DestroyBallCollider") || box.name.StartsWith("CollisionEnemyLose");
-            if (!touch && !exit) continue;
+            if (!touch && !exit)
+            {
+                continue;
+            }
+
             SetRoomPosition(box.transform, 0f, touch ? 0f : -halfHeight - 0.5f);
             box.transform.rotation = Quaternion.identity;
             // Retain the existing transparent sprite and collider setup at unit scale.
@@ -134,11 +145,18 @@ public class Stage : MonoBehaviour
         RefreshBattlefieldTiles();
 
         RoomDarkness darkness = GetComponent<RoomDarkness>();
-        if (darkness == null) darkness = gameObject.AddComponent<RoomDarkness>();
+        if (darkness == null)
+        {
+            darkness = gameObject.AddComponent<RoomDarkness>();
+        }
+
         darkness.Refresh();
 
         BattlefieldForestStyle forestStyle = GetComponent<BattlefieldForestStyle>();
-        if (forestStyle != null) forestStyle.Refresh(this);
+        if (forestStyle != null)
+        {
+            forestStyle.Refresh(this);
+        }
     }
 
     public void RefreshBattlefieldTiles()
@@ -149,25 +167,43 @@ public class Stage : MonoBehaviour
         foreach (Tilemap tiles in GetComponentsInChildren<Tilemap>(true))
         {
             if (tiles.name == ForgottenBayTilemapName && forgottenBayFloorTile != null)
+            {
                 PaintTiles(tiles, size, null, generator, forgottenBayFloorTile);
+            }
             else if (tiles.name == SnowyHazeTilemapName && snowyHazeFloorTile != null)
+            {
                 PaintTiles(tiles, size, null, generator, snowyHazeFloorTile);
+            }
             else if (tiles.name == FieryGehennaTilemapName && fieryGehennaFloorTile != null)
+            {
                 PaintTiles(tiles, size, null, generator, fieryGehennaFloorTile);
+            }
             else if (tiles.name == GloomyHollowTilemapName && gloomyHollowFloorTile != null)
+            {
                 PaintTiles(tiles, size, null, generator, gloomyHollowFloorTile);
+            }
             else if (tiles.name == DrownedBogTilemapName && drownedBogFloorTile != null)
+            {
                 PaintTiles(tiles, size, null, generator, drownedBogFloorTile);
+            }
             else if (palette != null && palette.IsConfigured)
+            {
                 PaintTiles(tiles, size, palette, generator);
-            else ResizeTiles(tiles, size);
+            }
+            else
+            {
+                ResizeTiles(tiles, size);
+            }
         }
     }
 
     private DestroyBallCollider EnsureReturnZone()
     {
         DestroyBallCollider returnZone = GetComponentInChildren<DestroyBallCollider>(true);
-        if (returnZone != null) return returnZone;
+        if (returnZone != null)
+        {
+            return returnZone;
+        }
 
         Transform zoneTransform = null;
         foreach (Transform child in GetComponentsInChildren<Transform>(true))
@@ -190,7 +226,10 @@ public class Stage : MonoBehaviour
         }
 
         if (zoneTransform.GetComponent<BoxCollider2D>() == null)
+        {
             zoneTransform.gameObject.AddComponent<BoxCollider2D>();
+        }
+
         return zoneTransform.gameObject.AddComponent<DestroyBallCollider>();
     }
 
@@ -227,8 +266,11 @@ public class Stage : MonoBehaviour
     private BattlefieldTilePalette ResolveBattlefieldTilePalette()
     {
         if (battlefieldTilePalette == null)
+        {
             battlefieldTilePalette = Resources.Load<BattlefieldTilePalette>(
                 "Battlefield/TwilightThicket/TwilightThicketPalette");
+        }
+
         return battlefieldTilePalette;
     }
 
@@ -244,7 +286,10 @@ public class Stage : MonoBehaviour
     {
         tiles.CompressBounds();
         BoundsInt source = tiles.cellBounds;
-        if (source.size.x < 1 || source.size.y < 1) return;
+        if (source.size.x < 1 || source.size.y < 1)
+        {
+            return;
+        }
 
         int width = size.x;
         int height = size.y;
@@ -260,7 +305,8 @@ public class Stage : MonoBehaviour
         var colors = new Color[positions.Length];
         var flags = new TileFlags[positions.Length];
         for (int y = 0; y < height; y++)
-        for (int x = 0; x < width; x++)
+        {
+            for (int x = 0; x < width; x++)
         {
             int i = y * width + x;
             // Strip the old one-cell outer border, then repeat only playable terrain.
@@ -273,11 +319,17 @@ public class Stage : MonoBehaviour
             colors[i] = tiles.GetColor(sample);
             flags[i] = tiles.GetTileFlags(sample);
         }
+        }
+
         tiles.ClearAllTiles();
         tiles.SetTiles(positions, assets);
         for (int i = 0; i < positions.Length; i++)
         {
-            if (assets[i] == null) continue;
+            if (assets[i] == null)
+            {
+                continue;
+            }
+
             tiles.SetTileFlags(positions[i], TileFlags.None);
             tiles.SetTransformMatrix(positions[i], matrices[i]);
             tiles.SetColor(positions[i], colors[i]);
@@ -301,16 +353,21 @@ public class Stage : MonoBehaviour
         int roomIndex = generator != null ? generator.RoomIndex : 1;
         int seed = defenseLine * 97 + roomIndex * 31;
         for (int y = 0; y < height; y++)
-        for (int x = 0; x < width; x++)
-            assets[y * width + x] = uniformTile != null
+        {
+            for (int x = 0; x < width; x++)
+            {
+                assets[y * width + x] = uniformTile != null
                 ? uniformTile : palette.GetFloorTile(x, y, seed);
+            }
+        }
 
         tiles.ClearAllTiles();
         tiles.SetTilesBlock(bounds, assets);
         // Enemy rows stay checkerboard. The pumpkin row shares one darker tone;
         // the visual-only continuation below the grid is a separate renderer.
         for (int y = 0; y < height; y++)
-        for (int x = 0; x < width; x++)
+        {
+            for (int x = 0; x < width; x++)
         {
             Vector3Int cell = origin + new Vector3Int(x, y, 0);
             tiles.SetTileFlags(cell, TileFlags.None);
@@ -318,11 +375,17 @@ public class Stage : MonoBehaviour
                 : ((x + y) & 1) == 0 ? lightCellTint : darkCellTint);
             tiles.SetTransformMatrix(cell, Matrix4x4.identity);
         }
+        }
+
         tiles.CompressBounds();
         tiles.color = Color.white;
         tiles.transform.rotation = Quaternion.identity;
         TilemapRenderer renderer = tiles.GetComponent<TilemapRenderer>();
-        if (renderer != null) renderer.sortingOrder = -20;
+        if (renderer != null)
+        {
+            renderer.sortingOrder = -20;
+        }
+
         SetRoomPosition(tiles.transform, -(origin.x + width * 0.5f), -(origin.y + height * 0.5f));
     }
 

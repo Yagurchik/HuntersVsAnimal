@@ -9,7 +9,11 @@ public sealed class DrownedKingSplit : MonoBehaviour, IEnemyDefeatHandler
 
     public bool TryHandleDefeat(Brick enemy)
     {
-        if (split || enemy == null || enemy.levelGenerator == null) return false;
+        if (split || enemy == null || enemy.levelGenerator == null)
+        {
+            return false;
+        }
+
         split = true;
         GameObject prefab = heirPrefab != null ? heirPrefab
             : Resources.Load<GameObject>("Enemies/DrownedHeir");

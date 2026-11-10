@@ -24,8 +24,16 @@ public sealed class EnemyBurnTint : MonoBehaviour
 
     private void OnEnable()
     {
-        if (statuses == null) statuses = GetComponent<EnemyStatusEffects>();
-        if (renderers == null) CacheRenderers();
+        if (statuses == null)
+        {
+            statuses = GetComponent<EnemyStatusEffects>();
+        }
+
+        if (renderers == null)
+        {
+            CacheRenderers();
+        }
+
         displayedStacks = -1;
         Refresh();
     }
@@ -34,22 +42,32 @@ public sealed class EnemyBurnTint : MonoBehaviour
 
     public void Refresh()
     {
-        if (statuses == null) statuses = GetComponent<EnemyStatusEffects>();
+        if (statuses == null)
+        {
+            statuses = GetComponent<EnemyStatusEffects>();
+        }
+
         int stacks = statuses != null
             ? Mathf.Clamp(statuses.GetStackCount(FireflyImpactEffect.BurnEffectId), 0,
                 FireflyImpactEffect.MaximumBurnStacks)
             : 0;
-        if (stacks == displayedStacks) return;
+        if (stacks == displayedStacks)
+        {
+            return;
+        }
+
         displayedStacks = stacks;
         float strength = stacks == 1 ? oneStackStrength : stacks == 2 ? twoStackStrength
             : stacks >= 3 ? threeStackStrength : 0f;
         for (int i = 0; i < renderers.Length; i++)
+        {
             if (renderers[i] != null)
             {
                 Color tinted = Color.Lerp(baseColors[i], burnColor, strength);
                 tinted.a = baseColors[i].a;
                 renderers[i].color = tinted;
             }
+        }
     }
 
     public void CaptureCurrentAsBaseColors()
@@ -63,14 +81,25 @@ public sealed class EnemyBurnTint : MonoBehaviour
     {
         renderers = GetComponentsInChildren<SpriteRenderer>(true);
         baseColors = new Color[renderers.Length];
-        for (int i = 0; i < renderers.Length; i++) baseColors[i] = renderers[i].color;
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            baseColors[i] = renderers[i].color;
+        }
     }
 
     private void OnDisable()
     {
         if (renderers != null && baseColors != null)
+        {
             for (int i = 0; i < renderers.Length; i++)
-                if (renderers[i] != null) renderers[i].color = baseColors[i];
+            {
+                if (renderers[i] != null)
+                {
+                    renderers[i].color = baseColors[i];
+                }
+            }
+        }
+
         displayedStacks = -1;
     }
 

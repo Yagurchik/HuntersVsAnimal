@@ -58,7 +58,10 @@ public static class GameRunMode
     public static void PrepareReplay()
     {
         Prepare(Current, IsDeveloperRun);
-        if (IsSurvival) LevelProgression.PrepareLevel(1);
+        if (IsSurvival)
+        {
+            LevelProgression.PrepareLevel(1);
+        }
     }
 
     public static void SetDeveloperMode(bool enabled)

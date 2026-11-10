@@ -49,8 +49,14 @@ public class DefenseLineRuntime : MonoBehaviour
         {
             DefenseFront.Room target = Model.GetRoom(passage.Target);
             while (target != null && target.State == DefenseFront.RoomState.Lost)
+            {
                 target = Model.GetRoom(target.ParentId);
-            if (target != null && target.Id == roomId) return true;
+            }
+
+            if (target != null && target.Id == roomId)
+            {
+                return true;
+            }
         }
         return false;
     }
@@ -66,14 +72,22 @@ public class DefenseLineRuntime : MonoBehaviour
     // campaign level or the survival turn.
     public float BarricadeDamageFor(Brick attacker)
     {
-        if (attacker == null) return 0f;
+        if (attacker == null)
+        {
+            return 0f;
+        }
+
         return Mathf.Max(0f, attacker.UsesBossHealth ? bossBarricadeDamage : ordinaryBarricadeDamage);
     }
 
     public static float BarricadeDamageOf(Brick attacker)
     {
         DefenseLineRuntime front = GameManager.Instance != null ? GameManager.Instance.Front : null;
-        if (front != null) return front.BarricadeDamageFor(attacker);
+        if (front != null)
+        {
+            return front.BarricadeDamageFor(attacker);
+        }
+
         return attacker == null ? 0f
             : attacker.UsesBossHealth ? DefaultBossBarricadeDamage : DefaultOrdinaryBarricadeDamage;
     }
@@ -83,28 +97,45 @@ public class DefenseLineRuntime : MonoBehaviour
     public static DefenseLineRuntime Ensure(GameManager manager, GameObject line2Root, GameObject line2Buttons)
     {
         DefenseLineRuntime runtime = manager.GetComponent<DefenseLineRuntime>();
-        if (runtime == null) runtime = manager.gameObject.AddComponent<DefenseLineRuntime>();
+        if (runtime == null)
+        {
+            runtime = manager.gameObject.AddComponent<DefenseLineRuntime>();
+        }
+
         runtime.PrepareRooms(manager, line2Root, line2Buttons);
         return runtime;
     }
 
     public void PrepareRooms(GameManager manager, GameObject existingLine2Root, GameObject existingLine2ButtonsRoot)
     {
-        if (roomsPrepared) return;
+        if (roomsPrepared)
+        {
+            return;
+        }
+
         roomsPrepared = true;
         gameManager = manager;
         legacyLineButtons = existingLine2ButtonsRoot;
         roomCamera = FindObjectOfType<CameraBehaviour>();
-        if (existingLine2Root != null) lineRoots[2] = existingLine2Root;
+        if (existingLine2Root != null)
+        {
+            lineRoots[2] = existingLine2Root;
+        }
 
         // Discover authored rooms before making missing outer rooms from the existing template.
         Stage[] authored = FindObjectsOfType<Stage>(true);
         foreach (Stage stage in authored)
         {
             for (int line = 1; line <= 4; line++)
-            for (int index = 1; index <= line * 2 - 1; index++)
-                if (stage.name == RoomName(line, index) || stage.name == "Line" + line + "_Room" + index)
-                    RegisterStage(stage, line, index);
+            {
+                for (int index = 1; index <= line * 2 - 1; index++)
+                {
+                    if (stage.name == RoomName(line, index) || stage.name == "Line" + line + "_Room" + index)
+                    {
+                        RegisterStage(stage, line, index);
+                    }
+                }
+            }
         }
         if (!stages.TryGetValue(DefenseFront.IdFor(2, 2), out Stage template))
         {
@@ -114,12 +145,21 @@ public class DefenseLineRuntime : MonoBehaviour
         CreateLineFromTemplate(3, 5, template);
         CreateLineFromTemplate(4, 7, template);
         foreach (var pair in generators)
-            if (Model.GetRoom(pair.Key).Line > 1) stages[pair.Key].gameObject.SetActive(false);
+        {
+            if (Model.GetRoom(pair.Key).Line > 1)
+            {
+                stages[pair.Key].gameObject.SetActive(false);
+            }
+        }
 
         if (stages.TryGetValue(DefenseFront.IdFor(1, 1), out Stage mainStage))
         {
             barricade = mainStage.GetComponent<MainRoomBarricade>();
-            if (barricade == null) barricade = mainStage.gameObject.AddComponent<MainRoomBarricade>();
+            if (barricade == null)
+            {
+                barricade = mainStage.gameObject.AddComponent<MainRoomBarricade>();
+            }
+
             barricade.Initialize(mainStage,
                 Mathf.Max(1f, startingBarricadeHealth + MetaProgression.BarricadeHealthBonus));
             barricade.Changed -= OnBarricadeChanged;
@@ -128,23 +168,45 @@ public class DefenseLineRuntime : MonoBehaviour
 
         travellingRoot = new GameObject("Enemies travelling between rooms").transform;
         travellingRoot.SetParent(transform, false);
-        if (!IsReady) Debug.LogError("Карта обороны должна содержать ровно 16 комнат.");
+        if (!IsReady)
+        {
+            Debug.LogError("Карта обороны должна содержать ровно 16 комнат.");
+        }
     }
 
     public void BindInterface()
     {
-        if (interfaceBound) return;
+        if (interfaceBound)
+        {
+            return;
+        }
+
         interfaceBound = true;
         ConfigureCampaignRooms();
         // The connected map replaces legacy unconnected navigation buttons.
         foreach (Button button in FindObjectsOfType<Button>(true))
         {
             bool roomButton = button.name == "Stage 1Button";
-            foreach (Stage stage in stages.Values) roomButton |= button.name == stage.name;
-            if (roomButton) button.gameObject.SetActive(false);
+            foreach (Stage stage in stages.Values)
+            {
+                roomButton |= button.name == stage.name;
+            }
+
+            if (roomButton)
+            {
+                button.gameObject.SetActive(false);
+            }
         }
-        if (legacyLineButtons != null) legacyLineButtons.SetActive(false);
-        if (roomCamera != null) roomCamera.RoomChanged += OnRoomChanged;
+        if (legacyLineButtons != null)
+        {
+            legacyLineButtons.SetActive(false);
+        }
+
+        if (roomCamera != null)
+        {
+            roomCamera.RoomChanged += OnRoomChanged;
+        }
+
         Interface = DefenseFrontUI.Ensure(this, gameManager);
         ActivateLine(1);
         if (gameManager.Clock != null)
@@ -158,20 +220,34 @@ public class DefenseLineRuntime : MonoBehaviour
             ActivateLine(3);
             ActivateLine(4);
             if (GameRunMode.IsDeveloperRun)
+            {
                 FocusRoom(DefenseFront.IdFor(1, 1), true);
+            }
         }
     }
 
     public void ActivateLine(int defenseLine, bool focusNewLine = true)
     {
-        if (defenseLine != Model.OpenedLine + 1) return;
+        if (defenseLine != Model.OpenedLine + 1)
+        {
+            return;
+        }
+
         Model.OpenLine(defenseLine);
-        if (lineRoots.TryGetValue(defenseLine, out GameObject root) && root != null) root.SetActive(true);
+        if (lineRoots.TryGetValue(defenseLine, out GameObject root) && root != null)
+        {
+            root.SetActive(true);
+        }
+
         int focusRoomId = -1;
         int centerRoomId = DefenseFront.IdFor(defenseLine, defenseLine);
         foreach (DefenseFront.Room room in Model.Rooms)
         {
-            if (room.Line != defenseLine || !generators.TryGetValue(room.Id, out LevelGenerator generator)) continue;
+            if (room.Line != defenseLine || !generators.TryGetValue(room.Id, out LevelGenerator generator))
+            {
+                continue;
+            }
+
             if (!room.IsActive)
             {
                 stages[room.Id].gameObject.SetActive(false);
@@ -180,11 +256,18 @@ public class DefenseLineRuntime : MonoBehaviour
             stages[room.Id].gameObject.SetActive(true);
             generator.InitializeRoom();
             RefreshRoom(generator);
-            if (room.CanSelect && (focusRoomId < 0 || room.Id == centerRoomId)) focusRoomId = room.Id;
+            if (room.CanSelect && (focusRoomId < 0 || room.Id == centerRoomId))
+            {
+                focusRoomId = room.Id;
+            }
         }
         if (focusRoomId >= 0)
         {
-            if (focusNewLine || CurrentRoomId < 0) FocusRoom(focusRoomId, true);
+            if (focusNewLine || CurrentRoomId < 0)
+            {
+                FocusRoom(focusRoomId, true);
+            }
+
             WaveWarningUI.Show(defenseLine, 1,
                 gameManager.IsSurvivalFinalLineActive && defenseLine == 4);
         }
@@ -201,9 +284,14 @@ public class DefenseLineRuntime : MonoBehaviour
         var activeRoomIds = new List<int>(16);
         LevelProgression progression = LevelProgression.Instance;
         foreach (DefenseFront.Room room in Model.Rooms)
+        {
             if (GameRunMode.IsDeveloperRun || progression == null || gameManager.IsSurvivalMode
                 || progression.IsRoomActive(room.Line, room.Index))
+            {
                 activeRoomIds.Add(room.Id);
+            }
+        }
+
         Model.ConfigureActiveRooms(activeRoomIds);
     }
 
@@ -213,23 +301,46 @@ public class DefenseLineRuntime : MonoBehaviour
     {
         DefenseFront.Room room = Model.GetRoom(id);
         if (room == null || !stages.TryGetValue(id, out Stage stage)
-            || !generators.TryGetValue(id, out LevelGenerator generator)) return false;
+            || !generators.TryGetValue(id, out LevelGenerator generator))
+        {
+            return false;
+        }
+
         bool opened = Model.OpenRoom(id);
-        if (!opened && room.State == DefenseFront.RoomState.Locked) return false;
-        if (lineRoots.TryGetValue(room.Line, out GameObject root) && root != null) root.SetActive(true);
+        if (!opened && room.State == DefenseFront.RoomState.Locked)
+        {
+            return false;
+        }
+
+        if (lineRoots.TryGetValue(room.Line, out GameObject root) && root != null)
+        {
+            root.SetActive(true);
+        }
+
         stage.gameObject.SetActive(true);
         generator.InitializeRoom();
         RefreshRoom(generator);
-        if (focus) FocusRoom(id, true);
+        if (focus)
+        {
+            FocusRoom(id, true);
+        }
+
         Changed?.Invoke();
         return true;
     }
 
     public void SetRoomLitFraction(int roomId, float fraction)
     {
-        if (!generators.TryGetValue(roomId, out LevelGenerator generator) || generator == null) return;
+        if (!generators.TryGetValue(roomId, out LevelGenerator generator) || generator == null)
+        {
+            return;
+        }
+
         RoomDarkness darkness = generator.Darkness;
-        if (darkness != null) darkness.SetLitOverride(fraction);
+        if (darkness != null)
+        {
+            darkness.SetLitOverride(fraction);
+        }
     }
 
     public int ExtinguishAllEnemyLights()
@@ -237,11 +348,19 @@ public class DefenseLineRuntime : MonoBehaviour
         int extinguished = 0;
         foreach (LevelGenerator generator in generators.Values)
         {
-            if (generator == null) continue;
+            if (generator == null)
+            {
+                continue;
+            }
+
             foreach (GameObject enemy in generator.EnemyCollection)
             {
                 if (enemy == null || !enemy.TryGetComponent(out EnemyIllumination light)
-                    || !light.IsIlluminated) continue;
+                    || !light.IsIlluminated)
+                {
+                    continue;
+                }
+
                 light.Extinguish();
                 extinguished++;
             }
@@ -268,20 +387,35 @@ public class DefenseLineRuntime : MonoBehaviour
 
     public bool ToggleDefendCurrentRoom()
     {
-        if (gameManager == null || !gameManager.CanSwitchRooms) return false;
-        if (defendedRoomId == CurrentRoomId)
-            defendedRoomId = -1;
-        else if (CanSelect(CurrentRoomId))
-            defendedRoomId = CurrentRoomId;
-        else
+        if (gameManager == null || !gameManager.CanSwitchRooms)
+        {
             return false;
+        }
+
+        if (defendedRoomId == CurrentRoomId)
+        {
+            defendedRoomId = -1;
+        }
+        else if (CanSelect(CurrentRoomId))
+        {
+            defendedRoomId = CurrentRoomId;
+        }
+        else
+        {
+            return false;
+        }
+
         Changed?.Invoke();
         return defendedRoomId >= 0;
     }
 
     private void ReleaseLostDefendedRoom()
     {
-        if (defendedRoomId < 0 || CanSelect(defendedRoomId)) return;
+        if (defendedRoomId < 0 || CanSelect(defendedRoomId))
+        {
+            return;
+        }
+
         defendedRoomId = -1;
         Changed?.Invoke();
     }
@@ -289,20 +423,47 @@ public class DefenseLineRuntime : MonoBehaviour
     public bool FocusRoom(int id, bool force = false)
     {
         ReleaseLostDefendedRoom();
-        if (!CanFocusWhileDefending(id)) return false;
-        if (!CanSelect(id) || roomCamera == null || !stages.TryGetValue(id, out Stage stage)) return false;
-        if (!force && !gameManager.CanSwitchRooms) return false;
+        if (!CanFocusWhileDefending(id))
+        {
+            return false;
+        }
+
+        if (!CanSelect(id) || roomCamera == null || !stages.TryGetValue(id, out Stage stage))
+        {
+            return false;
+        }
+
+        if (!force && !gameManager.CanSwitchRooms)
+        {
+            return false;
+        }
+
         Player.BlockInputUntilReleased();
-        if (force) roomCamera.ForceFocusRoom(stage);
-        else roomCamera.FocusRoom(stage);
+        if (force)
+        {
+            roomCamera.ForceFocusRoom(stage);
+        }
+        else
+        {
+            roomCamera.FocusRoom(stage);
+        }
+
         return roomCamera.CurrentRoom == stage.transform;
     }
 
     private bool FocusRoomAnimated(int id)
     {
         ReleaseLostDefendedRoom();
-        if (!CanFocusWhileDefending(id)) return false;
-        if (!CanSelect(id) || roomCamera == null || !stages.TryGetValue(id, out Stage stage)) return false;
+        if (!CanFocusWhileDefending(id))
+        {
+            return false;
+        }
+
+        if (!CanSelect(id) || roomCamera == null || !stages.TryGetValue(id, out Stage stage))
+        {
+            return false;
+        }
+
         Player.BlockInputUntilReleased();
         roomCamera.ForceFocusRoomAnimated(stage);
         return roomCamera.CurrentRoom == stage.transform;
@@ -311,26 +472,43 @@ public class DefenseLineRuntime : MonoBehaviour
     private void OnRoomChanged(Stage selected)
     {
         foreach (var pair in stages)
+        {
             if (pair.Value == selected) { CurrentRoomId = pair.Key; break; }
+        }
+
         Changed?.Invoke();
     }
 
     public void RefreshRoom(LevelGenerator room)
     {
-        if (room == null || !room.IsInitialized) return;
+        if (room == null || !room.IsInitialized)
+        {
+            return;
+        }
+
         Model.Observe(room.RoomId, room.EnemyCollection.Count, room.RemainingWaves);
         ReleaseLostDefendedRoom();
-        if (room.ClosestBreachInTurns > 1) warnedBreachRooms.Remove(room.RoomId);
+        if (room.ClosestBreachInTurns > 1)
+        {
+            warnedBreachRooms.Remove(room.RoomId);
+        }
+
         Model.ClaimFirstClear(room.RoomId);
         // Clock fronts are not lines, so they never give line-clear bonuses.
         if (gameManager.Clock == null && Model.ClaimLineClear(room.DefenseLine))
+        {
             gameManager.RegisterLineCleared(room.DefenseLine);
+        }
+
         Changed?.Invoke();
     }
 
     public void RefreshAll()
     {
-        foreach (LevelGenerator room in generators.Values) RefreshRoom(room);
+        foreach (LevelGenerator room in generators.Values)
+        {
+            RefreshRoom(room);
+        }
     }
 
     public int TurnsUntilRoomBreach(int roomId)
@@ -338,14 +516,21 @@ public class DefenseLineRuntime : MonoBehaviour
         DefenseFront.Room room = Model.GetRoom(roomId);
         if (room == null || room.State != DefenseFront.RoomState.Contested
             || !generators.TryGetValue(roomId, out LevelGenerator generator))
+        {
             return int.MaxValue;
+        }
+
         return generator.ClosestBreachInTurns;
     }
 
     // Share of the room's height that is lit, from 0 (dark) to 1 (fully lit).
     public float RoomLitFraction(int roomId)
     {
-        if (!generators.TryGetValue(roomId, out LevelGenerator generator) || generator == null) return 1f;
+        if (!generators.TryGetValue(roomId, out LevelGenerator generator) || generator == null)
+        {
+            return 1f;
+        }
+
         RoomDarkness darkness = generator.Darkness;
         return darkness != null && darkness.enabled ? Mathf.Clamp01(darkness.LitFraction) : 1f;
     }
@@ -354,7 +539,9 @@ public class DefenseLineRuntime : MonoBehaviour
     {
         int turns = TurnsUntilRoomBreach(roomId);
         if (turns == int.MaxValue || !generators.TryGetValue(roomId, out LevelGenerator generator))
+        {
             return 0f;
+        }
         // The first spawn row starts empty; the final safe row is fully filled.
         int longestApproach = Mathf.Max(2, generator.Rows - 1);
         return Mathf.Clamp01((longestApproach - turns) / (float)(longestApproach - 1));
@@ -363,7 +550,11 @@ public class DefenseLineRuntime : MonoBehaviour
     public int NotifyApproachingBreaches()
     {
         // The clock siege hides where the enemies are, including breach warnings.
-        if (gameManager.Clock != null) return 0;
+        if (gameManager.Clock != null)
+        {
+            return 0;
+        }
+
         int newlyDangerous = 0;
         foreach (DefenseFront.Room room in Model.Rooms)
         {
@@ -372,13 +563,21 @@ public class DefenseLineRuntime : MonoBehaviour
                 warnedBreachRooms.Remove(room.Id);
                 continue;
             }
-            if (warnedBreachRooms.Add(room.Id)) newlyDangerous++;
+            if (warnedBreachRooms.Add(room.Id))
+            {
+                newlyDangerous++;
+            }
         }
         if (newlyDangerous == 1)
+        {
             GameAnnouncementUI.Show("В одной комнате готовится прорыв! Проверьте карту обороны.", 3f);
+        }
         else if (newlyDangerous > 1)
+        {
             GameAnnouncementUI.Show("В нескольких комнатах готовится прорыв ("
                 + newlyDangerous + ")! Проверьте карту обороны.", 3.5f);
+        }
+
         return newlyDangerous;
     }
 
@@ -389,7 +588,11 @@ public class DefenseLineRuntime : MonoBehaviour
 
     public void BreachRoom(LevelGenerator room, IReadOnlyList<Brick> requestedAttackers = null)
     {
-        if (room == null || gameManager.GameEnded) return;
+        if (room == null || gameManager.GameEnded)
+        {
+            return;
+        }
+
         if (room.DefenseLine == 1)
         {
             ResolveMainRoomBreach(room, requestedAttackers);
@@ -403,8 +606,10 @@ public class DefenseLineRuntime : MonoBehaviour
             {
                 Brick attacker = requestedAttackers[i];
                 if (attacker != null && !attacker.IsDefeated && attacker.levelGenerator == room)
+                {
                     incomingDamage += attacker.UsesBossHealth
                         ? attacker.BreachDamage : Mathf.Max(1f, attacker.ProjectileContactDamage);
+                }
             }
             if (incomingDamage > 0f)
             {
@@ -419,15 +624,26 @@ public class DefenseLineRuntime : MonoBehaviour
                         GameObject enemy = room.EnemyCollection[i];
                         if (enemy != null && enemy.TryGetComponent(out Brick resident)
                             && !resident.IsDefeated && resident.levelGenerator == room)
+                        {
                             resident.CancelBreachAnimation();
+                        }
                     }
                     for (int i = 0; i < requestedAttackers.Count; i++)
                     {
                         Brick attacker = requestedAttackers[i];
-                        if (attacker == null || attacker.IsDefeated || attacker.levelGenerator != room) continue;
+                        if (attacker == null || attacker.IsDefeated || attacker.levelGenerator != room)
+                        {
+                            continue;
+                        }
+
                         if (room.TryReturnBreachingEnemy(attacker, out Vector3 position))
+                        {
                             attacker.StrikeBarricadeAndReturn(position);
-                        else attacker.PlayArrivalAnimation();
+                        }
+                        else
+                        {
+                            attacker.PlayArrivalAnimation();
+                        }
                     }
                     RefreshRoom(room);
                     GameAnnouncementUI.Show("Плотина удержала прорыв!", 2f);
@@ -440,52 +656,84 @@ public class DefenseLineRuntime : MonoBehaviour
         // its remaining waves and stays selectable.
         DefenseFront.Room breachedRoom = Model.GetRoom(room.RoomId);
         DefenseFront.Room destination = breachedRoom != null ? Model.GetRoom(breachedRoom.ParentId) : null;
-        if (destination == null) return;
+        if (destination == null)
+        {
+            return;
+        }
 
         var attackers = new List<Brick>();
         if (requestedAttackers != null)
+        {
             for (int i = 0; i < requestedAttackers.Count; i++)
             {
                 Brick candidate = requestedAttackers[i];
                 if (candidate != null && !candidate.IsDefeated
                     && candidate.levelGenerator == room && !attackers.Contains(candidate))
+                {
                     attackers.Add(candidate);
+                }
             }
+        }
+
         if (attackers.Count == 0)
+        {
             for (int i = 0; i < room.EnemyCollection.Count; i++)
             {
                 GameObject candidateObject = room.EnemyCollection[i];
                 if (candidateObject != null && candidateObject.TryGetComponent(out Brick candidate)
                     && !candidate.IsDefeated
                     && candidate.LowestCellY <= room.DefenseBoundaryY + 0.0001f)
+                {
                     attackers.Add(candidate);
+                }
             }
-        if (attackers.Count == 0) return;
+        }
+
+        if (attackers.Count == 0)
+        {
+            return;
+        }
 
         int cohort = CreatePressureCohort();
         int moved = 0;
         foreach (Brick attacker in attackers)
         {
-            if (!room.ReleaseBreachingEnemy(attacker)) continue;
+            if (!room.ReleaseBreachingEnemy(attacker))
+            {
+                continue;
+            }
+
             SendToInnerRoom(room, attacker, 0, cohort);
             moved++;
         }
-        if (moved == 0) return;
+        if (moved == 0)
+        {
+            return;
+        }
 
         RefreshRoom(room);
         QueueBreachFocus(destination);
         // In the clock siege the source front stays secret.
         if (gameManager.Clock != null)
+        {
             GameAnnouncementUI.Show("Враги прорвались в центр!", 2.5f);
+        }
         else
+        {
             GameAnnouncementUI.Show("Прорыв из " + breachedRoom.Label + " в " + destination.Label
                 + (moved > 1 ? " · врагов: " + moved : ""), 2.5f);
+        }
+
         Changed?.Invoke();
     }
 
     public void ResolveMainRoomBreach(LevelGenerator room, IReadOnlyList<Brick> requestedAttackers)
     {
-        if (room == null || room.DefenseLine != 1 || gameManager.GameEnded) return;
+        if (room == null || room.DefenseLine != 1 || gameManager.GameEnded)
+        {
+            return;
+        }
+
         var attackers = new List<Brick>();
         if (requestedAttackers != null)
         {
@@ -494,7 +742,9 @@ public class DefenseLineRuntime : MonoBehaviour
                 Brick candidate = requestedAttackers[i];
                 if (candidate != null && !candidate.IsDefeated
                     && candidate.levelGenerator == room && !attackers.Contains(candidate))
+                {
                     attackers.Add(candidate);
+                }
             }
         }
 
@@ -508,16 +758,25 @@ public class DefenseLineRuntime : MonoBehaviour
                 if (candidateObject != null && candidateObject.TryGetComponent(out Brick candidate)
                     && !candidate.IsDefeated
                     && candidate.LowestCellY <= room.DefenseBoundaryY + 0.0001f)
+                {
                     attackers.Add(candidate);
+                }
             }
         }
-        if (attackers.Count == 0) return;
+        if (attackers.Count == 0)
+        {
+            return;
+        }
 
         float totalDamage = 0f;
         for (int i = 0; i < attackers.Count; i++)
         {
             Brick attacker = attackers[i];
-            if (attacker == null) continue;
+            if (attacker == null)
+            {
+                continue;
+            }
+
             if (!room.TryReturnBreachingEnemy(attacker, out Vector3 returnPosition))
             {
                 // With every safe position occupied by other bosses, keep this
@@ -534,7 +793,10 @@ public class DefenseLineRuntime : MonoBehaviour
             }
             totalDamage += attacker.StrikeBarricadeAndReturn(returnPosition);
         }
-        if (totalDamage <= 0f) return;
+        if (totalDamage <= 0f)
+        {
+            return;
+        }
 
         bool destroyed = barricade == null || barricade.TakeDamage(totalDamage);
         RefreshRoom(room);
@@ -554,7 +816,11 @@ public class DefenseLineRuntime : MonoBehaviour
 
     private BeaverDam FindDam(LevelGenerator room)
     {
-        if (room == null) return null;
+        if (room == null)
+        {
+            return null;
+        }
+
         Stage stage = room.GetComponentInParent<Stage>();
         return stage != null ? stage.GetComponentInChildren<BeaverDam>(true) : null;
     }
@@ -566,7 +832,10 @@ public class DefenseLineRuntime : MonoBehaviour
 
     private void QueueBreachFocus(DefenseFront.Room destination)
     {
-        if (destination == null) return;
+        if (destination == null)
+        {
+            return;
+        }
         // A lower destination line is more dangerous and wins. If destinations
         // share a line, assignment is intentional: the latest breach wins.
         if (pendingBreachFocusId < 0 || destination.Line <= pendingBreachFocusLine)
@@ -578,7 +847,10 @@ public class DefenseLineRuntime : MonoBehaviour
 
     public bool FocusPendingBreachRoom()
     {
-        if (pendingBreachFocusId < 0) return false;
+        if (pendingBreachFocusId < 0)
+        {
+            return false;
+        }
         // The clock siege never moves the camera to enemies: the player looks for them.
         if (gameManager.Clock != null)
         {
@@ -597,24 +869,43 @@ public class DefenseLineRuntime : MonoBehaviour
         pendingBreachFocusId = -1;
         pendingBreachFocusLine = int.MaxValue;
         while (destination != null && !destination.CanSelect)
+        {
             destination = Model.GetRoom(destination.ParentId);
-        if (destination == null) return false;
+        }
+
+        if (destination == null)
+        {
+            return false;
+        }
+
         Interface?.CloseMap();
         return FocusRoomAnimated(destination.Id);
     }
 
     public int CreatePressureCohort()
     {
-        if (nextPressureCohort == int.MaxValue) nextPressureCohort = 1;
+        if (nextPressureCohort == int.MaxValue)
+        {
+            nextPressureCohort = 1;
+        }
+
         return nextPressureCohort++;
     }
 
     public void SendToInnerRoom(LevelGenerator source, Brick brick, int delayTurns = 0,
         int cohort = 0)
     {
-        if (brick == null) return;
+        if (brick == null)
+        {
+            return;
+        }
+
         DefenseFront.Room room = Model.GetRoom(source.RoomId);
-        if (room == null || room.ParentId < 0) return;
+        if (room == null || room.ParentId < 0)
+        {
+            return;
+        }
+
         brick.levelGenerator = null;
         FrogRider.InvalidateRoomBonuses();
         brick.gameObject.SetActive(false);
@@ -625,7 +916,10 @@ public class DefenseLineRuntime : MonoBehaviour
 
     public void RemoveTravellingEnemy(Brick brick)
     {
-        if (brick != null && pressure.Remove(brick)) Changed?.Invoke();
+        if (brick != null && pressure.Remove(brick))
+        {
+            Changed?.Invoke();
+        }
     }
 
     public void DeliverPressure()
@@ -636,28 +930,51 @@ public class DefenseLineRuntime : MonoBehaviour
 
     private bool TryArriveGroup(IReadOnlyList<DefensePressureQueue<Brick>.Passage> group)
     {
-        if (group == null || group.Count == 0) return true;
+        if (group == null || group.Count == 0)
+        {
+            return true;
+        }
+
         DefensePressureQueue<Brick>.Passage first = group[0];
         DefenseFront.Room target = Model.GetRoom(first.Target);
         var enemies = new List<Brick>(group.Count);
         for (int i = 0; i < group.Count; i++)
-            if (group[i].Enemy != null) enemies.Add(group[i].Enemy);
-        if (TryPlacePressureGroup(first.Source, target, enemies)) return true;
+        {
+            if (group[i].Enemy != null)
+            {
+                enemies.Add(group[i].Enemy);
+            }
+        }
+
+        if (TryPlacePressureGroup(first.Source, target, enemies))
+        {
+            return true;
+        }
 
         // A crowded cohort must not keep a boss waiting behind its own lesser
         // escorts. Deliver bosses separately; leave only the escorts in the
         // passage if there is still no safe place for them.
         while (target != null && target.State == DefenseFront.RoomState.Lost)
+        {
             target = Model.GetRoom(target.ParentId);
+        }
+
         LevelGenerator destination = target != null ? GetGenerator(target.Id) : null;
-        if (destination == null || !destination.IsInitialized || destination.IsLost) return false;
+        if (destination == null || !destination.IsInitialized || destination.IsLost)
+        {
+            return false;
+        }
 
         bool deliveredBoss = false;
         bool waiting = false;
         for (int i = 0; i < group.Count; i++)
         {
             Brick enemy = group[i].Enemy;
-            if (enemy == null) continue;
+            if (enemy == null)
+            {
+                continue;
+            }
+
             if (!enemy.UsesBossHealth || !destination.TryReceiveBossByAbsorption(enemy))
             {
                 waiting = true;
@@ -683,7 +1000,10 @@ public class DefenseLineRuntime : MonoBehaviour
             sourceId = target.Id;
             target = Model.GetRoom(target.ParentId);
         }
-        if (target == null) return false;
+        if (target == null)
+        {
+            return false;
+        }
 
         LevelGenerator destination = GetGenerator(target.Id);
         if (destination == null || !destination.IsInitialized)
@@ -721,7 +1041,11 @@ public class DefenseLineRuntime : MonoBehaviour
     public int PayTurnIncome()
     {
         int amount = Model.CompleteTurn(gameManager.TurnNumber, GoldPerSecuredRoom);
-        if (!GameRunMode.IsDeveloperRun) MetaProgression.AwardRoomGold(amount);
+        if (!GameRunMode.IsDeveloperRun)
+        {
+            MetaProgression.AwardRoomGold(amount);
+        }
+
         Changed?.Invoke();
         return amount;
     }
@@ -729,14 +1053,29 @@ public class DefenseLineRuntime : MonoBehaviour
     public int LiberateCompletedLines(int completedLine)
     {
         // Travel and pending waves are part of the line battle, so no room returns early.
-        if (!IsQuiet) return 0;
+        if (!IsQuiet)
+        {
+            return 0;
+        }
+
         int restored = Model.LiberateLostRoomsThroughLine(completedLine);
-        if (restored == 0) return 0;
+        if (restored == 0)
+        {
+            return 0;
+        }
+
         foreach (DefenseFront.Room room in Model.Rooms)
         {
-            if (room.Line > completedLine || room.State != DefenseFront.RoomState.Secured) continue;
+            if (room.Line > completedLine || room.State != DefenseFront.RoomState.Secured)
+            {
+                continue;
+            }
+
             LevelGenerator generator = GetGenerator(room.Id);
-            if (generator != null && generator.RestoreAfterLineClear()) RefreshRoom(generator);
+            if (generator != null && generator.RestoreAfterLineClear())
+            {
+                RefreshRoom(generator);
+            }
         }
         Changed?.Invoke();
         return restored;
@@ -744,11 +1083,23 @@ public class DefenseLineRuntime : MonoBehaviour
 
     public void EnsureCombatFocus()
     {
-        if (gameManager.Clock != null) return;
+        if (gameManager.Clock != null)
+        {
+            return;
+        }
+
         ReleaseLostDefendedRoom();
-        if (IsDefendingRoom) return;
+        if (IsDefendingRoom)
+        {
+            return;
+        }
+
         LevelGenerator current = GetGenerator(CurrentRoomId);
-        if (current != null && !current.IsLost && current.HasLivingEnemies) return;
+        if (current != null && !current.IsLost && current.HasLivingEnemies)
+        {
+            return;
+        }
+
         foreach (DefenseFront.Room room in Model.Rooms)
         {
             LevelGenerator generator = GetGenerator(room.Id);
@@ -772,7 +1123,11 @@ public class DefenseLineRuntime : MonoBehaviour
         for (int index = 1; index <= count; index++)
         {
             int id = DefenseFront.IdFor(line, index);
-            if (stages.ContainsKey(id)) continue;
+            if (stages.ContainsKey(id))
+            {
+                continue;
+            }
+
             GameObject clone = Instantiate(template.gameObject, root.transform, false);
             clone.name = RoomName(line, index);
             clone.transform.position = new Vector3(id * 30f, template.transform.position.y, template.transform.position.z);
@@ -786,9 +1141,16 @@ public class DefenseLineRuntime : MonoBehaviour
         int id = DefenseFront.IdFor(line, index);
         stages[id] = stage;
         if (line > 1 && stage.transform.parent != null)
+        {
             lineRoots[line] = stage.transform.parent.gameObject;
+        }
+
         LevelGenerator room = stage.GetComponentInChildren<LevelGenerator>(true);
-        if (room == null) return;
+        if (room == null)
+        {
+            return;
+        }
+
         room.ConfigureRoomIdentity(line, index);
         // Clock fronts share one battlefield size whatever line they came from.
         ClockSiegeDirector clock = gameManager != null ? gameManager.Clock : null;
@@ -798,8 +1160,15 @@ public class DefenseLineRuntime : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (roomCamera != null) roomCamera.RoomChanged -= OnRoomChanged;
-        if (barricade != null) barricade.Changed -= OnBarricadeChanged;
+        if (roomCamera != null)
+        {
+            roomCamera.RoomChanged -= OnRoomChanged;
+        }
+
+        if (barricade != null)
+        {
+            barricade.Changed -= OnBarricadeChanged;
+        }
     }
 
     private static string RoomName(int line, int index) => line == 1 ? "Stage 1" : "Stage " + line + "_" + index;
@@ -840,7 +1209,11 @@ public sealed class MainRoomBarricade : MonoBehaviour, IDefenseHealthTarget
 
     public bool TakeDamage(float damage)
     {
-        if (IsDestroyed || damage <= 0f) return IsDestroyed;
+        if (IsDestroyed || damage <= 0f)
+        {
+            return IsDestroyed;
+        }
+
         CurrentHealth = Mathf.Max(0f, CurrentHealth - damage * ArtifactEquipmentBonuses.DefenseDamageMultiplier);
         RefreshVisual();
         Changed?.Invoke();
@@ -849,7 +1222,11 @@ public sealed class MainRoomBarricade : MonoBehaviour, IDefenseHealthTarget
 
     public void RestoreHealth(float amount)
     {
-        if (IsDestroyed || amount <= 0f || CurrentHealth >= MaxHealth) return;
+        if (IsDestroyed || amount <= 0f || CurrentHealth >= MaxHealth)
+        {
+            return;
+        }
+
         CurrentHealth = Mathf.Min(MaxHealth, CurrentHealth + amount);
         RefreshVisual();
         Changed?.Invoke();
@@ -857,7 +1234,10 @@ public sealed class MainRoomBarricade : MonoBehaviour, IDefenseHealthTarget
 
     public void AddBeaverHealth(float amount)
     {
-        if (IsDestroyed || amount <= 0f) return;
+        if (IsDestroyed || amount <= 0f)
+        {
+            return;
+        }
         // Missing health is restored first; any remaining amount becomes
         // permanent overhealth while the base maximum stays unchanged.
         CurrentHealth += amount;
@@ -867,7 +1247,11 @@ public sealed class MainRoomBarricade : MonoBehaviour, IDefenseHealthTarget
 
     private void BuildVisual()
     {
-        if (stage == null) return;
+        if (stage == null)
+        {
+            return;
+        }
+
         artwork = stage.transform.Find(VisualName)?.GetComponent<SpriteRenderer>();
         if (artwork == null)
         {
@@ -893,7 +1277,11 @@ public sealed class MainRoomBarricade : MonoBehaviour, IDefenseHealthTarget
 
     private void RefreshVisual()
     {
-        if (artwork == null) return;
+        if (artwork == null)
+        {
+            return;
+        }
+
         float ratio = MaxHealth > 0f ? Mathf.Clamp01(CurrentHealth / MaxHealth) : 0f;
         artwork.color = Color.Lerp(new Color(0.72f, 0.55f, 0.46f, 1f),
             Color.white, ratio);
@@ -902,6 +1290,8 @@ public sealed class MainRoomBarricade : MonoBehaviour, IDefenseHealthTarget
     private void OnDestroy()
     {
         if (EnemyCombatTextUI.Instance != null)
+        {
             EnemyCombatTextUI.Instance.UnregisterDefense(this);
+        }
     }
 }

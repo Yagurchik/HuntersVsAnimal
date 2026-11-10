@@ -14,7 +14,11 @@ public sealed class BogPustulantExplosion : MonoBehaviour, IEnemyDefeatHandler
 
     public bool TryHandleDefeat(Brick enemy)
     {
-        if (exploded || enemy == null) return false;
+        if (exploded || enemy == null)
+        {
+            return false;
+        }
+
         exploded = true;
 
         EnemyStatusEffects statuses = enemy.GetComponent<EnemyStatusEffects>();
@@ -34,26 +38,44 @@ public sealed class BogPustulantExplosion : MonoBehaviour, IEnemyDefeatHandler
         for (int i = 0; i < colliders.Length; i++)
         {
             Collider2D collider = colliders[i];
-            if (collider == null) continue;
+            if (collider == null)
+            {
+                continue;
+            }
+
             Brick targetEnemy = collider.GetComponentInParent<Brick>();
             if (targetEnemy != null)
             {
                 if (targetEnemy != enemy && !targetEnemy.IsDefeated)
+                {
                     affectedEnemies.Add(targetEnemy);
+                }
+
                 continue;
             }
 
             Animal projectile = collider.GetComponentInParent<Animal>();
-            if (projectile != null) affectedProjectiles.Add(projectile);
+            if (projectile != null)
+            {
+                affectedProjectiles.Add(projectile);
+            }
         }
 
         foreach (Brick target in affectedEnemies)
+        {
             if (target != null && !target.IsDefeated)
+            {
                 target.TakeDamage(enemyDamage, damageSource);
+            }
+        }
 
         foreach (Animal projectile in affectedProjectiles)
+        {
             if (projectile != null && projectile.TakeEnemyDamage(projectileDamage))
+            {
                 Destroy(projectile.gameObject);
+            }
+        }
 
         // The normal Brick death path still awards XP and removes this enemy.
         return false;

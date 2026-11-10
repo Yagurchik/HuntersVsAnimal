@@ -16,8 +16,15 @@ public static class ArtifactEquipmentBonuses
             for (int slot = 0; slot < MetaProgression.EquipmentSlotCount; slot++)
             {
                 var item = MetaProgression.GetArtifactDefinition(MetaProgression.GetEquippedArtifact(slot));
-                if (item == null) continue;
-                foreach (var bonus in item.Bonuses) values[(int)bonus.Stat] += bonus.Value;
+                if (item == null)
+                {
+                    continue;
+                }
+
+                foreach (var bonus in item.Bonuses)
+                {
+                    values[(int)bonus.Stat] += bonus.Value;
+                }
             }
             dirty = false;
         }
