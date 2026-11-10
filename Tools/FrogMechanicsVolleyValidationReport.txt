@@ -1,0 +1,74 @@
+PASS Isolated test has the game's combat text font and material
+PASS Authored frog projectile deals 15 base damage and references its authored rider
+PASS Authored frog jump lasts 0.1 seconds
+PASS Seated frog uses a separate overhead sprite
+PASS Frog collider is smaller than the ordinary projectile
+PASS Four initial landings add 60 impact damage plus 150 from seated count-change bites, within four seats
+PASS Four frogs occupy distinct inset corners: True:(0.24, -0.24, -0.02):slot=3; True:(-0.24, -0.24, -0.02):slot=2; True:(0.24, 0.24, -0.02):slot=1; True:(-0.24, 0.24, -0.02):slot=0
+PASS Seated frogs stay inside the enemy and release the projectile phase
+PASS Four seated frogs face different diagonals at 45, 135, 225 and 315 degrees
+PASS Seated frogs follow the actual enemy hover and sway in the same frame
+PASS Seat offsets follow enemy movement, rotation and step squash without sliding
+PASS Frog corner rotations follow the enemy's visual rotation
+PASS Frogs share the enemy's step stretch and squash
+PASS The fifth frog physically ricochets from a full enemy without damage
+PASS Four seated frogs deal 60 damage per turn
+PASS A repeated turn number cannot tick frogs twice
+PASS Fire, poison and frog damage do not trigger jumps
+PASS Random jumps can choose weak, strong, distant and fully occupied enemies equally: 62, 65, 72, 57
+PASS Exactly one frog leaves on one ordinary damage event
+PASS The three remaining frogs immediately bite for 45 when one leaves
+PASS A jump draws an authored trail along the actual frog path
+PASS Jump deals doubled damage and the newly seated frog adds its count-change bite
+PASS Jump trail completely disappears after landing and never follows seated enemy movement
+PASS Remaining frogs keep their original corners after one jumps
+PASS A departure chorus can kill the host and safely release all four frogs without recursive nonlethal jumps
+PASS The four death releases share a reaction, all settle and do not repeatedly dislodge one another
+PASS Every seated frog jumps immediately on host death from Other
+PASS Concurrent death and provocation chains settle or fall without stranding the turn: Other
+PASS Every seated frog jumps immediately on host death from Fire
+PASS Concurrent death and provocation chains settle or fall without stranding the turn: Fire
+PASS Every seated frog jumps immediately on host death from Poison
+PASS Concurrent death and provocation chains settle or fall without stranding the turn: Poison
+PASS Every seated frog jumps immediately on host death from Frog
+PASS Concurrent death and provocation chains settle or fall without stranding the turn: Frog
+PASS All frogs fall and release the turn when the dead host has no nearby targets
+PASS A first jump provokes one resident, fills its freed seat and never creates a fifth seat
+PASS Fatal destinations redirect up to five actual hops, without attacking a sixth enemy
+PASS Arrival-bite deaths redirect within the same five-hop cap without recursively restarting the chain
+PASS Chorus upgrades affect existing frogs, adding 3 percent for each of two frogs
+PASS Chorus buffs actual room damage and cannot affect another room
+PASS Removing a frog removes its room damage bonus
+PASS KVA landing hits the target and enemies within a circular radius of one cell
+PASS KVA also applies area damage to the periodic bite
+PASS KVA isn't offered before the three frog branches are complete
+PASS Frog radius and chorus upgrade rank 1
+PASS Frog radius and chorus upgrade rank 2
+PASS Frog radius and chorus upgrade rank 3
+PASS Three frog projectiles unlock KVA after completing radius and chorus
+PASS Pre-existing frog has a two-hop streak before the native combined volley
+PASS Native combined volley resets resident streaks exactly once at its start
+PASS Real combined volley launches frog immediately before firefly, including firefly repeats: 6, 0, 0, 4, 2, 1, 3, 5
+PASS Combined volley actually creates the three frog bodies and every other queued projectile
+PASS Combined volley consumes every available type, including all three frog projectiles
+PASS All types and repeated shots in the native combined volley share one streak identity
+PASS Old frog reacts once and credits its jump and landing bite to the attacking volley
+PASS A second actual volley hit grows the same resident streak to two hops
+PASS Combined volley with frogs releases the input lock after cleanup
+PASS Native separate volley also clears the previous combined volley's streak
+PASS Five distinct loadout types can include the new frog and the required firefly
+PASS A selected frog is initially locked and unlocked through battle upgrades
+PASS Authored projectile choices open in the menu
+PASS Frog has its own authored menu choice
+PASS Menu uses the dedicated frog portrait icon
+PASS Loadout card fits between the selected count and footer: 0
+PASS Loadout card fits between the selected count and footer: 1
+PASS Loadout card fits between the selected count and footer: 2
+PASS Loadout card fits between the selected count and footer: 3
+PASS Loadout card fits between the selected count and footer: 4
+PASS Loadout card fits between the selected count and footer: 5
+PASS Loadout card fits between the selected count and footer: 6
+PASS Loadout card fits between the selected count and footer: 7
+PASS A five-type set containing the frog enables Start
+PASS The frog loadout dialog can be closed without starting
+FROG_MECHANICS_PASSED

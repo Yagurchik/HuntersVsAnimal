@@ -1,0 +1,48 @@
+PASS: Four menu tabs and four entity windows are authored
+PASS: The house map and landscape image have been removed
+PASS: Editable prefab instance GreatTreeBuilding
+PASS: Whole window is a service button; the portrait cannot intercept clicks
+PASS: Portrait has a bounded mobile import and genuine alpha
+PASS: Portrait corner is transparent: GreatTreeBuilding
+PASS: Window contains no missing script references
+PASS: Editable prefab instance Open Skin Shop
+PASS: Whole window is a service button; the portrait cannot intercept clicks
+PASS: Portrait has a bounded mobile import and genuine alpha
+PASS: Portrait corner is transparent: Open Skin Shop
+PASS: Window contains no missing script references
+PASS: Editable prefab instance ForestShopBuilding
+PASS: Whole window is a service button; the portrait cannot intercept clicks
+PASS: Portrait has a bounded mobile import and genuine alpha
+PASS: Portrait corner is transparent: ForestShopBuilding
+PASS: Window contains no missing script references
+PASS: Editable prefab instance Open Bestiary
+PASS: Whole window is a service button; the portrait cannot intercept clicks
+PASS: Portrait has a bounded mobile import and genuine alpha
+PASS: Portrait corner is transparent: Open Bestiary
+PASS: Window contains no missing script references
+PASS: Eternal Tree occupies approximately the upper quarter of the portrait screen
+PASS: Native menu starts in Play mode
+PASS: Service window accepts input
+PASS: Eternal Tree opens the existing income and upgrade window
+PASS: Service window accepts input
+PASS: Chameleon opens all eight projectile skins
+PASS: Service window accepts input
+PASS: Raven opens the existing Forest Shop and its artifact offers
+PASS: Service window accepts input
+PASS: Owl opens the complete existing bestiary
+PASS: All dialogs close without rebuilding or duplicating the village
+PASS: GreatTreeBuilding stays inside the visible page at 720x1280
+PASS: Open Skin Shop stays inside the visible page at 720x1280
+PASS: ForestShopBuilding stays inside the visible page at 720x1280
+PASS: Open Bestiary stays inside the visible page at 720x1280
+PASS: Native UI renders into VillageEntitiesPortrait
+PASS: GreatTreeBuilding stays inside the visible page at 960x540
+PASS: Open Skin Shop stays inside the visible page at 960x540
+PASS: ForestShopBuilding stays inside the visible page at 960x540
+PASS: Open Bestiary stays inside the visible page at 960x540
+PASS: Native UI renders into VillageEntitiesLandscape
+RESULT: PASS (43 checks)
+
+PASS: 627 checks. Original progress restored.
+PASS: 49 Play-mode checks including pointer raycasts and scene reload.
+Final portrait and landscape renders inspected visually. Scene records match Unity output; original record order retained. The working project save data was not used.

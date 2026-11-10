@@ -1,18 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class DestroyBallCollider : MonoBehaviour
+[DisallowMultipleComponent]
+[RequireComponent(typeof(BoxCollider2D))]
+public sealed class DestroyBallCollider : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
+        GetComponent<BoxCollider2D>().isTrigger = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        
+        CompleteProjectile(other);
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        CompleteProjectile(other);
+    }
+
+    private void CompleteProjectile(Collider2D other)
+    {
+        Animal animal = other.GetComponentInParent<Animal>();
+        if (animal == null || animal.IsReturning) return;
+        BoarProjectile boar = animal.GetComponent<BoarProjectile>();
+        if (boar != null)
+        {
+            boar.BounceFromBottomZone(GetComponent<Collider2D>(), other);
+            return;
+        }
+        animal.CompleteAtBottom();
     }
 }

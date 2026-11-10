@@ -1,0 +1,7 @@
+[Licensing::Module] Trying to connect to existing licensing client channel...
+[Licensing::IpcConnector] Connection attempt to the License Client on channel: "LicenseClient-greds" failed because channel doesn't exist; code: "0x80000002"
+Error creating external process 'E:/2022.3.20f1/Editor/Data/Resources/Licensing/Client/Unity.Licensing.Client.exe' : Системе не удается найти указанный путь.
+Error cleaning up external process: Неверный дескриптор.
+[Licensing::Module] Error: Failed to launch LicensingClient: E:/2022.3.20f1/Editor/Data/Resources/Licensing/Client/Unity.Licensing.Client.exe
+IPC channel to LicensingClient doesn't exist; aborting
+Exiting without the bug reporter. Application will terminate with return code 199

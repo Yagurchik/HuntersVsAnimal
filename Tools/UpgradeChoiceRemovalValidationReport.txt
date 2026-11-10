@@ -1,0 +1,808 @@
+PASS: Authored gameplay scene has progression settings
+PASS: First-level health and damage retain their authored base values
+PASS: Level 1 stays within +22% HP per unit of baseline damage
+PASS: Level 1 wave 1 tank needs at most three baseline hits
+PASS: Level 1 wave 2 tank needs at most three baseline hits
+PASS: Level 1 wave 3 tank needs at most three baseline hits
+PASS: Level 1 wave 4 tank needs at most three baseline hits
+PASS: Level 2 stays within +22% HP per unit of baseline damage
+PASS: Level 2 wave 1 tank needs at most three baseline hits
+PASS: Level 2 wave 2 tank needs at most three baseline hits
+PASS: Level 2 wave 3 tank needs at most three baseline hits
+PASS: Level 2 wave 4 tank needs at most three baseline hits
+PASS: Level 3 stays within +22% HP per unit of baseline damage
+PASS: Level 3 wave 1 tank needs at most three baseline hits
+PASS: Level 3 wave 2 tank needs at most three baseline hits
+PASS: Level 3 wave 3 tank needs at most three baseline hits
+PASS: Level 3 wave 4 tank needs at most three baseline hits
+PASS: Level 4 stays within +22% HP per unit of baseline damage
+PASS: Level 4 wave 1 tank needs at most three baseline hits
+PASS: Level 4 wave 2 tank needs at most three baseline hits
+PASS: Level 4 wave 3 tank needs at most three baseline hits
+PASS: Level 4 wave 4 tank needs at most three baseline hits
+PASS: Level 5 stays within +22% HP per unit of baseline damage
+PASS: Level 5 wave 1 tank needs at most three baseline hits
+PASS: Level 5 wave 2 tank needs at most three baseline hits
+PASS: Level 5 wave 3 tank needs at most three baseline hits
+PASS: Level 5 wave 4 tank needs at most three baseline hits
+PASS: Level 6 stays within +22% HP per unit of baseline damage
+PASS: Level 6 wave 1 tank needs at most three baseline hits
+PASS: Level 6 wave 2 tank needs at most three baseline hits
+PASS: Level 6 wave 3 tank needs at most three baseline hits
+PASS: Level 6 wave 4 tank needs at most three baseline hits
+PASS: Level 7 stays within +22% HP per unit of baseline damage
+PASS: Level 7 wave 1 tank needs at most three baseline hits
+PASS: Level 7 wave 2 tank needs at most three baseline hits
+PASS: Level 7 wave 3 tank needs at most three baseline hits
+PASS: Level 7 wave 4 tank needs at most three baseline hits
+PASS: Level 8 stays within +22% HP per unit of baseline damage
+PASS: Level 8 wave 1 tank needs at most three baseline hits
+PASS: Level 8 wave 2 tank needs at most three baseline hits
+PASS: Level 8 wave 3 tank needs at most three baseline hits
+PASS: Level 8 wave 4 tank needs at most three baseline hits
+PASS: Level 9 stays within +22% HP per unit of baseline damage
+PASS: Level 9 wave 1 tank needs at most three baseline hits
+PASS: Level 9 wave 2 tank needs at most three baseline hits
+PASS: Level 9 wave 3 tank needs at most three baseline hits
+PASS: Level 9 wave 4 tank needs at most three baseline hits
+PASS: Level 10 stays within +22% HP per unit of baseline damage
+PASS: Level 10 wave 1 tank needs at most three baseline hits
+PASS: Level 10 wave 2 tank needs at most three baseline hits
+PASS: Level 10 wave 3 tank needs at most three baseline hits
+PASS: Level 10 wave 4 tank needs at most three baseline hits
+PASS: Level 11 stays within +22% HP per unit of baseline damage
+PASS: Level 11 wave 1 tank needs at most three baseline hits
+PASS: Level 11 wave 2 tank needs at most three baseline hits
+PASS: Level 11 wave 3 tank needs at most three baseline hits
+PASS: Level 11 wave 4 tank needs at most three baseline hits
+PASS: Level 12 stays within +22% HP per unit of baseline damage
+PASS: Level 12 wave 1 tank needs at most three baseline hits
+PASS: Level 12 wave 2 tank needs at most three baseline hits
+PASS: Level 12 wave 3 tank needs at most three baseline hits
+PASS: Level 12 wave 4 tank needs at most three baseline hits
+PASS: Level 13 stays within +22% HP per unit of baseline damage
+PASS: Level 13 wave 1 tank needs at most three baseline hits
+PASS: Level 13 wave 2 tank needs at most three baseline hits
+PASS: Level 13 wave 3 tank needs at most three baseline hits
+PASS: Level 13 wave 4 tank needs at most three baseline hits
+PASS: Level 14 stays within +22% HP per unit of baseline damage
+PASS: Level 14 wave 1 tank needs at most three baseline hits
+PASS: Level 14 wave 2 tank needs at most three baseline hits
+PASS: Level 14 wave 3 tank needs at most three baseline hits
+PASS: Level 14 wave 4 tank needs at most three baseline hits
+PASS: Level 15 stays within +22% HP per unit of baseline damage
+PASS: Level 15 wave 1 tank needs at most three baseline hits
+PASS: Level 15 wave 2 tank needs at most three baseline hits
+PASS: Level 15 wave 3 tank needs at most three baseline hits
+PASS: Level 15 wave 4 tank needs at most three baseline hits
+PASS: Level 16 stays within +22% HP per unit of baseline damage
+PASS: Level 16 wave 1 tank needs at most three baseline hits
+PASS: Level 16 wave 2 tank needs at most three baseline hits
+PASS: Level 16 wave 3 tank needs at most three baseline hits
+PASS: Level 16 wave 4 tank needs at most three baseline hits
+PASS: Level 17 stays within +22% HP per unit of baseline damage
+PASS: Level 17 wave 1 tank needs at most three baseline hits
+PASS: Level 17 wave 2 tank needs at most three baseline hits
+PASS: Level 17 wave 3 tank needs at most three baseline hits
+PASS: Level 17 wave 4 tank needs at most three baseline hits
+PASS: Level 18 stays within +22% HP per unit of baseline damage
+PASS: Level 18 wave 1 tank needs at most three baseline hits
+PASS: Level 18 wave 2 tank needs at most three baseline hits
+PASS: Level 18 wave 3 tank needs at most three baseline hits
+PASS: Level 18 wave 4 tank needs at most three baseline hits
+PASS: Level 19 stays within +22% HP per unit of baseline damage
+PASS: Level 19 wave 1 tank needs at most three baseline hits
+PASS: Level 19 wave 2 tank needs at most three baseline hits
+PASS: Level 19 wave 3 tank needs at most three baseline hits
+PASS: Level 19 wave 4 tank needs at most three baseline hits
+PASS: Level 20 stays within +22% HP per unit of baseline damage
+PASS: Level 20 wave 1 tank needs at most three baseline hits
+PASS: Level 20 wave 2 tank needs at most three baseline hits
+PASS: Level 20 wave 3 tank needs at most three baseline hits
+PASS: Level 20 wave 4 tank needs at most three baseline hits
+PASS: Level 21 stays within +22% HP per unit of baseline damage
+PASS: Level 21 wave 1 tank needs at most three baseline hits
+PASS: Level 21 wave 2 tank needs at most three baseline hits
+PASS: Level 21 wave 3 tank needs at most three baseline hits
+PASS: Level 21 wave 4 tank needs at most three baseline hits
+PASS: Level 22 stays within +22% HP per unit of baseline damage
+PASS: Level 22 wave 1 tank needs at most three baseline hits
+PASS: Level 22 wave 2 tank needs at most three baseline hits
+PASS: Level 22 wave 3 tank needs at most three baseline hits
+PASS: Level 22 wave 4 tank needs at most three baseline hits
+PASS: Level 23 stays within +22% HP per unit of baseline damage
+PASS: Level 23 wave 1 tank needs at most three baseline hits
+PASS: Level 23 wave 2 tank needs at most three baseline hits
+PASS: Level 23 wave 3 tank needs at most three baseline hits
+PASS: Level 23 wave 4 tank needs at most three baseline hits
+PASS: Level 24 stays within +22% HP per unit of baseline damage
+PASS: Level 24 wave 1 tank needs at most three baseline hits
+PASS: Level 24 wave 2 tank needs at most three baseline hits
+PASS: Level 24 wave 3 tank needs at most three baseline hits
+PASS: Level 24 wave 4 tank needs at most three baseline hits
+PASS: Level 25 stays within +22% HP per unit of baseline damage
+PASS: Level 25 wave 1 tank needs at most three baseline hits
+PASS: Level 25 wave 2 tank needs at most three baseline hits
+PASS: Level 25 wave 3 tank needs at most three baseline hits
+PASS: Level 25 wave 4 tank needs at most three baseline hits
+PASS: Level 26 stays within +22% HP per unit of baseline damage
+PASS: Level 26 wave 1 tank needs at most three baseline hits
+PASS: Level 26 wave 2 tank needs at most three baseline hits
+PASS: Level 26 wave 3 tank needs at most three baseline hits
+PASS: Level 26 wave 4 tank needs at most three baseline hits
+PASS: Level 27 stays within +22% HP per unit of baseline damage
+PASS: Level 27 wave 1 tank needs at most three baseline hits
+PASS: Level 27 wave 2 tank needs at most three baseline hits
+PASS: Level 27 wave 3 tank needs at most three baseline hits
+PASS: Level 27 wave 4 tank needs at most three baseline hits
+PASS: Level 28 stays within +22% HP per unit of baseline damage
+PASS: Level 28 wave 1 tank needs at most three baseline hits
+PASS: Level 28 wave 2 tank needs at most three baseline hits
+PASS: Level 28 wave 3 tank needs at most three baseline hits
+PASS: Level 28 wave 4 tank needs at most three baseline hits
+PASS: Level 29 stays within +22% HP per unit of baseline damage
+PASS: Level 29 wave 1 tank needs at most three baseline hits
+PASS: Level 29 wave 2 tank needs at most three baseline hits
+PASS: Level 29 wave 3 tank needs at most three baseline hits
+PASS: Level 29 wave 4 tank needs at most three baseline hits
+PASS: Level 30 stays within +22% HP per unit of baseline damage
+PASS: Level 30 wave 1 tank needs at most three baseline hits
+PASS: Level 30 wave 2 tank needs at most three baseline hits
+PASS: Level 30 wave 3 tank needs at most three baseline hits
+PASS: Level 30 wave 4 tank needs at most three baseline hits
+PASS: Final-level HP is 3.32x and guaranteed damage is 2.74x
+PASS: Extended boss reinforcements and invalid wave numbers have bounded HP
+PASS: First upgrade costs three ordinary kills
+PASS: Free room rewards retain XP and do not raise the kill-XP price
+PASS: Paid XP upgrades add four to the next price
+PASS: Long runs keep earning upgrades at a maximum price of ninety XP
+PASS: Gameplay scene uses the new XP prices
+PASS: BellRingerBoss has an editable HP budget between 300 and 2400
+PASS: BellRingerBoss at level 1 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 2 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 3 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 4 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 5 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 6 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 7 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 8 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 9 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 10 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 11 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 12 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 13 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 14 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 15 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 16 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 17 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 18 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 19 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 20 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 21 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 22 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 23 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 24 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 25 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 26 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 27 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 28 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 29 fits a seventeen-contact boss budget
+PASS: BellRingerBoss at level 30 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss has an editable HP budget between 300 and 2400
+PASS: BoneDragonBoss at level 1 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 2 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 3 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 4 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 5 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 6 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 7 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 8 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 9 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 10 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 11 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 12 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 13 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 14 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 15 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 16 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 17 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 18 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 19 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 20 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 21 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 22 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 23 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 24 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 25 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 26 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 27 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 28 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 29 fits a seventeen-contact boss budget
+PASS: BoneDragonBoss at level 30 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss has an editable HP budget between 300 and 2400
+PASS: BoneDragonMiniBoss at level 1 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 2 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 3 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 4 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 5 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 6 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 7 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 8 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 9 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 10 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 11 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 12 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 13 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 14 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 15 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 16 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 17 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 18 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 19 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 20 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 21 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 22 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 23 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 24 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 25 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 26 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 27 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 28 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 29 fits a seventeen-contact boss budget
+PASS: BoneDragonMiniBoss at level 30 fits a seventeen-contact boss budget
+PASS: DrownedHeir has an editable HP budget between 300 and 2400
+PASS: DrownedHeir at level 1 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 2 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 3 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 4 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 5 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 6 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 7 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 8 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 9 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 10 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 11 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 12 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 13 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 14 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 15 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 16 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 17 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 18 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 19 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 20 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 21 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 22 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 23 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 24 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 25 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 26 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 27 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 28 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 29 fits a seventeen-contact boss budget
+PASS: DrownedHeir at level 30 fits a seventeen-contact boss budget
+PASS: DrownedKing has an editable HP budget between 300 and 2400
+PASS: DrownedKing at level 1 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 2 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 3 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 4 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 5 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 6 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 7 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 8 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 9 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 10 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 11 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 12 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 13 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 14 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 15 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 16 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 17 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 18 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 19 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 20 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 21 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 22 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 23 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 24 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 25 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 26 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 27 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 28 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 29 fits a seventeen-contact boss budget
+PASS: DrownedKing at level 30 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss has an editable HP budget between 300 and 2400
+PASS: DrownedMiniBoss at level 1 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 2 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 3 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 4 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 5 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 6 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 7 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 8 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 9 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 10 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 11 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 12 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 13 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 14 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 15 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 16 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 17 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 18 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 19 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 20 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 21 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 22 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 23 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 24 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 25 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 26 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 27 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 28 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 29 fits a seventeen-contact boss budget
+PASS: DrownedMiniBoss at level 30 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss has an editable HP budget between 300 and 2400
+PASS: GhostlySorrowBoss at level 1 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 2 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 3 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 4 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 5 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 6 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 7 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 8 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 9 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 10 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 11 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 12 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 13 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 14 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 15 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 16 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 17 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 18 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 19 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 20 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 21 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 22 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 23 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 24 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 25 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 26 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 27 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 28 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 29 fits a seventeen-contact boss budget
+PASS: GhostlySorrowBoss at level 30 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss has an editable HP budget between 300 and 2400
+PASS: GreenJudgeMiniBoss at level 1 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 2 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 3 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 4 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 5 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 6 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 7 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 8 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 9 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 10 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 11 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 12 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 13 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 14 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 15 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 16 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 17 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 18 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 19 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 20 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 21 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 22 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 23 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 24 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 25 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 26 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 27 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 28 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 29 fits a seventeen-contact boss budget
+PASS: GreenJudgeMiniBoss at level 30 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss has an editable HP budget between 300 and 2400
+PASS: HiveHollowMiniBoss at level 1 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 2 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 3 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 4 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 5 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 6 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 7 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 8 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 9 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 10 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 11 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 12 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 13 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 14 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 15 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 16 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 17 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 18 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 19 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 20 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 21 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 22 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 23 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 24 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 25 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 26 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 27 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 28 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 29 fits a seventeen-contact boss budget
+PASS: HiveHollowMiniBoss at level 30 fits a seventeen-contact boss budget
+PASS: ImpostorBoss has an editable HP budget between 300 and 2400
+PASS: ImpostorBoss at level 1 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 2 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 3 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 4 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 5 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 6 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 7 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 8 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 9 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 10 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 11 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 12 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 13 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 14 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 15 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 16 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 17 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 18 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 19 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 20 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 21 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 22 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 23 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 24 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 25 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 26 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 27 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 28 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 29 fits a seventeen-contact boss budget
+PASS: ImpostorBoss at level 30 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss has an editable HP budget between 300 and 2400
+PASS: KnotBinderBoss at level 1 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 2 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 3 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 4 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 5 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 6 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 7 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 8 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 9 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 10 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 11 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 12 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 13 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 14 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 15 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 16 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 17 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 18 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 19 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 20 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 21 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 22 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 23 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 24 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 25 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 26 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 27 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 28 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 29 fits a seventeen-contact boss budget
+PASS: KnotBinderBoss at level 30 fits a seventeen-contact boss budget
+PASS: LichBoss has an editable HP budget between 300 and 2400
+PASS: LichBoss at level 1 fits a seventeen-contact boss budget
+PASS: LichBoss at level 2 fits a seventeen-contact boss budget
+PASS: LichBoss at level 3 fits a seventeen-contact boss budget
+PASS: LichBoss at level 4 fits a seventeen-contact boss budget
+PASS: LichBoss at level 5 fits a seventeen-contact boss budget
+PASS: LichBoss at level 6 fits a seventeen-contact boss budget
+PASS: LichBoss at level 7 fits a seventeen-contact boss budget
+PASS: LichBoss at level 8 fits a seventeen-contact boss budget
+PASS: LichBoss at level 9 fits a seventeen-contact boss budget
+PASS: LichBoss at level 10 fits a seventeen-contact boss budget
+PASS: LichBoss at level 11 fits a seventeen-contact boss budget
+PASS: LichBoss at level 12 fits a seventeen-contact boss budget
+PASS: LichBoss at level 13 fits a seventeen-contact boss budget
+PASS: LichBoss at level 14 fits a seventeen-contact boss budget
+PASS: LichBoss at level 15 fits a seventeen-contact boss budget
+PASS: LichBoss at level 16 fits a seventeen-contact boss budget
+PASS: LichBoss at level 17 fits a seventeen-contact boss budget
+PASS: LichBoss at level 18 fits a seventeen-contact boss budget
+PASS: LichBoss at level 19 fits a seventeen-contact boss budget
+PASS: LichBoss at level 20 fits a seventeen-contact boss budget
+PASS: LichBoss at level 21 fits a seventeen-contact boss budget
+PASS: LichBoss at level 22 fits a seventeen-contact boss budget
+PASS: LichBoss at level 23 fits a seventeen-contact boss budget
+PASS: LichBoss at level 24 fits a seventeen-contact boss budget
+PASS: LichBoss at level 25 fits a seventeen-contact boss budget
+PASS: LichBoss at level 26 fits a seventeen-contact boss budget
+PASS: LichBoss at level 27 fits a seventeen-contact boss budget
+PASS: LichBoss at level 28 fits a seventeen-contact boss budget
+PASS: LichBoss at level 29 fits a seventeen-contact boss budget
+PASS: LichBoss at level 30 fits a seventeen-contact boss budget
+PASS: MirageBoss has an editable HP budget between 300 and 2400
+PASS: MirageBoss at level 1 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 2 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 3 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 4 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 5 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 6 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 7 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 8 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 9 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 10 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 11 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 12 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 13 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 14 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 15 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 16 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 17 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 18 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 19 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 20 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 21 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 22 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 23 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 24 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 25 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 26 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 27 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 28 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 29 fits a seventeen-contact boss budget
+PASS: MirageBoss at level 30 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss has an editable HP budget between 300 and 2400
+PASS: PoisonousGloomBoss at level 1 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 2 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 3 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 4 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 5 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 6 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 7 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 8 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 9 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 10 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 11 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 12 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 13 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 14 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 15 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 16 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 17 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 18 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 19 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 20 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 21 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 22 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 23 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 24 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 25 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 26 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 27 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 28 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 29 fits a seventeen-contact boss budget
+PASS: PoisonousGloomBoss at level 30 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss has an editable HP budget between 300 and 2400
+PASS: ThreeSealIdolBoss at level 1 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 2 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 3 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 4 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 5 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 6 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 7 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 8 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 9 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 10 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 11 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 12 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 13 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 14 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 15 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 16 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 17 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 18 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 19 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 20 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 21 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 22 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 23 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 24 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 25 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 26 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 27 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 28 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 29 fits a seventeen-contact boss budget
+PASS: ThreeSealIdolBoss at level 30 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss has an editable HP budget between 300 and 2400
+PASS: VolleyEaterBoss at level 1 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 2 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 3 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 4 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 5 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 6 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 7 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 8 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 9 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 10 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 11 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 12 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 13 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 14 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 15 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 16 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 17 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 18 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 19 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 20 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 21 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 22 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 23 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 24 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 25 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 26 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 27 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 28 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 29 fits a seventeen-contact boss budget
+PASS: VolleyEaterBoss at level 30 fits a seventeen-contact boss budget
+PASS: Final campaign level starts with obsolete XP purchases present and no equipped bonuses
+PASS: A completed obsolete experience tree grants no barricade HP
+PASS: A completed obsolete experience tree grants no extra beaver dam capacity
+PASS: Real projectile launch keeps volley scaling and ignores obsolete experience damage bonuses
+PASS: Authored starter ammo does not count as selected damage upgrades
+PASS: Generic damage is absent from available upgrades
+PASS: Transient deserialization of an empty loadout cannot index outside its array
+PASS: Obsolete generic damage requests are rejected without a bonus
+PASS: A specialized upgrade also improves every damage source
+PASS: Rejected upgrades do not grant free damage
+PASS: Random offer 0 contains no removed generic damage choice
+PASS: Random offer 1 contains no removed generic damage choice
+PASS: Random offer 2 contains no removed generic damage choice
+PASS: Random offer 3 contains no removed generic damage choice
+PASS: Random offer 4 contains no removed generic damage choice
+PASS: Random offer 5 contains no removed generic damage choice
+PASS: Random offer 6 contains no removed generic damage choice
+PASS: Random offer 7 contains no removed generic damage choice
+PASS: Random offer 8 contains no removed generic damage choice
+PASS: Random offer 9 contains no removed generic damage choice
+PASS: Random offer 10 contains no removed generic damage choice
+PASS: Random offer 11 contains no removed generic damage choice
+PASS: Random offer 12 contains no removed generic damage choice
+PASS: Random offer 13 contains no removed generic damage choice
+PASS: Random offer 14 contains no removed generic damage choice
+PASS: Random offer 15 contains no removed generic damage choice
+PASS: Random offer 16 contains no removed generic damage choice
+PASS: Random offer 17 contains no removed generic damage choice
+PASS: Random offer 18 contains no removed generic damage choice
+PASS: Random offer 19 contains no removed generic damage choice
+PASS: Random offer 20 contains no removed generic damage choice
+PASS: Random offer 21 contains no removed generic damage choice
+PASS: Random offer 22 contains no removed generic damage choice
+PASS: Random offer 23 contains no removed generic damage choice
+PASS: Random offer 24 contains no removed generic damage choice
+PASS: Random offer 25 contains no removed generic damage choice
+PASS: Random offer 26 contains no removed generic damage choice
+PASS: Random offer 27 contains no removed generic damage choice
+PASS: Random offer 28 contains no removed generic damage choice
+PASS: Random offer 29 contains no removed generic damage choice
+PASS: Random offer 30 contains no removed generic damage choice
+PASS: Random offer 31 contains no removed generic damage choice
+PASS: Random offer 32 contains no removed generic damage choice
+PASS: Random offer 33 contains no removed generic damage choice
+PASS: Random offer 34 contains no removed generic damage choice
+PASS: Random offer 35 contains no removed generic damage choice
+PASS: Random offer 36 contains no removed generic damage choice
+PASS: Random offer 37 contains no removed generic damage choice
+PASS: Random offer 38 contains no removed generic damage choice
+PASS: Random offer 39 contains no removed generic damage choice
+PASS: Random offer 40 contains no removed generic damage choice
+PASS: Random offer 41 contains no removed generic damage choice
+PASS: Random offer 42 contains no removed generic damage choice
+PASS: Random offer 43 contains no removed generic damage choice
+PASS: Random offer 44 contains no removed generic damage choice
+PASS: Random offer 45 contains no removed generic damage choice
+PASS: Random offer 46 contains no removed generic damage choice
+PASS: Random offer 47 contains no removed generic damage choice
+PASS: Random offer 48 contains no removed generic damage choice
+PASS: Random offer 49 contains no removed generic damage choice
+PASS: Tutorial forced choices remain exclusive
+PASS: Actual final-level spawn applies the linear authored HP curve
+PASS: Wave HP scaling does not increase enemy contact damage
+PASS: Firefly receives campaign and run growth exactly once
+PASS: Hedgehog receives campaign and run growth exactly once
+PASS: Rabbit receives campaign and run growth exactly once
+PASS: HoneyBadger receives campaign and run growth exactly once
+PASS: Boar receives campaign and run growth exactly once
+PASS: Beaver receives campaign and run growth exactly once
+PASS: Frog receives campaign and run growth exactly once
+PASS: Squirrel receives campaign and run growth exactly once
+PASS: AcornExplosion receives campaign and run growth exactly once
+PASS: Fire periodic damage keeps pace with direct damage
+PASS: Poison periodic damage keeps pace with direct damage
+PASS: An actual firefly status tick applies the same progression once
+PASS: A seated frog bite applies progression at resolution
+PASS: Precomputed artifact poison does not apply progression twice
+PASS: Artifact echo and splash do not multiply their inherited damage again
+PASS: Finite branch choice 1
+PASS: Finite branch choice 2
+PASS: Finite branch choice 3
+PASS: Finite branch choice 4
+PASS: Finite branch choice 5
+PASS: Finite branch choice 6
+PASS: Finite branch choice 7
+PASS: Finite branch choice 8
+PASS: Finite branch choice 9
+PASS: Finite branch choice 10
+PASS: Finite branch choice 11
+PASS: Finite branch choice 12
+PASS: Finite branch choice 13
+PASS: Finite branch choice 14
+PASS: Finite branch choice 15
+PASS: Finite branch choice 16
+PASS: Finite branch choice 17
+PASS: Finite branch choice 18
+PASS: Finite branch choice 19
+PASS: Finite branch choice 20
+PASS: Finite branch choice 21
+PASS: Finite branch choice 22
+PASS: Finite branch choice 23
+PASS: Finite branch choice 24
+PASS: Finite branch choice 25
+PASS: Finite branch choice 26
+PASS: Finite branch choice 27
+PASS: Finite branch choice 28
+PASS: Finite branch choice 29
+PASS: Finite branch choice 30
+PASS: Finite branch choice 31
+PASS: Finite branch choice 32
+PASS: Finite branch choice 33
+PASS: Finite branch choice 34
+PASS: Finite branch choice 35
+PASS: Finite branch choice 36
+PASS: Finite branch choice 37
+PASS: Finite branch choice 38
+PASS: Finite branch choice 39
+PASS: Finite branch choice 40
+PASS: Finite branch choice 41
+PASS: Finite branch choice 42
+PASS: Finite branch choice 43
+PASS: Finite branch choice 44
+PASS: Finite branch choice 45
+PASS: Finite branch choice 46
+PASS: Finite branch choice 47
+PASS: Finite branch choice 48
+PASS: Finite branch choice 49
+PASS: Finite branch choice 50
+PASS: Finite branch choice 51
+PASS: Finite branch choice 52
+PASS: Finite branch choice 53
+PASS: Finite branch choice 54
+PASS: Finite branch choice 55
+PASS: Finite branch choice 56
+PASS: Finite branch choice 57
+PASS: Finite branch choice 58
+PASS: Finite branch choice 59
+PASS: Finite branch choice 60
+PASS: Finite branch choice 61
+PASS: Finite branch choice 62
+PASS: Finite branch choice 63
+PASS: Finite branch choice 64
+PASS: Finite branch choice 65
+PASS: Finite branch choice 66
+PASS: Finite branch choice 67
+PASS: Finite branch choice 68
+PASS: Finite branch choice 69
+PASS: Finite branch choice 70
+PASS: Finite branch choice 71
+PASS: All unique branches exhaust without a generic damage fallback
+PASS: Removed generic damage is rejected after all branches are complete
+PASS: Exhaustion with multiple pending levels closes the modal and resumes the enemy turn
+RESULT: PASS (807 checks)

@@ -1,0 +1,6 @@
+Experience tab removal — Unity 2022.3.20f1
+PASS: four editable tabs; uniform 270px navigation; working page selection; experience hierarchy, scripts and purchases removed; repeated migration remains safe.
+PASS: Scene comparison confirmed all 429 removed GameObjects belong to the experience page or its navigation button.
+PASS: CampaignBalanceValidation.RunBatch — 733 checks, including obsolete max-level saves and real projectile/barricade/dam behavior.
+PASS: ExperienceEconomyValidation.RunBatch — 22 in-run experience checks.
+Working project save data was not used or modified.

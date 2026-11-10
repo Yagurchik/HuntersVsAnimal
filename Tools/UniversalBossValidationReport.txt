@@ -1,0 +1,28 @@
+PASS Campaign scene opened
+PASS Bell Ringer appears as the level-two outer boss
+PASS First ordinary target can enter the bell room
+PASS Second ordinary target can enter the bell room
+PASS No hit means no pending extra step
+PASS A surviving direct hit marks its volley
+PASS Ordinary enemies do not step before the volley resolves
+PASS Completing the hit volley starts the immediate bell pulse
+STATE bell pulse: turn=0 firstY=2 secondY=3
+PASS Bell pulse finishes without consuming a normal enemy turn
+PASS Every ordinary ally moves one additional cell after the volley
+PASS Second volley marks the surviving bell
+PASS Bell can die during the marked volley
+PASS A dead Bell Ringer never grants the extra step
+PASS Knot Binder redirects forty percent of a direct hit to two allies
+PASS Knot Binder has two authored damage links
+PASS Impostor creates two fragile no-reward decoy heads below half HP
+PASS Only the real Impostor has the lit eye marker
+PASS KnotBinderBoss has an editable prefab, ability and damage art
+PASS VolleyEaterBoss has an editable prefab, ability and damage art
+PASS ThreeSealIdolBoss has an editable prefab, ability and damage art
+PASS ImpostorBoss has an editable prefab, ability and damage art
+PASS First hit is swallowed, heals three percent and applies no burn
+PASS Repeat contact with the same projectile cannot heal twice
+PASS Every distinct projectile in the first volley heals three percent
+PASS The next volley deals its full normal damage
+PASS Three seals absorb hits, then the idol takes bonus direct damage
+UNIVERSAL_BOSSES_PASSED

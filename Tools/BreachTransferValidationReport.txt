@@ -1,0 +1,7 @@
+PASS scenario 0: 4 immediate arrivals; nearest selection, sibling delay, HP/XP and occupancy verified.
+PASS scenario 1: 4 immediate arrivals; nearest selection, sibling delay, HP/XP and occupancy verified.
+PASS scenario 2: 4 immediate arrivals; nearest selection, sibling delay, HP/XP and occupancy verified.
+PASS scenario 3: 5 immediate arrivals; nearest selection, sibling delay, HP/XP and occupancy verified.
+PASS scenario 4: 3 immediate arrivals; nearest selection, sibling delay, HP/XP and occupancy verified.
+PASS scenario 5: 4 immediate arrivals; nearest selection, sibling delay, HP/XP and occupancy verified.
+PASS scenario 6: 4 immediate arrivals; nearest selection, sibling delay, HP/XP and occupancy verified.

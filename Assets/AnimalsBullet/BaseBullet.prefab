@@ -99,7 +99,7 @@ PrefabInstance:
     - target: {fileID: 4043123544739486098, guid: 876e743ffbee5f44bb11140e8be86d27, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1655166650, guid: f434f11be9bdf734799c16aea414e4a1, type: 3}
+      objectReference: {fileID: 21300000, guid: 25b732fd913545fcbb8806258aa7f1ee, type: 3}
     - target: {fileID: 4043123544739486098, guid: 876e743ffbee5f44bb11140e8be86d27, type: 3}
       propertyPath: m_SortingOrder
       value: 1
@@ -194,6 +194,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8080619444915736889, guid: 876e743ffbee5f44bb11140e8be86d27, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8550211137110904342}
+    - targetCorrespondingSourceObject: {fileID: 8080619444915736889, guid: 876e743ffbee5f44bb11140e8be86d27, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7970551105649590341}
+    - targetCorrespondingSourceObject: {fileID: 8080619444915736889, guid: 876e743ffbee5f44bb11140e8be86d27, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1234037222345505065}
   m_SourcePrefab: {fileID: 100100000, guid: 876e743ffbee5f44bb11140e8be86d27, type: 3}
 --- !u!4 &5747140210554134700 stripped
 Transform:
@@ -217,6 +223,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd51fef268a7c304587f87188afcdfbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
-  dmg: 150
-  hp: 25
+  returnSpeed: 40
+  dmg: 1
+  hp: 10
+--- !u!114 &7970551105649590341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6828916170621314043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1e7f1733378450eb4cccb295e68b0f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightRadius: 1
+  baseBurnDamage: 25
+  minimumBurnDamage: 1
+  burnTurns: 1
+  bonfireBaseDamage: 10
+  bonfireDamagePerBurnUpgrade: 10
+--- !u!114 &1234037222345505065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6828916170621314043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 302edf170f9b19542beb8aacc041da20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileIndex: 0

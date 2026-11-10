@@ -1,0 +1,77 @@
+PASS Squirrel has ordinary projectile damage and its authored acorn
+PASS Vine animation uses eight authored imagegen frames
+PASS Actual squirrel hit resolved
+PASS First squirrel hit plants one acorn with five percent chance and never rolls an early explosion
+PASS Other projectiles, frog damage, fire and poison never roll an early explosion or accumulate hits
+PASS Acorn is centred on the enemy, approximately twenty percent smaller and translucent
+PASS Acorn has no obsolete insertion counter
+PASS Acorn visibly pulses its orange colour, opacity and size
+PASS Enemy death always detonates its acorn and holds the turn while the effect resolves
+PASS All three timed blast hits and chained acorns finish
+PASS Death explosion deals 100 within a circular one-cell radius, confined to its room
+PASS Explosion uses the fire damage source and displays fire combat feedback
+PASS Explosion leaves a weak ten-damage one-turn bonfire
+PASS Explosion releases the turn after its bounded fire animation
+PASS Weak bonfire deals ten fire damage to neighbours in its room
+PASS Weak bonfire expires after one damaging turn
+PASS Actual squirrel hit resolved
+PASS Periodic Fire death detonates the acorn
+PASS Actual squirrel hit resolved
+PASS Periodic Poison death detonates the acorn
+PASS Actual squirrel hit resolved
+PASS All three timed blast hits and chained acorns finish
+PASS Lethal planting hit still causes the death explosion
+PASS Planting never rolls, including a random value below 5 percent
+PASS Failed repeat-squirrel roll keeps the same acorn: 5 percent
+PASS Successful repeat-squirrel roll detonates before enemy death: 5 percent
+PASS All three timed blast hits and chained acorns finish
+PASS Premature explosion also deals 100 fire damage to its living host
+PASS Actual squirrel hit resolved
+PASS A later squirrel plants a fresh acorn after an early explosion
+PASS Planting never rolls, including a random value below 10 percent
+PASS Failed repeat-squirrel roll keeps the same acorn: 10 percent
+PASS Successful repeat-squirrel roll detonates before enemy death: 10 percent
+PASS All three timed blast hits and chained acorns finish
+PASS Premature explosion also deals 100 fire damage to its living host
+PASS Actual squirrel hit resolved
+PASS A later squirrel plants a fresh acorn after an early explosion
+PASS Planting never rolls, including a random value below 15 percent
+PASS Failed repeat-squirrel roll keeps the same acorn: 15 percent
+PASS Successful repeat-squirrel roll detonates before enemy death: 15 percent
+PASS All three timed blast hits and chained acorns finish
+PASS Premature explosion also deals 100 fire damage to its living host
+PASS Actual squirrel hit resolved
+PASS A later squirrel plants a fresh acorn after an early explosion
+PASS Planting never rolls, including a random value below 20 percent
+PASS Failed repeat-squirrel roll keeps the same acorn: 20 percent
+PASS Successful repeat-squirrel roll detonates before enemy death: 20 percent
+PASS All three timed blast hits and chained acorns finish
+PASS Premature explosion also deals 100 fire damage to its living host
+PASS Actual squirrel hit resolved
+PASS A later squirrel plants a fresh acorn after an early explosion
+PASS Actual squirrel hit resolved
+PASS Actual squirrel hit resolved
+PASS All three timed blast hits and chained acorns finish
+PASS An explosion killing another acorn host triggers its death explosion exactly once
+PASS Actual squirrel hit resolved
+PASS Third vine rank has nine percent chance
+PASS Successful independent explosion roll binds the surviving enemy for one turn
+PASS Vines visibly animate around the enemy
+PASS Bound enemy skips exactly one movement turn
+PASS Vines fade away after the skipped turn
+PASS Five-type loadout can include squirrel, which must be unlocked through battle upgrades
+PASS Squirrel unlock starts with one projectile
+PASS Early explosion 10/15/20 and binding 3/6/9 percent: rank 1
+PASS Early explosion 10/15/20 and binding 3/6/9 percent: rank 2
+PASS Early explosion 10/15/20 and binding 3/6/9 percent: rank 3
+PASS Squirrel count upgrades reach three projectiles
+PASS Combined volley includes squirrel and preserves frog immediately before firefly
+PASS Actual combined volley launches squirrel and frog remains immediately before firefly
+PASS Actual combined volley launches three squirrels and consumes all ammunition
+PASS Launched squirrels receive their current early-explosion and binding upgrades
+PASS Actual combined volley releases the input after cleanup
+PASS Eight authored choices open in the menu
+PASS Squirrel has an authored eighth card
+PASS Selecting squirrel alongside four other types enables Start
+PASS Loadout can still close without starting
+SQUIRREL_MECHANICS_PASSED

@@ -1,0 +1,4 @@
+PASSED: 425 checks across 47 enemy prefabs.
+Burning deaths, direct firefly kills, final and expired burn ticks, ordinary/boss/miniboss cell positions, damage/radius/duration inheritance, duplicate hits, custom footprints and bonfire turn damage.
+Translucent fire under enemies and boss outer cells; opacity restores on leaving and ignores footprint holes.
+Burn loses one stack per turn with 75/50/25 damage; duplicate turns, replenishment, eternal flame and other statuses checked.

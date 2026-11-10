@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02750dc8b6d48bb4e87d1f6f1d00fed9, type: 3}
+  m_Name: Hedgehog
+  m_EditorClassIdentifier: 
+  animalIndex: 1
+  displayName: "\u0401\u0436"
+  role: "\u0423\u0420\u041E\u041D \u041F\u041E \u041E\u0411\u041B\u0410\u0421\u0422\u0418"
+  description: "\u041F\u0440\u0438 \u043A\u043E\u043D\u0442\u0430\u043A\u0442\u0435
+    \u0441 \u0432\u0440\u0430\u0433\u043E\u043C \u0432\u044B\u043F\u0443\u0441\u043A\u0430\u0435\u0442
+    \u0440\u0430\u0441\u0448\u0438\u0440\u044F\u044E\u0449\u0443\u044E\u0441\u044F
+    \u043E\u0431\u043B\u0430\u0441\u0442\u044C \u0432\u0437\u0440\u044B\u0432\u0430."
+  accent: {r: 0.827451, g: 0.631373, b: 0.360784, a: 1}
+  portrait: {fileID: 21300000, guid: 8af985f19c9e4e2e90e0cce88614d4d7, type: 3}

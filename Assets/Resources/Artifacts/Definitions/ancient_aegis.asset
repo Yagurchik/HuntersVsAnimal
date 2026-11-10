@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92b63d59b6685d14e9f6f7aa68a19152, type: 3}
+  m_Name: ancient_aegis
+  m_EditorClassIdentifier: 
+  Id: ancient_aegis
+  Name: "\u042D\u0433\u0438\u0434\u0430 \u0441\u0442\u0430\u0440\u043E\u0433\u043E
+    \u0434\u0443\u0431\u0430"
+  Description: "+100 \u0437\u0434\u043E\u0440\u043E\u0432\u044C\u044F \u0431\u0430\u0440\u0440\u0438\u043A\u0430\u0434\u0435.\n+25%
+    \u0437\u0434\u043E\u0440\u043E\u0432\u044C\u044F \u0441\u043D\u0430\u0440\u044F\u0434\u043E\u0432.\n\u221212%
+    \u0432\u0445\u043E\u0434\u044F\u0449\u0435\u0433\u043E \u0443\u0440\u043E\u043D\u0430
+    \u043F\u043E \u0431\u0430\u0440\u0440\u0438\u043A\u0430\u0434\u0435 \u0438 \u043F\u043B\u043E\u0442\u0438\u043D\u0430\u043C."
+  Mark: "\u2726"
+  Category: "\u0417\u0430\u0449\u0438\u0442\u0430"
+  GoldCost: 120
+  IsAssembled: 1
+  Icon: {fileID: 228843570375960236, guid: 96e3ee648061282428243d3fcaa6b4f2, type: 3}
+  Ingredients:
+  - Id: old_oak_heart
+    Amount: 1
+  - Id: living_bark_bracers
+    Amount: 1
+  - Id: birch_buckler
+    Amount: 1
+  Bonuses:
+  - Stat: 4
+    Value: 100
+  - Stat: 2
+    Value: 0.25
+  - Stat: 5
+    Value: 0.12

@@ -1,0 +1,107 @@
+PASS: Eight authored cosmetics available in the player build
+PASS: Complete skin definition: Аврора
+PASS: Prefab has its own stable cosmetic identity: 0
+PASS: Skin retains original world canvas size: 0
+PASS: Complete skin definition: Солнечный
+PASS: Prefab has its own stable cosmetic identity: 1
+PASS: Skin retains original world canvas size: 1
+PASS: Complete skin definition: Карамельный
+PASS: Prefab has its own stable cosmetic identity: 2
+PASS: Skin retains original world canvas size: 2
+PASS: Complete skin definition: Ультрафиолет
+PASS: Prefab has its own stable cosmetic identity: 3
+PASS: Skin retains original world canvas size: 3
+PASS: Complete skin definition: Алый гром
+PASS: Prefab has its own stable cosmetic identity: 4
+PASS: Skin retains original world canvas size: 4
+PASS: Complete skin definition: Лагуна
+PASS: Prefab has its own stable cosmetic identity: 5
+PASS: Skin retains original world canvas size: 5
+PASS: Complete skin definition: Тропический
+PASS: Prefab has its own stable cosmetic identity: 6
+PASS: Skin retains original world canvas size: 6
+PASS: Complete skin definition: Закатная
+PASS: Prefab has its own stable cosmetic identity: 7
+PASS: Skin retains original world canvas size: 7
+PASS: Insufficient diamonds never buy or charge a skin
+PASS: Invalid requests cannot grant currency or cosmetics
+PASS: Authored village menu starts
+PASS: Village contains the authored shop and its entrance
+PASS: Shop opens as a modal with eight previews
+PASS: Shop disables purchase when diamonds are missing
+PASS: Buy and equip exactly once: 0
+PASS: Repeated purchase cannot charge twice: 0
+PASS: Ordinary appearance can be restored: 0
+PASS: Owned skin can be equipped free: 0
+PASS: Buy and equip exactly once: 1
+PASS: Repeated purchase cannot charge twice: 1
+PASS: Ordinary appearance can be restored: 1
+PASS: Owned skin can be equipped free: 1
+PASS: Buy and equip exactly once: 2
+PASS: Repeated purchase cannot charge twice: 2
+PASS: Ordinary appearance can be restored: 2
+PASS: Owned skin can be equipped free: 2
+PASS: Buy and equip exactly once: 3
+PASS: Repeated purchase cannot charge twice: 3
+PASS: Ordinary appearance can be restored: 3
+PASS: Owned skin can be equipped free: 3
+PASS: Buy and equip exactly once: 4
+PASS: Repeated purchase cannot charge twice: 4
+PASS: Ordinary appearance can be restored: 4
+PASS: Owned skin can be equipped free: 4
+PASS: Buy and equip exactly once: 5
+PASS: Repeated purchase cannot charge twice: 5
+PASS: Ordinary appearance can be restored: 5
+PASS: Owned skin can be equipped free: 5
+PASS: Buy and equip exactly once: 6
+PASS: Repeated purchase cannot charge twice: 6
+PASS: Ordinary appearance can be restored: 6
+PASS: Owned skin can be equipped free: 6
+PASS: Buy and equip exactly once: 7
+PASS: Repeated purchase cannot charge twice: 7
+PASS: Ordinary appearance can be restored: 7
+PASS: Owned skin can be equipped free: 7
+PASS: Only diamonds pay for cosmetics; no other balance or rewards change
+PASS: Global close dismisses the shop
+PASS: All purchases and equipped appearances survive scene reload
+PASS: Ownership survives catalogue cache reset
+PASS: Native gameplay scene starts with equipped skins
+PASS: Native projectile queue is available
+PASS: Wheel, HUD, upgrades and pause use the selected icon: 0
+PASS: Actual projectile renders the selected skin without prefab tint: 0
+PASS: Appearance preserves projectile damage, health and collider count: 0
+PASS: Collider offset is preserved: 0
+PASS: Collision radius is preserved: 0
+PASS: Wheel, HUD, upgrades and pause use the selected icon: 1
+PASS: Actual projectile renders the selected skin without prefab tint: 1
+PASS: Appearance preserves projectile damage, health and collider count: 1
+PASS: Collider offset is preserved: 1
+PASS: Collision radius is preserved: 1
+PASS: Wheel, HUD, upgrades and pause use the selected icon: 2
+PASS: Actual projectile renders the selected skin without prefab tint: 2
+PASS: Appearance preserves projectile damage, health and collider count: 2
+PASS: Collider offset is preserved: 2
+PASS: Collision radius is preserved: 2
+PASS: Wheel, HUD, upgrades and pause use the selected icon: 3
+PASS: Actual projectile renders the selected skin without prefab tint: 3
+PASS: Appearance preserves projectile damage, health and collider count: 3
+PASS: Collider offset is preserved: 3
+PASS: Collision radius is preserved: 3
+PASS: Wheel, HUD, upgrades and pause use the selected icon: 4
+PASS: Actual projectile renders the selected skin without prefab tint: 4
+PASS: Appearance preserves projectile damage, health and collider count: 4
+PASS: Wheel, HUD, upgrades and pause use the selected icon: 5
+PASS: Actual projectile renders the selected skin without prefab tint: 5
+PASS: Appearance preserves projectile damage, health and collider count: 5
+PASS: Wheel, HUD, upgrades and pause use the selected icon: 6
+PASS: Actual projectile renders the selected skin without prefab tint: 6
+PASS: Appearance preserves projectile damage, health and collider count: 6
+PASS: Collider offset is preserved: 6
+PASS: Collision radius is preserved: 6
+PASS: Wheel, HUD, upgrades and pause use the selected icon: 7
+PASS: Actual projectile renders the selected skin without prefab tint: 7
+PASS: Appearance preserves projectile damage, health and collider count: 7
+PASS: Collider offset is preserved: 7
+PASS: Collision radius is preserved: 7
+PASS: Seated and jumping frogs retain their purchased appearance
+PASS: Switching to the ordinary rabbit restores its original HUD icon

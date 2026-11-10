@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.09, y: -4.84, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.415, y: 0.415, z: 0.415}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1461259362, guid: 8357b3558af539648b60143a70458fcb, type: 3}
+  m_Sprite: {fileID: -209997033, guid: 2137a14f5f6a64841b4007c22a44385c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,3 +102,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   projectileForce: 35
+  minimumLaunchAngle: 14
+  visualProfile: {fileID: 11400000, guid: 917a56be652f4d3981c1ef7d72c2b324, type: 2}
+  magazineBullet: 0
+  ballSpawner: {fileID: 0}
+  animalQueue: {fileID: 0}
+  touchAreaCollider: {fileID: 0}

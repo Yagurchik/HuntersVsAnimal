@@ -1,0 +1,61 @@
+Village mixture correction — 2026-11-06
+Confirmed regression: the original mixed scene fails strict saved-scene validation without a preparatory bake.
+PASS: stale clean scene migrates all four windows and removes the old clearing
+PASS: repeated installation creates no duplicates
+PASS: unsaved scene edits remain intact and unsaved
+PASS: an obsolete house is replaced and the loaded controller is rebound
+PASS: automatic sync leaves all four authored prefab assets byte-identical
+PASS: complete layout survives cold reopening with no further migration
+PASS: shop remains an authored editable prefab instance
+
+PASS: Saved scene already contains the complete migrated village
+PASS: Four menu tabs and four entity windows are authored
+PASS: The house map and landscape image have been removed
+PASS: Editable prefab instance GreatTreeBuilding
+PASS: Whole window is a service button; the portrait cannot intercept clicks
+PASS: Portrait has a bounded mobile import and genuine alpha
+PASS: Portrait corner is transparent: GreatTreeBuilding
+PASS: Window contains no missing script references
+PASS: Editable prefab instance Open Skin Shop
+PASS: Whole window is a service button; the portrait cannot intercept clicks
+PASS: Portrait has a bounded mobile import and genuine alpha
+PASS: Portrait corner is transparent: Open Skin Shop
+PASS: Window contains no missing script references
+PASS: Editable prefab instance ForestShopBuilding
+PASS: Whole window is a service button; the portrait cannot intercept clicks
+PASS: Portrait has a bounded mobile import and genuine alpha
+PASS: Portrait corner is transparent: ForestShopBuilding
+PASS: Window contains no missing script references
+PASS: Editable prefab instance Open Bestiary
+PASS: Whole window is a service button; the portrait cannot intercept clicks
+PASS: Portrait has a bounded mobile import and genuine alpha
+PASS: Portrait corner is transparent: Open Bestiary
+PASS: Window contains no missing script references
+PASS: Eternal Tree occupies approximately the upper quarter of the portrait screen
+PASS: Saved-scene validation performed no bake, migration or scene-file write
+PASS: Native menu starts in Play mode
+PASS: Service window accepts input
+PASS: Eternal Tree opens the existing income and upgrade window
+PASS: Service window accepts input
+PASS: Chameleon opens all eight projectile skins
+PASS: Service window accepts input
+PASS: Raven opens the existing Forest Shop and its artifact offers
+PASS: Service window accepts input
+PASS: Owl opens the complete existing bestiary
+PASS: All dialogs close without rebuilding or duplicating the village
+PASS: GreatTreeBuilding stays inside the visible page at 720x1280
+PASS: Open Skin Shop stays inside the visible page at 720x1280
+PASS: ForestShopBuilding stays inside the visible page at 720x1280
+PASS: Open Bestiary stays inside the visible page at 720x1280
+PASS: Native UI renders into VillageEntitiesPortrait
+PASS: GreatTreeBuilding stays inside the visible page at 960x540
+PASS: Open Skin Shop stays inside the visible page at 960x540
+PASS: ForestShopBuilding stays inside the visible page at 960x540
+PASS: Open Bestiary stays inside the visible page at 960x540
+PASS: Native UI renders into VillageEntitiesLandscape
+RESULT: PASS (45 checks)
+
+The final check used an exact copy of the main scene saved in the open Unity editor. No bake or scene migration occurred during that validation.
+The actual open Unity editor was refreshed, switched to the village, inspected visually and saved. Four clean entity windows are visible, and the simulator fits the complete page.
+Validated main-scene SHA256: 
+848E2EA707AD23924402AB1A93789B640C794B82CD3EFD740B8BE233CB7D7628

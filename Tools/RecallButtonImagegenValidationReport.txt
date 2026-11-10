@@ -1,0 +1,18 @@
+PASS All three controls use the saved shared HUD layout in Play Mode
+PASS Recall retains the four original scene callbacks and their player references
+PASS Recall uses its saved imagegen wood sprite and its caption does not intercept clicks
+PASS Updating the wheel preserves the new volley position
+PASS Actual battle is ready for room protection
+PASS Visible control receives the actual UI click: Defend Room Button
+PASS Moved defense button enables room protection
+PASS Visible control receives the actual UI click: Defend Room Button
+PASS Moved defense button also disables room protection
+PASS Visible control receives the actual UI click: All Volley Toggle
+PASS Moved volley button enables the combined volley
+PASS Actions fit the lower-right corner without overlap at 540x960
+PASS Visible control receives the actual UI click: All Volley Toggle
+PASS Moved volley button disables the combined volley
+PASS Actions fit the lower-right corner without overlap at 960x540
+PASS Visible control receives the actual UI click: DropDown
+PASS Restyled recall button sends a real flying projectile down
+GAMEPLAY_ACTION_BUTTONS_PASSED

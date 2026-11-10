@@ -1,0 +1,13 @@
+# Финальные промпты медоеда
+
+## Боевой спрайт
+
+```text
+Create one production-ready 2D Unity projectile sprite for a dark fairy-tale woodland game. Asset type: a practical tiny spinning projectile sprite, not concept art and not a portrait. Subject: one compact spherical HONEY BADGER BALL, instantly recognizable at 32x32 pixels. The body is a near-perfect circle centered exactly at canvas center, with a charcoal-black lower face/body, one broad warm ivory-gray stripe sweeping over the crown and down both sides, two tiny rounded ears attached close to the head, two small fierce amber eyes, and a tiny blunt muzzle. Bold clean near-black hand-inked outline, flat color fills, one broad cel-shadow, one tiny highlight; maximum five large color regions. Slight cardboard-cutout storybook feeling, but no paper texture, no crosshatching, no seams, no patches, no paws, no torso, no costume, no loose fur strands. Palette: charcoal #282722, warm dark gray #4a463d, ivory-gray #d8cba9, muted ochre #a96f24, ink #17140f. Square canvas, true transparent alpha background. No checkerboard, no white or colored background, no shadow, no text, no UI, no motion trails, no slash marks, no aura. Entire silhouette fits within the middle 70% of the canvas with generous transparent margins. The round body center must stay at 50%,50% because the sprite spins around its physical collider.
+```
+
+## Портрет улучшения
+
+```text
+Create one detailed square 2D character-art portrait for a projectile upgrade card in a dark fairy-tale forest Unity game. Subject: a fierce compact HONEY BADGER curled into a round projectile ball, front-facing, with a charcoal-black face and body, a broad warm ivory-gray mantle stripe over the crown and down the sides, tiny rounded ears, short blunt muzzle, and intense amber eyes. It should clearly match a handmade dark woodland cardboard storybook: bold near-black hand-inked contours, restrained gouache/cut-paper texture, subtle layered-cardboard depth, a few purposeful rough fur notches, one stitched patch at most, dramatic but readable cel shading. The animal must still read as a round projectile rather than a full standing character; no visible legs, weapons, armor, costume, text, UI card, or scenery. Palette: charcoal #282722, warm dark gray #4a463d, ivory-gray #d8cba9, muted ochre #a96f24, dark brown-black ink #17140f. Square canvas, true transparent alpha background, no checkerboard, no solid background, no drop shadow, no external glow, no motion trail, no slash effect. One centered isolated subject with generous transparent margins, whole silhouette within middle 78% of canvas.
+```

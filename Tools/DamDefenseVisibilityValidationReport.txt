@@ -1,0 +1,4 @@
+PASSED: fixed dam capacity at 25% of barricade maximum, capped reinforcement/repairs, unlimited barricade overhealth.
+Three held breaches, current-HP defense damage and authored projectile contact damage.
+All resident sprites and visual scales restored, including authored transparency.
+Completed and interrupted retreat, repeated defense, attacker return, unchanged non-attacker positions and dam damage.

@@ -1,0 +1,15 @@
+E:\IT-academy\GITHUB_Unity\ForestAnimalWar\MyProject\Tools\DefenseFrontTests\bin\Debug\net8.0\DefenseFrontTests.exe
+E:\IT-academy\GITHUB_Unity\ForestAnimalWar\MyProject\Tools\DefenseFrontTests\bin\Debug\net8.0\DefenseFrontTests.deps.json
+E:\IT-academy\GITHUB_Unity\ForestAnimalWar\MyProject\Tools\DefenseFrontTests\bin\Debug\net8.0\DefenseFrontTests.runtimeconfig.json
+E:\IT-academy\GITHUB_Unity\ForestAnimalWar\MyProject\Tools\DefenseFrontTests\bin\Debug\net8.0\DefenseFrontTests.dll
+E:\IT-academy\GITHUB_Unity\ForestAnimalWar\MyProject\Tools\DefenseFrontTests\bin\Debug\net8.0\DefenseFrontTests.pdb
+E:\IT-academy\GITHUB_Unity\ForestAnimalWar\MyProject\Tools\DefenseFrontTests\obj\Debug\net8.0\DefenseFrontTests.GeneratedMSBuildEditorConfig.editorconfig
+E:\IT-academy\GITHUB_Unity\ForestAnimalWar\MyProject\Tools\DefenseFrontTests\obj\Debug\net8.0\DefenseFrontTests.AssemblyInfoInputs.cache
+E:\IT-academy\GITHUB_Unity\ForestAnimalWar\MyProject\Tools\DefenseFrontTests\obj\Debug\net8.0\DefenseFrontTests.AssemblyInfo.cs
+E:\IT-academy\GITHUB_Unity\ForestAnimalWar\MyProject\Tools\DefenseFrontTests\obj\Debug\net8.0\DefenseFrontTests.proj.CoreCompileInputs.cache
+E:\IT-academy\GITHUB_Unity\ForestAnimalWar\MyProject\Tools\DefenseFrontTests\obj\Debug\net8.0\DefenseFrontTests.sourcelink.json
+E:\IT-academy\GITHUB_Unity\ForestAnimalWar\MyProject\Tools\DefenseFrontTests\obj\Debug\net8.0\DefenseFrontTests.dll
+E:\IT-academy\GITHUB_Unity\ForestAnimalWar\MyProject\Tools\DefenseFrontTests\obj\Debug\net8.0\refint\DefenseFrontTests.dll
+E:\IT-academy\GITHUB_Unity\ForestAnimalWar\MyProject\Tools\DefenseFrontTests\obj\Debug\net8.0\DefenseFrontTests.pdb
+E:\IT-academy\GITHUB_Unity\ForestAnimalWar\MyProject\Tools\DefenseFrontTests\obj\Debug\net8.0\DefenseFrontTests.genruntimeconfig.cache
+E:\IT-academy\GITHUB_Unity\ForestAnimalWar\MyProject\Tools\DefenseFrontTests\obj\Debug\net8.0\ref\DefenseFrontTests.dll

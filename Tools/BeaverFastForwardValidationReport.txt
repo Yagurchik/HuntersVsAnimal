@@ -1,0 +1,32 @@
+PASS Uses the authored twofold fast-forward and existing five-second fallback
+PASS Entering and biting the first enemy does not accelerate the game
+PASS Leaving the first enemy waits for the following wall
+PASS The first actual upper-wall bounce after passage immediately accelerates without waiting five seconds
+PASS The accelerated shared volley continues while another projectile is still flying
+PASS The last projectile restores normal speed through its usual cleanup
+PASS Cleanup resets the shared acceleration and restores normal speed
+PASS A side-wall bounce before any enemy does not request early acceleration
+PASS An earlier wall is not reused when the first enemy is subsequently passed
+PASS The next actual side-wall bounce after passage triggers fast-forward
+PASS Cleanup resets the shared acceleration and restores normal speed
+PASS Killing the first enemy also completes passage
+PASS A lethal bite still waits for the wall
+PASS A wall after a lethal first bite accelerates normally
+PASS Cleanup resets the shared acceleration and restores normal speed
+PASS A sweep that stops in an enemy before a predicted wall neither reflects nor accelerates prematurely
+PASS An actual wall reached while still inside the first enemy does not accelerate early
+PASS The ultimate pumpkin-field bounce is distinct from a wall
+PASS The following upper wall accelerates after the first passage
+PASS Cleanup resets the shared acceleration and restores normal speed
+PASS An empty upper-wall bounce does not request early acceleration
+PASS The existing elapsed-time fallback still accelerates other long flights
+PASS Cleanup resets the shared acceleration and restores normal speed
+PASS An early request cannot unpause the actual pause window
+PASS A pending request resumes only after the pause window is closed
+PASS Cleanup resets the shared acceleration and restores normal speed
+PASS Repeated requests keep one shared acceleration state
+PASS Repeated requests retain and restore the original game speed rather than saving twofold speed
+PASS A later volley does not inherit the earlier fast-forward request
+PASS Cleanup resets the shared acceleration and restores normal speed
+PASS A request without flying projectiles has no effect
+BEAVER_FAST_FORWARD_PASSED

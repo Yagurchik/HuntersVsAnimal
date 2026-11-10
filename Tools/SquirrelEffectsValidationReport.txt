@@ -1,0 +1,35 @@
+PASS Imagegen explosion has sixteen bounded authored frames
+PASS Bonfire uses an editable authored particle prefab
+PASS Flames live longer and have three seconds of fading embers
+PASS Existing squirrel projectile uses the faster authored effect prefab
+PASS Universal artifact acorn uses the same faster authored explosion
+PASS Blast hit 1 removes 33 HP
+PASS Blast hit 1 restarts the enemy's shake
+PASS Enemy artwork visibly moves on blast hit 1
+PASS Blast keeps the turn through hit 1
+PASS Blast hit 2 removes 33 HP
+PASS Blast hit 2 restarts the enemy's shake
+PASS Enemy artwork visibly moves on blast hit 2
+PASS Blast keeps the turn through hit 2
+PASS Blast hits have a short visible separation
+PASS Faster explosion advances its authored frames
+PASS Blast hit 3 removes 34 HP
+PASS Blast hit 3 restarts the enemy's shake
+PASS Enemy artwork visibly moves on blast hit 3
+PASS Blast keeps the turn through hit 3
+PASS Blast hits have a short visible separation
+PASS All three blast hits finish quickly
+PASS Faster imagegen explosion stays within its local area
+PASS Three hits total one hundred damage credited to squirrel
+PASS Faster animation cleans up and releases the turn within half a second
+PASS Weak bonfire remains active until its damaging turn
+PASS Authored bonfire visibly emits long-lived flame figures
+PASS Weak bonfire still deals ten damage for one turn credited to squirrel
+PASS Expired bonfire leaves visible embers and is removed from damage processing
+PASS Fading embers never deal an additional damage tick
+PASS Flames continue visibly after the final damaging turn
+PASS Paused game preserves the bonfire fade
+PASS Longer ember animation finishes and cleans up
+PASS Shared firefly bonfire retains its damage owner and new visual fade
+PASS Leaving a room cleans up spent embers without abandoned coroutines
+SQUIRREL_EFFECTS_PASSED

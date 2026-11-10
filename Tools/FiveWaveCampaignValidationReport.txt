@@ -1,0 +1,460 @@
+PASS: Campaign starts with only line one open
+PASS: Authored line interval is five completed enemy turns
+PASS: The first wave first exceeds 1000 base HP at level twenty
+PASS: Percentage HP growth diminishes at level 2
+PASS: Percentage HP growth diminishes at level 3
+PASS: Percentage HP growth diminishes at level 4
+PASS: Percentage HP growth diminishes at level 5
+PASS: Percentage HP growth diminishes at level 6
+PASS: Percentage HP growth diminishes at level 7
+PASS: Percentage HP growth diminishes at level 8
+PASS: Percentage HP growth diminishes at level 9
+PASS: Percentage HP growth diminishes at level 10
+PASS: Percentage HP growth diminishes at level 11
+PASS: Percentage HP growth diminishes at level 12
+PASS: Percentage HP growth diminishes at level 13
+PASS: Percentage HP growth diminishes at level 14
+PASS: Percentage HP growth diminishes at level 15
+PASS: Percentage HP growth diminishes at level 16
+PASS: Percentage HP growth diminishes at level 17
+PASS: Percentage HP growth diminishes at level 18
+PASS: Percentage HP growth diminishes at level 19
+PASS: Percentage HP growth diminishes at level 20
+PASS: Percentage HP growth diminishes at level 21
+PASS: Percentage HP growth diminishes at level 22
+PASS: Percentage HP growth diminishes at level 23
+PASS: Percentage HP growth diminishes at level 24
+PASS: Percentage HP growth diminishes at level 25
+PASS: Percentage HP growth diminishes at level 26
+PASS: Percentage HP growth diminishes at level 27
+PASS: Percentage HP growth diminishes at level 28
+PASS: Percentage HP growth diminishes at level 29
+PASS: Percentage HP growth diminishes at level 30
+PASS: First room starts with four remaining waves
+PASS: Actual level-twenty ordinary enemies match the approved HP table
+PASS: Line 2 remains locked before turn 5
+PASS: Enemy turn 5 opens line 2
+PASS: Line 2 opens while line one still contains enemies
+PASS: Opening line 2 preserves the selected room
+PASS: Room 2-1 opens on wave one and does not move or spawn twice
+PASS: Room 2-2 opens on wave one and does not move or spawn twice
+PASS: Room 2-3 opens on wave one and does not move or spawn twice
+PASS: Line 3 remains locked before turn 10
+PASS: Enemy turn 10 opens line 3
+PASS: Line 3 opens while line one still contains enemies
+PASS: Opening line 3 preserves the selected room
+PASS: Room 3-1 opens on wave one and does not move or spawn twice
+PASS: Room 3-2 opens on wave one and does not move or spawn twice
+PASS: Room 3-3 opens on wave one and does not move or spawn twice
+PASS: Room 3-4 opens on wave one and does not move or spawn twice
+PASS: Room 3-5 opens on wave one and does not move or spawn twice
+PASS: Line 4 remains locked before turn 15
+PASS: Enemy turn 15 opens line 4
+PASS: Line 4 opens while line one still contains enemies
+PASS: Opening line 4 preserves the selected room
+PASS: Room 4-1 opens on wave one and does not move or spawn twice
+PASS: Room 4-2 opens on wave one and does not move or spawn twice
+PASS: Room 4-3 opens on wave one and does not move or spawn twice
+PASS: Room 4-4 opens on wave one and does not move or spawn twice
+PASS: Room 4-5 opens on wave one and does not move or spawn twice
+PASS: Room 4-6 opens on wave one and does not move or spawn twice
+PASS: Room 4-7 opens on wave one and does not move or spawn twice
+PASS: Finite wave 2 respects the density limit and remaining count
+PASS: Actual wave 2 uses the approved HP multiplier
+PASS: Finite wave 3 respects the density limit and remaining count
+PASS: Actual wave 3 uses the approved HP multiplier
+PASS: Finite wave 4 respects the density limit and remaining count
+PASS: Actual wave 4 uses the approved HP multiplier
+PASS: Finite wave 5 respects the density limit and remaining count
+PASS: Actual wave 5 uses the approved HP multiplier
+PASS: The final-line boss remains alive after wave five
+PASS: A living boss cannot create a sixth campaign wave
+PASS: A full room preserves its pending wave
+PASS: The deferred wave spawns once space is available
+PASS: Defeating a boss preserves the four remaining waves
+PASS: A defeated boss room still receives wave two
+PASS: Remaining enemies and waves prevent premature victory
+PASS: Room 0 completes exactly five waves
+PASS: Room 1 completes exactly five waves
+PASS: Room 2 completes exactly five waves
+PASS: Room 3 completes exactly five waves
+PASS: Room 4 completes exactly five waves
+PASS: Room 5 completes exactly five waves
+PASS: Room 6 completes exactly five waves
+PASS: Room 7 completes exactly five waves
+PASS: Room 8 completes exactly five waves
+PASS: Room 9 completes exactly five waves
+PASS: Room 10 completes exactly five waves
+PASS: Room 11 completes exactly five waves
+PASS: Room 12 completes exactly five waves
+PASS: Room 13 completes exactly five waves
+PASS: Room 14 completes exactly five waves
+PASS: Room 15 completes exactly five waves
+PASS: The completed four-line front is quiet
+PASS: Victory remains reachable after all five waves on every line
+RESULT: PASS (94 checks)
+
+PASS: Authored gameplay scene has progression settings
+PASS: First-level health and damage retain their authored base values
+PASS: Level 1 matches the approved diminishing HP table
+PASS: Level 1 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 1 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 1 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 1 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 1 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 2 matches the approved diminishing HP table
+PASS: Level 2 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 2 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 2 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 2 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 2 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 3 matches the approved diminishing HP table
+PASS: Level 3 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 3 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 3 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 3 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 3 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 4 matches the approved diminishing HP table
+PASS: Level 4 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 4 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 4 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 4 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 4 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 5 matches the approved diminishing HP table
+PASS: Level 5 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 5 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 5 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 5 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 5 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 6 matches the approved diminishing HP table
+PASS: Level 6 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 6 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 6 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 6 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 6 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 7 matches the approved diminishing HP table
+PASS: Level 7 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 7 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 7 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 7 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 7 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 8 matches the approved diminishing HP table
+PASS: Level 8 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 8 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 8 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 8 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 8 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 9 matches the approved diminishing HP table
+PASS: Level 9 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 9 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 9 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 9 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 9 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 10 matches the approved diminishing HP table
+PASS: Level 10 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 10 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 10 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 10 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 10 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 11 matches the approved diminishing HP table
+PASS: Level 11 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 11 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 11 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 11 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 11 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 12 matches the approved diminishing HP table
+PASS: Level 12 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 12 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 12 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 12 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 12 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 13 matches the approved diminishing HP table
+PASS: Level 13 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 13 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 13 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 13 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 13 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 14 matches the approved diminishing HP table
+PASS: Level 14 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 14 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 14 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 14 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 14 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 15 matches the approved diminishing HP table
+PASS: Level 15 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 15 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 15 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 15 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 15 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 16 matches the approved diminishing HP table
+PASS: Level 16 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 16 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 16 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 16 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 16 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 17 matches the approved diminishing HP table
+PASS: Level 17 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 17 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 17 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 17 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 17 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 18 matches the approved diminishing HP table
+PASS: Level 18 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 18 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 18 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 18 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 18 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 19 matches the approved diminishing HP table
+PASS: Level 19 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 19 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 19 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 19 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 19 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 20 matches the approved diminishing HP table
+PASS: Level 20 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 20 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 20 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 20 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 20 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 21 matches the approved diminishing HP table
+PASS: Level 21 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 21 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 21 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 21 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 21 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 22 matches the approved diminishing HP table
+PASS: Level 22 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 22 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 22 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 22 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 22 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 23 matches the approved diminishing HP table
+PASS: Level 23 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 23 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 23 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 23 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 23 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 24 matches the approved diminishing HP table
+PASS: Level 24 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 24 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 24 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 24 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 24 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 25 matches the approved diminishing HP table
+PASS: Level 25 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 25 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 25 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 25 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 25 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 26 matches the approved diminishing HP table
+PASS: Level 26 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 26 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 26 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 26 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 26 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 27 matches the approved diminishing HP table
+PASS: Level 27 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 27 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 27 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 27 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 27 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 28 matches the approved diminishing HP table
+PASS: Level 28 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 28 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 28 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 28 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 28 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 29 matches the approved diminishing HP table
+PASS: Level 29 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 29 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 29 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 29 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 29 wave 5 uses its approved five-wave HP multiplier
+PASS: Level 30 matches the approved diminishing HP table
+PASS: Level 30 wave 1 uses its approved five-wave HP multiplier
+PASS: Level 30 wave 2 uses its approved five-wave HP multiplier
+PASS: Level 30 wave 3 uses its approved five-wave HP multiplier
+PASS: Level 30 wave 4 uses its approved five-wave HP multiplier
+PASS: Level 30 wave 5 uses its approved five-wave HP multiplier
+PASS: Base first-wave HP crosses 1000 only at level twenty
+PASS: Final-level base HP is 1835.32 while current player damage remains 2.74x
+PASS: Five-wave HP bounds and invalid wave handling are correct
+PASS: First upgrade costs three ordinary kills
+PASS: Free room rewards retain XP and do not raise the kill-XP price
+PASS: Paid XP upgrades add four to the next price
+PASS: Long runs keep earning upgrades at a maximum price of ninety XP
+PASS: Gameplay scene uses the new XP prices
+PASS: BellRingerBoss restores its exact pre-balance HP
+PASS: BoneDragonBoss restores its exact pre-balance HP
+PASS: BoneDragonMiniBoss restores its exact pre-balance HP
+PASS: DrownedHeir restores its exact pre-balance HP
+PASS: DrownedKing restores its exact pre-balance HP
+PASS: DrownedMiniBoss restores its exact pre-balance HP
+PASS: GhostlySorrowBoss restores its exact pre-balance HP
+PASS: GreenJudgeMiniBoss restores its exact pre-balance HP
+PASS: HiveHollowMiniBoss restores its exact pre-balance HP
+PASS: ImpostorBoss restores its exact pre-balance HP
+PASS: KnotBinderBoss restores its exact pre-balance HP
+PASS: LichBoss restores its exact pre-balance HP
+PASS: MirageBoss restores its exact pre-balance HP
+PASS: PoisonousGloomBoss restores its exact pre-balance HP
+PASS: ThreeSealIdolBoss restores its exact pre-balance HP
+PASS: VolleyEaterBoss restores its exact pre-balance HP
+PASS: All sixteen original boss HP values are covered
+PASS: Final campaign level starts with obsolete XP purchases present and no equipped bonuses
+PASS: A completed obsolete experience tree grants no barricade HP
+PASS: A completed obsolete experience tree grants no extra beaver dam capacity
+PASS: Real projectile launch keeps volley scaling and ignores obsolete experience damage bonuses
+PASS: Authored starter ammo does not count as selected damage upgrades
+PASS: Generic damage is absent from available upgrades
+PASS: Transient deserialization of an empty loadout cannot index outside its array
+PASS: Obsolete generic damage requests are rejected without a bonus
+PASS: A specialized upgrade also improves every damage source
+PASS: Rejected upgrades do not grant free damage
+PASS: Random offer 0 contains no removed generic damage choice
+PASS: Random offer 1 contains no removed generic damage choice
+PASS: Random offer 2 contains no removed generic damage choice
+PASS: Random offer 3 contains no removed generic damage choice
+PASS: Random offer 4 contains no removed generic damage choice
+PASS: Random offer 5 contains no removed generic damage choice
+PASS: Random offer 6 contains no removed generic damage choice
+PASS: Random offer 7 contains no removed generic damage choice
+PASS: Random offer 8 contains no removed generic damage choice
+PASS: Random offer 9 contains no removed generic damage choice
+PASS: Random offer 10 contains no removed generic damage choice
+PASS: Random offer 11 contains no removed generic damage choice
+PASS: Random offer 12 contains no removed generic damage choice
+PASS: Random offer 13 contains no removed generic damage choice
+PASS: Random offer 14 contains no removed generic damage choice
+PASS: Random offer 15 contains no removed generic damage choice
+PASS: Random offer 16 contains no removed generic damage choice
+PASS: Random offer 17 contains no removed generic damage choice
+PASS: Random offer 18 contains no removed generic damage choice
+PASS: Random offer 19 contains no removed generic damage choice
+PASS: Random offer 20 contains no removed generic damage choice
+PASS: Random offer 21 contains no removed generic damage choice
+PASS: Random offer 22 contains no removed generic damage choice
+PASS: Random offer 23 contains no removed generic damage choice
+PASS: Random offer 24 contains no removed generic damage choice
+PASS: Random offer 25 contains no removed generic damage choice
+PASS: Random offer 26 contains no removed generic damage choice
+PASS: Random offer 27 contains no removed generic damage choice
+PASS: Random offer 28 contains no removed generic damage choice
+PASS: Random offer 29 contains no removed generic damage choice
+PASS: Random offer 30 contains no removed generic damage choice
+PASS: Random offer 31 contains no removed generic damage choice
+PASS: Random offer 32 contains no removed generic damage choice
+PASS: Random offer 33 contains no removed generic damage choice
+PASS: Random offer 34 contains no removed generic damage choice
+PASS: Random offer 35 contains no removed generic damage choice
+PASS: Random offer 36 contains no removed generic damage choice
+PASS: Random offer 37 contains no removed generic damage choice
+PASS: Random offer 38 contains no removed generic damage choice
+PASS: Random offer 39 contains no removed generic damage choice
+PASS: Random offer 40 contains no removed generic damage choice
+PASS: Random offer 41 contains no removed generic damage choice
+PASS: Random offer 42 contains no removed generic damage choice
+PASS: Random offer 43 contains no removed generic damage choice
+PASS: Random offer 44 contains no removed generic damage choice
+PASS: Random offer 45 contains no removed generic damage choice
+PASS: Random offer 46 contains no removed generic damage choice
+PASS: Random offer 47 contains no removed generic damage choice
+PASS: Random offer 48 contains no removed generic damage choice
+PASS: Random offer 49 contains no removed generic damage choice
+PASS: Tutorial forced choices remain exclusive
+PASS: Actual final-level spawn applies the approved diminishing HP curve
+PASS: Wave HP scaling does not increase enemy contact damage
+PASS: Firefly receives campaign and run growth exactly once
+PASS: Hedgehog receives campaign and run growth exactly once
+PASS: Rabbit receives campaign and run growth exactly once
+PASS: HoneyBadger receives campaign and run growth exactly once
+PASS: Boar receives campaign and run growth exactly once
+PASS: Beaver receives campaign and run growth exactly once
+PASS: Frog receives campaign and run growth exactly once
+PASS: Squirrel receives campaign and run growth exactly once
+PASS: AcornExplosion receives campaign and run growth exactly once
+PASS: Fire periodic damage keeps pace with direct damage
+PASS: Poison periodic damage keeps pace with direct damage
+PASS: An actual firefly status tick applies the same progression once
+PASS: A seated frog bite applies progression at resolution
+PASS: Precomputed artifact poison does not apply progression twice
+PASS: Artifact echo and splash do not multiply their inherited damage again
+PASS: Finite branch choice 1
+PASS: Finite branch choice 2
+PASS: Finite branch choice 3
+PASS: Finite branch choice 4
+PASS: Finite branch choice 5
+PASS: Finite branch choice 6
+PASS: Finite branch choice 7
+PASS: Finite branch choice 8
+PASS: Finite branch choice 9
+PASS: Finite branch choice 10
+PASS: Finite branch choice 11
+PASS: Finite branch choice 12
+PASS: Finite branch choice 13
+PASS: Finite branch choice 14
+PASS: Finite branch choice 15
+PASS: Finite branch choice 16
+PASS: Finite branch choice 17
+PASS: Finite branch choice 18
+PASS: Finite branch choice 19
+PASS: Finite branch choice 20
+PASS: Finite branch choice 21
+PASS: Finite branch choice 22
+PASS: Finite branch choice 23
+PASS: Finite branch choice 24
+PASS: Finite branch choice 25
+PASS: Finite branch choice 26
+PASS: Finite branch choice 27
+PASS: Finite branch choice 28
+PASS: Finite branch choice 29
+PASS: Finite branch choice 30
+PASS: Finite branch choice 31
+PASS: Finite branch choice 32
+PASS: Finite branch choice 33
+PASS: Finite branch choice 34
+PASS: Finite branch choice 35
+PASS: Finite branch choice 36
+PASS: Finite branch choice 37
+PASS: Finite branch choice 38
+PASS: Finite branch choice 39
+PASS: Finite branch choice 40
+PASS: Finite branch choice 41
+PASS: Finite branch choice 42
+PASS: Finite branch choice 43
+PASS: Finite branch choice 44
+PASS: Finite branch choice 45
+PASS: Finite branch choice 46
+PASS: Finite branch choice 47
+PASS: Finite branch choice 48
+PASS: Finite branch choice 49
+PASS: Finite branch choice 50
+PASS: Finite branch choice 51
+PASS: Finite branch choice 52
+PASS: Finite branch choice 53
+PASS: Finite branch choice 54
+PASS: Finite branch choice 55
+PASS: Finite branch choice 56
+PASS: Finite branch choice 57
+PASS: Finite branch choice 58
+PASS: Finite branch choice 59
+PASS: Finite branch choice 60
+PASS: Finite branch choice 61
+PASS: Finite branch choice 62
+PASS: Finite branch choice 63
+PASS: Finite branch choice 64
+PASS: Finite branch choice 65
+PASS: Finite branch choice 66
+PASS: Finite branch choice 67
+PASS: Finite branch choice 68
+PASS: Finite branch choice 69
+PASS: Finite branch choice 70
+PASS: Finite branch choice 71
+PASS: All unique branches exhaust without a generic damage fallback
+PASS: Removed generic damage is rejected after all branches are complete
+PASS: Exhaustion with multiple pending levels closes the modal and resumes the enemy turn
+RESULT: PASS (359 checks)
+
+PASS: CampaignWaveRulesValidation.RunBatch
+PASS: live five-wave composition, line cap and wave-based HP growth checks.
+PASS: Saved source scene has 120 five-wave level entries, sixteen five-wave room defaults, curve span 8 / exponent 1.9 and a five-turn line interval.

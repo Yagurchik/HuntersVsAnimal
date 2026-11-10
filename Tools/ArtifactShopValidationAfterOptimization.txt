@@ -1,0 +1,844 @@
+PASS 60 authored artifact assets
+PASS Valid unique asset and icon: Солнечная линза
+PASS Positive effect: sun_lens/DamagePct
+PASS Valid unique asset and icon: Сердце старого дуба
+PASS Positive effect: old_oak_heart/BarricadeHealthFlat
+PASS Valid unique asset and icon: Золотая свирель
+PASS Positive effect: golden_pipe/PassiveGoldPct
+PASS Valid unique asset and icon: Чаша утренней росы
+PASS Positive effect: dew_cup/PassiveAcornsPct
+PASS Valid unique asset and icon: Уголёк саламандры
+PASS Positive effect: salamander_ember/FireflyBurnPct
+PASS Valid unique asset and icon: Наручи живой коры
+PASS Positive effect: living_bark_bracers/ProjectileHealthPct
+PASS Valid unique asset and icon: Монета дятла
+PASS Positive effect: woodpecker_coin/RoomGoldPct
+PASS Valid unique asset and icon: Корона урожая
+PASS Positive effect: harvest_crown/VictoryAcornsPct
+PASS Valid unique asset and icon: Заточенный клык
+PASS Positive effect: sharpened_fang/FlatDamage
+PASS Valid unique asset and icon: Лисья перевязь
+PASS Positive effect: fox_wrap/ProjectileSpeedPct
+PASS Valid unique asset and icon: Щит из бересты
+PASS Positive effect: birch_buckler/DefenseMitigationPct
+PASS Valid unique asset and icon: Морозная бусина
+PASS Positive effect: frost_bead/StunChance
+PASS Valid unique asset and icon: Оберег охотника
+PASS Positive effect: hunter_charm/CriticalChance
+PASS Valid unique asset and icon: Клык нетопыря
+PASS Positive effect: bat_fang/LifeStealPct
+PASS Valid unique asset and icon: Грозовой камень
+PASS Positive effect: storm_pebble/LightningChance
+PASS Valid unique asset and icon: Масло огневки
+PASS Positive effect: fire_oil/FireDamagePct
+PASS Valid unique asset and icon: Пузырёк болотника
+PASS Positive effect: poison_vial/PoisonOnHitPct
+PASS Positive effect: poison_vial/PoisonDamagePct
+PASS Valid unique asset and icon: Игла ежа
+PASS Positive effect: hedgehog_quill/SplashChance
+PASS Positive effect: hedgehog_quill/SplashDamagePct
+PASS Valid unique asset and icon: Коготь медоеда
+PASS Positive effect: badger_claw/ChainStrikeChance
+PASS Positive effect: badger_claw/ChainStrikeDamagePct
+PASS Positive effect: badger_claw/PoisonOnHitPct
+PASS Valid unique asset and icon: Клык вепря
+PASS Positive effect: boar_tusk/DamagePct
+PASS Positive effect: boar_tusk/CriticalChance
+PASS Valid unique asset and icon: Заячья лапка
+PASS Positive effect: rabbit_paw/EchoChance
+PASS Positive effect: rabbit_paw/EchoDamagePct
+PASS Valid unique asset and icon: Долото бобра
+PASS Positive effect: beaver_chisel/FlatDamage
+PASS Valid unique asset and icon: Ракушка пруда
+PASS Positive effect: pond_shell/ChainStrikeChance
+PASS Positive effect: pond_shell/ChainStrikeDamagePct
+PASS Positive effect: pond_shell/ChainStrikeRadiusBonus
+PASS Valid unique asset and icon: Дубовый порох
+PASS Positive effect: oak_powder/SeedPlantChance
+PASS Positive effect: oak_powder/SeedEarlyChance
+PASS Valid unique asset and icon: Фонарь светлячка
+PASS Positive effect: firefly_lantern/FireflyLightRadiusBonus
+PASS Valid unique asset and icon: Камень каменщика
+PASS Positive effect: mason_stone/BarricadeHealthFlat
+PASS Valid unique asset and icon: Сосновая смола
+PASS Positive effect: pine_resin/DefenseConversionPct
+PASS Valid unique asset and icon: Шнур из лозы
+PASS Positive effect: vine_fuse/SeedPlantChance
+PASS Positive effect: vine_fuse/SeedEarlyChance
+PASS Valid unique asset and icon: Кольцо колючек
+PASS Positive effect: thorn_ring/SplashChance
+PASS Positive effect: thorn_ring/SplashDamagePct
+PASS Positive effect: thorn_ring/SplashRadiusBonus
+PASS Valid unique asset and icon: Шарф следопыта
+PASS Positive effect: scout_scarf/ChainStrikeChance
+PASS Positive effect: scout_scarf/ChainStrikeDamagePct
+PASS Positive effect: scout_scarf/ChainStrikeRadiusBonus
+PASS Valid unique asset and icon: Прицел рассвета
+PASS Positive effect: solar_sight/DamagePct
+PASS Positive effect: solar_sight/FireflyLightRadiusBonus
+PASS Complete recipe: Прицел рассвета
+PASS Resolvable component: sun_lens
+PASS Resolvable component: firefly_lantern
+PASS Full recipe price: Прицел рассвета
+PASS Valid unique asset and icon: Эгида старого дуба
+PASS Positive effect: ancient_aegis/BarricadeHealthFlat
+PASS Positive effect: ancient_aegis/ProjectileHealthPct
+PASS Positive effect: ancient_aegis/DefenseMitigationPct
+PASS Complete recipe: Эгида старого дуба
+PASS Resolvable component: old_oak_heart
+PASS Resolvable component: living_bark_bracers
+PASS Resolvable component: birch_buckler
+PASS Full recipe price: Эгида старого дуба
+PASS Valid unique asset and icon: Флейта урожая
+PASS Positive effect: harvest_flute/PassiveGoldPct
+PASS Positive effect: harvest_flute/PassiveAcornsPct
+PASS Complete recipe: Флейта урожая
+PASS Resolvable component: golden_pipe
+PASS Resolvable component: dew_cup
+PASS Full recipe price: Флейта урожая
+PASS Valid unique asset and icon: Фонарь жар-птицы
+PASS Positive effect: phoenix_lantern/FireflyBurnPct
+PASS Positive effect: phoenix_lantern/FireDamagePct
+PASS Positive effect: phoenix_lantern/FireflyLightRadiusBonus
+PASS Complete recipe: Фонарь жар-птицы
+PASS Resolvable component: salamander_ember
+PASS Resolvable component: fire_oil
+PASS Resolvable component: firefly_lantern
+PASS Full recipe price: Фонарь жар-птицы
+PASS Valid unique asset and icon: Печать лесного купца
+PASS Positive effect: trader_sign/RoomGoldPct
+PASS Positive effect: trader_sign/PassiveGoldPct
+PASS Complete recipe: Печать лесного купца
+PASS Resolvable component: woodpecker_coin
+PASS Resolvable component: golden_pipe
+PASS Full recipe price: Печать лесного купца
+PASS Valid unique asset and icon: Жезл урожая
+PASS Positive effect: acorn_scepter/VictoryAcornsPct
+PASS Positive effect: acorn_scepter/PassiveAcornsPct
+PASS Positive effect: acorn_scepter/SeedPlantChance
+PASS Complete recipe: Жезл урожая
+PASS Resolvable component: harvest_crown
+PASS Resolvable component: dew_cup
+PASS Resolvable component: oak_powder
+PASS Full recipe price: Жезл урожая
+PASS Valid unique asset and icon: Клинок хищника
+PASS Positive effect: predator_blade/FlatDamage
+PASS Positive effect: predator_blade/DamagePct
+PASS Positive effect: predator_blade/CriticalChance
+PASS Complete recipe: Клинок хищника
+PASS Resolvable component: sharpened_fang
+PASS Resolvable component: hunter_charm
+PASS Full recipe price: Клинок хищника
+PASS Valid unique asset and icon: Кольчуга колючего леса
+PASS Positive effect: thorn_mail/DefenseMitigationPct
+PASS Positive effect: thorn_mail/SplashChance
+PASS Positive effect: thorn_mail/SplashDamagePct
+PASS Positive effect: thorn_mail/SplashRadiusBonus
+PASS Complete recipe: Кольчуга колючего леса
+PASS Resolvable component: birch_buckler
+PASS Resolvable component: thorn_ring
+PASS Resolvable component: hedgehog_quill
+PASS Full recipe price: Кольчуга колючего леса
+PASS Valid unique asset and icon: Браслет попутного ветра
+PASS Positive effect: windstep/ProjectileSpeedPct
+PASS Positive effect: windstep/ProjectileHealthPct
+PASS Positive effect: windstep/EchoChance
+PASS Positive effect: windstep/EchoDamagePct
+PASS Complete recipe: Браслет попутного ветра
+PASS Resolvable component: fox_wrap
+PASS Resolvable component: rabbit_paw
+PASS Full recipe price: Браслет попутного ветра
+PASS Valid unique asset and icon: Ледяная цепь
+PASS Positive effect: frost_chain/StunChance
+PASS Positive effect: frost_chain/ChainStrikeChance
+PASS Positive effect: frost_chain/ChainStrikeDamagePct
+PASS Positive effect: frost_chain/ChainStrikeRadiusBonus
+PASS Complete recipe: Ледяная цепь
+PASS Resolvable component: frost_bead
+PASS Resolvable component: scout_scarf
+PASS Full recipe price: Ледяная цепь
+PASS Valid unique asset and icon: Кровавый корень
+PASS Positive effect: bloodroot/LifeStealPct
+PASS Positive effect: bloodroot/DamagePct
+PASS Complete recipe: Кровавый корень
+PASS Resolvable component: bat_fang
+PASS Resolvable component: dew_cup
+PASS Full recipe price: Кровавый корень
+PASS Valid unique asset and icon: Молот грозового дуба
+PASS Positive effect: storm_hammer/LightningChance
+PASS Positive effect: storm_hammer/FlatDamage
+PASS Complete recipe: Молот грозового дуба
+PASS Resolvable component: storm_pebble
+PASS Resolvable component: sharpened_fang
+PASS Full recipe price: Молот грозового дуба
+PASS Valid unique asset and icon: Чаша болотной чумы
+PASS Positive effect: plague_chalice/PoisonDamagePct
+PASS Positive effect: plague_chalice/PoisonOnHitPct
+PASS Positive effect: plague_chalice/ProjectileHealthPct
+PASS Complete recipe: Чаша болотной чумы
+PASS Resolvable component: poison_vial
+PASS Resolvable component: badger_claw
+PASS Full recipe price: Чаша болотной чумы
+PASS Valid unique asset and icon: Знамя вепря
+PASS Positive effect: boar_standard/DamagePct
+PASS Positive effect: boar_standard/CriticalChance
+PASS Complete recipe: Знамя вепря
+PASS Resolvable component: boar_tusk
+PASS Resolvable component: hunter_charm
+PASS Full recipe price: Знамя вепря
+PASS Valid unique asset and icon: Барабан заячьей стаи
+PASS Positive effect: rabbit_drum/EchoChance
+PASS Positive effect: rabbit_drum/EchoDamagePct
+PASS Positive effect: rabbit_drum/ProjectileSpeedPct
+PASS Positive effect: rabbit_drum/RoomGoldPct
+PASS Complete recipe: Барабан заячьей стаи
+PASS Resolvable component: rabbit_paw
+PASS Resolvable component: golden_pipe
+PASS Resolvable component: fox_wrap
+PASS Full recipe price: Барабан заячьей стаи
+PASS Valid unique asset and icon: Молот плотинщика
+PASS Positive effect: dammaster/FlatDamage
+PASS Positive effect: dammaster/DefenseConversionPct
+PASS Positive effect: dammaster/BarricadeHealthFlat
+PASS Complete recipe: Молот плотинщика
+PASS Resolvable component: beaver_chisel
+PASS Resolvable component: pine_resin
+PASS Resolvable component: mason_stone
+PASS Full recipe price: Молот плотинщика
+PASS Valid unique asset and icon: Корона прудового хора
+PASS Positive effect: frog_crown/DamagePct
+PASS Positive effect: frog_crown/ChainStrikeChance
+PASS Positive effect: frog_crown/ChainStrikeDamagePct
+PASS Positive effect: frog_crown/ChainStrikeRadiusBonus
+PASS Complete recipe: Корона прудового хора
+PASS Resolvable component: pond_shell
+PASS Resolvable component: harvest_crown
+PASS Full recipe price: Корона прудового хора
+PASS Valid unique asset and icon: Жёлудь саламандры
+PASS Positive effect: ember_acorn/SeedPlantChance
+PASS Positive effect: ember_acorn/SeedEarlyChance
+PASS Positive effect: ember_acorn/FireDamagePct
+PASS Complete recipe: Жёлудь саламандры
+PASS Resolvable component: oak_powder
+PASS Resolvable component: fire_oil
+PASS Resolvable component: vine_fuse
+PASS Full recipe price: Жёлудь саламандры
+PASS Valid unique asset and icon: Глаз филина
+PASS Positive effect: eagle_scope/DamagePct
+PASS Positive effect: eagle_scope/CriticalChance
+PASS Positive effect: eagle_scope/FireflyLightRadiusBonus
+PASS Complete recipe: Глаз филина
+PASS Resolvable component: sun_lens
+PASS Resolvable component: hunter_charm
+PASS Resolvable component: firefly_lantern
+PASS Full recipe price: Глаз филина
+PASS Valid unique asset and icon: Тотем лесного убежища
+PASS Positive effect: sanctuary_totem/BarricadeHealthFlat
+PASS Positive effect: sanctuary_totem/LifeStealPct
+PASS Positive effect: sanctuary_totem/DefenseMitigationPct
+PASS Complete recipe: Тотем лесного убежища
+PASS Resolvable component: old_oak_heart
+PASS Resolvable component: dew_cup
+PASS Resolvable component: bat_fang
+PASS Full recipe price: Тотем лесного убежища
+PASS Valid unique asset and icon: Посох терновника
+PASS Positive effect: bramble_staff/SplashChance
+PASS Positive effect: bramble_staff/SplashDamagePct
+PASS Positive effect: bramble_staff/SplashRadiusBonus
+PASS Positive effect: bramble_staff/StunChance
+PASS Complete recipe: Посох терновника
+PASS Resolvable component: thorn_ring
+PASS Resolvable component: frost_bead
+PASS Full recipe price: Посох терновника
+PASS Valid unique asset and icon: Плащ лесного странника
+PASS Positive effect: wanderer_cloak/ProjectileSpeedPct
+PASS Positive effect: wanderer_cloak/ProjectileHealthPct
+PASS Positive effect: wanderer_cloak/ChainStrikeChance
+PASS Positive effect: wanderer_cloak/ChainStrikeDamagePct
+PASS Positive effect: wanderer_cloak/ChainStrikeRadiusBonus
+PASS Complete recipe: Плащ лесного странника
+PASS Resolvable component: fox_wrap
+PASS Resolvable component: living_bark_bracers
+PASS Resolvable component: scout_scarf
+PASS Full recipe price: Плащ лесного странника
+PASS Valid unique asset and icon: Меч зарницы
+PASS Positive effect: dawn_sword/DamagePct
+PASS Positive effect: dawn_sword/LightningChance
+PASS Positive effect: dawn_sword/FireDamagePct
+PASS Complete recipe: Меч зарницы
+PASS Resolvable component: storm_pebble
+PASS Resolvable component: sun_lens
+PASS Resolvable component: fire_oil
+PASS Full recipe price: Меч зарницы
+PASS Valid unique asset and icon: Сердце зимней рощи
+PASS Positive effect: winter_heart/BarricadeHealthFlat
+PASS Positive effect: winter_heart/DefenseMitigationPct
+PASS Positive effect: winter_heart/StunChance
+PASS Complete recipe: Сердце зимней рощи
+PASS Resolvable component: frost_bead
+PASS Resolvable component: mason_stone
+PASS Resolvable component: old_oak_heart
+PASS Full recipe price: Сердце зимней рощи
+PASS Valid unique asset and icon: Скипетр медоеда
+PASS Positive effect: honey_scepter/PoisonOnHitPct
+PASS Positive effect: honey_scepter/PoisonDamagePct
+PASS Positive effect: honey_scepter/ChainStrikeChance
+PASS Positive effect: honey_scepter/ChainStrikeDamagePct
+PASS Positive effect: honey_scepter/ChainStrikeRadiusBonus
+PASS Complete recipe: Скипетр медоеда
+PASS Resolvable component: badger_claw
+PASS Resolvable component: scout_scarf
+PASS Resolvable component: poison_vial
+PASS Full recipe price: Скипетр медоеда
+PASS Valid unique asset and icon: Маска свирепого вепря
+PASS Positive effect: boar_mask/DamagePct
+PASS Positive effect: boar_mask/LifeStealPct
+PASS Positive effect: boar_mask/CriticalChance
+PASS Complete recipe: Маска свирепого вепря
+PASS Resolvable component: boar_standard
+PASS Resolvable component: bat_fang
+PASS Full recipe price: Маска свирепого вепря
+PASS Valid unique asset and icon: Семя лесного пожара
+PASS Positive effect: inferno_seed/FireflyBurnPct
+PASS Positive effect: inferno_seed/FireDamagePct
+PASS Positive effect: inferno_seed/SeedPlantChance
+PASS Positive effect: inferno_seed/SeedEarlyChance
+PASS Positive effect: inferno_seed/SeedDamagePct
+PASS Positive effect: inferno_seed/SeedRadiusBonus
+PASS Complete recipe: Семя лесного пожара
+PASS Resolvable component: phoenix_lantern
+PASS Resolvable component: oak_powder
+PASS Resolvable component: vine_fuse
+PASS Full recipe price: Семя лесного пожара
+PASS Valid unique asset and icon: Пояс стража плотины
+PASS Positive effect: guardian_girdle/FlatDamage
+PASS Positive effect: guardian_girdle/DefenseConversionPct
+PASS Positive effect: guardian_girdle/DefenseMitigationPct
+PASS Positive effect: guardian_girdle/ProjectileHealthPct
+PASS Positive effect: guardian_girdle/BarricadeHealthFlat
+PASS Complete recipe: Пояс стража плотины
+PASS Resolvable component: dammaster
+PASS Resolvable component: birch_buckler
+PASS Resolvable component: living_bark_bracers
+PASS Full recipe price: Пояс стража плотины
+PASS Valid unique asset and icon: Лунный клык
+PASS Positive effect: moonfang/FlatDamage
+PASS Positive effect: moonfang/DamagePct
+PASS Positive effect: moonfang/CriticalChance
+PASS Positive effect: moonfang/ProjectileSpeedPct
+PASS Complete recipe: Лунный клык
+PASS Resolvable component: predator_blade
+PASS Resolvable component: fox_wrap
+PASS Full recipe price: Лунный клык
+PASS Valid unique asset and icon: Ветвь мирового дерева
+PASS Positive effect: worldtree_branch/DamagePct
+PASS Positive effect: worldtree_branch/BarricadeHealthFlat
+PASS Positive effect: worldtree_branch/ProjectileHealthPct
+PASS Positive effect: worldtree_branch/DefenseMitigationPct
+PASS Positive effect: worldtree_branch/VictoryAcornsPct
+PASS Positive effect: worldtree_branch/PassiveAcornsPct
+PASS Complete recipe: Ветвь мирового дерева
+PASS Resolvable component: ancient_aegis
+PASS Resolvable component: acorn_scepter
+PASS Resolvable component: sun_lens
+PASS Full recipe price: Ветвь мирового дерева
+PASS 30 ordinary, 30 assembled, five advanced recipes
+PASS No artifact requires a special animal
+PASS Every active bonus has catalogue items
+PASS Guardian girdle converts exactly 0.2 percent of all owned damage
+PASS Ownership, price and recipe retained: sun_lens
+PASS Firefly bonuses retained: sun_lens
+PASS Ownership, price and recipe retained: old_oak_heart
+PASS Firefly bonuses retained: old_oak_heart
+PASS Ownership, price and recipe retained: golden_pipe
+PASS Firefly bonuses retained: golden_pipe
+PASS Ownership, price and recipe retained: dew_cup
+PASS Firefly bonuses retained: dew_cup
+PASS Ownership, price and recipe retained: salamander_ember
+PASS Firefly bonuses retained: salamander_ember
+PASS Ownership, price and recipe retained: living_bark_bracers
+PASS Firefly bonuses retained: living_bark_bracers
+PASS Ownership, price and recipe retained: woodpecker_coin
+PASS Firefly bonuses retained: woodpecker_coin
+PASS Ownership, price and recipe retained: harvest_crown
+PASS Firefly bonuses retained: harvest_crown
+PASS Ownership, price and recipe retained: sharpened_fang
+PASS Firefly bonuses retained: sharpened_fang
+PASS Ownership, price and recipe retained: fox_wrap
+PASS Firefly bonuses retained: fox_wrap
+PASS Ownership, price and recipe retained: birch_buckler
+PASS Firefly bonuses retained: birch_buckler
+PASS Ownership, price and recipe retained: frost_bead
+PASS Firefly bonuses retained: frost_bead
+PASS Ownership, price and recipe retained: hunter_charm
+PASS Firefly bonuses retained: hunter_charm
+PASS Ownership, price and recipe retained: bat_fang
+PASS Firefly bonuses retained: bat_fang
+PASS Ownership, price and recipe retained: storm_pebble
+PASS Firefly bonuses retained: storm_pebble
+PASS Ownership, price and recipe retained: fire_oil
+PASS Firefly bonuses retained: fire_oil
+PASS Ownership, price and recipe retained: poison_vial
+PASS Firefly bonuses retained: poison_vial
+PASS Ownership, price and recipe retained: hedgehog_quill
+PASS Firefly bonuses retained: hedgehog_quill
+PASS Ownership, price and recipe retained: badger_claw
+PASS Firefly bonuses retained: badger_claw
+PASS Ownership, price and recipe retained: boar_tusk
+PASS Firefly bonuses retained: boar_tusk
+PASS Ownership, price and recipe retained: rabbit_paw
+PASS Firefly bonuses retained: rabbit_paw
+PASS Ownership, price and recipe retained: beaver_chisel
+PASS Firefly bonuses retained: beaver_chisel
+PASS Ownership, price and recipe retained: pond_shell
+PASS Firefly bonuses retained: pond_shell
+PASS Ownership, price and recipe retained: oak_powder
+PASS Firefly bonuses retained: oak_powder
+PASS Ownership, price and recipe retained: firefly_lantern
+PASS Firefly bonuses retained: firefly_lantern
+PASS Ownership, price and recipe retained: mason_stone
+PASS Firefly bonuses retained: mason_stone
+PASS Ownership, price and recipe retained: pine_resin
+PASS Firefly bonuses retained: pine_resin
+PASS Ownership, price and recipe retained: vine_fuse
+PASS Firefly bonuses retained: vine_fuse
+PASS Ownership, price and recipe retained: thorn_ring
+PASS Firefly bonuses retained: thorn_ring
+PASS Ownership, price and recipe retained: scout_scarf
+PASS Firefly bonuses retained: scout_scarf
+PASS Ownership, price and recipe retained: solar_sight
+PASS Firefly bonuses retained: solar_sight
+PASS Ownership, price and recipe retained: ancient_aegis
+PASS Firefly bonuses retained: ancient_aegis
+PASS Ownership, price and recipe retained: harvest_flute
+PASS Firefly bonuses retained: harvest_flute
+PASS Ownership, price and recipe retained: phoenix_lantern
+PASS Firefly bonuses retained: phoenix_lantern
+PASS Ownership, price and recipe retained: trader_sign
+PASS Firefly bonuses retained: trader_sign
+PASS Ownership, price and recipe retained: acorn_scepter
+PASS Firefly bonuses retained: acorn_scepter
+PASS Ownership, price and recipe retained: predator_blade
+PASS Firefly bonuses retained: predator_blade
+PASS Ownership, price and recipe retained: thorn_mail
+PASS Firefly bonuses retained: thorn_mail
+PASS Ownership, price and recipe retained: windstep
+PASS Firefly bonuses retained: windstep
+PASS Ownership, price and recipe retained: frost_chain
+PASS Firefly bonuses retained: frost_chain
+PASS Ownership, price and recipe retained: bloodroot
+PASS Firefly bonuses retained: bloodroot
+PASS Ownership, price and recipe retained: storm_hammer
+PASS Firefly bonuses retained: storm_hammer
+PASS Ownership, price and recipe retained: plague_chalice
+PASS Firefly bonuses retained: plague_chalice
+PASS Ownership, price and recipe retained: boar_standard
+PASS Firefly bonuses retained: boar_standard
+PASS Ownership, price and recipe retained: rabbit_drum
+PASS Firefly bonuses retained: rabbit_drum
+PASS Ownership, price and recipe retained: dammaster
+PASS Firefly bonuses retained: dammaster
+PASS Ownership, price and recipe retained: frog_crown
+PASS Firefly bonuses retained: frog_crown
+PASS Ownership, price and recipe retained: ember_acorn
+PASS Firefly bonuses retained: ember_acorn
+PASS Ownership, price and recipe retained: eagle_scope
+PASS Firefly bonuses retained: eagle_scope
+PASS Ownership, price and recipe retained: sanctuary_totem
+PASS Firefly bonuses retained: sanctuary_totem
+PASS Ownership, price and recipe retained: bramble_staff
+PASS Firefly bonuses retained: bramble_staff
+PASS Ownership, price and recipe retained: wanderer_cloak
+PASS Firefly bonuses retained: wanderer_cloak
+PASS Ownership, price and recipe retained: dawn_sword
+PASS Firefly bonuses retained: dawn_sword
+PASS Ownership, price and recipe retained: winter_heart
+PASS Firefly bonuses retained: winter_heart
+PASS Ownership, price and recipe retained: honey_scepter
+PASS Firefly bonuses retained: honey_scepter
+PASS Ownership, price and recipe retained: boar_mask
+PASS Firefly bonuses retained: boar_mask
+PASS Ownership, price and recipe retained: inferno_seed
+PASS Firefly bonuses retained: inferno_seed
+PASS Ownership, price and recipe retained: guardian_girdle
+PASS Firefly bonuses retained: guardian_girdle
+PASS Ownership, price and recipe retained: moonfang
+PASS Firefly bonuses retained: moonfang
+PASS Ownership, price and recipe retained: worldtree_branch
+PASS Firefly bonuses retained: worldtree_branch
+PASS Existing artifact IDs/order retained
+PASS Cannot buy/craft without resources
+PASS Duplicate purchases are saved as quantities
+PASS Only one equipped copy contributes and spare remains available
+PASS Failed recipe is atomic
+PASS Acquire firefly_lantern
+PASS Craft spends spare component without removing equipped copy
+PASS Equipped last component is protected with an actionable hint
+PASS Unequipping returns component availability
+PASS Acquire sun_lens
+PASS Reachable through purchases/recipes: 0
+PASS Acquire old_oak_heart
+PASS Reachable through purchases/recipes: 1
+PASS Acquire golden_pipe
+PASS Reachable through purchases/recipes: 2
+PASS Acquire dew_cup
+PASS Reachable through purchases/recipes: 3
+PASS Acquire salamander_ember
+PASS Reachable through purchases/recipes: 4
+PASS Acquire living_bark_bracers
+PASS Reachable through purchases/recipes: 5
+PASS Acquire woodpecker_coin
+PASS Reachable through purchases/recipes: 6
+PASS Acquire harvest_crown
+PASS Reachable through purchases/recipes: 7
+PASS Acquire sharpened_fang
+PASS Reachable through purchases/recipes: 8
+PASS Acquire fox_wrap
+PASS Reachable through purchases/recipes: 9
+PASS Acquire birch_buckler
+PASS Reachable through purchases/recipes: 10
+PASS Acquire frost_bead
+PASS Reachable through purchases/recipes: 11
+PASS Acquire hunter_charm
+PASS Reachable through purchases/recipes: 12
+PASS Acquire bat_fang
+PASS Reachable through purchases/recipes: 13
+PASS Acquire storm_pebble
+PASS Reachable through purchases/recipes: 14
+PASS Acquire fire_oil
+PASS Reachable through purchases/recipes: 15
+PASS Acquire poison_vial
+PASS Reachable through purchases/recipes: 16
+PASS Acquire hedgehog_quill
+PASS Reachable through purchases/recipes: 17
+PASS Acquire badger_claw
+PASS Reachable through purchases/recipes: 18
+PASS Acquire boar_tusk
+PASS Reachable through purchases/recipes: 19
+PASS Acquire rabbit_paw
+PASS Reachable through purchases/recipes: 20
+PASS Acquire beaver_chisel
+PASS Reachable through purchases/recipes: 21
+PASS Acquire pond_shell
+PASS Reachable through purchases/recipes: 22
+PASS Acquire oak_powder
+PASS Reachable through purchases/recipes: 23
+PASS Acquire firefly_lantern
+PASS Reachable through purchases/recipes: 24
+PASS Acquire mason_stone
+PASS Reachable through purchases/recipes: 25
+PASS Acquire pine_resin
+PASS Reachable through purchases/recipes: 26
+PASS Acquire vine_fuse
+PASS Reachable through purchases/recipes: 27
+PASS Acquire thorn_ring
+PASS Reachable through purchases/recipes: 28
+PASS Acquire scout_scarf
+PASS Reachable through purchases/recipes: 29
+PASS Acquire solar_sight
+PASS Reachable through purchases/recipes: 30
+PASS Acquire ancient_aegis
+PASS Reachable through purchases/recipes: 31
+PASS Acquire harvest_flute
+PASS Reachable through purchases/recipes: 32
+PASS Acquire firefly_lantern
+PASS Acquire phoenix_lantern
+PASS Reachable through purchases/recipes: 33
+PASS Acquire golden_pipe
+PASS Acquire trader_sign
+PASS Reachable through purchases/recipes: 34
+PASS Acquire dew_cup
+PASS Acquire acorn_scepter
+PASS Reachable through purchases/recipes: 35
+PASS Acquire predator_blade
+PASS Reachable through purchases/recipes: 36
+PASS Acquire birch_buckler
+PASS Acquire thorn_mail
+PASS Reachable through purchases/recipes: 37
+PASS Acquire windstep
+PASS Reachable through purchases/recipes: 38
+PASS Acquire frost_chain
+PASS Reachable through purchases/recipes: 39
+PASS Acquire dew_cup
+PASS Acquire bloodroot
+PASS Reachable through purchases/recipes: 40
+PASS Acquire sharpened_fang
+PASS Acquire storm_hammer
+PASS Reachable through purchases/recipes: 41
+PASS Acquire plague_chalice
+PASS Reachable through purchases/recipes: 42
+PASS Acquire hunter_charm
+PASS Acquire boar_standard
+PASS Reachable through purchases/recipes: 43
+PASS Acquire rabbit_paw
+PASS Acquire golden_pipe
+PASS Acquire fox_wrap
+PASS Acquire rabbit_drum
+PASS Reachable through purchases/recipes: 44
+PASS Acquire dammaster
+PASS Reachable through purchases/recipes: 45
+PASS Acquire harvest_crown
+PASS Acquire frog_crown
+PASS Reachable through purchases/recipes: 46
+PASS Acquire oak_powder
+PASS Acquire fire_oil
+PASS Acquire ember_acorn
+PASS Reachable through purchases/recipes: 47
+PASS Acquire sun_lens
+PASS Acquire hunter_charm
+PASS Acquire firefly_lantern
+PASS Acquire eagle_scope
+PASS Reachable through purchases/recipes: 48
+PASS Acquire old_oak_heart
+PASS Acquire dew_cup
+PASS Acquire bat_fang
+PASS Acquire sanctuary_totem
+PASS Reachable through purchases/recipes: 49
+PASS Acquire thorn_ring
+PASS Acquire frost_bead
+PASS Acquire bramble_staff
+PASS Reachable through purchases/recipes: 50
+PASS Acquire fox_wrap
+PASS Acquire living_bark_bracers
+PASS Acquire scout_scarf
+PASS Acquire wanderer_cloak
+PASS Reachable through purchases/recipes: 51
+PASS Acquire storm_pebble
+PASS Acquire sun_lens
+PASS Acquire fire_oil
+PASS Acquire dawn_sword
+PASS Reachable through purchases/recipes: 52
+PASS Acquire frost_bead
+PASS Acquire mason_stone
+PASS Acquire old_oak_heart
+PASS Acquire winter_heart
+PASS Reachable through purchases/recipes: 53
+PASS Acquire badger_claw
+PASS Acquire scout_scarf
+PASS Acquire poison_vial
+PASS Acquire honey_scepter
+PASS Reachable through purchases/recipes: 54
+PASS Acquire bat_fang
+PASS Acquire boar_mask
+PASS Reachable through purchases/recipes: 55
+PASS Acquire oak_powder
+PASS Acquire vine_fuse
+PASS Acquire inferno_seed
+PASS Reachable through purchases/recipes: 56
+PASS Acquire birch_buckler
+PASS Acquire living_bark_bracers
+PASS Acquire guardian_girdle
+PASS Reachable through purchases/recipes: 57
+PASS Acquire fox_wrap
+PASS Acquire moonfang
+PASS Reachable through purchases/recipes: 58
+PASS Acquire sun_lens
+PASS Acquire worldtree_branch
+PASS Reachable through purchases/recipes: 59
+PASS Acquisition never equips automatically
+PASS Roulette ordinary item 0
+PASS Roulette ordinary item 1
+PASS Roulette ordinary item 2
+PASS Roulette ordinary item 3
+PASS Roulette ordinary item 4
+PASS Roulette ordinary item 5
+PASS Roulette ordinary item 6
+PASS Roulette ordinary item 7
+PASS Roulette ordinary item 8
+PASS Roulette ordinary item 9
+PASS Roulette ordinary item 10
+PASS Roulette ordinary item 11
+PASS Roulette ordinary item 12
+PASS Roulette ordinary item 13
+PASS Roulette ordinary item 14
+PASS Roulette ordinary item 15
+PASS Roulette ordinary item 16
+PASS Roulette ordinary item 17
+PASS Roulette ordinary item 18
+PASS Roulette ordinary item 19
+PASS Roulette ordinary item 20
+PASS Roulette ordinary item 21
+PASS Roulette ordinary item 22
+PASS Roulette ordinary item 23
+PASS Roulette ordinary item 24
+PASS Roulette ordinary item 25
+PASS Roulette ordinary item 26
+PASS Roulette ordinary item 27
+PASS Roulette ordinary item 28
+PASS Roulette ordinary item 29
+PASS Roulette stops at ordinary pool and cannot award assembled items
+PASS Legacy boolean ownership migrates naturally
+PASS Legacy crown effect retained
+PASS Menu starts with all authored references
+PASS Button ready: Open Catalog
+PASS Pointer reaches Open Catalog at (320.00, 210.00); top: Open Catalog
+PASS Shop building opens native catalogue overlay
+PASS All 30 ordinary cards show icons
+PASS Search filters item names
+PASS Button ready: Assembled
+PASS Pointer reaches Assembled at (379.00, 352.25); top: Assembled
+PASS Assembled tab shows 30 recipes
+PASS Button ready: Item 00
+PASS Pointer reaches Item 00 at (241.00, 286.75); top: Item 00
+PASS Recipe shows missing components
+PASS Button ready: Component 0
+PASS Pointer reaches Component 0 at (320.00, 192.25); top: Component 0
+PASS Button ready: Acquire
+PASS Pointer reaches Acquire at (320.00, 106.25); top: Acquire
+PASS Purchase button charges gold
+PASS Button ready: Back
+PASS Pointer reaches Back at (235.50, 353.25); top: Back
+PASS Button ready: Component 1
+PASS Pointer reaches Component 1 at (320.00, 163.25); top: Component 1
+PASS Button ready: Acquire
+PASS Pointer reaches Acquire at (320.00, 106.25); top: Acquire
+PASS Button ready: Back
+PASS Pointer reaches Back at (235.50, 353.25); top: Back
+PASS Buying components and returning enables crafting
+PASS Button ready: Acquire
+PASS Pointer reaches Acquire at (320.00, 106.25); top: Acquire
+PASS Craft button consumes exact components and fee
+PASS Runtime shop never creates replacement controls
+PASS Button ready: Close
+PASS Pointer reaches Close at (426.50, 399.75); top: Close
+PASS Close button exits shop
+PASS Backpack displays every artifact type without overflow
+PASS Button ready: Equipment Slot 1
+PASS Pointer reaches Equipment Slot 1 at (219.00, 356.00); top: Equipment Slot 1
+PASS Button ready: Backpack Cell 60
+PASS Pointer reaches Backpack Cell 60 at (414.50, 84.50); top: Backpack Cell 60
+PASS Button ready: Equip
+PASS Pointer reaches Equip at (320.00, 159.25); top: Equip
+PASS New item equips while spare copies stay in bag
+PASS Menu close/escape route includes catalogue
+PASS Equip 0
+PASS Equip 19
+PASS Common damage modifiers apply once to real HP
+PASS Equip 15
+PASS Equip 23
+PASS Owned fire gains only the fire modifier
+PASS Equip 16
+PASS Equip 18
+PASS Poison gains its elemental modifier without requiring badger
+PASS Enemy/unknown fire does not gain player artifact bonuses
+PASS Equip 12
+PASS Critical proc changes actual direct-hit damage
+PASS Damage over time cannot critically hit
+PASS Area damage cannot trigger direct-hit critical artifacts
+PASS Equip 11
+PASS Stun proc applies one enemy turn
+PASS Equip 14
+PASS Lightning damages at most three neighbours, attributes once, never recursively procs
+PASS Three short lightning beams use the authored effect prefab
+PASS Equip 31
+PASS Barricade starts with bonus health and mitigates incoming damage
+PASS Ordinary healing caps at maximum and preserves beaver overhealth
+PASS Dam mitigation returns unmitigated overflow for the next defense
+PASS Equip 57
+PASS Guardian item does not change the beaver intrinsic conversion
+PASS Equip 56
+PASS Seed radius is shared while native squirrel upgrades remain unchanged
+PASS Equip 46
+PASS Pond item does not change native frog jump radius
+PASS Pond item does not change native frog jump radius
+PASS Only intrinsic frog chorus grants per-rider room damage
+PASS Actual frog support is credited separately from generic artifact damage
+PASS Equip 24
+PASS Lantern expands actual firefly illumination
+PASS Equip 8
+PASS Equip 9
+PASS Equip 5
+PASS Real launch adds flat item damage once
+PASS Real launch scales projectile health
+PASS Real launch scales projectile speed
+PASS Equip 40
+PASS Lifesteal equipped value
+PASS Real owned damage heals barricade through lifesteal
+PASS Equip 57
+PASS Guardian reinforcement from projectile 0
+PASS Guardian reinforcement from projectile 1
+PASS Guardian reinforcement from projectile 2
+PASS Guardian reinforcement from projectile 3
+PASS Guardian reinforcement from projectile 4
+PASS Guardian reinforcement from projectile 5
+PASS Guardian reinforcement from projectile 6
+PASS Guardian reinforcement from projectile 7
+PASS Main room uses barricade overhealth, never creates a dam
+PASS Owned fire and poison fortify; unknown damage does not
+PASS Fortification counts actual health lost rather than overkill
+PASS Non-beaver creates an authored room dam
+PASS All projectiles strengthen the same dam
+PASS Equip 20
+PASS Repeat hit from projectile 0 with correct damage credit
+PASS Repeat hit from projectile 1 with correct damage credit
+PASS Repeat hit from projectile 2 with correct damage credit
+PASS Repeat hit from projectile 3 with correct damage credit
+PASS Repeat hit from projectile 4 with correct damage credit
+PASS Repeat hit from projectile 5 with correct damage credit
+PASS Repeat hit from projectile 6 with correct damage credit
+PASS Repeat hit from projectile 7 with correct damage credit
+PASS Equip 17
+PASS Thorns from projectile 0 damage only neighbours
+PASS Thorns from projectile 1 damage only neighbours
+PASS Thorns from projectile 2 damage only neighbours
+PASS Thorns from projectile 3 damage only neighbours
+PASS Thorns from projectile 4 damage only neighbours
+PASS Thorns from projectile 5 damage only neighbours
+PASS Thorns from projectile 6 damage only neighbours
+PASS Thorns from projectile 7 damage only neighbours
+PASS Universal thorns show an existing short impact effect
+PASS Equip 22
+PASS Pond chain from projectile 0 uses shared range and correct credit
+PASS Pond chain from projectile 1 uses shared range and correct credit
+PASS Pond chain from projectile 2 uses shared range and correct credit
+PASS Pond chain from projectile 3 uses shared range and correct credit
+PASS Pond chain from projectile 4 uses shared range and correct credit
+PASS Pond chain from projectile 5 uses shared range and correct credit
+PASS Pond chain from projectile 6 uses shared range and correct credit
+PASS Pond chain from projectile 7 uses shared range and correct credit
+PASS Pond chain has an authored arc effect
+PASS Equip 16
+PASS Poison planted by projectile 0
+PASS Poison planted by projectile 1
+PASS Poison planted by projectile 2
+PASS Poison planted by projectile 3
+PASS Poison planted by projectile 4
+PASS Poison planted by projectile 5
+PASS Poison planted by projectile 6
+PASS Poison planted by projectile 7
+PASS Artifact poison ticks once on next turn without multiplying its bonuses twice
+PASS Poison ownership preserved for projectile 0
+PASS Poison ownership preserved for projectile 1
+PASS Poison ownership preserved for projectile 2
+PASS Poison ownership preserved for projectile 3
+PASS Poison ownership preserved for projectile 4
+PASS Poison ownership preserved for projectile 5
+PASS Poison ownership preserved for projectile 6
+PASS Poison ownership preserved for projectile 7
+PASS Equip 20
+PASS Equip 17
+PASS Repeat and splash cannot recursively trigger random artifact effects
+PASS Equip 23
+PASS Projectile 0 plants an authored acorn without squirrel
+PASS Death acorn explodes for 100 fire damage and credits projectile 0
+PASS Projectile 1 plants an authored acorn without squirrel
+PASS Death acorn explodes for 100 fire damage and credits projectile 1
+PASS Projectile 2 plants an authored acorn without squirrel
+PASS Death acorn explodes for 100 fire damage and credits projectile 2
+PASS Projectile 3 plants an authored acorn without squirrel
+PASS Death acorn explodes for 100 fire damage and credits projectile 3
+PASS Projectile 4 plants an authored acorn without squirrel
+PASS Death acorn explodes for 100 fire damage and credits projectile 4
+PASS Projectile 5 plants an authored acorn without squirrel
+PASS Death acorn explodes for 100 fire damage and credits projectile 5
+PASS Projectile 6 plants an authored acorn without squirrel
+PASS Death acorn explodes for 100 fire damage and credits projectile 6
+PASS Projectile 7 plants an authored acorn without squirrel
+PASS Death acorn explodes for 100 fire damage and credits projectile 7
+PASS Any projectile can detonate a universal acorn early
+PASS Periodic fire cannot plant acorns
+PASS Equip 24
+PASS Equip 4
+PASS Firefly illumination and burn efficiency remain unchanged
+PASS Unequipped items immediately stop affecting combat
+ARTIFACT_SHOP_PASSED

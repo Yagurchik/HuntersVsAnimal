@@ -1,0 +1,1 @@
+PASS: 49 Play-mode checks including pointer raycasts and scene reload.

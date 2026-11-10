@@ -8,15 +8,16 @@ public class LoseMoment : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("Game Over");
         _collider = GetComponent<Collider2D>();
     }
     private void OnTriggerStay2D(Collider2D other)
     {
-        Debug.Log("Game Over");
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") && other.TryGetComponent(out Brick brick)
+            && brick.levelGenerator != null && GameManager.Instance != null
+            && !brick.IsStepping && brick.LowestCellY <= brick.levelGenerator.DefenseBoundaryY
+            && !Player.HasActiveProjectiles)
         {
-            GameManager.Instance.LoseGame();
+            brick.levelGenerator.RequestBreach(brick);
         }
     }
 }

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02750dc8b6d48bb4e87d1f6f1d00fed9, type: 3}
+  m_Name: Rabbit
+  m_EditorClassIdentifier: 
+  animalIndex: 2
+  displayName: "\u041A\u0440\u043E\u043B\u0438\u043A"
+  role: "\u0420\u0410\u0417\u041C\u041D\u041E\u0416\u0415\u041D\u0418\u0415"
+  description: "Первое размножение — после 5 попаданий. Таланты снижают начальный порог до 4/3/2 и максимальный до 9/8/7. Каждое рождение повышает порог на 1; срок жизни — 20 попаданий."
+  accent: {r: 0.78039217, g: 0.6901961, b: 0.8980392, a: 1}
+  portrait: {fileID: 21300000, guid: b253d8974f1746eabdf98d2b157ad452, type: 3}

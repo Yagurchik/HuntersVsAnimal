@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6d73622af8d4e0b8f6ec8e8482ec7ae, type: 3}
+  m_Name: PlayerVisualProfile
+  m_EditorClassIdentifier: 
+  idleSprite: {fileID: -209997033, guid: 2137a14f5f6a64841b4007c22a44385c, type: 3}
+  shootingAnimation: {fileID: 7400000, guid: 5d05c6f0e2df1cc4383b0cbfbfb1ca6d, type: 2}
+  eyeFirePrefab: {fileID: 7100000000000001, guid: 2712f90c72444f9891d7eea546a41cbe, type: 3}
+  worldWidth: 1.15
+  verticalOffset: -0.08
+  relocationSteps: 6
+  relocationFrameDuration: 0.06
+  relocationTiltDegrees: 7
+  relocationHopHeight: 0.09
+  relocationSquash: 0.07

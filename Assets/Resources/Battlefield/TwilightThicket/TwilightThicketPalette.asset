@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53142399b7f14acf84d1df5a54c37cad, type: 3}
+  m_Name: TwilightThicketPalette
+  m_EditorClassIdentifier: 
+  topLeft: {fileID: 11400000, guid: 425f84a9bdc0de741a5b117354ff81cd, type: 2}
+  topRight: {fileID: 11400000, guid: c6c7afefad25435408bc37bef88a56c6, type: 2}
+  bottomLeft: {fileID: 11400000, guid: 365f3ca564b7bdd4684a0e64db7b8fd3, type: 2}
+  bottomRight: {fileID: 11400000, guid: 8350dd106224a2d468c6f1928ed7a6dd, type: 2}
+  topEdges:
+  - {fileID: 11400000, guid: 29e093a79c996c14382bed3afc5d9c94, type: 2}
+  - {fileID: 11400000, guid: d22c8683fe1474f49b2a55415712b5f4, type: 2}
+  rightEdges:
+  - {fileID: 11400000, guid: 93b6db825c2a4504c8c6564adcdf97b8, type: 2}
+  - {fileID: 11400000, guid: a8a030f567357aa48a81f86ce8aff747, type: 2}
+  bottomEdges:
+  - {fileID: 11400000, guid: 14f9ce62cfa139048b2d1c106bf27853, type: 2}
+  - {fileID: 11400000, guid: 48adb0645965c7346b4e58613a811a2a, type: 2}
+  leftEdges:
+  - {fileID: 11400000, guid: 173828b0569ba4540b260679cf8c366e, type: 2}
+  - {fileID: 11400000, guid: ceab68bf01a93224aa22dc751030f81e, type: 2}
+  floorTiles:
+  - {fileID: 11400000, guid: f9e8b18637b51ba418e34b0b6b62f334, type: 2}
+  - {fileID: 11400000, guid: 693afd37c6bdee9488bcd620ac980c6e, type: 2}
+  - {fileID: 11400000, guid: c5101c87d015d194ba0cd11a66c337c4, type: 2}
+  - {fileID: 11400000, guid: 19bea708fd9b1e64d9a5bd26fb552626, type: 2}

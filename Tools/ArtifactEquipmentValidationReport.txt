@@ -1,0 +1,78 @@
+Six-slot equipment validation
+PASS: All six slots and sixty backpack cells are authored
+PASS: Migration is idempotent and preserves later Inspector edits
+PASS: Complete village windows remain intact
+PASS: Old seventh and eighth slots are retired
+PASS: Retired items remain owned and available in backpack
+PASS: Retired equipment grants no hidden bonuses
+PASS: Six is a hard equipment limit
+PASS: Runtime counter shows six equipped items
+PASS: Runtime does not recreate removed cells
+PASS: Native frame reference: Equipment Slot 1
+PASS: Native frame reference: Equipment Slot 2
+PASS: Native frame reference: Equipment Slot 3
+PASS: Native frame reference: Equipment Slot 4
+PASS: Native frame reference: Equipment Slot 5
+PASS: Native frame reference: Equipment Slot 6
+PASS: Native frame reference: Backpack Cell 1
+PASS: Native frame reference: Backpack Cell 2
+PASS: Native frame reference: Backpack Cell 3
+PASS: Native frame reference: Backpack Cell 4
+PASS: Native frame reference: Backpack Cell 5
+PASS: Native frame reference: Backpack Cell 6
+PASS: Native frame reference: Backpack Cell 7
+PASS: Native frame reference: Backpack Cell 8
+PASS: Native frame reference: Backpack Cell 9
+PASS: Native frame reference: Backpack Cell 10
+PASS: Native frame reference: Backpack Cell 11
+PASS: Native frame reference: Backpack Cell 12
+PASS: Native frame reference: Backpack Cell 13
+PASS: Native frame reference: Backpack Cell 14
+PASS: Native frame reference: Backpack Cell 15
+PASS: Native frame reference: Backpack Cell 16
+PASS: Native frame reference: Backpack Cell 17
+PASS: Native frame reference: Backpack Cell 18
+PASS: Native frame reference: Backpack Cell 19
+PASS: Native frame reference: Backpack Cell 20
+PASS: Native frame reference: Backpack Cell 21
+PASS: Native frame reference: Backpack Cell 22
+PASS: Native frame reference: Backpack Cell 23
+PASS: Native frame reference: Backpack Cell 24
+PASS: Native frame reference: Backpack Cell 25
+PASS: Native frame reference: Backpack Cell 26
+PASS: Native frame reference: Backpack Cell 27
+PASS: Native frame reference: Backpack Cell 28
+PASS: Native frame reference: Backpack Cell 29
+PASS: Native frame reference: Backpack Cell 30
+PASS: Native frame reference: Backpack Cell 31
+PASS: Native frame reference: Backpack Cell 32
+PASS: Native frame reference: Backpack Cell 33
+PASS: Native frame reference: Backpack Cell 34
+PASS: Native frame reference: Backpack Cell 35
+PASS: Native frame reference: Backpack Cell 36
+PASS: Native frame reference: Backpack Cell 37
+PASS: Native frame reference: Backpack Cell 38
+PASS: Native frame reference: Backpack Cell 39
+PASS: Native frame reference: Backpack Cell 40
+PASS: Native frame reference: Backpack Cell 41
+PASS: Native frame reference: Backpack Cell 42
+PASS: Native frame reference: Backpack Cell 43
+PASS: Native frame reference: Backpack Cell 44
+PASS: Native frame reference: Backpack Cell 45
+PASS: Native frame reference: Backpack Cell 46
+PASS: Native frame reference: Backpack Cell 47
+PASS: Native frame reference: Backpack Cell 48
+PASS: Native frame reference: Backpack Cell 49
+PASS: Native frame reference: Backpack Cell 50
+PASS: Native frame reference: Backpack Cell 51
+PASS: Native frame reference: Backpack Cell 52
+PASS: Native frame reference: Backpack Cell 53
+PASS: Native frame reference: Backpack Cell 54
+PASS: Native frame reference: Backpack Cell 55
+PASS: Native frame reference: Backpack Cell 56
+PASS: Native frame reference: Backpack Cell 57
+PASS: Native frame reference: Backpack Cell 58
+PASS: Native frame reference: Backpack Cell 59
+PASS: Native frame reference: Backpack Cell 60
+PASS: Selecting a slot highlights its authored frame
+RESULT: PASS

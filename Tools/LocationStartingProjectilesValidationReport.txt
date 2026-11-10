@@ -1,0 +1,549 @@
+PASS Native menu has the editable loadout dialog
+PASS Authored firefly bestiary describes its fixed volley and two talent branches
+PASS Authored rabbit bestiary describes three talents and their ultimate requirement
+PASS All eight projectile choices retain their authored controls
+PASS Starter mapping for location 1
+PASS Dialog opens for location 1
+PASS Both starters are reserved and show ammo in location 1
+PASS Three optional types complete the five-type set in location 1
+PASS Confirmed selection includes both starters in location 1
+PASS Prepared run accepts matching location 1
+PASS Starter mapping for location 2
+PASS Dialog opens for location 2
+PASS Both starters are reserved and show ammo in location 2
+PASS Three optional types complete the five-type set in location 2
+PASS Confirmed selection includes both starters in location 2
+PASS Prepared run accepts matching location 2
+PASS Starter mapping for location 3
+PASS Dialog opens for location 3
+PASS Both starters are reserved and show ammo in location 3
+PASS Three optional types complete the five-type set in location 3
+PASS Confirmed selection includes both starters in location 3
+PASS Prepared run accepts matching location 3
+PASS Starter mapping for location 4
+PASS Dialog opens for location 4
+PASS Both starters are reserved and show ammo in location 4
+PASS Three optional types complete the five-type set in location 4
+PASS Confirmed selection includes both starters in location 4
+PASS Prepared run accepts matching location 4
+PASS Starter mapping for location 5
+PASS Dialog opens for location 5
+PASS Both starters are reserved and show ammo in location 5
+PASS Three optional types complete the five-type set in location 5
+PASS Confirmed selection includes both starters in location 5
+PASS Prepared run accepts matching location 5
+PASS Starter mapping for location 6
+PASS Dialog opens for location 6
+PASS Both starters are reserved and show ammo in location 6
+PASS Three optional types complete the five-type set in location 6
+PASS Confirmed selection includes both starters in location 6
+PASS Prepared run accepts matching location 6
+PASS Starter mapping for location 7
+PASS Dialog opens for location 7
+PASS Both starters are reserved and show ammo in location 7
+PASS Three optional types complete the five-type set in location 7
+PASS Confirmed selection includes both starters in location 7
+PASS Prepared run accepts matching location 7
+PASS Run cannot omit its required location starter
+PASS Closing the dialog does not start a run
+PASS Real queue chooses starter for location 1
+PASS Initial volley is 5 fireflies plus 3 location projectiles in location 1
+PASS Location starter begins with its assigned quantity or breeding talent in location 1
+PASS Completed starter quantity branches are absent from upgrade offers in location 1
+PASS All other types await upgrades in location 1
+PASS Starter does not need an unlock upgrade in location 1
+PASS First-level tutorial keeps the hedgehog available from the start
+PASS Gameplay requested location 2
+PASS Real queue chooses starter for location 2
+PASS Initial volley is 5 fireflies plus 2 location projectiles in location 2
+PASS Location starter begins with its assigned quantity or breeding talent in location 2
+PASS Completed starter quantity branches are absent from upgrade offers in location 2
+PASS All other types await upgrades in location 2
+PASS Starter does not need an unlock upgrade in location 2
+PASS Location transition preserves the five-type selection
+PASS Reload restores fully upgraded starter quantities in location 2
+PASS Gameplay requested location 3
+PASS Real queue chooses starter for location 3
+PASS Initial volley is 5 fireflies plus 3 location projectiles in location 3
+PASS Location starter begins with its assigned quantity or breeding talent in location 3
+PASS Completed starter quantity branches are absent from upgrade offers in location 3
+PASS All other types await upgrades in location 3
+PASS Starter does not need an unlock upgrade in location 3
+PASS Location transition preserves the five-type selection
+PASS Reload restores fully upgraded starter quantities in location 3
+PASS Gameplay requested location 4
+PASS Real queue chooses starter for location 4
+PASS Initial volley is 5 fireflies plus 3 location projectiles in location 4
+PASS Location starter begins with its assigned quantity or breeding talent in location 4
+PASS Completed starter quantity branches are absent from upgrade offers in location 4
+PASS All other types await upgrades in location 4
+PASS Starter does not need an unlock upgrade in location 4
+PASS Location transition preserves the five-type selection
+PASS Reload restores fully upgraded starter quantities in location 4
+PASS Gameplay requested location 5
+PASS Real queue chooses starter for location 5
+PASS Initial volley is 5 fireflies plus 3 location projectiles in location 5
+PASS Location starter begins with its assigned quantity or breeding talent in location 5
+PASS Completed starter quantity branches are absent from upgrade offers in location 5
+PASS All other types await upgrades in location 5
+PASS Starter does not need an unlock upgrade in location 5
+PASS Location transition preserves the five-type selection
+PASS Reload restores fully upgraded starter quantities in location 5
+PASS Gameplay requested location 6
+PASS Real queue chooses starter for location 6
+PASS Initial volley is 5 fireflies plus 3 location projectiles in location 6
+PASS Location starter begins with its assigned quantity or breeding talent in location 6
+PASS Completed starter quantity branches are absent from upgrade offers in location 6
+PASS All other types await upgrades in location 6
+PASS Starter does not need an unlock upgrade in location 6
+PASS Location transition preserves the five-type selection
+PASS Reload restores fully upgraded starter quantities in location 6
+PASS Future seventh location accepts honey badger starter
+PASS Real queue chooses starter for location 7
+PASS Initial volley is 5 fireflies plus 3 location projectiles in location 7
+PASS Location starter begins with its assigned quantity or breeding talent in location 7
+PASS Completed starter quantity branches are absent from upgrade offers in location 7
+PASS All other types await upgrades in location 7
+PASS Starter does not need an unlock upgrade in location 7
+PASS Seventh location remains reserved for future campaign content
+PASS Rabbit starter can be configured
+PASS Starter rabbit has two projectiles and the full breeding upgrade
+PASS Starter rabbit cannot purchase an already completed breeding branch
+PASS Real player launch starts at 5 hits with reproduction maximum 7
+PASS Rabbit direct hit 1 resolves for threshold 5 and maximum 7
+PASS Rabbit direct hit 2 resolves for threshold 5 and maximum 7
+PASS Rabbit direct hit 3 resolves for threshold 5 and maximum 7
+PASS Rabbit direct hit 4 resolves for threshold 5 and maximum 7
+PASS Rabbit waits for all 5 hits before reproducing with maximum 7
+PASS Final direct hit resolves for threshold 5 and maximum 7
+PASS Parent and its actual replica inherit threshold 6 and cap 7
+PASS Rabbit direct hit 1 resolves for threshold 6 and maximum 7
+PASS Rabbit direct hit 2 resolves for threshold 6 and maximum 7
+PASS Rabbit direct hit 3 resolves for threshold 6 and maximum 7
+PASS Rabbit direct hit 4 resolves for threshold 6 and maximum 7
+PASS Rabbit direct hit 5 resolves for threshold 6 and maximum 7
+PASS Rabbit waits for all 6 hits before reproducing with maximum 7
+PASS Final direct hit resolves for threshold 6 and maximum 7
+PASS Parent and its actual replica inherit threshold 7 and cap 7
+PASS Rabbit direct hit 1 resolves for threshold 7 and maximum 7
+PASS Rabbit direct hit 2 resolves for threshold 7 and maximum 7
+PASS Rabbit direct hit 3 resolves for threshold 7 and maximum 7
+PASS Rabbit direct hit 4 resolves for threshold 7 and maximum 7
+PASS Rabbit direct hit 5 resolves for threshold 7 and maximum 7
+PASS Rabbit direct hit 6 resolves for threshold 7 and maximum 7
+PASS Rabbit waits for all 7 hits before reproducing with maximum 7
+PASS Final direct hit resolves for threshold 7 and maximum 7
+PASS Parent and its actual replica inherit threshold 7 and cap 7
+PASS Optional rabbit still unlocks through its real upgrade offer and grants two projectiles
+PASS Rabbit's free breeding levels do not carry into a different location
+PASS Rabbit upgrades use the authored gameplay HUD
+PASS Rabbit upgrade HUD contains the three authored card objects
+PASS Optional rabbit offers pack strength, maximum threshold and first reproduction without a quantity branch
+PASS Rabbit ultimate waits for all three talent branches
+PASS Real player launch starts at 5 hits with reproduction maximum 10
+PASS Rabbit direct hit 1 resolves for threshold 5 and maximum 10
+PASS Rabbit direct hit 2 resolves for threshold 5 and maximum 10
+PASS Rabbit direct hit 3 resolves for threshold 5 and maximum 10
+PASS Rabbit direct hit 4 resolves for threshold 5 and maximum 10
+PASS Rabbit waits for all 5 hits before reproducing with maximum 10
+PASS Final direct hit resolves for threshold 5 and maximum 10
+PASS Parent and its actual replica inherit threshold 6 and cap 10
+PASS Rabbit direct hit 1 resolves for threshold 6 and maximum 10
+PASS Rabbit direct hit 2 resolves for threshold 6 and maximum 10
+PASS Rabbit direct hit 3 resolves for threshold 6 and maximum 10
+PASS Rabbit direct hit 4 resolves for threshold 6 and maximum 10
+PASS Rabbit direct hit 5 resolves for threshold 6 and maximum 10
+PASS Rabbit waits for all 6 hits before reproducing with maximum 10
+PASS Final direct hit resolves for threshold 6 and maximum 10
+PASS Parent and its actual replica inherit threshold 7 and cap 10
+PASS Rabbit direct hit 1 resolves for threshold 7 and maximum 10
+PASS Rabbit direct hit 2 resolves for threshold 7 and maximum 10
+PASS Rabbit direct hit 3 resolves for threshold 7 and maximum 10
+PASS Rabbit direct hit 4 resolves for threshold 7 and maximum 10
+PASS Rabbit direct hit 5 resolves for threshold 7 and maximum 10
+PASS Rabbit direct hit 6 resolves for threshold 7 and maximum 10
+PASS Rabbit waits for all 7 hits before reproducing with maximum 10
+PASS Final direct hit resolves for threshold 7 and maximum 10
+PASS Parent and its actual replica inherit threshold 8 and cap 10
+PASS Rabbit direct hit 1 resolves for threshold 8 and maximum 10
+PASS Rabbit direct hit 2 resolves for threshold 8 and maximum 10
+PASS Rabbit direct hit 3 resolves for threshold 8 and maximum 10
+PASS Rabbit direct hit 4 resolves for threshold 8 and maximum 10
+PASS Rabbit direct hit 5 resolves for threshold 8 and maximum 10
+PASS Rabbit direct hit 6 resolves for threshold 8 and maximum 10
+PASS Rabbit direct hit 7 resolves for threshold 8 and maximum 10
+PASS Rabbit waits for all 8 hits before reproducing with maximum 10
+PASS Final direct hit resolves for threshold 8 and maximum 10
+PASS Parent and its actual replica inherit threshold 9 and cap 10
+PASS Rabbit direct hit 1 resolves for threshold 9 and maximum 10
+PASS Rabbit direct hit 2 resolves for threshold 9 and maximum 10
+PASS Rabbit direct hit 3 resolves for threshold 9 and maximum 10
+PASS Rabbit direct hit 4 resolves for threshold 9 and maximum 10
+PASS Rabbit direct hit 5 resolves for threshold 9 and maximum 10
+PASS Rabbit direct hit 6 resolves for threshold 9 and maximum 10
+PASS Rabbit direct hit 7 resolves for threshold 9 and maximum 10
+PASS Rabbit direct hit 8 resolves for threshold 9 and maximum 10
+PASS Rabbit waits for all 9 hits before reproducing with maximum 10
+PASS Final direct hit resolves for threshold 9 and maximum 10
+PASS Parent and its actual replica inherit threshold 10 and cap 10
+PASS Rabbit direct hit 1 resolves for threshold 10 and maximum 10
+PASS Rabbit direct hit 2 resolves for threshold 10 and maximum 10
+PASS Rabbit direct hit 3 resolves for threshold 10 and maximum 10
+PASS Rabbit direct hit 4 resolves for threshold 10 and maximum 10
+PASS Rabbit direct hit 5 resolves for threshold 10 and maximum 10
+PASS Rabbit direct hit 6 resolves for threshold 10 and maximum 10
+PASS Rabbit direct hit 7 resolves for threshold 10 and maximum 10
+PASS Rabbit direct hit 8 resolves for threshold 10 and maximum 10
+PASS Rabbit direct hit 9 resolves for threshold 10 and maximum 10
+PASS Rabbit waits for all 10 hits before reproducing with maximum 10
+PASS Final direct hit resolves for threshold 10 and maximum 10
+PASS Parent and its actual replica inherit threshold 10 and cap 10
+PASS Game opens the rabbit breeding card at rank 1
+PASS Visible breeding card reduces the maximum from 10 to 9
+PASS Choosing breeding rank 1 reduces only the maximum and closes the choice
+PASS Pause summary shows the actual reproduction maximum of 9
+PASS Real player launch starts at 5 hits with reproduction maximum 9
+PASS Rabbit direct hit 1 resolves for threshold 5 and maximum 9
+PASS Rabbit direct hit 2 resolves for threshold 5 and maximum 9
+PASS Rabbit direct hit 3 resolves for threshold 5 and maximum 9
+PASS Rabbit direct hit 4 resolves for threshold 5 and maximum 9
+PASS Rabbit waits for all 5 hits before reproducing with maximum 9
+PASS Final direct hit resolves for threshold 5 and maximum 9
+PASS Parent and its actual replica inherit threshold 6 and cap 9
+PASS Rabbit direct hit 1 resolves for threshold 6 and maximum 9
+PASS Rabbit direct hit 2 resolves for threshold 6 and maximum 9
+PASS Rabbit direct hit 3 resolves for threshold 6 and maximum 9
+PASS Rabbit direct hit 4 resolves for threshold 6 and maximum 9
+PASS Rabbit direct hit 5 resolves for threshold 6 and maximum 9
+PASS Rabbit waits for all 6 hits before reproducing with maximum 9
+PASS Final direct hit resolves for threshold 6 and maximum 9
+PASS Parent and its actual replica inherit threshold 7 and cap 9
+PASS Rabbit direct hit 1 resolves for threshold 7 and maximum 9
+PASS Rabbit direct hit 2 resolves for threshold 7 and maximum 9
+PASS Rabbit direct hit 3 resolves for threshold 7 and maximum 9
+PASS Rabbit direct hit 4 resolves for threshold 7 and maximum 9
+PASS Rabbit direct hit 5 resolves for threshold 7 and maximum 9
+PASS Rabbit direct hit 6 resolves for threshold 7 and maximum 9
+PASS Rabbit waits for all 7 hits before reproducing with maximum 9
+PASS Final direct hit resolves for threshold 7 and maximum 9
+PASS Parent and its actual replica inherit threshold 8 and cap 9
+PASS Rabbit direct hit 1 resolves for threshold 8 and maximum 9
+PASS Rabbit direct hit 2 resolves for threshold 8 and maximum 9
+PASS Rabbit direct hit 3 resolves for threshold 8 and maximum 9
+PASS Rabbit direct hit 4 resolves for threshold 8 and maximum 9
+PASS Rabbit direct hit 5 resolves for threshold 8 and maximum 9
+PASS Rabbit direct hit 6 resolves for threshold 8 and maximum 9
+PASS Rabbit direct hit 7 resolves for threshold 8 and maximum 9
+PASS Rabbit waits for all 8 hits before reproducing with maximum 9
+PASS Final direct hit resolves for threshold 8 and maximum 9
+PASS Parent and its actual replica inherit threshold 9 and cap 9
+PASS Rabbit direct hit 1 resolves for threshold 9 and maximum 9
+PASS Rabbit direct hit 2 resolves for threshold 9 and maximum 9
+PASS Rabbit direct hit 3 resolves for threshold 9 and maximum 9
+PASS Rabbit direct hit 4 resolves for threshold 9 and maximum 9
+PASS Rabbit direct hit 5 resolves for threshold 9 and maximum 9
+PASS Rabbit direct hit 6 resolves for threshold 9 and maximum 9
+PASS Rabbit direct hit 7 resolves for threshold 9 and maximum 9
+PASS Rabbit direct hit 8 resolves for threshold 9 and maximum 9
+PASS Rabbit waits for all 9 hits before reproducing with maximum 9
+PASS Final direct hit resolves for threshold 9 and maximum 9
+PASS Parent and its actual replica inherit threshold 9 and cap 9
+PASS Rabbit ultimate waits until pack strength also completes at rank 1
+PASS Rabbit pack skill remains selectable at rank 1
+PASS Game opens the rabbit breeding card at rank 2
+PASS Visible breeding card reduces the maximum from 9 to 8
+PASS Choosing breeding rank 2 reduces only the maximum and closes the choice
+PASS Pause summary shows the actual reproduction maximum of 8
+PASS Real player launch starts at 5 hits with reproduction maximum 8
+PASS Rabbit direct hit 1 resolves for threshold 5 and maximum 8
+PASS Rabbit direct hit 2 resolves for threshold 5 and maximum 8
+PASS Rabbit direct hit 3 resolves for threshold 5 and maximum 8
+PASS Rabbit direct hit 4 resolves for threshold 5 and maximum 8
+PASS Rabbit waits for all 5 hits before reproducing with maximum 8
+PASS Final direct hit resolves for threshold 5 and maximum 8
+PASS Parent and its actual replica inherit threshold 6 and cap 8
+PASS Rabbit direct hit 1 resolves for threshold 6 and maximum 8
+PASS Rabbit direct hit 2 resolves for threshold 6 and maximum 8
+PASS Rabbit direct hit 3 resolves for threshold 6 and maximum 8
+PASS Rabbit direct hit 4 resolves for threshold 6 and maximum 8
+PASS Rabbit direct hit 5 resolves for threshold 6 and maximum 8
+PASS Rabbit waits for all 6 hits before reproducing with maximum 8
+PASS Final direct hit resolves for threshold 6 and maximum 8
+PASS Parent and its actual replica inherit threshold 7 and cap 8
+PASS Rabbit direct hit 1 resolves for threshold 7 and maximum 8
+PASS Rabbit direct hit 2 resolves for threshold 7 and maximum 8
+PASS Rabbit direct hit 3 resolves for threshold 7 and maximum 8
+PASS Rabbit direct hit 4 resolves for threshold 7 and maximum 8
+PASS Rabbit direct hit 5 resolves for threshold 7 and maximum 8
+PASS Rabbit direct hit 6 resolves for threshold 7 and maximum 8
+PASS Rabbit waits for all 7 hits before reproducing with maximum 8
+PASS Final direct hit resolves for threshold 7 and maximum 8
+PASS Parent and its actual replica inherit threshold 8 and cap 8
+PASS Rabbit direct hit 1 resolves for threshold 8 and maximum 8
+PASS Rabbit direct hit 2 resolves for threshold 8 and maximum 8
+PASS Rabbit direct hit 3 resolves for threshold 8 and maximum 8
+PASS Rabbit direct hit 4 resolves for threshold 8 and maximum 8
+PASS Rabbit direct hit 5 resolves for threshold 8 and maximum 8
+PASS Rabbit direct hit 6 resolves for threshold 8 and maximum 8
+PASS Rabbit direct hit 7 resolves for threshold 8 and maximum 8
+PASS Rabbit waits for all 8 hits before reproducing with maximum 8
+PASS Final direct hit resolves for threshold 8 and maximum 8
+PASS Parent and its actual replica inherit threshold 8 and cap 8
+PASS Rabbit ultimate waits until pack strength also completes at rank 2
+PASS Rabbit pack skill remains selectable at rank 2
+PASS Game opens the rabbit breeding card at rank 3
+PASS Visible breeding card reduces the maximum from 8 to 7
+PASS Choosing breeding rank 3 reduces only the maximum and closes the choice
+PASS Pause summary shows the actual reproduction maximum of 7
+PASS Real player launch starts at 5 hits with reproduction maximum 7
+PASS Rabbit direct hit 1 resolves for threshold 5 and maximum 7
+PASS Rabbit direct hit 2 resolves for threshold 5 and maximum 7
+PASS Rabbit direct hit 3 resolves for threshold 5 and maximum 7
+PASS Rabbit direct hit 4 resolves for threshold 5 and maximum 7
+PASS Rabbit waits for all 5 hits before reproducing with maximum 7
+PASS Final direct hit resolves for threshold 5 and maximum 7
+PASS Parent and its actual replica inherit threshold 6 and cap 7
+PASS Rabbit direct hit 1 resolves for threshold 6 and maximum 7
+PASS Rabbit direct hit 2 resolves for threshold 6 and maximum 7
+PASS Rabbit direct hit 3 resolves for threshold 6 and maximum 7
+PASS Rabbit direct hit 4 resolves for threshold 6 and maximum 7
+PASS Rabbit direct hit 5 resolves for threshold 6 and maximum 7
+PASS Rabbit waits for all 6 hits before reproducing with maximum 7
+PASS Final direct hit resolves for threshold 6 and maximum 7
+PASS Parent and its actual replica inherit threshold 7 and cap 7
+PASS Rabbit direct hit 1 resolves for threshold 7 and maximum 7
+PASS Rabbit direct hit 2 resolves for threshold 7 and maximum 7
+PASS Rabbit direct hit 3 resolves for threshold 7 and maximum 7
+PASS Rabbit direct hit 4 resolves for threshold 7 and maximum 7
+PASS Rabbit direct hit 5 resolves for threshold 7 and maximum 7
+PASS Rabbit direct hit 6 resolves for threshold 7 and maximum 7
+PASS Rabbit waits for all 7 hits before reproducing with maximum 7
+PASS Final direct hit resolves for threshold 7 and maximum 7
+PASS Parent and its actual replica inherit threshold 7 and cap 7
+PASS Rabbit ultimate waits until pack strength also completes at rank 3
+PASS Rabbit pack skill remains selectable at rank 3
+PASS Breeding branch stops at seven hits after three improvements
+PASS Completed pack and maximum branches cannot unlock the ultimate without first reproduction
+PASS Game opens the first-reproduction card at rank 1
+PASS Visible first-reproduction card reduces the initial threshold to 4
+PASS First-reproduction rank 1 reduces its own threshold independently and closes its card
+PASS Pause summary shows first-reproduction rank 1
+PASS Real player launch starts at 4 hits with reproduction maximum 7
+PASS Rabbit direct hit 1 resolves for threshold 4 and maximum 7
+PASS Rabbit direct hit 2 resolves for threshold 4 and maximum 7
+PASS Rabbit direct hit 3 resolves for threshold 4 and maximum 7
+PASS Rabbit waits for all 4 hits before reproducing with maximum 7
+PASS Final direct hit resolves for threshold 4 and maximum 7
+PASS Parent and its actual replica inherit threshold 5 and cap 7
+PASS Rabbit direct hit 1 resolves for threshold 5 and maximum 7
+PASS Rabbit direct hit 2 resolves for threshold 5 and maximum 7
+PASS Rabbit direct hit 3 resolves for threshold 5 and maximum 7
+PASS Rabbit direct hit 4 resolves for threshold 5 and maximum 7
+PASS Rabbit waits for all 5 hits before reproducing with maximum 7
+PASS Final direct hit resolves for threshold 5 and maximum 7
+PASS Parent and its actual replica inherit threshold 6 and cap 7
+PASS Rabbit direct hit 1 resolves for threshold 6 and maximum 7
+PASS Rabbit direct hit 2 resolves for threshold 6 and maximum 7
+PASS Rabbit direct hit 3 resolves for threshold 6 and maximum 7
+PASS Rabbit direct hit 4 resolves for threshold 6 and maximum 7
+PASS Rabbit direct hit 5 resolves for threshold 6 and maximum 7
+PASS Rabbit waits for all 6 hits before reproducing with maximum 7
+PASS Final direct hit resolves for threshold 6 and maximum 7
+PASS Parent and its actual replica inherit threshold 7 and cap 7
+PASS Rabbit direct hit 1 resolves for threshold 7 and maximum 7
+PASS Rabbit direct hit 2 resolves for threshold 7 and maximum 7
+PASS Rabbit direct hit 3 resolves for threshold 7 and maximum 7
+PASS Rabbit direct hit 4 resolves for threshold 7 and maximum 7
+PASS Rabbit direct hit 5 resolves for threshold 7 and maximum 7
+PASS Rabbit direct hit 6 resolves for threshold 7 and maximum 7
+PASS Rabbit waits for all 7 hits before reproducing with maximum 7
+PASS Final direct hit resolves for threshold 7 and maximum 7
+PASS Parent and its actual replica inherit threshold 7 and cap 7
+PASS Ultimate remains locked until the third talent reaches rank three
+PASS Game opens the first-reproduction card at rank 2
+PASS Visible first-reproduction card reduces the initial threshold to 3
+PASS First-reproduction rank 2 reduces its own threshold independently and closes its card
+PASS Pause summary shows first-reproduction rank 2
+PASS Real player launch starts at 3 hits with reproduction maximum 7
+PASS Rabbit direct hit 1 resolves for threshold 3 and maximum 7
+PASS Rabbit direct hit 2 resolves for threshold 3 and maximum 7
+PASS Rabbit waits for all 3 hits before reproducing with maximum 7
+PASS Final direct hit resolves for threshold 3 and maximum 7
+PASS Parent and its actual replica inherit threshold 4 and cap 7
+PASS Rabbit direct hit 1 resolves for threshold 4 and maximum 7
+PASS Rabbit direct hit 2 resolves for threshold 4 and maximum 7
+PASS Rabbit direct hit 3 resolves for threshold 4 and maximum 7
+PASS Rabbit waits for all 4 hits before reproducing with maximum 7
+PASS Final direct hit resolves for threshold 4 and maximum 7
+PASS Parent and its actual replica inherit threshold 5 and cap 7
+PASS Rabbit direct hit 1 resolves for threshold 5 and maximum 7
+PASS Rabbit direct hit 2 resolves for threshold 5 and maximum 7
+PASS Rabbit direct hit 3 resolves for threshold 5 and maximum 7
+PASS Rabbit direct hit 4 resolves for threshold 5 and maximum 7
+PASS Rabbit waits for all 5 hits before reproducing with maximum 7
+PASS Final direct hit resolves for threshold 5 and maximum 7
+PASS Parent and its actual replica inherit threshold 6 and cap 7
+PASS Rabbit direct hit 1 resolves for threshold 6 and maximum 7
+PASS Rabbit direct hit 2 resolves for threshold 6 and maximum 7
+PASS Rabbit direct hit 3 resolves for threshold 6 and maximum 7
+PASS Rabbit direct hit 4 resolves for threshold 6 and maximum 7
+PASS Rabbit direct hit 5 resolves for threshold 6 and maximum 7
+PASS Rabbit waits for all 6 hits before reproducing with maximum 7
+PASS Final direct hit resolves for threshold 6 and maximum 7
+PASS Parent and its actual replica inherit threshold 7 and cap 7
+PASS Rabbit direct hit 1 resolves for threshold 7 and maximum 7
+PASS Rabbit direct hit 2 resolves for threshold 7 and maximum 7
+PASS Rabbit direct hit 3 resolves for threshold 7 and maximum 7
+PASS Rabbit direct hit 4 resolves for threshold 7 and maximum 7
+PASS Rabbit direct hit 5 resolves for threshold 7 and maximum 7
+PASS Rabbit direct hit 6 resolves for threshold 7 and maximum 7
+PASS Rabbit waits for all 7 hits before reproducing with maximum 7
+PASS Final direct hit resolves for threshold 7 and maximum 7
+PASS Parent and its actual replica inherit threshold 7 and cap 7
+PASS Ultimate remains locked until the third talent reaches rank three
+PASS Game opens the first-reproduction card at rank 3
+PASS Visible first-reproduction card reduces the initial threshold to 2
+PASS First-reproduction rank 3 reduces its own threshold independently and closes its card
+PASS Pause summary shows first-reproduction rank 3
+PASS Real player launch starts at 2 hits with reproduction maximum 7
+PASS Rabbit direct hit 1 resolves for threshold 2 and maximum 7
+PASS Rabbit waits for all 2 hits before reproducing with maximum 7
+PASS Final direct hit resolves for threshold 2 and maximum 7
+PASS Parent and its actual replica inherit threshold 3 and cap 7
+PASS Rabbit direct hit 1 resolves for threshold 3 and maximum 7
+PASS Rabbit direct hit 2 resolves for threshold 3 and maximum 7
+PASS Rabbit waits for all 3 hits before reproducing with maximum 7
+PASS Final direct hit resolves for threshold 3 and maximum 7
+PASS Parent and its actual replica inherit threshold 4 and cap 7
+PASS Rabbit direct hit 1 resolves for threshold 4 and maximum 7
+PASS Rabbit direct hit 2 resolves for threshold 4 and maximum 7
+PASS Rabbit direct hit 3 resolves for threshold 4 and maximum 7
+PASS Rabbit waits for all 4 hits before reproducing with maximum 7
+PASS Final direct hit resolves for threshold 4 and maximum 7
+PASS Parent and its actual replica inherit threshold 5 and cap 7
+PASS Rabbit direct hit 1 resolves for threshold 5 and maximum 7
+PASS Rabbit direct hit 2 resolves for threshold 5 and maximum 7
+PASS Rabbit direct hit 3 resolves for threshold 5 and maximum 7
+PASS Rabbit direct hit 4 resolves for threshold 5 and maximum 7
+PASS Rabbit waits for all 5 hits before reproducing with maximum 7
+PASS Final direct hit resolves for threshold 5 and maximum 7
+PASS Parent and its actual replica inherit threshold 6 and cap 7
+PASS Rabbit direct hit 1 resolves for threshold 6 and maximum 7
+PASS Rabbit direct hit 2 resolves for threshold 6 and maximum 7
+PASS Rabbit direct hit 3 resolves for threshold 6 and maximum 7
+PASS Rabbit direct hit 4 resolves for threshold 6 and maximum 7
+PASS Rabbit direct hit 5 resolves for threshold 6 and maximum 7
+PASS Rabbit waits for all 6 hits before reproducing with maximum 7
+PASS Final direct hit resolves for threshold 6 and maximum 7
+PASS Parent and its actual replica inherit threshold 7 and cap 7
+PASS Rabbit direct hit 1 resolves for threshold 7 and maximum 7
+PASS Rabbit direct hit 2 resolves for threshold 7 and maximum 7
+PASS Rabbit direct hit 3 resolves for threshold 7 and maximum 7
+PASS Rabbit direct hit 4 resolves for threshold 7 and maximum 7
+PASS Rabbit direct hit 5 resolves for threshold 7 and maximum 7
+PASS Rabbit direct hit 6 resolves for threshold 7 and maximum 7
+PASS Rabbit waits for all 7 hits before reproducing with maximum 7
+PASS Final direct hit resolves for threshold 7 and maximum 7
+PASS Parent and its actual replica inherit threshold 7 and cap 7
+PASS First-reproduction branch caps at two hits after three improvements
+PASS Optional rabbit keeps two projectiles and cannot purchase a quantity offer
+PASS Forcing a removed quantity kind does not create a rabbit quantity offer
+PASS Rabbit ultimate card opens only after all three talents are completed
+PASS Authored HUD offers the rabbit ultimate
+PASS Choosing the ultimate closes its card and retains the initial pair of rabbits
+PASS Rabbit offers preserve the authored card objects
+PASS Optional rabbit pause summary includes its unlock, three talent branches and ultimate
+PASS Optional rabbit has no quantity offers after unlocking
+PASS Firefly has a fixed five-projectile volley without quantity upgrades
+PASS Firefly quantity branch is absent from its pause summary
+PASS Forcing a removed quantity kind cannot create a firefly quantity card
+PASS Firefly ultimate waits for repeat fire and burn
+PASS Firefly's two remaining branches accept rank 1
+PASS Firefly's two remaining branches accept rank 2
+PASS Firefly's two remaining branches accept rank 3
+PASS Firefly ultimate opens after two branches with no quantity prerequisite
+PASS New run resets first reproduction while preserving the starter's assigned maximum talent
+PASS Starter rabbit can improve its first-reproduction talent at rank 1
+PASS Starter rabbit can improve its first-reproduction talent at rank 2
+PASS Starter rabbit can improve its first-reproduction talent at rank 3
+PASS Completed maximum and first-reproduction talents still require pack strength for the ultimate
+PASS Fresh optional rabbit starts with all three talents untrained
+PASS Optional rabbit improves first reproduction and pack strength independently at rank 1
+PASS Optional rabbit improves first reproduction and pack strength independently at rank 2
+PASS Optional rabbit improves first reproduction and pack strength independently at rank 3
+PASS Completed pack and first-reproduction talents still require maximum breeding for the ultimate
+PASS Real player launch starts at 2 hits with reproduction maximum 10
+PASS Rabbit direct hit 1 resolves for threshold 2 and maximum 10
+PASS Rabbit waits for all 2 hits before reproducing with maximum 10
+PASS Final direct hit resolves for threshold 2 and maximum 10
+PASS Parent and its actual replica inherit threshold 3 and cap 10
+PASS Rabbit direct hit 1 resolves for threshold 3 and maximum 10
+PASS Rabbit direct hit 2 resolves for threshold 3 and maximum 10
+PASS Rabbit waits for all 3 hits before reproducing with maximum 10
+PASS Final direct hit resolves for threshold 3 and maximum 10
+PASS Parent and its actual replica inherit threshold 4 and cap 10
+PASS Rabbit direct hit 1 resolves for threshold 4 and maximum 10
+PASS Rabbit direct hit 2 resolves for threshold 4 and maximum 10
+PASS Rabbit direct hit 3 resolves for threshold 4 and maximum 10
+PASS Rabbit waits for all 4 hits before reproducing with maximum 10
+PASS Final direct hit resolves for threshold 4 and maximum 10
+PASS Parent and its actual replica inherit threshold 5 and cap 10
+PASS Rabbit direct hit 1 resolves for threshold 5 and maximum 10
+PASS Rabbit direct hit 2 resolves for threshold 5 and maximum 10
+PASS Rabbit direct hit 3 resolves for threshold 5 and maximum 10
+PASS Rabbit direct hit 4 resolves for threshold 5 and maximum 10
+PASS Rabbit waits for all 5 hits before reproducing with maximum 10
+PASS Final direct hit resolves for threshold 5 and maximum 10
+PASS Parent and its actual replica inherit threshold 6 and cap 10
+PASS Rabbit direct hit 1 resolves for threshold 6 and maximum 10
+PASS Rabbit direct hit 2 resolves for threshold 6 and maximum 10
+PASS Rabbit direct hit 3 resolves for threshold 6 and maximum 10
+PASS Rabbit direct hit 4 resolves for threshold 6 and maximum 10
+PASS Rabbit direct hit 5 resolves for threshold 6 and maximum 10
+PASS Rabbit waits for all 6 hits before reproducing with maximum 10
+PASS Final direct hit resolves for threshold 6 and maximum 10
+PASS Parent and its actual replica inherit threshold 7 and cap 10
+PASS Rabbit direct hit 1 resolves for threshold 7 and maximum 10
+PASS Rabbit direct hit 2 resolves for threshold 7 and maximum 10
+PASS Rabbit direct hit 3 resolves for threshold 7 and maximum 10
+PASS Rabbit direct hit 4 resolves for threshold 7 and maximum 10
+PASS Rabbit direct hit 5 resolves for threshold 7 and maximum 10
+PASS Rabbit direct hit 6 resolves for threshold 7 and maximum 10
+PASS Rabbit waits for all 7 hits before reproducing with maximum 10
+PASS Final direct hit resolves for threshold 7 and maximum 10
+PASS Parent and its actual replica inherit threshold 8 and cap 10
+PASS Rabbit direct hit 1 resolves for threshold 8 and maximum 10
+PASS Rabbit direct hit 2 resolves for threshold 8 and maximum 10
+PASS Rabbit direct hit 3 resolves for threshold 8 and maximum 10
+PASS Rabbit direct hit 4 resolves for threshold 8 and maximum 10
+PASS Rabbit direct hit 5 resolves for threshold 8 and maximum 10
+PASS Rabbit direct hit 6 resolves for threshold 8 and maximum 10
+PASS Rabbit direct hit 7 resolves for threshold 8 and maximum 10
+PASS Rabbit waits for all 8 hits before reproducing with maximum 10
+PASS Final direct hit resolves for threshold 8 and maximum 10
+PASS Parent and its actual replica inherit threshold 9 and cap 10
+PASS Rabbit direct hit 1 resolves for threshold 9 and maximum 10
+PASS Rabbit direct hit 2 resolves for threshold 9 and maximum 10
+PASS Rabbit direct hit 3 resolves for threshold 9 and maximum 10
+PASS Rabbit direct hit 4 resolves for threshold 9 and maximum 10
+PASS Rabbit direct hit 5 resolves for threshold 9 and maximum 10
+PASS Rabbit direct hit 6 resolves for threshold 9 and maximum 10
+PASS Rabbit direct hit 7 resolves for threshold 9 and maximum 10
+PASS Rabbit direct hit 8 resolves for threshold 9 and maximum 10
+PASS Rabbit waits for all 9 hits before reproducing with maximum 10
+PASS Final direct hit resolves for threshold 9 and maximum 10
+PASS Parent and its actual replica inherit threshold 10 and cap 10
+PASS Rabbit direct hit 1 resolves for threshold 10 and maximum 10
+PASS Rabbit direct hit 2 resolves for threshold 10 and maximum 10
+PASS Rabbit direct hit 3 resolves for threshold 10 and maximum 10
+PASS Rabbit direct hit 4 resolves for threshold 10 and maximum 10
+PASS Rabbit direct hit 5 resolves for threshold 10 and maximum 10
+PASS Rabbit direct hit 6 resolves for threshold 10 and maximum 10
+PASS Rabbit direct hit 7 resolves for threshold 10 and maximum 10
+PASS Rabbit direct hit 8 resolves for threshold 10 and maximum 10
+PASS Rabbit direct hit 9 resolves for threshold 10 and maximum 10
+PASS Rabbit waits for all 10 hits before reproducing with maximum 10
+PASS Final direct hit resolves for threshold 10 and maximum 10
+PASS Parent and its actual replica inherit threshold 10 and cap 10
+PASS Beaver keeps the halved base and upgrade damage
+LOCATION_STARTERS_PASSED

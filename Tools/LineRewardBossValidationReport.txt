@@ -1,0 +1,206 @@
+PASS: 11 targeted line-reward model checks.
+NOTE: The pre-existing full DefenseFrontTests suite fails at "All ready cohorts on one passage merge instead of bypassing each other". Its pressure implementation and pressure test are unchanged by this task.
+
+LineRewardBossValidation.txt
+PASS: All test lines start without clear bonuses
+PASS: Line 2 boss has ordinary base HP × 100
+PASS: Reactivation on another line does not multiply boss HP again
+PASS: Line 3 boss has ordinary base HP × 150
+PASS: Reactivation on another line does not multiply boss HP again
+PASS: Line 4 boss has ordinary base HP × 200
+PASS: Reactivation on another line does not multiply boss HP again
+PASS: Drowned heirs retain one quarter of parent HP even on another line
+PASS: Room 1 completed its five waves
+PASS: A cleared side room grants no bonus level
+PASS: Room 2 completed its five waves
+PASS: A second cleared room still grants no line bonus
+PASS: Room 3 completed its five waves
+PASS: Completing line two grants one level and preserves XP and its price
+PASS: Repeated refreshes, duplicate callbacks and invalid lines grant no extra level
+PASS: Recapturing the line cannot farm another level
+PASS: Kill XP continues granting its normal upgrades
+PASS: Room 4 completed its five waves
+PASS: Room 5 completed its five waves
+PASS: Room 6 completed its five waves
+PASS: Room 7 completed its five waves
+PASS: Four cleared rooms and an unfinished fifth wave do not reward line three
+PASS: The final fifth wave completes line three exactly once
+PASS: Room 0 completed its five waves
+PASS: Line one grants its one bonus while line four is still active
+PASS: Room 9 completed its five waves
+PASS: Room 10 completed its five waves
+PASS: Room 11 completed its five waves
+PASS: Room 12 completed its five waves
+PASS: Room 13 completed its five waves
+PASS: Room 14 completed its five waves
+PASS: Room 15 completed its five waves
+PASS: The whole battle grants four line bonuses plus the one earned XP upgrade
+PASS: The final line bonus cannot block campaign victory with an upgrade window
+RESULT: PASS (34 checks)
+
+
+ExperienceEconomyValidation.txt
+PASS Gameplay scene starts the first upgrade at 30 XP
+PASS A threshold-crossing final kill and its line clear grant two queued levels while preserving excess XP
+PASS A duplicate line reward does not grant another level
+PASS A quiet final campaign line finishes without an upgrade choice
+PASS Earlier lines, active threats and survival retain normal upgrade flow
+PASS New experience economies use the 30 XP default
+PASS 29 XP does not unlock the first upgrade
+PASS The first upgrade consumes 30 XP and raises the next price to 34
+PASS 33 XP does not unlock the second upgrade
+PASS The second upgrade consumes 34 XP and raises the next price to 38
+PASS Large rewards correctly cross the 38 and 42 XP thresholds
+PASS Experience can remain just below the next threshold
+PASS A guaranteed line-clear level preserves XP and its threshold
+PASS basic enemy awards 10 XP
+PASS zombie awards 20 XP
+PASS armored skeleton awards 20 XP
+PASS ordinary Lich awards 30 XP
+PASS Lich boss awards 80 XP
+PASS mini-boss awards 100 XP
+PASS final boss awards 200 XP
+PASS Ghostly Sorrow boss awards 200 XP
+PASS Poisonous Gloom boss awards 200 XP
+PASS Drowned mini-boss awards 35 XP
+PASS: 23 experience economy checks.
+
+
+EnemyHealthTableValidation.txt
+PASS: Saved menu keeps six authored equipment slots
+PASS: Saved menu keeps the complete village layout
+PASS: Authored boss health rule: Самозванец
+PASS: Authored boss health rule: Трёхпечатный идол
+PASS: Authored boss health rule: Колокольщик
+PASS: Authored boss health rule: Пожиратель залпа
+PASS: Authored boss health rule: Колокольщик
+PASS: Authored boss health rule: Колокольщик
+PASS: Authored boss health rule: Зелёный судья
+PASS: Authored boss health rule: Костяной эльф
+PASS: Authored boss health rule: Улей-дупло
+PASS: Authored boss health rule: Лич-хранитель
+PASS: Authored boss health rule: Пожиратель залпа
+PASS: Authored boss health rule: Колокольщик
+PASS: Authored boss health rule: Костяной эльф
+PASS: Authored boss health rule: Костяной эльф
+PASS: Authored boss health rule: Утопленник
+PASS: Authored boss health rule: Зелёный судья
+PASS: Authored boss health rule: Узловик
+PASS: Authored boss health rule: Мираж
+PASS: Authored boss health rule: Трёхпечатный идол
+PASS: Authored boss health rule: Призрачная скорбь
+PASS: Authored boss health rule: Узловик
+PASS: Authored boss health rule: Костяной эльф — мини-босс
+PASS: Authored boss health rule: Самозванец
+PASS: Authored boss health rule: Ядовитый мрак
+PASS: Authored boss health rule: Самозванец
+PASS: Authored boss health rule: Призрачная скорбь
+PASS: Authored boss health rule: Утопленник
+PASS: Authored boss health rule: Узловик
+PASS: Authored boss health rule: Трёхпечатный идол
+PASS: Authored boss health rule: Ядовитый мрак
+PASS: Authored boss health rule: Костяной эльф
+PASS: Authored boss health rule: Костяной эльф — мини-босс
+PASS: Authored boss health rule: Костяной эльф
+PASS: All current boss health rules are represented in the saved menu
+PASS: Validation leaves the authored menu file unchanged
+RESULT: PASS (37 checks)
+
+
+FiveWaveCampaignValidation.txt
+PASS: Campaign starts with only line one open
+PASS: Authored line interval is five completed enemy turns
+PASS: The first wave first exceeds 1000 base HP at level twenty
+PASS: Percentage HP growth diminishes at level 2
+PASS: Percentage HP growth diminishes at level 3
+PASS: Percentage HP growth diminishes at level 4
+PASS: Percentage HP growth diminishes at level 5
+PASS: Percentage HP growth diminishes at level 6
+PASS: Percentage HP growth diminishes at level 7
+PASS: Percentage HP growth diminishes at level 8
+PASS: Percentage HP growth diminishes at level 9
+PASS: Percentage HP growth diminishes at level 10
+PASS: Percentage HP growth diminishes at level 11
+PASS: Percentage HP growth diminishes at level 12
+PASS: Percentage HP growth diminishes at level 13
+PASS: Percentage HP growth diminishes at level 14
+PASS: Percentage HP growth diminishes at level 15
+PASS: Percentage HP growth diminishes at level 16
+PASS: Percentage HP growth diminishes at level 17
+PASS: Percentage HP growth diminishes at level 18
+PASS: Percentage HP growth diminishes at level 19
+PASS: Percentage HP growth diminishes at level 20
+PASS: Percentage HP growth diminishes at level 21
+PASS: Percentage HP growth diminishes at level 22
+PASS: Percentage HP growth diminishes at level 23
+PASS: Percentage HP growth diminishes at level 24
+PASS: Percentage HP growth diminishes at level 25
+PASS: Percentage HP growth diminishes at level 26
+PASS: Percentage HP growth diminishes at level 27
+PASS: Percentage HP growth diminishes at level 28
+PASS: Percentage HP growth diminishes at level 29
+PASS: Percentage HP growth diminishes at level 30
+PASS: First room starts with four remaining waves
+PASS: Actual level-twenty ordinary enemies match the approved HP table
+PASS: Line 2 remains locked before turn 5
+PASS: Enemy turn 5 opens line 2
+PASS: Line 2 opens while line one still contains enemies
+PASS: Opening line 2 preserves the selected room
+PASS: Room 2-1 opens on wave one and does not move or spawn twice
+PASS: Room 2-2 opens on wave one and does not move or spawn twice
+PASS: Room 2-3 opens on wave one and does not move or spawn twice
+PASS: Line 3 remains locked before turn 10
+PASS: Enemy turn 10 opens line 3
+PASS: Line 3 opens while line one still contains enemies
+PASS: Opening line 3 preserves the selected room
+PASS: Room 3-1 opens on wave one and does not move or spawn twice
+PASS: Room 3-2 opens on wave one and does not move or spawn twice
+PASS: Room 3-3 opens on wave one and does not move or spawn twice
+PASS: Room 3-4 opens on wave one and does not move or spawn twice
+PASS: Room 3-5 opens on wave one and does not move or spawn twice
+PASS: Line 4 remains locked before turn 15
+PASS: Enemy turn 15 opens line 4
+PASS: Line 4 opens while line one still contains enemies
+PASS: Opening line 4 preserves the selected room
+PASS: Room 4-1 opens on wave one and does not move or spawn twice
+PASS: Room 4-2 opens on wave one and does not move or spawn twice
+PASS: Room 4-3 opens on wave one and does not move or spawn twice
+PASS: Room 4-4 opens on wave one and does not move or spawn twice
+PASS: Room 4-5 opens on wave one and does not move or spawn twice
+PASS: Room 4-6 opens on wave one and does not move or spawn twice
+PASS: Room 4-7 opens on wave one and does not move or spawn twice
+PASS: Finite wave 2 respects the density limit and remaining count
+PASS: Actual wave 2 uses the approved HP multiplier
+PASS: Finite wave 3 respects the density limit and remaining count
+PASS: Actual wave 3 uses the approved HP multiplier
+PASS: Finite wave 4 respects the density limit and remaining count
+PASS: Actual wave 4 uses the approved HP multiplier
+PASS: Finite wave 5 respects the density limit and remaining count
+PASS: Actual wave 5 uses the approved HP multiplier
+PASS: The final-line boss remains alive after wave five
+PASS: A living boss cannot create a sixth campaign wave
+PASS: A full room preserves its pending wave
+PASS: The deferred wave spawns once space is available
+PASS: Defeating a boss preserves the four remaining waves
+PASS: A defeated boss room still receives wave two
+PASS: Remaining enemies and waves prevent premature victory
+PASS: Room 0 completes exactly five waves
+PASS: Room 1 completes exactly five waves
+PASS: Room 2 completes exactly five waves
+PASS: Room 3 completes exactly five waves
+PASS: Room 4 completes exactly five waves
+PASS: Room 5 completes exactly five waves
+PASS: Room 6 completes exactly five waves
+PASS: Room 7 completes exactly five waves
+PASS: Room 8 completes exactly five waves
+PASS: Room 9 completes exactly five waves
+PASS: Room 10 completes exactly five waves
+PASS: Room 11 completes exactly five waves
+PASS: Room 12 completes exactly five waves
+PASS: Room 13 completes exactly five waves
+PASS: Room 14 completes exactly five waves
+PASS: Room 15 completes exactly five waves
+PASS: The completed four-line front is quiet
+PASS: Victory remains reachable after all five waves on every line
+RESULT: PASS (94 checks)
+

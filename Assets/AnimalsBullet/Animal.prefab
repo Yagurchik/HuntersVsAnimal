@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 4043123544739486098}
   - component: {fileID: 8431472454128108589}
   - component: {fileID: -7177788761912190266}
+  - component: {fileID: 5812107749924174090}
+  - component: {fileID: 6649237204829021903}
   m_Layer: 7
   m_Name: Animal
   m_TagString: Untagged
@@ -100,8 +102,8 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_AngularDrag: 0
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -109,10 +111,10 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Interpolate: 1
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!58 &-7177788761912190266
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -148,3 +150,32 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &5812107749924174090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8080619444915736889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd9ac4553ad745e3b102fde8eb17b52c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  preserveLaunchSpeed: 1
+  collisionSeparation: 0.015
+  stoppedSpeedRatio: 0.05
+  minimumRicochetVerticalAngle: 5
+--- !u!114 &6649237204829021903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8080619444915736889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93a4e66563b04d81bc918b88e9fddfe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spinDegreesPerSecond: 540

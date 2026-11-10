@@ -1,0 +1,88 @@
+PASS Direct damage credited to Firefly
+PASS Direct damage credited to Hedgehog
+PASS Direct damage credited to Rabbit
+PASS Direct damage credited to HoneyBadger
+PASS Direct damage credited to Boar
+PASS Direct damage credited to Beaver
+PASS Direct damage credited to Frog
+PASS Direct damage credited to Squirrel
+PASS Level total sums all eight projectile types
+PASS Overkill counts only seven remaining HP
+PASS Enemy and unowned damage does not inflate projectile totals
+PASS Poison immunity adds no damage
+PASS Firefly periodic burn belongs to firefly
+PASS Firefly bonfire belongs to firefly
+PASS Acorn bonfire belongs to squirrel instead of firefly
+PASS Poison cloud belongs to honey badger
+PASS Burning poison cloud retains its honey badger owner
+PASS Seated frog periodic damage belongs to frog
+PASS Actual squirrel planting hit credited to squirrel
+PASS Actual acorn death explosion credits squirrel fire damage
+PASS Actual acorn weak bonfire credits squirrel
+PASS Fixture has five selected projectile types
+PASS Authored pause starts closed
+PASS Pause canvas sits above gameplay layers
+PASS All three authored navigation buttons are wired
+PASS Saved buttons continue, restart and exit to menu
+PASS All eight saved damage rows can be clicked
+PASS Empty level shows all five chosen types with zero bars, including locked types
+PASS Zero-damage hint is visible
+PASS Rows sort by descending actual damage
+PASS Bar length matches the projectile share of all damage
+PASS All five rows show authored projectile icons
+PASS Closing and reopening pause preserves level statistics
+PASS Pause opens and stops gameplay
+PASS Pause card fits 540x960
+PASS Damage viewport remains usable at 540x960
+PASS Large pause heading and total damage render their glyphs
+PASS Authored upgrade window starts closed inside pause
+PASS Fixture chooses actual firefly upgrades
+PASS Visible damage row receives the first UI raycast
+PASS Pointer click on a damage row opens its projectile's upgrades
+PASS Only the three chosen branches show their actual levels
+PASS Viewing upgrades preserves ammo, levels, gold, damage and pause state
+PASS Open details follow an actual upgrade-state change
+PASS The modal intercepts clicks over the pause navigation (Close)
+PASS Back returns to statistics without resuming gameplay
+PASS Damage sorting rebinds the first row to the frog
+PASS Visible damage row receives the first UI raycast
+PASS The same row button opens the newly sorted, locked frog with an empty state
+PASS Clicking outside the card closes only the detail window
+PASS Fixture unlocks frog
+PASS Fixture improves frog branches 1
+PASS Fixture improves frog branches 2
+PASS Fixture improves frog branches 3
+PASS Fixture selects KVA
+PASS Visible damage row receives the first UI raycast
+PASS Frog window shows its three maxed branches and chosen KVA
+PASS Pause card fits 540x960
+PASS Damage viewport remains usable at 540x960
+PASS All selected branches and ultimate have readable summaries: Светлячок
+PASS All selected branches and ultimate have readable summaries: Ёж
+PASS All selected branches and ultimate have readable summaries: Кролик
+PASS All selected branches and ultimate have readable summaries: Медоед
+PASS All selected branches and ultimate have readable summaries: Кабан
+PASS All selected branches and ultimate have readable summaries: Бобёр
+PASS All selected branches and ultimate have readable summaries: Лягушка
+PASS All selected branches and ultimate have readable summaries: Белка
+PASS Beaver summary reflects four-percent defense and halved damage upgrades
+PASS Squirrel summary reflects current detonation and binding chances
+PASS Honey badger summary uses its actual selected ultimate
+PASS Shared damage upgrade appears alongside the projectile's chosen branches
+PASS Pause card fits 960x540
+PASS Damage viewport remains usable at 960x540
+PASS Upgrade card fits landscape screen bounds
+PASS Long upgrade list is scrollable in landscape
+PASS Upgrade list scrolls while paused
+PASS Details can reopen before the parent pause is closed
+PASS Authored Continue button resumes gameplay
+PASS Resuming preserves accumulated damage
+PASS Reopening pause starts at statistics with the old detail window closed
+PASS Pause card fits 960x540
+PASS Damage viewport remains usable at 960x540
+PASS Landscape view scrolls the damage list
+PASS Damage list scrolls while time is paused
+PASS New level resets every damage total
+PAUSE_DAMAGE_PASSED
+PASS Gameplay scene prefab reference and saved upgrade window survive Unity serialization
+PASS Pause stays above tutorial and other gameplay UI

@@ -1,0 +1,44 @@
+PASS Tests use the authored ordinary projectile radius
+PASS Aim preview predicts the correct direction: bevel case 1, (-0.80, 0.60)
+PASS Actual projectile reflects in the correct direction: bevel case 1, (-0.80, 0.60)
+PASS Ricochet stays stable at launch speed and matches the preview: bevel case 1
+PASS Aim preview predicts the correct direction: bevel case 2, (0.80, 0.60)
+PASS Actual projectile reflects in the correct direction: bevel case 2, (0.80, 0.60)
+PASS Ricochet stays stable at launch speed and matches the preview: bevel case 2
+PASS Aim preview predicts the correct direction: bevel case 3, (0.60, 0.80)
+PASS Actual projectile reflects in the correct direction: bevel case 3, (0.60, 0.80)
+PASS Ricochet stays stable at launch speed and matches the preview: bevel case 3
+PASS Aim preview predicts the correct direction: bevel case 4, (-0.60, 0.80)
+PASS Actual projectile reflects in the correct direction: bevel case 4, (-0.60, 0.80)
+PASS Ricochet stays stable at launch speed and matches the preview: bevel case 4
+PASS Aim preview predicts the correct direction: bevel case 5, (-0.80, -0.60)
+PASS Actual projectile reflects in the correct direction: bevel case 5, (-0.80, -0.60)
+PASS Ricochet stays stable at launch speed and matches the preview: bevel case 5
+PASS Aim preview predicts the correct direction: bevel case 6, (0.80, -0.60)
+PASS Actual projectile reflects in the correct direction: bevel case 6, (0.80, -0.60)
+PASS Ricochet stays stable at launch speed and matches the preview: bevel case 6
+PASS Aim preview predicts the correct direction: bevel case 7, (-0.80, -0.60)
+PASS Actual projectile reflects in the correct direction: bevel case 7, (-0.80, -0.60)
+PASS Ricochet stays stable at launch speed and matches the preview: bevel case 7
+PASS Aim preview predicts the correct direction: bevel case 8, (0.80, -0.60)
+PASS Actual projectile reflects in the correct direction: bevel case 8, (0.80, -0.60)
+PASS Ricochet stays stable at launch speed and matches the preview: bevel case 8
+PASS Aim preview predicts the correct direction: bevel case 9, (-1.00, 0.09)
+PASS Actual projectile reflects in the correct direction: bevel case 9, (-1.00, 0.09)
+PASS Ricochet stays stable at launch speed and matches the preview: bevel case 9
+PASS Aim preview predicts the correct direction: bevel case 10, (1.00, 0.09)
+PASS Actual projectile reflects in the correct direction: bevel case 10, (1.00, 0.09)
+PASS Ricochet stays stable at launch speed and matches the preview: bevel case 10
+PASS Aim preview predicts the correct direction: bevel case 11, (-1.00, -0.09)
+PASS Actual projectile reflects in the correct direction: bevel case 11, (-1.00, -0.09)
+PASS Ricochet stays stable at launch speed and matches the preview: bevel case 11
+PASS Aim preview predicts the correct direction: bevel case 12, (1.00, -0.09)
+PASS Actual projectile reflects in the correct direction: bevel case 12, (1.00, -0.09)
+PASS Ricochet stays stable at launch speed and matches the preview: bevel case 12
+PASS Aim preview predicts the correct direction: flat lower boss face, (0.00, -1.00)
+PASS Actual projectile reflects in the correct direction: flat lower boss face, (0.00, -1.00)
+PASS Ricochet stays stable at launch speed and matches the preview: flat lower boss face
+PASS Aim preview predicts the correct direction: Mirage return reflection, (-0.60, -0.80)
+PASS Actual projectile reflects in the correct direction: Mirage return reflection, (-0.60, -0.80)
+PASS Ricochet stays stable at launch speed and matches the preview: Mirage return reflection
+BOSS_RICOCHETS_PASSED

@@ -1,0 +1,38 @@
+PASS Squirrel belongs to an actual five-type run loadout
+PASS Locked squirrel cannot offer or select its ultimate
+PASS Actual squirrel quantity upgrade 1
+PASS Quantity alone does not unlock chain reaction
+PASS Actual squirrel quantity upgrade 2
+PASS Quantity alone does not unlock chain reaction
+PASS Actual squirrel quantity upgrade 3
+PASS Quantity alone does not unlock chain reaction
+PASS Actual early explosion upgrade 1
+PASS Missing vine ranks still block chain reaction
+PASS Actual early explosion upgrade 2
+PASS Missing vine ranks still block chain reaction
+PASS Actual early explosion upgrade 3
+PASS Missing vine ranks still block chain reaction
+PASS Actual vine upgrade 1
+PASS Actual vine upgrade 2
+PASS Two of three vine ranks cannot select the ultimate
+PASS Final required branch upgrade succeeds
+PASS Every branch must be complete: ammoUpgradeLevel
+PASS Every branch must be complete: squirrelDetonationUpgradeLevel
+PASS Every branch must be complete: squirrelBindingUpgradeLevel
+PASS Fully upgraded squirrel offers its named ultimate with an icon and effect description
+PASS Previously planted acorns start without chain reaction
+PASS Test uses the three saved gameplay-scene cards
+PASS Existing offer can be displayed deterministically for a real UI click
+PASS Actual game manager opens the upgrade choice
+PASS Native squirrel card is styled as an ultimate and exposes its accept button
+PASS Displaying the ultimate retains all authored card objects
+PASS Ultimate selection uses the ordinary pending-upgrade and pause flow
+PASS Visible ultimate card receives the actual UI raycast
+PASS Clicking the saved card grants chain reaction and closes the choice normally
+PASS Selected squirrel ultimate is never offered twice
+PASS The chosen ultimate appears in the pause upgrade summary
+PASS Selecting the ultimate updates already planted acorns
+PASS Chain reaction detonates neighbouring acorns even when all hosts survive
+PASS All three pulses of every chained explosion finish with their correct total damage
+PASS Chain reaction cannot cross into another room
+SQUIRREL_ULTIMATE_PASSED

@@ -1,0 +1,20 @@
+PASS Two actual seated rank-three frogs provide six percent room support
+PASS Unboosted hit credited to Firefly
+PASS Unboosted hit credited to Hedgehog
+PASS Unboosted hit credited to Rabbit
+PASS Unboosted hit credited to HoneyBadger
+PASS Unboosted hit credited to Boar
+PASS Unboosted hit credited to Beaver
+PASS Unboosted hit credited to Squirrel
+PASS All seven other projectile bonuses credit frogs without increasing the level total twice
+PASS Burn, acorn fire and poison retain their owners while chorus bonuses credit frogs
+PASS Enemy fire and blocked poison never add support damage
+PASS Frogs do not receive damage credit from another room
+PASS Lethal boosted hit credits only the realised three-HP bonus
+PASS Overkill cannot create nonexistent support damage
+PASS Frogs' own boosted bites are counted exactly once
+PASS Pause shows support damage in the frog row with the correct bar share
+PASS Pause updates both damage rows together after a supported hit
+PASS Rank-zero frogs add no support damage
+PASS Floating-point HP rounding without chorus never creates phantom frog damage
+FROG_SUPPORT_DAMAGE_PASSED

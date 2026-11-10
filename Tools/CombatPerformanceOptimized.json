@@ -1,0 +1,29 @@
+{
+    "Metrics": [
+        {
+            "Name": "chorus_50000_queries",
+            "Milliseconds": 3.2321,
+            "Bytes": -1
+        },
+        {
+            "Name": "neighbours_10000_queries",
+            "Milliseconds": 93.80460000000001,
+            "Bytes": -1
+        },
+        {
+            "Name": "settled_health_bar_20000_updates",
+            "Milliseconds": 0.0787,
+            "Bytes": -1
+        },
+        {
+            "Name": "moving_light_mesh_80_updates",
+            "Milliseconds": 113.1207,
+            "Bytes": -1
+        },
+        {
+            "Name": "effects_368_sawdust_and_lightning",
+            "Milliseconds": 5.3556,
+            "Bytes": -1
+        }
+    ]
+}

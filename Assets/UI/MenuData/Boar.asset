@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02750dc8b6d48bb4e87d1f6f1d00fed9, type: 3}
+  m_Name: Boar
+  m_EditorClassIdentifier: 
+  animalIndex: 4
+  displayName: "\u041A\u0430\u0431\u0430\u043D"
+  role: "\u041D\u0415\u0423\u0414\u0415\u0420\u0416\u0418\u041C\u042B\u0419 \u0422\u0410\u0420\u0410\u041D"
+  description: "Мгновенно проходит семь отрезков между стенами. У каждой стены появляется и дрожит 0,7 секунды; каждый враг получает урон один раз."
+  accent: {r: 1, g: 0.69, b: 0.12, a: 1}
+  portrait: {fileID: 21300000, guid: 100da89f1d398a4499dae2df5c1acfbd, type: 3}

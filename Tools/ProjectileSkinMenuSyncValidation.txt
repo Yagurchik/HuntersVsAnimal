@@ -1,0 +1,4 @@
+PASS: stale clean scene installs and saves the entrance and shop
+PASS: repeated installation creates no duplicates
+PASS: unsaved scene edits remain intact and unsaved
+PASS: shop remains an authored editable prefab instance

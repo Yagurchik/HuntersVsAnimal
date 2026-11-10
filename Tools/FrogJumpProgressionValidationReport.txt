@@ -1,0 +1,63 @@
+PASS Uses the authored frog rider and its 0.1-second jump
+PASS Initial landing does not consume a dislodgement
+PASS Ordinary fire, poison and frog damage do not start a chain
+PASS Dislodgement 1 starts a 1-jump chain
+PASS Chain 1 completes all hops through living enemies and preserves doubling / arrival bites: 45
+PASS Only the final landing settles the frog and releases the jump phase: 1
+PASS Dislodgement 2 starts a 2-jump chain
+PASS Chain 2 completes all hops through living enemies and preserves doubling / arrival bites: 120
+PASS Only the final landing settles the frog and releases the jump phase: 2
+PASS Dislodgement 3 starts a 3-jump chain
+PASS Chain 3 completes all hops through living enemies and preserves doubling / arrival bites: 255
+PASS Only the final landing settles the frog and releases the jump phase: 3
+PASS Dislodgement 4 starts a 4-jump chain
+PASS Chain 4 completes all hops through living enemies and preserves doubling / arrival bites: 510
+PASS Only the final landing settles the frog and releases the jump phase: 4
+PASS Dislodgement 5 starts a 5-jump chain
+PASS Chain 5 completes all hops through living enemies and preserves doubling / arrival bites: 1005
+PASS Only the final landing settles the frog and releases the jump phase: 5
+PASS Dislodgement 6 starts a 5-jump chain
+PASS Chain 6 completes all hops through living enemies and preserves doubling / arrival bites: 1005
+PASS Only the final landing settles the frog and releases the jump phase: 6
+PASS Dislodgement 7 starts a 5-jump chain
+PASS Chain 7 completes all hops through living enemies and preserves doubling / arrival bites: 1005
+PASS Only the final landing settles the frog and releases the jump phase: 7
+PASS A trained frog stops after five lethal hops and never attacks a sixth enemy
+PASS Cleanup leaves no active frog chains
+PASS Two surviving enemies support 1 random hops without dropping the frog: hit 1
+PASS Two surviving enemies support 2 random hops without dropping the frog: hit 2
+PASS Two surviving enemies support 3 random hops without dropping the frog: hit 3
+PASS Two surviving enemies support 4 random hops without dropping the frog: hit 4
+PASS Two surviving enemies support 5 random hops without dropping the frog: hit 5
+PASS Two surviving enemies support 5 random hops without dropping the frog: hit 6
+PASS Two surviving enemies support 5 random hops without dropping the frog: hit 7
+PASS Starting a new volley clears the streak while preserving the seated frog
+PASS First hit of the next volley starts at one hop
+PASS Consecutive hit in that volley starts two hops
+PASS A different damage volley also resets the streak without an explicit reset
+PASS Damage outside a volley cannot retain a previous five-hop streak
+PASS Separate off-volley reactions each remain one hop
+PASS Cleanup leaves no active frog chains
+PASS A jump lands beside a resident without dislodging it or starting a mutual chain
+PASS A two-hop return leaves the resident seated and increments only the externally hit frog
+PASS A later volley resets the hit frog to one hop while the other frog remains unprovoked
+PASS Cleanup leaves no active frog chains
+PASS Landing in the fourth free seat leaves all three residents seated
+PASS Jump damage and all four count-change bites remain active without provoking residents
+PASS Cleanup leaves no active frog chains
+PASS A full landing target keeps all four residents seated without changing their counters
+PASS A full target receives jump damage and four resident bites without freeing a seat
+PASS Incoming frog redirects to an available living target rather than dislodging a resident
+PASS Cleanup leaves no active frog chains
+PASS Both intermediate and final landings preserve the seated residents throughout a two-hop chain
+PASS Cleanup leaves no active frog chains
+PASS Airborne seat reservations are not provoked by another landing
+PASS Cleanup leaves no active frog chains
+PASS Death during the initial landing starts only the first one-hop chain
+PASS Cleanup leaves no active frog chains
+PASS Fatal fire releases every resident as its first dislodgement
+PASS With no nearby enemy all released frogs fall and release the phase
+PASS Cleanup leaves no active frog chains
+PASS An arrival-bite death redirects within the five-hop safety limit and seats on the next survivor
+PASS Cleanup leaves no active frog chains
+FROG_JUMP_PROGRESSION_PASSED

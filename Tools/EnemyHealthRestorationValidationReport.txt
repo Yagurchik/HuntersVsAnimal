@@ -1,0 +1,380 @@
+PASS: All 16 boss prefab changes affect only the HP field.
+PASS: Player damage growth formula is unchanged.
+PASS: Native menu retains 66 authored artifact cells.
+PASS: All 33 serialized boss descriptions match restored prefab HP.
+PASS: Gameplay scene changed only the enemy HP growth setting.
+PASS: Menu graph, artwork and equipment slots are unchanged; only bestiary text was updated.
+PASS: All 47 resource prefabs match original HP, health coefficient and boss classification.
+
+Unity campaign/runtime checks:
+PASS: Authored gameplay scene has progression settings
+PASS: First-level health and damage retain their authored base values
+PASS: Level 1 restores the original compounding HP curve
+PASS: Level 1 wave 1 uses its original HP multiplier
+PASS: Level 1 wave 2 uses its original HP multiplier
+PASS: Level 1 wave 3 uses its original HP multiplier
+PASS: Level 1 wave 4 uses its original HP multiplier
+PASS: Level 2 restores the original compounding HP curve
+PASS: Level 2 wave 1 uses its original HP multiplier
+PASS: Level 2 wave 2 uses its original HP multiplier
+PASS: Level 2 wave 3 uses its original HP multiplier
+PASS: Level 2 wave 4 uses its original HP multiplier
+PASS: Level 3 restores the original compounding HP curve
+PASS: Level 3 wave 1 uses its original HP multiplier
+PASS: Level 3 wave 2 uses its original HP multiplier
+PASS: Level 3 wave 3 uses its original HP multiplier
+PASS: Level 3 wave 4 uses its original HP multiplier
+PASS: Level 4 restores the original compounding HP curve
+PASS: Level 4 wave 1 uses its original HP multiplier
+PASS: Level 4 wave 2 uses its original HP multiplier
+PASS: Level 4 wave 3 uses its original HP multiplier
+PASS: Level 4 wave 4 uses its original HP multiplier
+PASS: Level 5 restores the original compounding HP curve
+PASS: Level 5 wave 1 uses its original HP multiplier
+PASS: Level 5 wave 2 uses its original HP multiplier
+PASS: Level 5 wave 3 uses its original HP multiplier
+PASS: Level 5 wave 4 uses its original HP multiplier
+PASS: Level 6 restores the original compounding HP curve
+PASS: Level 6 wave 1 uses its original HP multiplier
+PASS: Level 6 wave 2 uses its original HP multiplier
+PASS: Level 6 wave 3 uses its original HP multiplier
+PASS: Level 6 wave 4 uses its original HP multiplier
+PASS: Level 7 restores the original compounding HP curve
+PASS: Level 7 wave 1 uses its original HP multiplier
+PASS: Level 7 wave 2 uses its original HP multiplier
+PASS: Level 7 wave 3 uses its original HP multiplier
+PASS: Level 7 wave 4 uses its original HP multiplier
+PASS: Level 8 restores the original compounding HP curve
+PASS: Level 8 wave 1 uses its original HP multiplier
+PASS: Level 8 wave 2 uses its original HP multiplier
+PASS: Level 8 wave 3 uses its original HP multiplier
+PASS: Level 8 wave 4 uses its original HP multiplier
+PASS: Level 9 restores the original compounding HP curve
+PASS: Level 9 wave 1 uses its original HP multiplier
+PASS: Level 9 wave 2 uses its original HP multiplier
+PASS: Level 9 wave 3 uses its original HP multiplier
+PASS: Level 9 wave 4 uses its original HP multiplier
+PASS: Level 10 restores the original compounding HP curve
+PASS: Level 10 wave 1 uses its original HP multiplier
+PASS: Level 10 wave 2 uses its original HP multiplier
+PASS: Level 10 wave 3 uses its original HP multiplier
+PASS: Level 10 wave 4 uses its original HP multiplier
+PASS: Level 11 restores the original compounding HP curve
+PASS: Level 11 wave 1 uses its original HP multiplier
+PASS: Level 11 wave 2 uses its original HP multiplier
+PASS: Level 11 wave 3 uses its original HP multiplier
+PASS: Level 11 wave 4 uses its original HP multiplier
+PASS: Level 12 restores the original compounding HP curve
+PASS: Level 12 wave 1 uses its original HP multiplier
+PASS: Level 12 wave 2 uses its original HP multiplier
+PASS: Level 12 wave 3 uses its original HP multiplier
+PASS: Level 12 wave 4 uses its original HP multiplier
+PASS: Level 13 restores the original compounding HP curve
+PASS: Level 13 wave 1 uses its original HP multiplier
+PASS: Level 13 wave 2 uses its original HP multiplier
+PASS: Level 13 wave 3 uses its original HP multiplier
+PASS: Level 13 wave 4 uses its original HP multiplier
+PASS: Level 14 restores the original compounding HP curve
+PASS: Level 14 wave 1 uses its original HP multiplier
+PASS: Level 14 wave 2 uses its original HP multiplier
+PASS: Level 14 wave 3 uses its original HP multiplier
+PASS: Level 14 wave 4 uses its original HP multiplier
+PASS: Level 15 restores the original compounding HP curve
+PASS: Level 15 wave 1 uses its original HP multiplier
+PASS: Level 15 wave 2 uses its original HP multiplier
+PASS: Level 15 wave 3 uses its original HP multiplier
+PASS: Level 15 wave 4 uses its original HP multiplier
+PASS: Level 16 restores the original compounding HP curve
+PASS: Level 16 wave 1 uses its original HP multiplier
+PASS: Level 16 wave 2 uses its original HP multiplier
+PASS: Level 16 wave 3 uses its original HP multiplier
+PASS: Level 16 wave 4 uses its original HP multiplier
+PASS: Level 17 restores the original compounding HP curve
+PASS: Level 17 wave 1 uses its original HP multiplier
+PASS: Level 17 wave 2 uses its original HP multiplier
+PASS: Level 17 wave 3 uses its original HP multiplier
+PASS: Level 17 wave 4 uses its original HP multiplier
+PASS: Level 18 restores the original compounding HP curve
+PASS: Level 18 wave 1 uses its original HP multiplier
+PASS: Level 18 wave 2 uses its original HP multiplier
+PASS: Level 18 wave 3 uses its original HP multiplier
+PASS: Level 18 wave 4 uses its original HP multiplier
+PASS: Level 19 restores the original compounding HP curve
+PASS: Level 19 wave 1 uses its original HP multiplier
+PASS: Level 19 wave 2 uses its original HP multiplier
+PASS: Level 19 wave 3 uses its original HP multiplier
+PASS: Level 19 wave 4 uses its original HP multiplier
+PASS: Level 20 restores the original compounding HP curve
+PASS: Level 20 wave 1 uses its original HP multiplier
+PASS: Level 20 wave 2 uses its original HP multiplier
+PASS: Level 20 wave 3 uses its original HP multiplier
+PASS: Level 20 wave 4 uses its original HP multiplier
+PASS: Level 21 restores the original compounding HP curve
+PASS: Level 21 wave 1 uses its original HP multiplier
+PASS: Level 21 wave 2 uses its original HP multiplier
+PASS: Level 21 wave 3 uses its original HP multiplier
+PASS: Level 21 wave 4 uses its original HP multiplier
+PASS: Level 22 restores the original compounding HP curve
+PASS: Level 22 wave 1 uses its original HP multiplier
+PASS: Level 22 wave 2 uses its original HP multiplier
+PASS: Level 22 wave 3 uses its original HP multiplier
+PASS: Level 22 wave 4 uses its original HP multiplier
+PASS: Level 23 restores the original compounding HP curve
+PASS: Level 23 wave 1 uses its original HP multiplier
+PASS: Level 23 wave 2 uses its original HP multiplier
+PASS: Level 23 wave 3 uses its original HP multiplier
+PASS: Level 23 wave 4 uses its original HP multiplier
+PASS: Level 24 restores the original compounding HP curve
+PASS: Level 24 wave 1 uses its original HP multiplier
+PASS: Level 24 wave 2 uses its original HP multiplier
+PASS: Level 24 wave 3 uses its original HP multiplier
+PASS: Level 24 wave 4 uses its original HP multiplier
+PASS: Level 25 restores the original compounding HP curve
+PASS: Level 25 wave 1 uses its original HP multiplier
+PASS: Level 25 wave 2 uses its original HP multiplier
+PASS: Level 25 wave 3 uses its original HP multiplier
+PASS: Level 25 wave 4 uses its original HP multiplier
+PASS: Level 26 restores the original compounding HP curve
+PASS: Level 26 wave 1 uses its original HP multiplier
+PASS: Level 26 wave 2 uses its original HP multiplier
+PASS: Level 26 wave 3 uses its original HP multiplier
+PASS: Level 26 wave 4 uses its original HP multiplier
+PASS: Level 27 restores the original compounding HP curve
+PASS: Level 27 wave 1 uses its original HP multiplier
+PASS: Level 27 wave 2 uses its original HP multiplier
+PASS: Level 27 wave 3 uses its original HP multiplier
+PASS: Level 27 wave 4 uses its original HP multiplier
+PASS: Level 28 restores the original compounding HP curve
+PASS: Level 28 wave 1 uses its original HP multiplier
+PASS: Level 28 wave 2 uses its original HP multiplier
+PASS: Level 28 wave 3 uses its original HP multiplier
+PASS: Level 28 wave 4 uses its original HP multiplier
+PASS: Level 29 restores the original compounding HP curve
+PASS: Level 29 wave 1 uses its original HP multiplier
+PASS: Level 29 wave 2 uses its original HP multiplier
+PASS: Level 29 wave 3 uses its original HP multiplier
+PASS: Level 29 wave 4 uses its original HP multiplier
+PASS: Level 30 restores the original compounding HP curve
+PASS: Level 30 wave 1 uses its original HP multiplier
+PASS: Level 30 wave 2 uses its original HP multiplier
+PASS: Level 30 wave 3 uses its original HP multiplier
+PASS: Level 30 wave 4 uses its original HP multiplier
+PASS: Final-level HP is restored while current player damage remains 2.74x
+PASS: Original reinforcement growth and invalid wave handling are restored
+PASS: First upgrade costs three ordinary kills
+PASS: Free room rewards retain XP and do not raise the kill-XP price
+PASS: Paid XP upgrades add four to the next price
+PASS: Long runs keep earning upgrades at a maximum price of ninety XP
+PASS: Gameplay scene uses the new XP prices
+PASS: BellRingerBoss restores its exact pre-balance HP
+PASS: BoneDragonBoss restores its exact pre-balance HP
+PASS: BoneDragonMiniBoss restores its exact pre-balance HP
+PASS: DrownedHeir restores its exact pre-balance HP
+PASS: DrownedKing restores its exact pre-balance HP
+PASS: DrownedMiniBoss restores its exact pre-balance HP
+PASS: GhostlySorrowBoss restores its exact pre-balance HP
+PASS: GreenJudgeMiniBoss restores its exact pre-balance HP
+PASS: HiveHollowMiniBoss restores its exact pre-balance HP
+PASS: ImpostorBoss restores its exact pre-balance HP
+PASS: KnotBinderBoss restores its exact pre-balance HP
+PASS: LichBoss restores its exact pre-balance HP
+PASS: MirageBoss restores its exact pre-balance HP
+PASS: PoisonousGloomBoss restores its exact pre-balance HP
+PASS: ThreeSealIdolBoss restores its exact pre-balance HP
+PASS: VolleyEaterBoss restores its exact pre-balance HP
+PASS: All sixteen original boss HP values are covered
+PASS: Final campaign level starts with obsolete XP purchases present and no equipped bonuses
+PASS: A completed obsolete experience tree grants no barricade HP
+PASS: A completed obsolete experience tree grants no extra beaver dam capacity
+PASS: Real projectile launch keeps volley scaling and ignores obsolete experience damage bonuses
+PASS: Authored starter ammo does not count as selected damage upgrades
+PASS: Generic damage is absent from available upgrades
+PASS: Transient deserialization of an empty loadout cannot index outside its array
+PASS: Obsolete generic damage requests are rejected without a bonus
+PASS: A specialized upgrade also improves every damage source
+PASS: Rejected upgrades do not grant free damage
+PASS: Random offer 0 contains no removed generic damage choice
+PASS: Random offer 1 contains no removed generic damage choice
+PASS: Random offer 2 contains no removed generic damage choice
+PASS: Random offer 3 contains no removed generic damage choice
+PASS: Random offer 4 contains no removed generic damage choice
+PASS: Random offer 5 contains no removed generic damage choice
+PASS: Random offer 6 contains no removed generic damage choice
+PASS: Random offer 7 contains no removed generic damage choice
+PASS: Random offer 8 contains no removed generic damage choice
+PASS: Random offer 9 contains no removed generic damage choice
+PASS: Random offer 10 contains no removed generic damage choice
+PASS: Random offer 11 contains no removed generic damage choice
+PASS: Random offer 12 contains no removed generic damage choice
+PASS: Random offer 13 contains no removed generic damage choice
+PASS: Random offer 14 contains no removed generic damage choice
+PASS: Random offer 15 contains no removed generic damage choice
+PASS: Random offer 16 contains no removed generic damage choice
+PASS: Random offer 17 contains no removed generic damage choice
+PASS: Random offer 18 contains no removed generic damage choice
+PASS: Random offer 19 contains no removed generic damage choice
+PASS: Random offer 20 contains no removed generic damage choice
+PASS: Random offer 21 contains no removed generic damage choice
+PASS: Random offer 22 contains no removed generic damage choice
+PASS: Random offer 23 contains no removed generic damage choice
+PASS: Random offer 24 contains no removed generic damage choice
+PASS: Random offer 25 contains no removed generic damage choice
+PASS: Random offer 26 contains no removed generic damage choice
+PASS: Random offer 27 contains no removed generic damage choice
+PASS: Random offer 28 contains no removed generic damage choice
+PASS: Random offer 29 contains no removed generic damage choice
+PASS: Random offer 30 contains no removed generic damage choice
+PASS: Random offer 31 contains no removed generic damage choice
+PASS: Random offer 32 contains no removed generic damage choice
+PASS: Random offer 33 contains no removed generic damage choice
+PASS: Random offer 34 contains no removed generic damage choice
+PASS: Random offer 35 contains no removed generic damage choice
+PASS: Random offer 36 contains no removed generic damage choice
+PASS: Random offer 37 contains no removed generic damage choice
+PASS: Random offer 38 contains no removed generic damage choice
+PASS: Random offer 39 contains no removed generic damage choice
+PASS: Random offer 40 contains no removed generic damage choice
+PASS: Random offer 41 contains no removed generic damage choice
+PASS: Random offer 42 contains no removed generic damage choice
+PASS: Random offer 43 contains no removed generic damage choice
+PASS: Random offer 44 contains no removed generic damage choice
+PASS: Random offer 45 contains no removed generic damage choice
+PASS: Random offer 46 contains no removed generic damage choice
+PASS: Random offer 47 contains no removed generic damage choice
+PASS: Random offer 48 contains no removed generic damage choice
+PASS: Random offer 49 contains no removed generic damage choice
+PASS: Tutorial forced choices remain exclusive
+PASS: Actual final-level spawn applies the restored compounding HP curve
+PASS: Wave HP scaling does not increase enemy contact damage
+PASS: Firefly receives campaign and run growth exactly once
+PASS: Hedgehog receives campaign and run growth exactly once
+PASS: Rabbit receives campaign and run growth exactly once
+PASS: HoneyBadger receives campaign and run growth exactly once
+PASS: Boar receives campaign and run growth exactly once
+PASS: Beaver receives campaign and run growth exactly once
+PASS: Frog receives campaign and run growth exactly once
+PASS: Squirrel receives campaign and run growth exactly once
+PASS: AcornExplosion receives campaign and run growth exactly once
+PASS: Fire periodic damage keeps pace with direct damage
+PASS: Poison periodic damage keeps pace with direct damage
+PASS: An actual firefly status tick applies the same progression once
+PASS: A seated frog bite applies progression at resolution
+PASS: Precomputed artifact poison does not apply progression twice
+PASS: Artifact echo and splash do not multiply their inherited damage again
+PASS: Finite branch choice 1
+PASS: Finite branch choice 2
+PASS: Finite branch choice 3
+PASS: Finite branch choice 4
+PASS: Finite branch choice 5
+PASS: Finite branch choice 6
+PASS: Finite branch choice 7
+PASS: Finite branch choice 8
+PASS: Finite branch choice 9
+PASS: Finite branch choice 10
+PASS: Finite branch choice 11
+PASS: Finite branch choice 12
+PASS: Finite branch choice 13
+PASS: Finite branch choice 14
+PASS: Finite branch choice 15
+PASS: Finite branch choice 16
+PASS: Finite branch choice 17
+PASS: Finite branch choice 18
+PASS: Finite branch choice 19
+PASS: Finite branch choice 20
+PASS: Finite branch choice 21
+PASS: Finite branch choice 22
+PASS: Finite branch choice 23
+PASS: Finite branch choice 24
+PASS: Finite branch choice 25
+PASS: Finite branch choice 26
+PASS: Finite branch choice 27
+PASS: Finite branch choice 28
+PASS: Finite branch choice 29
+PASS: Finite branch choice 30
+PASS: Finite branch choice 31
+PASS: Finite branch choice 32
+PASS: Finite branch choice 33
+PASS: Finite branch choice 34
+PASS: Finite branch choice 35
+PASS: Finite branch choice 36
+PASS: Finite branch choice 37
+PASS: Finite branch choice 38
+PASS: Finite branch choice 39
+PASS: Finite branch choice 40
+PASS: Finite branch choice 41
+PASS: Finite branch choice 42
+PASS: Finite branch choice 43
+PASS: Finite branch choice 44
+PASS: Finite branch choice 45
+PASS: Finite branch choice 46
+PASS: Finite branch choice 47
+PASS: Finite branch choice 48
+PASS: Finite branch choice 49
+PASS: Finite branch choice 50
+PASS: Finite branch choice 51
+PASS: Finite branch choice 52
+PASS: Finite branch choice 53
+PASS: Finite branch choice 54
+PASS: Finite branch choice 55
+PASS: Finite branch choice 56
+PASS: Finite branch choice 57
+PASS: Finite branch choice 58
+PASS: Finite branch choice 59
+PASS: Finite branch choice 60
+PASS: Finite branch choice 61
+PASS: Finite branch choice 62
+PASS: Finite branch choice 63
+PASS: Finite branch choice 64
+PASS: Finite branch choice 65
+PASS: Finite branch choice 66
+PASS: Finite branch choice 67
+PASS: Finite branch choice 68
+PASS: Finite branch choice 69
+PASS: Finite branch choice 70
+PASS: Finite branch choice 71
+PASS: All unique branches exhaust without a generic damage fallback
+PASS: Removed generic damage is rejected after all branches are complete
+PASS: Exhaustion with multiple pending levels closes the modal and resumes the enemy turn
+RESULT: PASS (328 checks)
+
+Unity authored bestiary checks:
+PASS: Saved menu keeps six authored equipment slots
+PASS: Saved menu keeps the complete village layout
+PASS: Authored bestiary HP: Самозванец
+PASS: Authored bestiary HP: Трёхпечатный идол
+PASS: Authored bestiary HP: Колокольщик
+PASS: Authored bestiary HP: Пожиратель залпа
+PASS: Authored bestiary HP: Колокольщик
+PASS: Authored bestiary HP: Колокольщик
+PASS: Authored bestiary HP: Зелёный судья
+PASS: Authored bestiary HP: Костяной эльф
+PASS: Authored bestiary HP: Улей-дупло
+PASS: Authored bestiary HP: Лич-хранитель
+PASS: Authored bestiary HP: Пожиратель залпа
+PASS: Authored bestiary HP: Колокольщик
+PASS: Authored bestiary HP: Костяной эльф
+PASS: Authored bestiary HP: Костяной эльф
+PASS: Authored bestiary HP: Утопленник
+PASS: Authored bestiary HP: Зелёный судья
+PASS: Authored bestiary HP: Узловик
+PASS: Authored bestiary HP: Мираж
+PASS: Authored bestiary HP: Трёхпечатный идол
+PASS: Authored bestiary HP: Призрачная скорбь
+PASS: Authored bestiary HP: Узловик
+PASS: Authored bestiary HP: Костяной эльф — мини-босс
+PASS: Authored bestiary HP: Самозванец
+PASS: Authored bestiary HP: Ядовитый мрак
+PASS: Authored bestiary HP: Самозванец
+PASS: Authored bestiary HP: Призрачная скорбь
+PASS: Authored bestiary HP: Утопленник
+PASS: Authored bestiary HP: Узловик
+PASS: Authored bestiary HP: Трёхпечатный идол
+PASS: Authored bestiary HP: Ядовитый мрак
+PASS: Authored bestiary HP: Костяной эльф
+PASS: Authored bestiary HP: Костяной эльф — мини-босс
+PASS: Authored bestiary HP: Костяной эльф
+PASS: All restored boss descriptions are represented in the saved menu
+PASS: Validation leaves the authored menu file unchanged
+RESULT: PASS (37 checks)
+
+PASS: CampaignWaveRulesValidation.RunBatch completed with exit 0.
